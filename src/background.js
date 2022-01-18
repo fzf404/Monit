@@ -1,6 +1,7 @@
 'use strict'
 
 import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import Store from 'electron-store'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -8,13 +9,20 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
+// 存储数据
+const store = new Store()
+
+// 桌面坐标
+const x = store.get('x') === undefined ? 10 : store.get('x')
+const y = store.get('y') === undefined ? 10 : store.get('y')
+
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    x: 10,
-    y: 30,
-    width: 400,
-    minWidth: 400,
+    x: x,
+    y: y,
+    width: 420,
+    minWidth: 420,
     height: 200,
     minHeight: 200,
     transparent: true, // 透明
@@ -22,7 +30,7 @@ async function createWindow() {
     frame: false, // 隐藏边框
     fullscreenable: false, // 禁止全屏
     resizable: false, // 不可调整大小
-    // alwaysOnTop: true, // 置顶
+    alwaysOnTop: true, // 置顶
     // opacity: 0.9, // 不透明度
     // vibrancy: 'dark', // mac 毛玻璃
     // visualEffectState: 'active', // 自动应用
@@ -36,8 +44,10 @@ async function createWindow() {
   })
 
   // 监听移动事件
-  win.on('move',function(){
-    console.log(win.getPosition())
+  win.on('move', function () {
+    const [pos_x, pos_y] = win.getPosition()
+    store.set('x', pos_x)
+    store.set('y', pos_y)
   })
 
   // 窗口置顶

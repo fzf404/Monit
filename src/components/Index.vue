@@ -1,6 +1,6 @@
 <template>
-  <!-- 控制器 -->
   <div class="h-screen relative grid grid-cols-3 grid-rows-3 text-white">
+    <!-- 窗口控制器 -->
     <div class="absolute left-2 top-0.5 space-x-0.5">
       <!-- 关闭窗口 -->
       <svg @click="sendEvent('window-close')" class="inline" viewBox="0 0 1024 1024" height="16">
@@ -32,6 +32,38 @@
         ></path>
       </svg>
     </div>
+    <!-- 设置 -->
+    <div class="absolute right-2 top-0.5">
+      <!-- 设置按钮 -->
+      <svg @click="() => (this.showDialog = !this.showDialog)" class="inline" viewBox="0 0 1024 1024" height="16">
+        <path
+          d="M686.3 121.6c31.3 0 60.2 16.5 76.2 43.4l0.5 0.8 174.3 301.9c7.9 13.7 11.9 29 11.9 44.2 0 15-3.8 30-11.4 43.5l-0.4 0.7-174.5 302c-15.7 27.1-44.4 43.9-75.7 44.2H337.7c-15.8 0-31-4.2-44.2-11.9-13-7.5-24.1-18.3-32-31.7l-0.4-0.7L86.8 556.2C78.9 542.6 75 527.3 75 512c0-15 3.8-30 11.4-43.5l0.4-0.7 174.3-301.9c15.7-27.1 44.4-43.9 75.7-44.2h349.5zM512 318c-53.6 0-102.1 21.7-137.2 56.8S318 458.4 318 512s21.7 102.1 56.8 137.2S458.4 706 512 706s102.1-21.7 137.2-56.8S706 565.6 706 512s-21.7-102.1-56.8-137.2S565.6 318 512 318z"
+          fill="#333333"
+          p-id="1167"
+        ></path>
+        <path
+          d="M686.4 936.4H337.7c-21.5 0-42.7-5.7-61.3-16.4-18.2-10.5-33.6-25.7-44.3-43.8l-0.6-1L57.4 573.3C46.6 554.7 41 533.5 41 512c0-21.1 5.5-41.9 15.8-60.2l0.6-1 174.3-301.9c21.5-37.3 61.7-60.8 104.8-61.2h349.8c43.1 0 83.5 23 105.4 60.1l0.7 1.1 174.3 301.9c10.7 18.6 16.4 39.8 16.4 61.2 0 21.1-5.5 41.9-15.8 60.2l-0.6 1-174.3 301.9c-21.5 37.3-61.7 60.8-104.8 61.2l-1.2 0.1z m-395.6-94.8c4.8 8 11.6 14.8 19.7 19.4 8.3 4.8 17.7 7.3 27.3 7.3h349.3c19.1-0.2 37-10.7 46.5-27.2l174.2-301.8 0.3-0.6c4.6-8.1 7-17.4 7-26.7 0-9.6-2.5-19-7.3-27.3L733.5 183l-0.4-0.7c-9.8-16.5-27.7-26.7-46.9-26.7H337c-19.1 0.2-37 10.7-46.5 27.2L116.3 484.7l-0.3 0.6c-4.6 8.1-7 17.4-7 26.7 0 9.6 2.5 19 7.3 27.2L290.5 841l0.3 0.6zM512 740c-60.9 0-118.2-23.7-161.2-66.8-43.1-43-66.8-100.3-66.8-161.2 0-60.9 23.7-118.2 66.8-161.2 43-43.1 100.3-66.8 161.2-66.8s118.2 23.7 161.2 66.8c43.1 43 66.8 100.3 66.8 161.2s-23.7 118.2-66.8 161.2S572.9 740 512 740z m0-388c-42.7 0-82.9 16.6-113.1 46.9C368.6 429.1 352 469.3 352 512c0 42.7 16.6 82.9 46.9 113.1C429.1 655.4 469.3 672 512 672c42.7 0 82.9-16.6 113.1-46.9C655.4 594.9 672 554.7 672 512c0-42.7-16.6-82.9-46.9-113.1C594.9 368.6 554.7 352 512 352z"
+          fill="#60A5FA"
+        ></path>
+      </svg>
+      <!-- 设置框 -->
+      <div class="relative" v-if="showDialog">
+        <div class="absolute right-16 w-64 z-10 py-3 px-4 bg-white rounded-lg">
+          <label for="first-name" class="block text-sm font-medium text-gray-400">User Name</label>
+          <input
+            v-model.lazy="user"
+            type="text"
+            class="my-2 w-full py-1 px-3 bg-purple-100 text-gray-500 shadow-md rounded-md outline-none ring-2 ring-purple-400"
+          />
+          <button
+            @click="changeUser"
+            class="bg-purple-500 text-white text-sm mt-0.5 py-1.5 px-3 rounded-lg shadow-md float-right"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- follower -->
     <div class="center col-span-2 row-span-2">
       <div class="text-lg text-gray-200">follower</div>
@@ -59,7 +91,7 @@
       </div>
     </div>
     <!-- repo -->
-    <div class="center left ml-7 row-span-3 space-y-1">
+    <div class="center left ml-5 row-span-3 space-y-1">
       <div class="relative text-md" v-for="(value, index) in repoChange" :key="index">
         <svg class="absolute top-1 -left-5" viewBox="0 0 1024 1024" height="70%">
           <path
@@ -68,14 +100,14 @@
           ></path>
         </svg>
         <span>
-          <span class="font-bold">
+          <span class="font-bold" :class="{ 'text-sm': value.star > 999}">
             {{ value.star }}
           </span>
           <span>
             {{ ' ' }}
           </span>
-          <span @click="handleRepo(value.repo)">
-            {{ value.repo.length > 8 ? value.repo.slice(0, 6) + '..' : value.repo }}
+          <span class="text-sm" @click="handleRepo(value.repo)">
+            {{ value.repo.length > 8 ? value.repo.slice(0, 8) + '..' : value.repo }}
           </span>
         </span>
       </div>
@@ -124,69 +156,38 @@
 <script>
 import axios from 'axios'
 import { shell, ipcRenderer } from 'electron'
+import Store from 'electron-store'
+
+const store = new Store()
+
 export default {
   name: 'HelloWorld',
   created() {
-    // 初始化请求
-    // fork 信息
-    axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
-      this.follower += res.data.followers
-      this.newFollower += res.data.followers
-      // repo 信息
-      let star = 0,
-        fork = 0,
-        repoInfo = [],
-        pages = Math.ceil(res.data.public_repos / 100)
-      // 循环 repo
-      while (pages--) {
-        axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
-          // 遍历数据
-          res.data.forEach((item) => {
-            star += item.stargazers_count
-            fork += item.forks_count
-            repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
-          })
-          this.star = star
-          this.newStar = star
-          this.fork = fork
-          this.newFork = fork
-          this.repoInfo = repoInfo
-        })
-      }
-    })
+    // 读取用户名
+    this.user = store.get('user') === undefined ? 'fzf404' : store.get('user')
+    // 数据未初始化, 则初始化数据
+    if ((store.get('star') && store.get('fork') && store.get('follower')) === undefined) {
+      this.initGithubData()
+    } else {
+      // 读取缓存，并刷新数据
+      this.star = store.get('star')
+      this.fork = store.get('fork')
+      this.follower = store.get('follower')
+      this.getGithubData()
+    }
   },
   mounted() {
     // 每 60s 重新获取信息
     setInterval(() => {
-      // fork 信息
-      axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
-        this.newFollower = res.data.followers
-        // repo 信息
-        let fork = 0,
-          star = 0,
-          repoInfo = [],
-          pages = Math.ceil(res.data.public_repos / 100)
-        // 循环 repo
-        while (pages--) {
-          axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
-            // 遍历数据
-            res.data.forEach((item) => {
-              star += item.stargazers_count
-              fork += item.forks_count
-              repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
-            })
-            this.newStar = star
-            this.newFork = fork
-            this.repoInfo = repoInfo
-          })
-        }
-      })
+      this.getGithubData()
     }, 60 * 1000)
   },
   data() {
     return {
       isTop: false, // 置顶
-      user: 'fzf404', // 用户
+      showDialog: false, // 修改用户
+
+      user: '', // 用户
       // user: 'SocialSisterYi',
       // user:'yyx990803',
       star: 0,
@@ -197,37 +198,6 @@ export default {
       follower: 0,
       newFollower: 0,
     }
-  },
-  methods: {
-    // 更改用户
-    changeUser(user) {
-      this.user = user
-    },
-    // 前往查看 follower
-    handleFollower() {
-      this.follower = this.newFollower
-      shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
-    },
-    handleRepo(repo) {
-      shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
-    },
-    // 清空 star
-    handleStar() {
-      this.star = this.newStar
-    },
-    // 清空 fork
-    handleFork() {
-      this.fork = this.newFork
-    },
-    // 切换置顶
-    changeTop() {
-      this.isTop = !this.isTop
-      this.sendEvent('window-top')
-    },
-    // 关闭窗口
-    sendEvent(e) {
-      ipcRenderer.send(e)
-    },
   },
   computed: {
     // follow 数据更改
@@ -262,6 +232,98 @@ export default {
         return b.star - a.star
       })
       return repoInfo.slice(0, 6)
+    },
+  },
+  methods: {
+    // 初始化数据
+    initGithubData() {
+      axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
+        const follower = res.data.followers
+        let star = 0,
+          fork = 0,
+          repoInfo = [],
+          pages = Math.ceil(res.data.public_repos / 100)
+        this.follower = follower
+        this.newFollower = follower
+        store.set('follower', follower) // 保存 follow 数据
+        // repo 信息
+        while (pages--) {
+          axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
+            // 遍历数据
+            res.data.forEach((item) => {
+              star += item.stargazers_count
+              fork += item.forks_count
+              repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+            })
+            this.star = star
+            this.newStar = star
+            store.set('star', star) // 保存 star 数
+            this.fork = fork
+            this.newFork = fork
+            store.set('fork', fork) // 保存 fork 数
+            this.repoInfo = repoInfo
+          })
+        }
+      })
+    },
+    // 请求数据
+    getGithubData() {
+      axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
+        this.newFollower = res.data.followers
+        // repo 信息
+        let fork = 0,
+          star = 0,
+          repoInfo = [],
+          pages = Math.ceil(res.data.public_repos / 100)
+        // 循环 repo
+        while (pages--) {
+          axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
+            // 遍历数据
+            res.data.forEach((item) => {
+              star += item.stargazers_count
+              fork += item.forks_count
+              repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+            })
+            this.newStar = star
+            this.newFork = fork
+            this.repoInfo = repoInfo
+          })
+        }
+      })
+    },
+    // 更改用户
+    changeUser() {
+      this.initGithubData()
+      this.showDialog = false
+      store.set('user', this.user)
+    },
+    // 前往查看 follower
+    handleFollower() {
+      this.follower = this.newFollower
+      store.set('follower', this.newFollower) // 保存 follow 数据
+      shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
+    },
+    handleRepo(repo) {
+      shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
+    },
+    // 重置 star
+    handleStar() {
+      store.set('follower', this.newStar) // 保存 star 数
+      this.star = this.newStar
+    },
+    // 重置 fork
+    handleFork() {
+      store.set('fork', this.newFork) // 保存 fork 数
+      this.fork = this.newFork
+    },
+    // 切换置顶
+    changeTop() {
+      this.isTop = !this.isTop
+      this.sendEvent('window-top')
+    },
+    // 关闭窗口
+    sendEvent(e) {
+      ipcRenderer.send(e)
     },
   },
 }

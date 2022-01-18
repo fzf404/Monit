@@ -15,12 +15,18 @@ export default {
 
 <style>
 body {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   /* 禁用用户选择 */
   user-select: none;
   -webkit-user-selet: none;
-  /* -moz-user-select: none; */
   /* 允许用户拖拽 */
   -webkit-app-region: drag; 
+}
+svg,
+span,
+input,
+button{
+  /* 禁止用户拖拽 */
+  -webkit-app-region: no-drag; 
 }
 </style>
