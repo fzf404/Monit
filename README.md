@@ -4,7 +4,7 @@
 > 
 > 使用 vue + electron 开发
 
-<img src="https://gitee.com/nmdfzf404/Image-hosting/raw/master/2021/202201182111458.png" alt="展示图" style="zoom: 50%;" />
+<img src="./result.png" alt="展示图" style="zoom: 50%;" />
 
 ## 介绍
 
