@@ -303,7 +303,7 @@ export default {
     },
     // 重置 star
     handleStar() {
-      store.set('follower', this.newStar) // 保存 star 数
+      store.set('star', this.newStar) // 保存 star 数
       this.star = this.newStar
     },
     // 重置 fork
