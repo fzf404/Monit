@@ -32,6 +32,27 @@
         ></path>
       </svg>
     </div>
+    <!-- 断网提示 -->
+    <div class="absolute right-8 top-1.5" v-if="!network">
+      <svg
+        viewBox="0 0 1024 1024"
+        height="15"
+      >
+        <path
+          d="M509.44 860.16m-47.104 0a47.104 47.104 0 1 0 94.208 0 47.104 47.104 0 1 0-94.208 0Z"
+          fill="#d81e06"
+        ></path>
+        <path
+          d="M998.4 324.608A785.92 785.92 0 0 0 512 153.6a38.4 38.4 0 0 0 0 76.8 710.144 710.144 0 0 1 441.344 153.6 38.4 38.4 0 0 0 47.104-60.416z"
+          fill="#d81e06"
+        ></path>
+        <path
+          d="M512 358.4a603.136 603.136 0 0 0-63.488 3.584l-177.152-307.2a38.4 38.4 0 0 0-66.56 40.96l57.856 102.4a779.264 779.264 0 0 0-73.728 28.16A795.136 795.136 0 0 0 25.6 320.512a38.4 38.4 0 1 0 47.104 60.928 716.8 716.8 0 0 1 145.408-87.04 705.536 705.536 0 0 1 81.408-30.208l66.048 114.176a585.216 585.216 0 0 0-225.28 112.64 38.4 38.4 0 1 0 48.128 59.904 506.88 506.88 0 0 1 218.112-102.4l77.824 135.168a364.544 364.544 0 0 0-204.8 76.8 38.4 38.4 0 1 0 47.616 60.416 292.864 292.864 0 0 1 199.68-59.904l176.128 307.2a38.4 38.4 0 1 0 66.56-38.4l-139.264-241.152a279.552 279.552 0 0 1 56.832 33.28 38.4 38.4 0 1 0 47.104-60.416 366.08 366.08 0 0 0-161.28-71.68L488.96 438.784h20.48a507.392 507.392 0 0 1 321.024 113.152 38.4 38.4 0 1 0 48.128-59.904A590.848 590.848 0 0 0 512 358.4z"
+          fill="#d81e06"
+          p-id="6804"
+        ></path>
+      </svg>
+    </div>
     <!-- 设置 -->
     <div class="absolute right-2 top-0.5">
       <!-- 设置按钮 -->
@@ -95,7 +116,7 @@
           ></path>
         </svg>
         <span>
-          <span class="font-bold" :class="{ 'text-sm': value.star > 999}">
+          <span class="font-bold" :class="{ 'text-sm': value.star > 999 }">
             {{ value.star }}
           </span>
           <span>
@@ -149,7 +170,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import request from '../utils/request'
 import { shell, ipcRenderer } from 'electron'
 import Store from 'electron-store'
 
@@ -161,13 +183,17 @@ export default {
     // 读取用户名
     this.user = store.get('user') === undefined ? 'fzf404' : store.get('user')
     // 数据未初始化, 则初始化数据
-    if ((store.get('star') && store.get('fork') && store.get('follower')) === undefined) {
+    if ((store.get('star') && store.get('fork') && store.get('follower') && store.get('repo')) === undefined) {
       this.initGithubData()
     } else {
       // 读取缓存，并刷新数据
       this.star = store.get('star')
+      this.newStar = this.star
       this.fork = store.get('fork')
+      this.newFork = this.fork
       this.follower = store.get('follower')
+      this.newFollower = this.follower
+      this.repoInfo = store.get('repo')
       this.getGithubData()
     }
   },
@@ -181,6 +207,7 @@ export default {
     return {
       isTop: false, // 置顶
       showDialog: false, // 修改用户
+      network: true, // 网络连接情况
 
       user: '', // 用户
       // user: 'SocialSisterYi',
@@ -232,59 +259,77 @@ export default {
   methods: {
     // 初始化数据
     initGithubData() {
-      axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
-        const follower = res.data.followers
-        let star = 0,
-          fork = 0,
-          repoInfo = [],
-          pages = Math.ceil(res.data.public_repos / 100)
-        this.follower = follower
-        this.newFollower = follower
-        store.set('follower', follower) // 保存 follow 数据
-        // repo 信息
-        while (pages--) {
-          axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
-            // 遍历数据
-            res.data.forEach((item) => {
-              star += item.stargazers_count
-              fork += item.forks_count
-              repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+      request(`/users/${this.user}`)
+        .then((data) => {
+          this.network = true // 修改网络状态
+          const follower = data.followers
+          let star = 0,
+            fork = 0,
+            repoInfo = [],
+            pages = Math.ceil(data.public_repos / 100)
+          this.follower = follower
+          this.newFollower = follower
+          store.set('follower', follower) // 保存 follow 数据
+          // repo 信息
+          while (pages--) {
+            request(`/users/${this.user}/repos?per_page=100`).then((data) => {
+              // 遍历数据
+              data.forEach((item) => {
+                star += item.stargazers_count
+                fork += item.forks_count
+                repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+              })
+              this.star = star
+              this.newStar = star
+              store.set('star', star) // 保存 star 数
+              this.fork = fork
+              this.newFork = fork
+              store.set('fork', fork) // 保存 fork 数
+              this.repoInfo = repoInfo
+              store.set('repo', repoInfo)
             })
-            this.star = star
-            this.newStar = star
-            store.set('star', star) // 保存 star 数
-            this.fork = fork
-            this.newFork = fork
-            store.set('fork', fork) // 保存 fork 数
-            this.repoInfo = repoInfo
-          })
-        }
-      })
+          }
+        })
+        .catch((err) => {
+          if (this.network) {
+            this.network = false
+            alert(err)
+          }
+        })
     },
     // 请求数据
     getGithubData() {
-      axios.get(`https://api.github.com/users/${this.user}`).then((res) => {
-        this.newFollower = res.data.followers
-        // repo 信息
-        let fork = 0,
-          star = 0,
-          repoInfo = [],
-          pages = Math.ceil(res.data.public_repos / 100)
-        // 循环 repo
-        while (pages--) {
-          axios.get(`https://api.github.com/users/${this.user}/repos?per_page=100`).then((res) => {
-            // 遍历数据
-            res.data.forEach((item) => {
-              star += item.stargazers_count
-              fork += item.forks_count
-              repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+      request(`/users/${this.user}`)
+        .then((data) => {
+          this.network = true // 修改网络状态
+          this.newFollower = data.followers
+          // repo 信息
+          let fork = 0,
+            star = 0,
+            repoInfo = [],
+            pages = Math.ceil(data.public_repos / 100)
+          // 循环 repo
+          while (pages--) {
+            request(`/users/${this.user}/repos?per_page=100`).then((data) => {
+              // 遍历数据
+              data.forEach((item) => {
+                star += item.stargazers_count
+                fork += item.forks_count
+                repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+              })
+              this.newStar = star
+              this.newFork = fork
+              this.repoInfo = repoInfo
+              store.set('repo', repoInfo)
             })
-            this.newStar = star
-            this.newFork = fork
-            this.repoInfo = repoInfo
-          })
-        }
-      })
+          }
+        })
+        .catch((err) => {
+          if (this.network) {
+            alert(err)
+            this.network = false
+          }
+        })
     },
     // 更改用户
     changeUser() {
@@ -303,13 +348,13 @@ export default {
     },
     // 重置 star
     handleStar() {
-      store.set('star', this.newStar) // 保存 star 数
       this.star = this.newStar
+      store.set('star', this.newStar) // 保存 star 数
     },
     // 重置 fork
     handleFork() {
-      store.set('fork', this.newFork) // 保存 fork 数
       this.fork = this.newFork
+      store.set('fork', this.newFork) // 保存 fork 数
     },
     // 切换置顶
     changeTop() {
