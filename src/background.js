@@ -31,7 +31,7 @@ async function createWindow() {
     fullscreenable: false, // 禁止全屏
     resizable: false, // 不可调整大小
     alwaysOnTop: true, // 置顶
-    // opacity: 0.9, // 不透明度
+    // opacity: 0.8, // 不透明度
     // vibrancy: 'dark', // mac 毛玻璃
     // visualEffectState: 'active', // 自动应用
 

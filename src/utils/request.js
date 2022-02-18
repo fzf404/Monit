@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-01-21 20:56:33
- * @LastEditTime: 2022-01-21 21:59:33
- * @Description: 封装前端请求
+ * @LastEditTime: 2022-02-18 17:38:24
+ * @Description: ajax 封装
  */
 
 import axios from 'axios'

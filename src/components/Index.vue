@@ -1,79 +1,82 @@
 <template>
-  <div class="h-screen relative grid grid-cols-3 grid-rows-3 text-white">
+  <div class="h-screen relative grid grid-cols-10 grid-rows-5 text-white">
     <!-- 窗口控制器 -->
-    <div class="absolute left-2 top-0.5 space-x-0.5">
+    <div class="absolute top-0.5 left-2 space-x-1">
       <!-- 关闭窗口 -->
-      <svg @click="sendEvent('window-close')" class="inline" viewBox="0 0 1024 1024" height="16">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        height="14"
+        class="inline"
+        @click="sendEvent('window-close')"
+      >
         <path
-          d="M511.667 56.667c251.3 0 455 203.7 455 455s-203.7 455-455 455-455-203.7-455-455 203.7-455 455-455z m181.4 270c-15-15-39.3-15-54.3 0l-126.8 126.8-126.7-126.8c-14.8-14.8-38.8-15-53.9-0.4l-0.5 0.4c-15 15-15 39.3 0 54.3l126.8 126.8-126.7 126.7c-14.8 14.8-15 38.8-0.4 53.9l0.4 0.5c15 15 39.3 15 54.3 0l126.7-126.7 126.7 126.6c14.8 14.8 38.8 15 53.9 0.4l0.5-0.4c15-15 15-39.3 0-54.3l-126.8-126.7 126.7-126.7c14.8-14.8 15-38.8 0.4-53.9l-0.3-0.5z"
+          d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z"
           fill="#F87171"
         ></path>
       </svg>
       <!-- 最小化窗口 -->
-      <svg @click="sendEvent('window-mini')" class="inline" viewBox="0 0 1024 1024" height="16">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        height="14"
+        class="inline"
+        @click="sendEvent('window-mini')"
+      >
         <path
-          d="M511.667 56.667c251.3 0 455 203.7 455 455s-203.7 455-455 455-455-203.7-455-455 203.7-455 455-455z m-218 417c-21 0-38 17-38 38s17 38 38 38h436c21 0 38-17 38-38s-17-38-38-38h-436z"
+          d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM168 232C154.7 232 144 242.7 144 256C144 269.3 154.7 280 168 280H344C357.3 280 368 269.3 368 256C368 242.7 357.3 232 344 232H168z"
           fill="#FBBF24"
         ></path>
       </svg>
       <!-- 置顶窗口 -->
-      <svg @click="changeTop" class="inline" viewBox="0 0 1024 1024" height="16">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14" class="inline" @click="changeTop">
         <path
           v-if="isTop"
-          transform="rotate(-90 511.667 511.667)"
-          d="M511.667 56.667c251.3 0 455 203.7 455 455s-203.7 455-455 455-455-203.7-455-455 203.7-455 455-455z m141.4 199.2c-15-15-39.3-15-54.3 0l-228.6 228.5c-7.6 7.6-11.3 17.5-11.2 27.4-0.1 9.9 3.7 19.9 11.2 27.4l228.5 228.5c15 15 39.3 15 54.3 0s15-39.3 0-54.3l-201.6-201.5 201.7-201.7c14.8-14.8 15-38.8 0.4-53.9l-0.4-0.4z"
+          d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256s256-114.6 256-256C512 114.6 397.4 0 256 0zM390.6 246.6l-112 112C272.4 364.9 264.2 368 256 368s-16.38-3.125-22.62-9.375l-112-112c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L256 290.8l89.38-89.38c12.5-12.5 32.75-12.5 45.25 0S403.1 234.1 390.6 246.6z"
           fill="#34D399"
         ></path>
         <path
           v-if="!isTop"
-          transform="rotate(90 511.667 511.667)"
-          d="M511.667 56.667c251.3 0 455 203.7 455 455s-203.7 455-455 455-455-203.7-455-455 203.7-455 455-455z m141.4 199.2c-15-15-39.3-15-54.3 0l-228.6 228.5c-7.6 7.6-11.3 17.5-11.2 27.4-0.1 9.9 3.7 19.9 11.2 27.4l228.5 228.5c15 15 39.3 15 54.3 0s15-39.3 0-54.3l-201.6-201.5 201.7-201.7c14.8-14.8 15-38.8 0.4-53.9l-0.4-0.4z"
+          d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256s256-114.6 256-256C512 114.6 397.4 0 256 0zM390.6 310.6c-12.5 12.5-32.75 12.5-45.25 0L256 221.3L166.6 310.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l112-112C239.6 147.1 247.8 144 256 144s16.38 3.125 22.62 9.375l112 112C403.1 277.9 403.1 298.1 390.6 310.6z"
           fill="#34D399"
         ></path>
       </svg>
     </div>
-    <!-- 断网提示 -->
-    <div class="absolute right-8 top-1.5" v-if="!network">
-      <svg
-        viewBox="0 0 1024 1024"
-        height="15"
-      >
+    <!-- 设置 -->
+    <div class="absolute top-0.5 right-2 space-x-2">
+      <!-- 断网提示 -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="13" class="inline" v-show="!network">
         <path
-          d="M509.44 860.16m-47.104 0a47.104 47.104 0 1 0 94.208 0 47.104 47.104 0 1 0-94.208 0Z"
+          d="M319.1 351.1c-35.35 0-64 28.66-64 64.01s28.66 64.01 64 64.01c35.34 0 64-28.66 64-64.01S355.3 351.1 319.1 351.1zM320 191.1c-70.25 0-137.9 25.6-190.5 72.03C116.3 275.7 115 295.9 126.7 309.2C138.5 322.4 158.7 323.7 171.9 312C212.8 275.9 265.4 256 320 256s107.3 19.88 148.1 56C474.2 317.4 481.8 320 489.3 320c8.844 0 17.66-3.656 24-10.81C525 295.9 523.8 275.7 510.5 264C457.9 217.6 390.3 191.1 320 191.1zM630.2 156.7C546.3 76.28 436.2 32 320 32S93.69 76.28 9.844 156.7c-12.75 12.25-13.16 32.5-.9375 45.25c12.22 12.78 32.47 13.12 45.25 .9375C125.1 133.1 220.4 96 320 96s193.1 37.97 265.8 106.9C592.1 208.8 600 211.8 608 211.8c8.406 0 16.81-3.281 23.09-9.844C643.3 189.2 642.9 168.1 630.2 156.7z"
           fill="#d81e06"
-        ></path>
-        <path
-          d="M998.4 324.608A785.92 785.92 0 0 0 512 153.6a38.4 38.4 0 0 0 0 76.8 710.144 710.144 0 0 1 441.344 153.6 38.4 38.4 0 0 0 47.104-60.416z"
-          fill="#d81e06"
-        ></path>
-        <path
-          d="M512 358.4a603.136 603.136 0 0 0-63.488 3.584l-177.152-307.2a38.4 38.4 0 0 0-66.56 40.96l57.856 102.4a779.264 779.264 0 0 0-73.728 28.16A795.136 795.136 0 0 0 25.6 320.512a38.4 38.4 0 1 0 47.104 60.928 716.8 716.8 0 0 1 145.408-87.04 705.536 705.536 0 0 1 81.408-30.208l66.048 114.176a585.216 585.216 0 0 0-225.28 112.64 38.4 38.4 0 1 0 48.128 59.904 506.88 506.88 0 0 1 218.112-102.4l77.824 135.168a364.544 364.544 0 0 0-204.8 76.8 38.4 38.4 0 1 0 47.616 60.416 292.864 292.864 0 0 1 199.68-59.904l176.128 307.2a38.4 38.4 0 1 0 66.56-38.4l-139.264-241.152a279.552 279.552 0 0 1 56.832 33.28 38.4 38.4 0 1 0 47.104-60.416 366.08 366.08 0 0 0-161.28-71.68L488.96 438.784h20.48a507.392 507.392 0 0 1 321.024 113.152 38.4 38.4 0 1 0 48.128-59.904A590.848 590.848 0 0 0 512 358.4z"
-          fill="#d81e06"
-          p-id="6804"
         ></path>
       </svg>
-    </div>
-    <!-- 设置 -->
-    <div class="absolute right-2 top-0.5">
       <!-- 设置按钮 -->
-      <svg @click="() => (this.showDialog = !this.showDialog)" class="inline" viewBox="0 0 1024 1024" height="16">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        height="14"
+        class="inline"
+        @click="() => (this.showDialog = !this.showDialog)"
+      >
         <path
-          d="M686.4 936.4H337.7c-21.5 0-42.7-5.7-61.3-16.4-18.2-10.5-33.6-25.7-44.3-43.8l-0.6-1L57.4 573.3C46.6 554.7 41 533.5 41 512c0-21.1 5.5-41.9 15.8-60.2l0.6-1 174.3-301.9c21.5-37.3 61.7-60.8 104.8-61.2h349.8c43.1 0 83.5 23 105.4 60.1l0.7 1.1 174.3 301.9c10.7 18.6 16.4 39.8 16.4 61.2 0 21.1-5.5 41.9-15.8 60.2l-0.6 1-174.3 301.9c-21.5 37.3-61.7 60.8-104.8 61.2l-1.2 0.1z m-395.6-94.8c4.8 8 11.6 14.8 19.7 19.4 8.3 4.8 17.7 7.3 27.3 7.3h349.3c19.1-0.2 37-10.7 46.5-27.2l174.2-301.8 0.3-0.6c4.6-8.1 7-17.4 7-26.7 0-9.6-2.5-19-7.3-27.3L733.5 183l-0.4-0.7c-9.8-16.5-27.7-26.7-46.9-26.7H337c-19.1 0.2-37 10.7-46.5 27.2L116.3 484.7l-0.3 0.6c-4.6 8.1-7 17.4-7 26.7 0 9.6 2.5 19 7.3 27.2L290.5 841l0.3 0.6zM512 740c-60.9 0-118.2-23.7-161.2-66.8-43.1-43-66.8-100.3-66.8-161.2 0-60.9 23.7-118.2 66.8-161.2 43-43.1 100.3-66.8 161.2-66.8s118.2 23.7 161.2 66.8c43.1 43 66.8 100.3 66.8 161.2s-23.7 118.2-66.8 161.2S572.9 740 512 740z m0-388c-42.7 0-82.9 16.6-113.1 46.9C368.6 429.1 352 469.3 352 512c0 42.7 16.6 82.9 46.9 113.1C429.1 655.4 469.3 672 512 672c42.7 0 82.9-16.6 113.1-46.9C655.4 594.9 672 554.7 672 512c0-42.7-16.6-82.9-46.9-113.1C594.9 368.6 554.7 352 512 352z"
+          d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"
           fill="#60A5FA"
         ></path>
       </svg>
       <!-- 设置框 -->
       <div class="relative" v-if="showDialog">
         <div class="absolute right-16 w-64 z-10 py-3 px-4 bg-white rounded-lg">
-          <label for="first-name" class="block text-sm font-medium text-gray-400">User Name</label>
+          <label for="input-user" class="block text-sm font-medium text-gray-400">Github User</label>
           <input
+            id="input-user"
             v-model.lazy="user"
             type="text"
             class="my-2 w-full py-1 px-3 bg-purple-100 text-gray-500 shadow-md rounded-md outline-none ring-2 ring-purple-400"
           />
           <button
             @click="changeUser"
-            class="bg-purple-500 text-white text-sm mt-0.5 py-1.5 px-3 rounded-lg shadow-md float-right"
+            class="bg-purple-500 text-white text-sm mt-0.5 py-1.5 px-4 rounded-lg shadow-md float-right"
           >
             OK
           </button>
@@ -81,66 +84,64 @@
       </div>
     </div>
     <!-- follower -->
-    <div class="center col-span-2 row-span-2">
-      <div class="text-lg text-gray-200">follower</div>
-      <div class="relative">
-        <svg
-          class="absolute -left-12 top-1.5"
-          :class="{ '-left-11': follower > 9999, '-left-14': follower < 9999 }"
-          viewBox="0 0 1024 1024"
-          height="86%"
-        >
+    <div class="flex-col-center col-span-6 row-span-3 mt-5">
+      <div class="text-intro m-0.5">follower</div>
+      <div class="flex-row-center-bottom">
+        <!-- github ico -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" height="80%" class="mb-1 mr-1">
           <path
-            d="M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667"
+            d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
             fill="#60A5FA"
           ></path>
         </svg>
-        <span class="text-5xl" :class="{ 'text-4xl': follower > 9999, 'text-6xl': follower < 999 }">{{
-          follower
-        }}</span>
+        <!-- follower number -->
+        <div class="text-5xl" :class="{ 'text-4xl': follower > 9999, 'text-6xl': follower < 999 }">{{ follower }}</div>
+        <!-- follower change -->
         <span
+          class="text-4xl text-gray-400"
           :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
-          class="absolute -right-12 bottom-0 text-4xl text-gray-400"
           @click="handleFollower"
-          >{{ followerChange }}</span
         >
+          {{ followerChange }}
+        </span>
       </div>
     </div>
     <!-- repo -->
-    <div class="center left ml-5 row-span-3 space-y-1">
-      <div class="relative text-md" v-for="(value, index) in repoChange" :key="index">
-        <svg class="absolute top-1 -left-5" viewBox="0 0 1024 1024" height="70%">
+    <div class="flex-col-center-left col-span-4 row-span-5 mt-1 ml-2">
+      <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
+        <!-- star ico -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13" class="mr-1.5">
           <path
-            d="M810.666667 128H298.666667a128 128 0 0 0-128 128v512a128 128 0 0 0 128 128h512a42.666667 42.666667 0 0 0 42.666666-42.666667V170.666667a42.666667 42.666667 0 0 0-42.666666-42.666667zM298.666667 810.666667a42.666667 42.666667 0 0 1 0-85.333334h469.333333v85.333334z"
+            d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"
             fill="#34D399"
           ></path>
         </svg>
         <span>
-          <span class="font-bold" :class="{ 'text-sm': value.star > 999 }">
+          <span class="font-mono text-md mr-1" :class="{ 'text-sm': value.star > 999 }">
             {{ value.star }}
           </span>
-          <span>
-            {{ ' ' }}
-          </span>
-          <span class="text-sm" @click="handleRepo(value.repo)">
-            {{ value.repo.length > 8 ? value.repo.slice(0, 8) + '..' : value.repo }}
+          <span class="font-mono text-sm text-gray-400">
+            {{ value.repo.length > 12 ? value.repo.slice(0, 10) + '..' : value.repo }}
           </span>
         </span>
       </div>
     </div>
     <!-- star -->
-    <div class="center">
-      <div class="relative">
-        <span class="absolute bottom-9 inset-x-1/3 text-md">star</span>
-        <svg class="absolute -left-7 top-1.5" viewBox="0 0 1024 1024" height="70%">
+    <div class="flex-col-center col-span-3 row-span-2 mb-3">
+      <div class="text-intro">star</div>
+      <div class="flex-row-center-bottom">
+        <!-- star ico -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="23" class="mb-1.5">
           <path
-            d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3-12.3 12.7-12.1 32.9 0.6 45.3l183.7 179.1-43.4 252.9c-1.2 6.9-0.1 14.1 3.2 20.3 8.2 15.6 27.6 21.7 43.2 13.4L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+            d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"
             fill="#FBBF24"
           ></path>
         </svg>
-        <span class="text-2xl" :class="{ 'text-xl': star > 9999, 'text-3xl': star < 999 }">{{ star }}</span>
+        <!-- star number -->
+        <div class="text-2xl" :class="{ 'text-xl': star > 9999, 'text-3xl': star < 999 }">{{ star }}</div>
+        <!-- star change -->
         <span
-          class="absolute -right-8 bottom-0 text-2xl text-gray-400"
+          class="text-2xl text-gray-400"
           :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
           @click="handleStar"
           >{{ starChange }}</span
@@ -148,18 +149,21 @@
       </div>
     </div>
     <!-- fork -->
-    <div class="center">
-      <div class="relative">
-        <span class="absolute bottom-9 inset-x-1/3 text-md">fork</span>
-        <svg class="absolute -left-6 top-2" viewBox="0 0 1024 1024" height="60%">
+    <div class="flex-col-center col-span-3 row-span-2 mb-3">
+      <div class="text-intro">fork</div>
+      <div class="flex-row-center-bottom">
+        <!-- fork ico -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="22" class="mr-0.5 mb-1.5">
           <path
-            d="M640 640H384a63.573333 63.573333 0 0 0-45.952 19.776C402.816 690.56 448 755.584 448 832a192 192 0 0 1-192 192 192 192 0 0 1-192-192c0-83.52 53.568-153.792 128-180.288V372.224C117.568 345.792 64 275.52 64 192a192 192 0 0 1 192-192 192 192 0 0 1 192 192c0 83.52-53.568 153.792-128 180.224v151.552c20.096-7.168 41.408-11.776 64-11.776h256c35.392 0 64-28.608 64-64v-11.776c-74.368-26.432-128-96.704-128-180.224 0-106.048 86.016-192 192-192s192 85.952 192 192c0 83.52-53.632 153.792-128 180.224V448c0 106.048-86.016 192-192 192z m128-448c35.392 0 64 28.608 64 64s-28.608 64-64 64-64-28.608-64-64 28.608-64 64-64zM256 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z m0 640a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+            d="M160 80C160 112.8 140.3 140.1 112 153.3V192C112 209.7 126.3 224 144 224H304C321.7 224 336 209.7 336 192V153.3C307.7 140.1 288 112.8 288 80C288 35.82 323.8 0 368 0C412.2 0 448 35.82 448 80C448 112.8 428.3 140.1 400 153.3V192C400 245 357 288 304 288H256V358.7C284.3 371 304 399.2 304 432C304 476.2 268.2 512 224 512C179.8 512 144 476.2 144 432C144 399.2 163.7 371 192 358.7V288H144C90.98 288 48 245 48 192V153.3C19.75 140.1 0 112.8 0 80C0 35.82 35.82 0 80 0C124.2 0 160 35.82 160 80V80zM80 104C93.25 104 104 93.25 104 80C104 66.75 93.25 56 80 56C66.75 56 56 66.75 56 80C56 93.25 66.75 104 80 104zM368 104C381.3 104 392 93.25 392 80C392 66.75 381.3 56 368 56C354.7 56 344 66.75 344 80C344 93.25 354.7 104 368 104zM224 408C210.7 408 200 418.7 200 432C200 445.3 210.7 456 224 456C237.3 456 248 445.3 248 432C248 418.7 237.3 408 224 408z"
             fill="#F87171"
           ></path>
         </svg>
-        <span class="text-2xl" :class="{ 'text-xl': star > 9999, 'text-3xl': star < 999 }">{{ fork }}</span>
+        <!-- fork number -->
+        <div class="text-2xl" :class="{ 'text-xl': star > 9999, 'text-3xl': star < 999 }">{{ fork }}</div>
+        <!-- fork change -->
         <span
-          class="absolute -right-8 bottom-0 text-2xl text-gray-400"
+          class="text-2xl text-gray-400"
           :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
           @click="handleFork"
           >{{ forkChange }}</span
@@ -170,15 +174,38 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import request from '../utils/request'
 import { shell, ipcRenderer } from 'electron'
 import Store from 'electron-store'
+import { getArrDiffKey } from '../utils/utils'
+
+// 设置背景颜色
+document.body.style.backgroundColor = process.platform == 'win32' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.4)'
 
 const store = new Store()
 
 export default {
-  name: 'HelloWorld',
+  data() {
+    return {
+      isTop: true, // 置顶
+      showDialog: false, // 设置
+      network: true, // 网络连接情况
+
+      user: '', // 用户
+
+      // user: 'SocialSisterYi',
+      // user:'yyx990803',
+
+      star: 0,
+      newStar: 0,
+      fork: 0,
+      newFork: 0,
+      repoInfo: [],
+      newRepoInfo: [],
+      follower: 0,
+      newFollower: 0,
+    }
+  },
   created() {
     // 读取用户名
     this.user = store.get('user') === undefined ? 'fzf404' : store.get('user')
@@ -194,6 +221,7 @@ export default {
       this.follower = store.get('follower')
       this.newFollower = this.follower
       this.repoInfo = store.get('repo')
+      this.newRepoInfo = this.repoInfo
       this.getGithubData()
     }
   },
@@ -202,24 +230,6 @@ export default {
     setInterval(() => {
       this.getGithubData()
     }, 60 * 1000)
-  },
-  data() {
-    return {
-      isTop: false, // 置顶
-      showDialog: false, // 修改用户
-      network: true, // 网络连接情况
-
-      user: '', // 用户
-      // user: 'SocialSisterYi',
-      // user:'yyx990803',
-      star: 0,
-      newStar: 0,
-      fork: 0,
-      newFork: 0,
-      repoInfo: [],
-      follower: 0,
-      newFollower: 0,
-    }
   },
   computed: {
     // follow 数据更改
@@ -253,7 +263,7 @@ export default {
       repoInfo.sort((a, b) => {
         return b.star - a.star
       })
-      return repoInfo.slice(0, 6)
+      return repoInfo.slice(0, 7)
     },
   },
   methods: {
@@ -286,14 +296,14 @@ export default {
               this.newFork = fork
               store.set('fork', fork) // 保存 fork 数
               this.repoInfo = repoInfo
+              this.newRepoInfo = repoInfo
               store.set('repo', repoInfo)
             })
           }
         })
-        .catch((err) => {
+        .catch(() => {
           if (this.network) {
             this.network = false
-            alert(err)
           }
         })
     },
@@ -319,14 +329,12 @@ export default {
               })
               this.newStar = star
               this.newFork = fork
-              this.repoInfo = repoInfo
-              store.set('repo', repoInfo)
+              this.newRepoInfo = repoInfo
             })
           }
         })
-        .catch((err) => {
+        .catch(() => {
           if (this.network) {
-            alert(err)
             this.network = false
           }
         })
@@ -337,24 +345,44 @@ export default {
       this.showDialog = false
       store.set('user', this.user)
     },
+
     // 前往查看 follower
     handleFollower() {
       this.follower = this.newFollower
       store.set('follower', this.newFollower) // 保存 follow 数据
       shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
     },
+
+    // 前往查看 repo
     handleRepo(repo) {
       shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
     },
-    // 重置 star
+
+    // 更新 star
     handleStar() {
       this.star = this.newStar
       store.set('star', this.newStar) // 保存 star 数
+      // 查找 star 变化的仓库
+      getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
+        // 访问
+        shell.openExternal(`https://github.com/${this.user}/${item.repo}/stargazers`, '_blank')
+      })
+      // 更新 repo
+      this.repoInfo = this.newRepoInfo
+      store.set('repo', this.newRepoInfo)
     },
     // 重置 fork
     handleFork() {
       this.fork = this.newFork
       store.set('fork', this.newFork) // 保存 fork 数
+      // 查找 star 变化的仓库
+      getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
+        // 访问
+        shell.openExternal(`https://github.com/${this.user}/${item.repo}/network/members`, '_blank')
+      })
+      // 更新 repo
+      this.repoInfo = this.newRepoInfo
+      store.set('repo', this.newRepoInfo)
     },
     // 切换置顶
     changeTop() {
@@ -371,11 +399,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.center {
+.flex-col-center {
   @apply flex flex-col flex-wrap justify-center items-center;
 }
 
-.left {
-  @apply items-start;
+.flex-col-center-left {
+  @apply flex flex-col flex-wrap justify-center items-start;
+}
+.flex-row-center {
+  @apply flex flex-row flex-nowrap justify-center items-center;
+}
+.flex-row-center-bottom {
+  @apply flex flex-row flex-nowrap justify-center items-end;
+}
+.text-intro {
+  @apply font-mono text-gray-400;
 }
 </style>

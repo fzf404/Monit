@@ -15,7 +15,6 @@ export default {
 
 <style>
 body {
-  background-color: rgba(0, 0, 0, 0.4);
   /* 禁用用户选择 */
   user-select: none;
   -webkit-user-selet: none;
