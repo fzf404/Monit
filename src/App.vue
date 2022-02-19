@@ -21,11 +21,18 @@ body {
   /* 允许用户拖拽 */
   -webkit-app-region: drag; 
 }
+
 svg,
 span,
 input,
 button{
-  /* 禁止用户拖拽 */
+  /* 禁止拖拽 允许点击 */
   -webkit-app-region: no-drag; 
 }
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}
+
 </style>
