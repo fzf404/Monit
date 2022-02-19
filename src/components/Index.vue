@@ -7,7 +7,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline"
+        class="inline no-drag"
         @click="sendEvent('window-close')"
       >
         <path
@@ -20,7 +20,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline"
+        class="inline no-drag"
         @click="sendEvent('window-mini')"
       >
         <path
@@ -29,7 +29,7 @@
         ></path>
       </svg>
       <!-- 置顶窗口 -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14" class="inline" @click="changeTop">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14" class="inline no-drag" @click="changeTop">
         <path
           v-if="isTop"
           d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256s256-114.6 256-256C512 114.6 397.4 0 256 0zM390.6 246.6l-112 112C272.4 364.9 264.2 368 256 368s-16.38-3.125-22.62-9.375l-112-112c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L256 290.8l89.38-89.38c12.5-12.5 32.75-12.5 45.25 0S403.1 234.1 390.6 246.6z"
@@ -56,7 +56,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline"
+        class="inline no-drag"
         @click="() => (this.showDialog = !this.showDialog)"
       >
         <path
@@ -100,12 +100,12 @@
           ></path>
         </svg>
         <!-- follower number -->
-        <div :class="{ 'text-6xl': follower < 1000, 'text-5xl': follower > 999 }">
+        <span :class="{ 'text-6xl': follower < 1000, 'text-5xl': follower > 999 }">
           {{ follower }}
-        </div>
+        </span>
         <!-- follower change -->
         <span
-          class="text-4xl text-gray-400"
+          class="text-4xl text-gray-400 no-drag"
           :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
           @click="handleFollower"
         >
@@ -114,7 +114,7 @@
       </div>
     </div>
     <!-- repo -->
-    <div class="flex-col-center-left col-span-4 row-span-5 ml-2 overflow-y-scroll">
+    <div class="flex-col-center-left col-span-4 row-span-5 ml-2 overflow-y-scroll no-drag">
       <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
         <!-- star ico -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13" class="mr-1.5">
@@ -150,12 +150,12 @@
           ></path>
         </svg>
         <!-- star number -->
-        <div :class="{ 'text-3xl': star < 1000, 'text-2xl': star > 999 }">
+        <span :class="{ 'text-3xl': star < 1000, 'text-2xl': star > 999 }">
           {{ star }}
-        </div>
+        </span>
         <!-- star change -->
         <span
-          class="text-2xl text-gray-400"
+          class="text-2xl text-gray-400 no-drag"
           :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
           @click="handleStar"
           >{{ starChange }}</span
@@ -179,10 +179,10 @@
           ></path>
         </svg>
         <!-- fork number -->
-        <div :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</div>
+        <span :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</span>
         <!-- fork change -->
         <span
-          class="text-2xl text-gray-400"
+          class="text-2xl text-gray-400 no-drag"
           :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
           @click="handleFork"
           >{{ forkChange }}</span

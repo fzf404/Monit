@@ -22,10 +22,10 @@ body {
   -webkit-app-region: drag; 
 }
 
-svg,
-span,
+
 input,
-button{
+button,
+.no-drag {
   /* 禁止拖拽 允许点击 */
   -webkit-app-region: no-drag; 
 }
