@@ -1,38 +1,35 @@
 <template>
-  <Index msg="Welcome to Your Vue.js App"/>
+  <Layout />
 </template>
 
 <script>
-import Index from './components/Index.vue'
+import Layout from './components/Layout.vue'
 
 export default {
   name: 'App',
   components: {
-    Index
-  }
+    Layout,
+  },
 }
 </script>
 
 <style>
 body {
-  /* 禁用用户选择 */
-  user-select: none;
+  /* 禁用文字选择 */
   -webkit-user-selet: none;
-  /* 允许用户拖拽 */
-  -webkit-app-region: drag; 
+  /* 允许拖拽移动窗口 */
+  -webkit-app-region: drag;
 }
-
 
 input,
 button,
 .no-drag {
-  /* 禁止拖拽 允许点击 */
-  -webkit-app-region: no-drag; 
+  /* 禁止拖拽移动窗口 响应点击事件 */
+  -webkit-app-region: no-drag;
 }
 
 /* 隐藏滚动条 */
 ::-webkit-scrollbar {
   display: none;
 }
-
 </style>
