@@ -16,7 +16,7 @@ export default {
 <style>
 body {
   /* 禁用文字选择 */
-  -webkit-user-selet: none;
+  user-select: none;
   /* 允许拖拽移动窗口 */
   -webkit-app-region: drag;
 }

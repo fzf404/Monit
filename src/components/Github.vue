@@ -30,7 +30,7 @@
     </div>
   </div>
   <!-- repo -->
-  <div class="flex-col-center-left col-span-4 row-span-5 overflow-y-scroll clickable">
+  <div class="flex-col-center-left col-span-4 row-span-5 ml-2 overflow-y-scroll clickable">
     <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
       <!-- star ico -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13" class="mr-1.5">
@@ -237,10 +237,7 @@ export default {
       request(`/users/${this.user}`)
         .then((data) => {
           // 修改网络状态
-          if (!this.network) {
-            // this.network = true
-            this.$emit('network', true)
-          }
+          this.$emit('network', true)
           // 设置 follower 信息
           this.newFollower = data.followers
           // stat fork repo 信息
