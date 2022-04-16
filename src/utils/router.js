@@ -1,10 +1,10 @@
 /*
  * @Author: fzf404
  * @Date: 2022-04-04 16:56:57
- * @LastEditTime: 2022-04-04 17:12:50
+ * @LastEditTime: 2022-04-16 13:19:35
  * @Description: vue-router
  */
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
@@ -14,7 +14,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 
