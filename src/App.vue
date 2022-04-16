@@ -23,9 +23,11 @@ body {
 
 input,
 button,
-.no-drag {
+.clickable {
   /* 禁止拖拽移动窗口 响应点击事件 */
   -webkit-app-region: no-drag;
+  /* 更改鼠标样式 */
+  cursor: pointer;
 }
 
 /* 隐藏滚动条 */

@@ -21,7 +21,7 @@
       </span>
       <!-- follower change -->
       <span
-        class="text-4xl text-gray-400 no-drag"
+        class="text-4xl text-gray-400 clickable"
         :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
         @click="handleFollower"
       >
@@ -30,7 +30,7 @@
     </div>
   </div>
   <!-- repo -->
-  <div class="flex-col-center-left col-span-4 row-span-5 ml-2 overflow-y-scroll no-drag">
+  <div class="flex-col-center-left col-span-4 row-span-5 overflow-y-scroll clickable">
     <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
       <!-- star ico -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="13" class="mr-1.5">
@@ -71,7 +71,7 @@
       </span>
       <!-- star change -->
       <span
-        class="text-2xl text-gray-400 no-drag"
+        class="text-2xl text-gray-400 clickable"
         :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
         @click="handleStar"
         >{{ starChange }}</span
@@ -98,7 +98,7 @@
       <span :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</span>
       <!-- fork change -->
       <span
-        class="text-2xl text-gray-400 no-drag"
+        class="text-2xl text-gray-400 clickable"
         :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
         @click="handleFork"
         >{{ forkChange }}</span
@@ -117,6 +117,7 @@ const store = new Store()
 
 export default {
   props: ['user'],
+  emits: ['network'],
   data() {
     return {
       star: 0, // 旧 star 数
@@ -192,16 +193,18 @@ export default {
     initGithubData() {
       request(`/users/${this.user}`)
         .then((data) => {
-          this.network = true // 修改网络状态
-          const follower = data.followers
+          // 修改网络状态
+          this.$emit('network', true)
+          // 设置 follower 信息
+          this.follower = data.followers
+          this.newFollower = data.followers
+          store.set('follower', data.followers)
+          // stat fork repo 信息
           let star = 0,
             fork = 0,
             repoInfo = [],
             pages = Math.ceil(data.public_repos / 100)
-          this.follower = follower
-          this.newFollower = follower
-          store.set('follower', follower) // 保存 follow 数据
-          // repo 信息
+          // 遍历 repo 信息
           while (pages--) {
             request(`/users/${this.user}/repos?per_page=100`).then((data) => {
               // 遍历数据
@@ -210,12 +213,15 @@ export default {
                 fork += item.forks_count
                 repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
               })
+              // 设置 star 信息
               this.star = star
               this.newStar = star
-              store.set('star', star) // 保存 star 数
+              store.set('star', star)
+              // 设置 fork 信息
               this.fork = fork
               this.newFork = fork
-              store.set('fork', fork) // 保存 fork 数
+              store.set('fork', fork)
+              // 设置 repo 信息
               this.repoInfo = repoInfo
               this.newRepoInfo = repoInfo
               store.set('repo', repoInfo)
@@ -223,23 +229,26 @@ export default {
           }
         })
         .catch(() => {
-          if (this.network) {
-            this.network = false
-          }
+          this.$emit('network', false)
         })
     },
     // 请求数据
     getGithubData() {
       request(`/users/${this.user}`)
         .then((data) => {
-          this.network = true // 修改网络状态
+          // 修改网络状态
+          if (!this.network) {
+            // this.network = true
+            this.$emit('network', true)
+          }
+          // 设置 follower 信息
           this.newFollower = data.followers
-          // repo 信息
+          // stat fork repo 信息
           let fork = 0,
             star = 0,
             repoInfo = [],
             pages = Math.ceil(data.public_repos / 100)
-          // 循环 repo
+          // 遍历 repo 信息
           while (pages--) {
             request(`/users/${this.user}/repos?per_page=100`).then((data) => {
               // 遍历数据
@@ -248,6 +257,7 @@ export default {
                 fork += item.forks_count
                 repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
               })
+              // 设置数据
               this.newStar = star
               this.newFork = fork
               this.newRepoInfo = repoInfo
@@ -255,9 +265,7 @@ export default {
           }
         })
         .catch(() => {
-          if (this.network) {
-            this.network = false
-          }
+            this.$emit('network', false)
         })
     },
     // 更新 follower

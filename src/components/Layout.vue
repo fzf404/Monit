@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-04-04 17:15:27
+ * @LastEditTime: 2022-04-16 11:55:36
  * @Description: 布局
 -->
 <template>
@@ -13,7 +13,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline no-drag"
+        class="inline clickable"
         @click="sendEvent('window-close')"
       >
         <path
@@ -26,7 +26,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline no-drag"
+        class="inline clickable"
         @click="sendEvent('window-mini')"
       >
         <path
@@ -39,7 +39,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline no-drag"
+        class="inline clickable"
         @click="changeTop"
       >
         <path
@@ -68,7 +68,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         height="14"
-        class="inline no-drag"
+        class="inline clickable"
         @click="() => (this.showDialog = !this.showDialog)"
       >
         <path
@@ -95,7 +95,7 @@
         </div>
       </div>
     </div>
-    <router-view :user="user" />
+    <router-view :user="user" @network="network = $event" />
   </div>
 </template>
 
