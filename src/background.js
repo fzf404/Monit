@@ -1,60 +1,71 @@
-'use strict'
-
 import { app, protocol, BrowserWindow, ipcMain } from 'electron'
-import Store from 'electron-store'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import Store from 'electron-store'
+
+// 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-// Scheme must be registered before the app is ready
+// 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
-// 存储数据
-const store = new Store()
-
-// 桌面坐标
+const store = new Store({
+  // 版本更新初始化
+  migrations: {
+    '0.2.0': (store) => {
+      store.clear()
+    },
+  },
+})
+// 读取配置
 const x = store.get('x') === undefined ? 10 : store.get('x')
 const y = store.get('y') === undefined ? 10 : store.get('y')
+const top = store.get('top') === undefined ? false : store.get('top')
 
-async function createWindow() {
-  // Create the browser window.
+// 创建窗口
+function createWindow() {
   const win = new BrowserWindow({
     x: x,
     y: y,
     width: 420,
-    minWidth: 420,
     height: 200,
-    minHeight: 200,
+    alwaysOnTop: top, // 置顶
     transparent: true, // 透明
     hasShadow: false, // 阴影
     frame: false, // 隐藏边框
     fullscreenable: false, // 禁止全屏
     resizable: false, // 不可调整大小
-    alwaysOnTop: true, // 置顶
+
     // opacity: 0.8, // 不透明度
     // vibrancy: 'dark', // mac 毛玻璃
-    // visualEffectState: 'active', // 自动应用
+    // visualEffectState: 'active', // mac 毛玻璃 自动应用
 
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
   })
 
+  // 监听事件
+  handleEvents(win)
+
+  // 启动应用
+  launchApp(win)
+}
+
+// 监听事件
+function handleEvents(win) {
   // 监听移动事件
   win.on('move', function () {
-    const [pos_x, pos_y] = win.getPosition()
-    store.set('x', pos_x)
-    store.set('y', pos_y)
+    const [n_x, n_y] = win.getPosition()
+    store.set('x', n_x)
+    store.set('y', n_y)
   })
-
   // 窗口置顶
-  ipcMain.on('window-top', function () {
-    win.setAlwaysOnTop(!win.isAlwaysOnTop())
+  ipcMain.on('window-top', function (event, n_top) {
+    console.log(n_top)
+    win.setAlwaysOnTop(n_top)
   })
-
   // 窗口最小化
   ipcMain.on('window-mini', function () {
     win.minimize()
@@ -63,59 +74,64 @@ async function createWindow() {
   ipcMain.on('window-close', function () {
     app.quit()
   })
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
-  } else {
-    createProtocol('app')
-    // Load the index.html when not in development
-    win.loadURL('app://./index.html')
-  }
 }
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) createWindow()
-})
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    try {
-      await installExtension(VUEJS3_DEVTOOLS)
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
+// 启动应用
+async function launchApp(win) {
+  // 调试模式下退出方法
+  if (isDevelopment) {
+    if (process.platform === 'win32') {
+      process.on('message', (data) => {
+        if (data === 'graceful-exit') {
+          app.quit()
+        }
+      })
+    } else {
+      process.on('SIGTERM', () => {
+        app.quit()
+      })
     }
   }
-  createWindow()
-})
 
-// Exit cleanly on request from parent process in development mode.
-if (isDevelopment) {
-  if (process.platform === 'win32') {
-    process.on('message', (data) => {
-      if (data === 'graceful-exit') {
-        app.quit()
-      }
-    })
+  // 根据模式启动应用
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    // 调试模式
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL) // 加载应用
+    if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
   } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
+    // 生产模式
+    createProtocol('app') // 创建协议
+    win.loadURL('app://./index.html') // 加载应用
   }
 }
+
+// 初始化窗口
+function initWindow() {
+  // mac 激活窗口
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+
+  // mac 关闭窗口
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
+
+  // 准备就绪
+  app.on('ready', async () => {
+    // 调试模式下安装 vue-devtools
+    if (isDevelopment && !process.env.IS_TEST) {
+      try {
+        await installExtension(VUEJS3_DEVTOOLS)
+      } catch (e) {
+        console.error('Vue Devtools failed to install:', e.toString())
+      }
+    }
+    createWindow()
+  })
+}
+
+// 初始化窗口
+initWindow()
