@@ -3,26 +3,25 @@
 > 用于实时监控自己的 Github 信息
 > 
 > 使用 vue + electron 开发
+> 
+> [下载](https://github.com/fzf404/Monit/releases)
 
-<img src="./show.jpg" alt="展示图" style="zoom: 50%;" />
+<img src="./show.jpeg" alt="首页展示图" style="zoom: 50%;" />
 
 ## 介绍
 
-- 按钮作用 (从左至右
-  - 关闭
-  - 最小化
-  - 置顶/取消置顶
-  - 
-  - 网络异常
-  - 设置用户
+> 每 60s 发送一次请求
 
-- 展示信息（从上至下，从左至右
-  - 你的 follower 数量
-  - 你获得的总 star 数量
-  - 你获得的总 fork 数量
-  - 按照 star 排序展示仓库 (可滚动
+1. 左上角第三个按钮的作用是`置顶/取消置顶`。
+2. 左侧依次为用户获得的`follower、star、fork`总数
+3. 当数字变动时点击可查看变动详情。
+4. 右侧为全部仓库及`star`数，点击可跳转到仓库详情，仓库列表可以滚动。
 
-> 注: 每 60s 发送一次请求
+## 插件开发
+
+> 接入其他平台`知乎、CSDN、BiliBili`
+> 
+> 待完善...
 
 ## Todo
 
