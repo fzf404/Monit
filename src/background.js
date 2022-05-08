@@ -17,6 +17,7 @@ const store = new Store({
     },
   },
 })
+
 // 读取配置
 const x = store.get('x') === undefined ? 10 : store.get('x')
 const y = store.get('y') === undefined ? 10 : store.get('y')
@@ -58,12 +59,11 @@ function handleEvents(win) {
   // 监听移动事件
   win.on('move', function () {
     const [n_x, n_y] = win.getPosition()
-    store.set('x', n_x)
+    store.set('x', n_x) // 保存位置
     store.set('y', n_y)
   })
   // 窗口置顶
   ipcMain.on('window-top', function (event, n_top) {
-    console.log(n_top)
     win.setAlwaysOnTop(n_top)
   })
   // 窗口最小化

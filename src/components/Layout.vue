@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-05-08 17:15:24
+ * @LastEditTime: 2022-05-08 18:08:16
  * @Description: 布局
 -->
 <template>
@@ -33,7 +33,12 @@
         <!-- 开机自启 设置 -->
         <div class="menu-item">
           <label for="auto-open" class="text-gray-500 font-sans text-xs">Auto open</label>
-          <input id="auto-open" type="checkbox" class="w-4 h-4 checked:bg-blue-400 checked:border-transparent" v-model.lazy="open" />
+          <input
+            id="auto-open"
+            type="checkbox"
+            class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
+            v-model.lazy="open"
+          />
         </div>
         <!-- Github 设置 -->
         <div class="menu-item">
@@ -135,6 +140,7 @@ export default {
     changeTop() {
       this.top = !this.top
       this.sendEvent('window-top', this.top)
+      store.set('top', this.top) // 保存置顶信息
     },
   },
 }
