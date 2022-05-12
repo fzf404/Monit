@@ -1,6 +1,7 @@
 import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import { autoUpdater } from 'electron-updater'
 import Store from 'electron-store'
 
 // 调试模式
@@ -118,6 +119,11 @@ function initWindow() {
       app.quit()
     }
   })
+
+  // 自动更新
+  app.on("ready", () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 
   // 准备就绪
   app.on('ready', async () => {
