@@ -87,13 +87,13 @@ import StarSVG from '../assets/github/star.svg'
 import ForkSVG from '../assets/github/fork.svg'
 import RepoSVG from '../assets/github/repo.svg'
 
-const store = new Store('github')
+const store = new Store()
 
 const get = (key) => {
-  store.get('github.' + key)
+  return store.get('github.' + key)
 }
 const set = (key, value) => {
-  store.set('github.' + key, value)
+  return store.set('github.' + key, value)
 }
 
 export default {
