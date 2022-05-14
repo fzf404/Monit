@@ -138,7 +138,7 @@ function initWindow() {
     // 修复 Linux 无法透明窗口
     setTimeout(() => {
       createWindow()
-    }, 100)
+    }, 300)
   })
 }
 
