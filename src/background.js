@@ -121,9 +121,9 @@ function initWindow() {
   })
 
   // 自动更新
-  app.on("ready", () => {
-    autoUpdater.checkForUpdatesAndNotify();
-  });
+  app.on('ready', () => {
+    autoUpdater.checkForUpdatesAndNotify()
+  })
 
   // 准备就绪
   app.on('ready', async () => {
@@ -135,7 +135,10 @@ function initWindow() {
         console.error('Vue Devtools failed to install:', e.toString())
       }
     }
-    createWindow()
+    // 修复 Linux 无法透明窗口
+    setTimeout(() => {
+      createWindow()
+    }, 100)
   })
 }
 

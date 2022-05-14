@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-05-08 18:08:16
+ * @LastEditTime: 2022-05-14 23:52:36
  * @Description: 布局
 -->
 <template>
@@ -79,7 +79,7 @@ import WifiSVG from '../assets/menu/wifi.svg'
 import SettingSVG from '../assets/menu/setting.svg'
 
 // 设置背景颜色
-document.body.style.backgroundColor = process.platform == 'win32' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.4)'
+document.body.style.backgroundColor = process.platform == 'win32' || 'linux' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.4)'
 
 const store = new Store()
 
