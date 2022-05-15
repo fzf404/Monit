@@ -2,7 +2,7 @@ import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
-import Store from 'electron-store'
+import { cget, cset } from './utils/storage'
 
 // 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -10,22 +10,14 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
-const store = new Store({
-  // 版本更新初始化
-  migrations: {
-    '>=0.2.0': (store) => {
-      store.clear()
-    },
-  },
-})
-
-// 读取配置
-const x = store.get('x') === undefined ? 10 : store.get('x')
-const y = store.get('y') === undefined ? 10 : store.get('y')
-const top = store.get('top') === undefined ? false : store.get('top')
-
 // 创建窗口
-function createWindow() {
+function createWindow(name) {
+  // 读取配置
+  const x = cget(name, 'x', 10)
+  const y = cget(name, 'y', 10)
+  const top = cget(name, 'top', false)
+
+  // 创建窗口
   const win = new BrowserWindow({
     x: x,
     y: y,
@@ -49,23 +41,24 @@ function createWindow() {
   })
 
   // 监听事件
-  handleEvents(win)
+  handleEvents(win, name)
 
   // 启动应用
   launchApp(win)
 }
 
 // 监听事件
-function handleEvents(win) {
+function handleEvents(win, name) {
   // 监听移动事件
   win.on('move', function () {
-    const [n_x, n_y] = win.getPosition()
-    store.set('x', n_x) // 保存位置
-    store.set('y', n_y)
+    const [x, y] = win.getPosition()
+    cset(name, 'x', x)
+    cset(name, 'y', y)
   })
   // 窗口置顶
-  ipcMain.on('window-top', function (event, n_top) {
-    win.setAlwaysOnTop(n_top)
+  ipcMain.on('window-top', function (event, top) {
+    win.setAlwaysOnTop(top)
+    cset(name, 'top', top)
   })
   // 窗口最小化
   ipcMain.on('window-mini', function () {
@@ -137,7 +130,7 @@ function initWindow() {
     }
     // 修复 Linux 无法透明窗口
     setTimeout(() => {
-      createWindow()
+      createWindow('github')
     }, 300)
   })
 }

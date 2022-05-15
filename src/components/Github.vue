@@ -1,4 +1,47 @@
 <template>
+  <!-- 设置模态框 -->
+  <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
+    <!-- 中心框 -->
+    <div class="z-50 w-56 p-3 pb-2 ring-4 ring-purple-400 ring-opacity-50 rounded-lg bg-gray-200 space-y-2">
+      <!-- 开机自启 设置 -->
+      <div class="menu-item">
+        <label for="auto-open" class="text-gray-500 font-sans text-xs">Auto open</label>
+        <input
+          id="auto-open"
+          type="checkbox"
+          class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
+          v-model.lazy="open"
+        />
+      </div>
+      <!-- Github 设置 -->
+      <div class="menu-item">
+        <label for="github-github" class="text-gray-500 font-sans text-xs">Github</label>
+        <input
+          id="github-github"
+          v-model.lazy="user"
+          type="text"
+          spellcheck="false"
+          class="w-28 my-2 px-2 py-1 outline-none shadow-inner border-1 rounded-md bg-gray-200 text-purple-400 focus:text-purple-500 font-sans text-xs"
+          @keypress="
+            (e) => {
+              if (e.key === 13) {
+                this.changeSetting()
+              }
+            }
+          "
+        />
+      </div>
+      <!-- 保存 -->
+      <div class="flex justify-end items-center">
+        <button
+          class="px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 font-sans text-xs font-bold"
+          @click="this.changeSetting()"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- follower -->
   <div class="flex-col-center col-span-6 row-span-3">
     <div class="text-intro m-1">follower</div>
@@ -78,22 +121,23 @@
 
 <script>
 import { shell } from 'electron'
-import Store from 'electron-store'
 import request from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
+import { cget, cset } from '../utils/storage'
 
 import GihubSVG from '../assets/github/github.svg'
 import StarSVG from '../assets/github/star.svg'
 import ForkSVG from '../assets/github/fork.svg'
 import RepoSVG from '../assets/github/repo.svg'
 
-const store = new Store()
-
-const get = (key) => {
-  return store.get('github.' + key)
+// 封装获取
+const get = (key, def) => {
+  return cget('github', key, def)
 }
+
+// 封装保存
 const set = (key, value) => {
-  return store.set('github.' + key, value)
+  return cset('github', key, value)
 }
 
 export default {
@@ -103,34 +147,33 @@ export default {
     ForkSVG,
     RepoSVG,
   },
-  props: ['user'],
-  emits: ['network'],
+  props: ['setting'],
+  emits: ['network', 'onSetting'],
   data() {
     return {
-      star: 0, // 旧 star 数
-      newStar: 0, // 新 star 数
-      fork: 0,
-      newFork: 0,
-      repoInfo: [],
-      newRepoInfo: [],
-      follower: 0,
-      newFollower: 0,
+      open: get('open', false), // 开机自启
+      top: get('top', false), // 置顶
+      user: get('user', ''), // 用户名
+
+      follower: get('follower', 0), // follower 数
+      newFollower: get('follower', 0), // 新 follower 数
+
+      star: get('star', 0), // star 数
+      newStar: get('star', 0), // 新 star 数
+
+      fork: get('fork', 0), // fork 数
+      newFork: get('fork', 0), // 新 fork 数
+
+      repoInfo: get('repo', []), // repo 信息
+      newRepoInfo: get('repo', []), // 新 repo 信息
     }
   },
   created() {
-    // 数据未初始化, 则初始化数据
-    if ((get('star') && get('fork') && get('follower') && get('repo')) === undefined) {
-      this.initGithubData()
+    if (get('user', '') === '') {
+      // 打开设置
+      this.$emit('onSetting', true)
     } else {
-      // 读取缓存，并刷新数据
-      this.star = get('star')
-      this.newStar = this.star
-      this.fork = get('fork')
-      this.newFork = this.fork
-      this.follower = get('follower')
-      this.newFollower = this.follower
-      this.repoInfo = get('repo')
-      this.newRepoInfo = this.repoInfo
+      // 刷新数据
       this.getGithubData()
     }
   },
@@ -138,7 +181,7 @@ export default {
     // 每 60s 重新获取信息
     setInterval(() => {
       this.getGithubData()
-    }, 60 * 1000)
+    }, 60000)
   },
   computed: {
     // follow 数据更改
@@ -176,6 +219,16 @@ export default {
     },
   },
   methods: {
+    // 设置更改
+    changeSetting() {
+      // 保存数据
+      set('open', this.open)
+      set('user', this.user)
+      // 初始化数据
+      this.initGithubData()
+      // 更改设置状态
+      this.$emit('onSetting', false)
+    },
     // 初始化数据
     initGithubData() {
       request(`/users/${this.user}`)
