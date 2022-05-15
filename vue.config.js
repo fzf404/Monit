@@ -1,4 +1,6 @@
 module.exports = {
+  // 关闭 Source Map
+  productionSourceMap: false,
   // svg 加载
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')
@@ -10,6 +12,8 @@ module.exports = {
   // electron 打包
   pluginOptions: {
     electronBuilder: {
+      mainProcessFile: 'app/main.js',
+      rendererProcessFile: 'view/main.js',
       nodeIntegration: true,
       builderOptions: {
         appId: 'com.fzf404.monit',

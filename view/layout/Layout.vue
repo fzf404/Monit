@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-05-16 00:11:02
+ * @LastEditTime: 2022-05-16 00:23:16
  * @Description: 布局
 -->
 <template>
@@ -27,7 +27,7 @@
       />
     </div>
 
-    <router-view @network="network = $event" :setting="setting" @onSetting="setting = $event"  />
+    <router-view @network="network = $event" :setting="setting" @onSetting="setting = $event" />
   </div>
 </template>
 
@@ -46,7 +46,6 @@ import SettingSVG from '../assets/menu/setting.svg'
 document.body.style.backgroundColor =
   process.platform == ('win32' || 'linux') ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.4)'
 
-
 export default {
   components: {
     CloseSVG,
@@ -62,11 +61,9 @@ export default {
 
       network: false, // 网络连接情况
       setting: false, // 设置
-
     }
   },
-  created() {
-  },
+  created() {},
   methods: {
     // 发送事件
     sendEvent(e, arg) {
@@ -82,6 +79,27 @@ export default {
 </script>
 
 <style>
+body {
+  /* 禁用文字选择 */
+  user-select: none;
+  /* 允许拖拽移动窗口 */
+  -webkit-app-region: drag;
+}
+
+input,
+button,
+.clickable {
+  /* 禁止拖拽移动窗口 响应点击事件 */
+  -webkit-app-region: no-drag;
+  /* 更改鼠标样式 */
+  cursor: pointer;
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}
+
 .menu-item {
   @apply h-8 px-2.5 flex justify-between items-center shadow-md rounded-lg bg-white;
 }

@@ -123,7 +123,7 @@
 import { shell } from 'electron'
 import request from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
-import { cget, cset } from '../utils/storage'
+import { cget, cset } from '../../app/storage'
 
 import GihubSVG from '../assets/github/github.svg'
 import StarSVG from '../assets/github/star.svg'
@@ -349,15 +349,14 @@ export default {
     },
   },
   // 监听用户修改
-  watch: {
-    user() {
-      this.initGithubData()
-    },
-  },
+  // watch: {
+  //   user() {
+  //     this.initGithubData()
+  //   },
+  // },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .flex-col-center {
   @apply flex flex-col flex-wrap justify-center items-center;

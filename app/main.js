@@ -1,8 +1,10 @@
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
-import { cget, cset } from './utils/storage'
+
+import handleEvents from './event'
+import { cget } from './storage'
 
 // 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -45,29 +47,6 @@ function createWindow(name) {
 
   // 启动应用
   launchApp(win)
-}
-
-// 监听事件
-function handleEvents(win, name) {
-  // 监听移动事件
-  win.on('move', function () {
-    const [x, y] = win.getPosition()
-    cset(name, 'x', x)
-    cset(name, 'y', y)
-  })
-  // 窗口置顶
-  ipcMain.on('window-top', function (event, top) {
-    win.setAlwaysOnTop(top)
-    cset(name, 'top', top)
-  })
-  // 窗口最小化
-  ipcMain.on('window-mini', function () {
-    win.minimize()
-  })
-  // 关闭窗口
-  ipcMain.on('window-close', function () {
-    app.quit()
-  })
 }
 
 // 启动应用
