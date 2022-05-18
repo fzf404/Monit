@@ -27,5 +27,4 @@ jobs:
         with:
           github_token: ${{ secrets.token }}
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-          # 使用 vue cli 构建
           use_vue_cli: true

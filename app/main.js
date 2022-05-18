@@ -1,8 +1,10 @@
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
-import Store from 'electron-store'
+
+import handleEvents from './event'
+import { cget } from './storage'
 
 // 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -10,22 +12,14 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
-const store = new Store({
-  // 版本更新初始化
-  migrations: {
-    '>=0.2.0': (store) => {
-      store.clear()
-    },
-  },
-})
-
-// 读取配置
-const x = store.get('x') === undefined ? 10 : store.get('x')
-const y = store.get('y') === undefined ? 10 : store.get('y')
-const top = store.get('top') === undefined ? false : store.get('top')
-
 // 创建窗口
-function createWindow() {
+function createWindow(name) {
+  // 读取配置
+  const x = cget(name, 'x', 10)
+  const y = cget(name, 'y', 10)
+  const top = cget(name, 'top', false)
+
+  // 创建窗口
   const win = new BrowserWindow({
     x: x,
     y: y,
@@ -49,36 +43,14 @@ function createWindow() {
   })
 
   // 监听事件
-  handleEvents(win)
+  handleEvents(win, name)
 
   // 启动应用
-  launchApp(win)
-}
-
-// 监听事件
-function handleEvents(win) {
-  // 监听移动事件
-  win.on('move', function () {
-    const [n_x, n_y] = win.getPosition()
-    store.set('x', n_x) // 保存位置
-    store.set('y', n_y)
-  })
-  // 窗口置顶
-  ipcMain.on('window-top', function (event, n_top) {
-    win.setAlwaysOnTop(n_top)
-  })
-  // 窗口最小化
-  ipcMain.on('window-mini', function () {
-    win.minimize()
-  })
-  // 关闭窗口
-  ipcMain.on('window-close', function () {
-    app.quit()
-  })
+  launchApp(win, name)
 }
 
 // 启动应用
-async function launchApp(win) {
+async function launchApp(win, name) {
   // 调试模式下退出方法
   if (isDevelopment) {
     if (process.platform === 'win32') {
@@ -97,12 +69,12 @@ async function launchApp(win) {
   // 根据模式启动应用
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // 调试模式
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL) // 加载应用
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
     if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
   } else {
     // 生产模式
     createProtocol('app') // 创建协议
-    win.loadURL('app://./index.html') // 加载应用
+    win.loadURL('app://./index.html#/' + name) // 加载应用
   }
 }
 
@@ -137,7 +109,7 @@ function initWindow() {
     }
     // 修复 Linux 无法透明窗口
     setTimeout(() => {
-      createWindow()
+      createWindow('github')
     }, 300)
   })
 }
