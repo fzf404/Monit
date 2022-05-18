@@ -1,11 +1,11 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-05-16 00:23:16
+ * @LastEditTime: 2022-05-18 19:47:21
  * @Description: 布局
 -->
 <template>
-  <div class="h-screen relative grid grid-cols-10 grid-rows-5 py-3 text-white">
+  <div class="h-screen relative text-white">
     <!-- 窗口控制器 -->
     <div class="absolute left-2">
       <!-- 关闭 -->
@@ -23,7 +23,7 @@
       <SettingSVG
         height="16"
         class="inline clickable stroke-current text-blue-500"
-        @click="() => (this.setting = true)"
+        @click="() => (this.setting = !this.setting)"
       />
     </div>
 

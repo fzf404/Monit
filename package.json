@@ -1,6 +1,6 @@
 {
   "name": "monit",
-  "version": "0.3.0",
+  "version": "0.2.3",
   "private": true,
   "main": "background.js",
   "scripts": {
@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.17",
-    "ajv": "8.6.3",
     "autoprefixer": "^9",
     "axios": "^0.27.2",
     "electron-store": "^8.0.1",

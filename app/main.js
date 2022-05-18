@@ -46,11 +46,11 @@ function createWindow(name) {
   handleEvents(win, name)
 
   // 启动应用
-  launchApp(win)
+  launchApp(win, name)
 }
 
 // 启动应用
-async function launchApp(win) {
+async function launchApp(win, name) {
   // 调试模式下退出方法
   if (isDevelopment) {
     if (process.platform === 'win32') {
@@ -69,12 +69,12 @@ async function launchApp(win) {
   // 根据模式启动应用
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // 调试模式
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL) // 加载应用
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
     if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
   } else {
     // 生产模式
     createProtocol('app') // 创建协议
-    win.loadURL('app://./index.html') // 加载应用
+    win.loadURL('app://./index.html#/' + name) // 加载应用
   }
 }
 

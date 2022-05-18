@@ -1,120 +1,125 @@
 <template>
-  <!-- 设置模态框 -->
-  <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
-    <!-- 中心框 -->
-    <div class="z-50 w-56 p-3 pb-2 ring-4 ring-purple-400 ring-opacity-50 rounded-lg bg-gray-200 space-y-2">
-      <!-- 开机自启 设置 -->
-      <div class="menu-item">
-        <label for="auto-open" class="text-gray-500 font-sans text-xs">Auto open</label>
-        <input
-          id="auto-open"
-          type="checkbox"
-          class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
-          v-model.lazy="open"
-        />
-      </div>
-      <!-- Github 设置 -->
-      <div class="menu-item">
-        <label for="github-github" class="text-gray-500 font-sans text-xs">Github</label>
-        <input
-          id="github-github"
-          v-model.lazy="user"
-          type="text"
-          spellcheck="false"
-          class="w-28 my-2 px-2 py-1 outline-none shadow-inner border-1 rounded-md bg-gray-200 text-purple-400 focus:text-purple-500 font-sans text-xs"
-          @keypress="
-            (e) => {
-              if (e.key === 13) {
-                this.changeSetting()
+  <div class="h-screen relative grid grid-cols-10 grid-rows-5 p-3">
+    <!-- 设置模态框 -->
+    <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
+      <!-- 中心框 -->
+      <div class="z-50 w-56 p-3 pb-2 ring-4 ring-purple-400 ring-opacity-50 rounded-lg bg-gray-200 space-y-2">
+        <!-- 开机自启 设置 -->
+        <div class="menu-item">
+          <label for="auto-open" class="text-gray-500 font-sans text-xs">Auto open</label>
+          <input
+            id="auto-open"
+            type="checkbox"
+            class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
+            v-model.lazy="open"
+          />
+        </div>
+        <!-- Github 设置 -->
+        <div class="menu-item">
+          <label for="github-github" class="text-gray-500 font-sans text-xs">Github</label>
+          <input
+            id="github-github"
+            v-model.lazy="user"
+            type="text"
+            spellcheck="false"
+            class="w-28 my-2 px-2 py-1 outline-none shadow-inner border-1 rounded-md bg-gray-200 text-purple-400 focus:text-purple-500 font-sans text-xs"
+            @keypress="
+              (e) => {
+                if (e.key === 13) {
+                  this.changeSetting()
+                }
               }
-            }
-          "
+            "
+          />
+        </div>
+        <!-- 保存 -->
+        <div class="flex justify-end items-center">
+          <button
+            class="px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 font-sans text-xs font-bold"
+            @click="this.changeSetting()"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- follower -->
+    <div class="flex-col-center col-span-6 row-span-3">
+      <div class="text-intro m-1">follower</div>
+      <div class="flex-row-center-bottom">
+        <!-- github svg -->
+        <GihubSVG
+          class="mr-1.5 mb-1 stroke-current text-blue-400"
+          :class="{ 'h-12': follower < 1000, 'h-10': follower > 999 }"
         />
-      </div>
-      <!-- 保存 -->
-      <div class="flex justify-end items-center">
-        <button
-          class="px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 font-sans text-xs font-bold"
-          @click="this.changeSetting()"
+        <!-- follower number -->
+        <span :class="{ 'text-6xl': follower < 1000, 'text-5xl': follower > 999 }">
+          {{ follower }}
+        </span>
+        <!-- follower change -->
+        <span
+          class="text-4xl text-gray-400 clickable"
+          :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
+          @click="handleFollower"
         >
-          OK
-        </button>
+          {{ followerChange }}
+        </span>
       </div>
     </div>
-  </div>
-  <!-- follower -->
-  <div class="flex-col-center col-span-6 row-span-3">
-    <div class="text-intro m-1">follower</div>
-    <div class="flex-row-center-bottom">
-      <!-- github svg -->
-      <GihubSVG
-        class="mr-1.5 mb-1 stroke-current text-blue-400"
-        :class="{ 'h-12': follower < 1000, 'h-10': follower > 999 }"
-      />
-      <!-- follower number -->
-      <span :class="{ 'text-6xl': follower < 1000, 'text-5xl': follower > 999 }">
-        {{ follower }}
-      </span>
-      <!-- follower change -->
-      <span
-        class="text-4xl text-gray-400 clickable"
-        :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
-        @click="handleFollower"
-      >
-        {{ followerChange }}
-      </span>
-    </div>
-  </div>
-  <!-- repo -->
-  <div class="flex-col-center-left col-span-4 row-span-5 ml-1 overflow-y-scroll clickable">
-    <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
-      <!-- repo svg -->
-      <RepoSVG height="16" class="mr-1 stroke-current text-green-400" />
-      <span>
-        <span class="font-mono text-md mr-1" :class="{ 'text-sm': value.star > 999 }">
-          {{ value.star }}
+    <!-- repo -->
+    <div class="flex-col-center-left col-span-4 row-span-5 ml-1 overflow-y-scroll clickable">
+      <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
+        <!-- repo svg -->
+        <RepoSVG height="16" class="mr-1 stroke-current text-green-400" />
+        <span>
+          <span class="font-mono text-md mr-1" :class="{ 'text-sm': value.star > 999 }">
+            {{ value.star }}
+          </span>
+          <span class="font-mono text-sm text-gray-400">
+            {{ value.repo.length > 14 ? value.repo.slice(0, 12) + '..' : value.repo }}
+          </span>
         </span>
-        <span class="font-mono text-sm text-gray-400">
-          {{ value.repo.length > 14 ? value.repo.slice(0, 12) + '..' : value.repo }}
+      </div>
+    </div>
+    <!-- star -->
+    <div class="flex-col-center col-span-3 row-span-2">
+      <div class="text-intro">star</div>
+      <div class="flex-row-center-bottom">
+        <!-- star svg -->
+        <StarSVG
+          class="mr-1 mb-1.5 stroke-current text-yellow-400"
+          :class="{ 'h-6': star < 1000, 'h-5': star > 999 }"
+        />
+        <!-- star number -->
+        <span :class="{ 'text-3xl': star < 1000, 'text-2xl': star > 999 }">
+          {{ star }}
         </span>
-      </span>
+        <!-- star change -->
+        <span
+          class="text-2xl text-gray-400 clickable"
+          :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
+          @click="handleStar"
+          >{{ starChange }}</span
+        >
+      </div>
     </div>
-  </div>
-  <!-- star -->
-  <div class="flex-col-center col-span-3 row-span-2">
-    <div class="text-intro">star</div>
-    <div class="flex-row-center-bottom">
-      <!-- star svg -->
-      <StarSVG class="mr-1 mb-1.5 stroke-current text-yellow-400" :class="{ 'h-6': star < 1000, 'h-5': star > 999 }" />
-      <!-- star number -->
-      <span :class="{ 'text-3xl': star < 1000, 'text-2xl': star > 999 }">
-        {{ star }}
-      </span>
-      <!-- star change -->
-      <span
-        class="text-2xl text-gray-400 clickable"
-        :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
-        @click="handleStar"
-        >{{ starChange }}</span
-      >
-    </div>
-  </div>
-  <!-- fork -->
-  <div class="flex-col-center col-span-3 row-span-2">
-    <div class="text-intro">fork</div>
-    <div class="flex-row-center-bottom">
-      <!-- fork svg -->
-      <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-7': fork < 1000, 'h-6': fork > 999 }" />
+    <!-- fork -->
+    <div class="flex-col-center col-span-3 row-span-2">
+      <div class="text-intro">fork</div>
+      <div class="flex-row-center-bottom">
+        <!-- fork svg -->
+        <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-7': fork < 1000, 'h-6': fork > 999 }" />
 
-      <!-- fork number -->
-      <span :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</span>
-      <!-- fork change -->
-      <span
-        class="text-2xl text-gray-400 clickable"
-        :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
-        @click="handleFork"
-        >{{ forkChange }}</span
-      >
+        <!-- fork number -->
+        <span :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</span>
+        <!-- fork change -->
+        <span
+          class="text-2xl text-gray-400 clickable"
+          :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
+          @click="handleFork"
+          >{{ forkChange }}</span
+        >
+      </div>
     </div>
   </div>
 </template>
