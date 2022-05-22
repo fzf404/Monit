@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-04-04 16:45:49
- * @LastEditTime: 2022-05-18 22:45:44
+ * @LastEditTime: 2022-05-23 00:29:37
  * @Description: 布局
 -->
 <template>
@@ -19,14 +19,10 @@
     <!-- 断网提示 -->
     <WifiSVG height="18" class="inline stroke-current text-red-500" v-show="!network" />
     <!-- 设置 -->
-    <SettingSVG
-      height="16"
-      class="inline clickable stroke-current text-blue-500"
-      @click="() => (this.setting = !this.setting)"
-    />
+    <SettingSVG height="16" class="inline clickable stroke-current text-blue-500" @click="setting = !setting" />
   </div>
-
-  <router-view @network="network = $event" :setting="setting" @onSetting="setting = $event" />
+  <!--  TODO 优化参数传递 -->
+  <router-view @onTop="top = $event" @network="network = $event" :setting="setting" @onSetting="setting = $event" />
 </template>
 
 <script>
@@ -61,11 +57,10 @@ export default {
       setting: false, // 设置
     }
   },
-  created() {},
   methods: {
     // 发送事件
     sendEvent(e, arg) {
-      ipcRenderer.send(e, arg)
+      return ipcRenderer.send(e, arg)
     },
     // 切换置顶
     changeTop() {
