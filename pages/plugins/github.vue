@@ -1,6 +1,7 @@
 <template>
   <div class="h-screen relative p-3 grid grid-cols-10 grid-rows-5 text-white">
     <!-- 设置模态框 -->
+    <!-- TODO 使用插槽 -->
     <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
       <!-- 中心框 -->
       <div class="w-56 z-50 p-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200">
@@ -33,20 +34,14 @@
             type="text"
             spellcheck="false"
             class="w-28 my-2 px-2 py-1 outline-none shadow-inner border-1 rounded-md bg-gray-200 text-purple-400 focus:text-purple-500 font-sans text-xs"
-            @keypress="
-              (e) => {
-                if (e.key === 13) {
-                  this.changeSetting()
-                }
-              }
-            "
+            @keyup.enter="changeSetting"
           />
         </div>
         <!-- 保存 -->
         <div class="flex justify-end items-center">
           <button
             class="px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 font-sans text-xs font-bold"
-            @click="this.changeSetting()"
+            @click="changeSetting"
           >
             OK
           </button>
@@ -163,9 +158,10 @@ export default {
     RepoSVG,
   },
   props: ['setting'],
-  emits: ['network', 'onSetting'],
+  emits: ['onTop', 'network', 'onSetting'],
   data() {
     return {
+      top: get('top', false), // 窗口置顶
       open: get('open', false), // 开机自启
       user: get('user', ''), // 用户名
       notice: get('notice', false), // 提醒
@@ -188,6 +184,8 @@ export default {
       // 打开设置
       this.$emit('onSetting', true)
     } else {
+      // 传递窗口置顶状态
+      this.$emit('onTop', this.top)
       // 刷新数据
       this.getGithubData()
     }
@@ -256,8 +254,8 @@ export default {
     },
     // 设置更改
     changeSetting() {
-      // 保存数据
-      set('open', this.open)
+      // 保存设置
+      ipcRenderer.send('auto-start', this.open)
       set('user', this.user)
       set('notice', this.notice)
       // 初始化数据
