@@ -4,7 +4,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
 import handleEvents from './event'
-import { cget } from './storage'
+import { cget } from '../common/storage'
 
 // 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'

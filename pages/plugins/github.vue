@@ -6,7 +6,7 @@
       <div class="w-56 z-50 p-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200">
         <!-- 开机自启 设置 -->
         <div class="menu-item">
-          <label for="auto-open" class="text-gray-500 font-sans text-xs">Auto open</label>
+          <label for="auto-open" class="text-gray-500 font-sans text-xs">开机自启</label>
           <input
             id="auto-open"
             type="checkbox"
@@ -14,9 +14,19 @@
             v-model.lazy="open"
           />
         </div>
+        <!-- 开机自启 设置 -->
+        <div class="menu-item">
+          <label for="notice-open" class="text-gray-500 font-sans text-xs">消息通知</label>
+          <input
+            id="notice-open"
+            type="checkbox"
+            class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
+            v-model.lazy="notice"
+          />
+        </div>
         <!-- Github 设置 -->
         <div class="menu-item">
-          <label for="github-github" class="text-gray-500 font-sans text-xs">Github</label>
+          <label for="github-github" class="text-gray-500 font-sans text-xs">用户名</label>
           <input
             id="github-github"
             v-model.lazy="user"
@@ -60,7 +70,7 @@
         <span
           class="text-4xl text-gray-400 clickable"
           :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
-          @click="handleFollower"
+          @click="updateFollower"
         >
           {{ followerChange }}
         </span>
@@ -68,7 +78,7 @@
     </div>
     <!-- repo -->
     <div class="flex-col-center-left col-span-4 row-span-5 ml-1 overflow-y-scroll clickable">
-      <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="handleRepo(value.repo)">
+      <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="updateRepo(value.repo)">
         <!-- repo svg -->
         <RepoSVG height="16" class="mr-1 stroke-current text-green-400" />
         <span>
@@ -98,7 +108,7 @@
         <span
           class="text-2xl text-gray-400 clickable"
           :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
-          @click="handleStar"
+          @click="updateStar"
           >{{ starChange }}</span
         >
       </div>
@@ -116,7 +126,7 @@
         <span
           class="text-2xl text-gray-400 clickable"
           :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
-          @click="handleFork"
+          @click="updateFork"
           >{{ forkChange }}</span
         >
       </div>
@@ -125,10 +135,10 @@
 </template>
 
 <script>
-import { shell } from 'electron'
+import { ipcRenderer, shell } from 'electron'
 import request from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
-import { cget, cset } from '../../app/storage'
+import { cget, cset } from '../../common/storage'
 
 import GihubSVG from '../assets/github/github.svg'
 import StarSVG from '../assets/github/star.svg'
@@ -157,8 +167,8 @@ export default {
   data() {
     return {
       open: get('open', false), // 开机自启
-      top: get('top', false), // 置顶
       user: get('user', ''), // 用户名
+      notice: get('notice', false), // 提醒
 
       follower: get('follower', 0), // follower 数
       newFollower: get('follower', 0), // 新 follower 数
@@ -192,26 +202,40 @@ export default {
     // follow 数据更改
     followerChange() {
       const changeNum = this.newFollower - this.follower
+      // 发送通知
+      if (changeNum != 0) {
+        this.sendNotice({ title: 'Github Follower', body: 'follower is changed' })
+      }
+      // 返回更改数
       if (changeNum >= 0) {
         return '+' + changeNum
+      } else {
+        return changeNum
       }
-      return changeNum
     },
     // fork 数据更改
     forkChange() {
       const changeNum = this.newFork - this.fork
+      if (changeNum != 0) {
+        this.sendNotice({ title: 'Github Fork', body: 'fork is changed' })
+      }
       if (changeNum >= 0) {
         return '+' + changeNum
+      } else {
+        return changeNum
       }
-      return changeNum
     },
     // star 数据更改
     starChange() {
       const changeNum = this.newStar - this.star
+      if (changeNum != 0) {
+        this.sendNotice({ title: 'Gihtub Star', body: 'star is changed' })
+      }
       if (changeNum >= 0) {
         return '+' + changeNum
+      } else {
+        return changeNum
       }
-      return changeNum
     },
     // repo 数据更改
     repoChange() {
@@ -224,11 +248,18 @@ export default {
     },
   },
   methods: {
+    // 发送通知
+    sendNotice(option) {
+      if (this.notice) {
+        ipcRenderer.send('notice', option)
+      }
+    },
     // 设置更改
     changeSetting() {
       // 保存数据
       set('open', this.open)
       set('user', this.user)
+      set('notice', this.notice)
       // 初始化数据
       this.initGithubData()
       // 更改设置状态
@@ -317,17 +348,17 @@ export default {
         })
     },
     // 更新 follower
-    handleFollower() {
+    updateFollower() {
       this.follower = this.newFollower
       set('follower', this.newFollower) // 保存 follow 数据
       shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
     },
     // 更新 repo
-    handleRepo(repo) {
+    updateRepo(repo) {
       shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
     },
     // 更新 star
-    handleStar() {
+    updateStar() {
       this.star = this.newStar
       set('star', this.newStar) // 保存 star 数
       // 查找 star 变化的仓库
@@ -340,7 +371,7 @@ export default {
       set('repo', this.newRepoInfo)
     },
     // 更新 fork
-    handleFork() {
+    updateFork() {
       this.fork = this.newFork
       set('fork', this.newFork) // 保存 fork 数
       // 查找 star 变化的仓库
