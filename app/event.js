@@ -32,6 +32,6 @@ export default function (win, name) {
   // 开机自启
   ipcMain.on('auto-start', function (event, option) {
     app.setLoginItemSettings({ openAtLogin: option })
-    cset(name, 'auto-start', option)
+    cset(name, 'open', option)
   })
 }

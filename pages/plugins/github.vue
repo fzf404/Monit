@@ -15,7 +15,7 @@
             v-model.lazy="open"
           />
         </div>
-        <!-- 开机自启 设置 -->
+        <!-- 消息通知 设置 -->
         <div class="menu-item">
           <label for="notice-open" class="text-gray-500 font-sans text-xs">消息通知</label>
           <input
