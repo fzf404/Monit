@@ -1,5 +1,5 @@
 import { app, ipcMain, Notification } from 'electron'
-import { cget, cset } from '../common/storage'
+import { cset } from '../common/storage'
 
 export default function (win, name) {
   // 监听移动事件
@@ -20,9 +20,10 @@ export default function (win, name) {
   ipcMain.on('window-mini', function () {
     win.minimize()
   })
+
   // 关闭窗口
   ipcMain.on('window-close', function () {
-    app.quit()
+    win.close()
   })
 
   // 发送通知

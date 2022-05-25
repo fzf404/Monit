@@ -13,6 +13,9 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
+// 窗口跟踪
+const windows = new Set()
+
 // 创建窗口
 function createWindow(name) {
   // 读取配置
@@ -21,7 +24,7 @@ function createWindow(name) {
   const top = cget(name, 'top', false)
 
   // 创建窗口
-  const win = new BrowserWindow({
+  let win = new BrowserWindow({
     x: x,
     y: y,
     width: 420,
@@ -43,15 +46,29 @@ function createWindow(name) {
     },
   })
 
+  // 根据模式启动应用
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    // 调试模式
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
+    if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
+  } else {
+    // 生产模式
+    createProtocol('app') // 创建协议
+    win.loadURL('app://./index.html#/' + name) // 加载应用
+  }
+
+  win.on('closed', () => {
+    windows.delete(win)
+  })
+
   // 监听事件
   handleEvents(win, name)
 
-  // 启动应用
-  launchApp(win, name)
+  windows.add(win)
 }
 
-// 启动应用
-async function launchApp(win, name) {
+// 初始化窗口
+function launchApp() {
   // 调试模式下退出方法
   if (isDevelopment) {
     if (process.platform === 'win32') {
@@ -67,20 +84,6 @@ async function launchApp(win, name) {
     }
   }
 
-  // 根据模式启动应用
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // 调试模式
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
-    if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
-  } else {
-    // 生产模式
-    createProtocol('app') // 创建协议
-    win.loadURL('app://./index.html#/' + name) // 加载应用
-  }
-}
-
-// 初始化窗口
-function initWindow() {
   // mac 激活窗口
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -113,9 +116,10 @@ function initWindow() {
     // 修复 Linux 无法透明窗口
     setTimeout(() => {
       createWindow('github')
+      createWindow('bilibili')
     }, 300)
   })
 }
 
 // 初始化窗口
-initWindow()
+launchApp()
