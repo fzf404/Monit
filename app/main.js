@@ -3,6 +3,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
+import tray from './tray'
 import handleEvents from './event'
 import { cget } from '../common/storage'
 
@@ -107,6 +108,8 @@ function initWindow() {
         console.error('Vue Devtools failed to install:', e.toString())
       }
     }
+    // 系统托盘
+    tray()
     // 修复 Linux 无法透明窗口
     setTimeout(() => {
       createWindow('github')
