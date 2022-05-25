@@ -1,8 +1,8 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
 	<title>monit-svg</title>
 	<style>
-		.s0 { fill: #b5f5ec } 
-		.s1 { fill: #36cfc9 } 
+		.s0 { fill: #c7e0f4 } 
+		.s1 { fill: #005a9e } 
 	</style>
 	<circle id="Layer" class="s0" cx="511.8" cy="511.7" r="393.7"/>
 	<path id="Layer" class="s1" d="m511.8 244.6c147.5 0 267 119.6 267 267.1 0 70.8-28.1 138.7-78.2 188.8-50.1 50.1-118 78.3-188.8 78.3-70.9 0-138.8-28.2-188.9-78.3-50.1-50.1-78.2-118-78.2-188.8 0-147.5 119.5-267.1 267.1-267.1z"/>
