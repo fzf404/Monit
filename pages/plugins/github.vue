@@ -1,10 +1,12 @@
 <template>
-  <div class="h-screen relative p-3 grid grid-cols-10 grid-rows-5 text-white">
+  <!--布局控制器 -->
+  <Layout :network="network" v-model:setting="setting" />
+  <!-- 内容 -->
+  <main class="h-screen relative p-3 grid grid-cols-12 grid-rows-5 text-white">
     <!-- 设置模态框 -->
-    <!-- TODO 使用插槽 -->
     <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
       <!-- 中心框 -->
-      <div class="w-56 z-50 p-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200">
+      <section class="w-56 z-50 p-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200">
         <!-- 开机自启 设置 -->
         <div class="menu-item">
           <label for="auto-open" class="text-gray-500 font-sans text-xs">开机自启</label>
@@ -46,87 +48,95 @@
             OK
           </button>
         </div>
-      </div>
+      </section>
     </div>
     <!-- follower -->
-    <div class="flex-col-center col-span-6 row-span-3">
-      <div class="text-intro m-1">follower</div>
+    <section class="flex-col-center col-span-7 row-span-3">
+      <header class="text-intro m-1">follower</header>
       <div class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
-          class="mr-1.5 mb-1 stroke-current text-blue-400"
-          :class="{ 'h-12': follower < 1000, 'h-10': follower > 999 }"
+          class="mr-1 mb-1 stroke-current text-blue-400"
+          :class="{ 'h-9': follower < 1000, 'h-8': follower > 999 }"
         />
         <!-- follower number -->
-        <span :class="{ 'text-6xl': follower < 1000, 'text-5xl': follower > 999 }">
+        <span :class="{ 'text-5xl': follower < 1000, 'text-4xl': follower > 999 }">
           {{ follower }}
         </span>
         <!-- follower change -->
         <span
-          class="text-4xl text-gray-400 clickable"
+          class="text-3xl text-gray-400 clickable"
           :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
           @click="updateFollower"
         >
           {{ followerChange }}
         </span>
       </div>
-    </div>
+    </section>
     <!-- repo -->
-    <div class="flex-col-center-left col-span-4 row-span-5 ml-1 overflow-y-scroll clickable">
-      <div class="flex-row-center" v-for="(value, index) in repoChange" :key="index" @click="updateRepo(value.repo)">
+    <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll">
+      <div
+        class="flex-row-center space-y-0.5 clickable"
+        v-for="(value, index) in repoChange"
+        :key="index"
+        @click="updateRepo(value.repo)"
+      >
         <!-- repo svg -->
-        <RepoSVG height="16" class="mr-1 stroke-current text-green-400" />
-        <span>
-          <span class="font-mono text-md mr-1" :class="{ 'text-sm': value.star > 999 }">
-            {{ value.star }}
-          </span>
-          <span class="font-mono text-sm text-gray-400">
-            {{ value.repo.length > 14 ? value.repo.slice(0, 12) + '..' : value.repo }}
-          </span>
+        <RepoSVG height="14" class="mr-1 stroke-current text-green-400" />
+        <span class="text-sm mr-1">
+          {{ value.star }}
+        </span>
+        <span class="font-mono text-sm text-gray-400">
+          {{
+            value.star > 999
+              ? value.repo.length > 10
+                ? value.repo.slice(0, 8) + '..'
+                : value.repo
+              : value.repo.length > 12
+              ? value.repo.slice(0, 10) + '..'
+              : value.repo
+          }}
         </span>
       </div>
-    </div>
+    </section>
     <!-- star -->
-    <div class="flex-col-center col-span-3 row-span-2">
-      <div class="text-intro">star</div>
+    <section class="flex-col-center col-span-3 row-span-2">
+      <header class="text-intro">star</header>
       <div class="flex-row-center-bottom">
         <!-- star svg -->
-        <StarSVG
-          class="mr-1 mb-1.5 stroke-current text-yellow-400"
-          :class="{ 'h-6': star < 1000, 'h-5': star > 999 }"
-        />
+        <StarSVG class="mb-1 stroke-current text-yellow-400" :class="{ 'h-6': star < 1000, 'h-5': star > 999 }" />
         <!-- star number -->
-        <span :class="{ 'text-3xl': star < 1000, 'text-2xl': star > 999 }">
+        <span :class="{ 'text-2xl': star < 1000, 'text-xl': star > 999 }">
           {{ star }}
         </span>
         <!-- star change -->
         <span
-          class="text-2xl text-gray-400 clickable"
+          class="text-xl text-gray-400 clickable"
           :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
           @click="updateStar"
           >{{ starChange }}</span
         >
       </div>
-    </div>
+    </section>
     <!-- fork -->
-    <div class="flex-col-center col-span-3 row-span-2">
-      <div class="text-intro">fork</div>
+    <section class="flex-col-center col-span-4 row-span-2">
+      <header class="text-intro">fork</header>
       <div class="flex-row-center-bottom">
         <!-- fork svg -->
-        <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-7': fork < 1000, 'h-6': fork > 999 }" />
+        <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
 
         <!-- fork number -->
-        <span :class="{ 'text-3xl': fork < 1000, 'text-2xl': fork > 999 }">{{ fork }}</span>
+        <span :class="{ 'text-2xl': fork < 1000, 'text-1xl': fork > 999 }">{{ fork }}</span>
         <!-- fork change -->
         <span
-          class="text-2xl text-gray-400 clickable"
+          class="text-xl text-gray-400 clickable"
           :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
           @click="updateFork"
           >{{ forkChange }}</span
         >
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -135,32 +145,36 @@ import request from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
 import { cget, cset } from '../../common/storage'
 
+import Layout from '../layout/common.vue'
 import GihubSVG from '../assets/github/github.svg'
 import StarSVG from '../assets/github/star.svg'
 import ForkSVG from '../assets/github/fork.svg'
 import RepoSVG from '../assets/github/repo.svg'
 
-// 封装获取
+// 信息获取
 const get = (key, def) => {
   return cget('github', key, def)
 }
 
-// 封装保存
+// 信息保存
 const set = (key, value) => {
   return cset('github', key, value)
 }
 
 export default {
   components: {
+    Layout,
     GihubSVG,
     StarSVG,
     ForkSVG,
     RepoSVG,
   },
-  props: ['setting'],
-  emits: ['onTop', 'network', 'onSetting'],
+  // emits: ['onTop', 'network', 'onSetting'],
   data() {
     return {
+      setting: false, // 设置
+      network: false, // 网络
+
       top: get('top', false), // 窗口置顶
       open: get('open', false), // 开机自启
       user: get('user', ''), // 用户名
@@ -182,10 +196,8 @@ export default {
   created() {
     if (get('user', '') === '') {
       // 打开设置
-      this.$emit('onSetting', true)
+      this.setting = true
     } else {
-      // 传递窗口置顶状态
-      this.$emit('onTop', this.top)
       // 刷新数据
       this.getGithubData()
     }
@@ -261,14 +273,14 @@ export default {
       // 初始化数据
       this.initGithubData()
       // 更改设置状态
-      this.$emit('onSetting', false)
+      this.setting = false
     },
     // 初始化数据
     initGithubData() {
       request(`/users/${this.user}`)
         .then((data) => {
           // 修改网络状态
-          this.$emit('network', true)
+          this.network = true
 
           // 设置 follower
           this.newFollower = data.followers
@@ -306,7 +318,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$emit('network', false)
+          this.network = false
         })
     },
     // 请求数据
@@ -314,7 +326,7 @@ export default {
       request(`/users/${this.user}`)
         .then((data) => {
           // 修改网络状态
-          this.$emit('network', true)
+          this.network = true
 
           // 设置 follower 信息
           this.newFollower = data.followers
@@ -342,7 +354,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$emit('network', false)
+          this.network = false
         })
     },
     // 更新 follower
