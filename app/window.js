@@ -2,11 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 20:37:24
+ * @LastEditTime: 2022-05-30 21:25:29
  * @Description: 窗口管理
  */
 
-import { BrowserWindow, createProtocol } from 'electron'
+import { BrowserWindow } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
 import { cget } from '../common/storage'
 import { pluginList } from '../common/plugin'
