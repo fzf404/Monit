@@ -1,38 +1,55 @@
-import { app, ipcMain, Notification } from 'electron'
-import { cset } from '../common/storage'
+/*
+ * @Author: fzf404
+ * @Description: 事件监听
+ */
 
-export default function (win, name) {
-  // 监听移动事件
-  win.on('move', function () {
-    const [x, y] = win.getPosition()
-    cset(name, 'x', x)
-    cset(name, 'y', y)
+import { ipcMain, BrowserWindow, Notification } from 'electron'
+
+import { cget, cset } from '../common/storage'
+
+// 应用事件
+export const appEvent = () => {
+  // 窗口关闭
+  ipcMain.on('window-close', function (event) {
+    // 从事件中获得窗口
+    const win = BrowserWindow.fromWebContents(event.sender)
+    win.destroy()
+  })
+
+  // 窗口最小化
+  ipcMain.on('window-mini', function (event) {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    win.minimize()
   })
 
   // 窗口置顶
   ipcMain.on('window-top', function (event, option) {
-    // 设置置顶值
+    const win = BrowserWindow.fromWebContents(event.sender)
+    // 获取窗口名
+    const name = win.title
+    // 设置置顶
     win.setAlwaysOnTop(option)
-    // 保存置顶值
+    // 保存置顶状态
     cset(name, 'top', option)
-  })
-  // 窗口最小化
-  ipcMain.on('window-mini', function () {
-    win.minimize()
-  })
-
-  // 关闭窗口
-  ipcMain.on('window-close', function () {
-    win.close()
   })
 
   // 发送通知
-  ipcMain.on('notice', function (event, option) {
-    new Notification(option).show()
+  ipcMain.on('window-notice', function (event, option) {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    const name = win.title
+    const notice = cget(name, 'notice', false)
+    if (notice) {
+      new Notification({ title: `Monit: ${name}`, body: option }).show()
+    }
   })
-  // 开机自启
-  ipcMain.on('auto-start', function (event, option) {
-    app.setLoginItemSettings({ openAtLogin: option })
-    cset(name, 'open', option)
+}
+
+// 窗口事件
+export const winEvent = (win, name) => {
+  // 记录移动事件
+  win.on('move', function () {
+    const [x, y] = win.getPosition()
+    cset(name, 'x', x)
+    cset(name, 'y', y)
   })
 }
