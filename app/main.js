@@ -1,5 +1,8 @@
 /*
  * @Author: fzf404
+ * @Date: 2022-05-25 23:18:50
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 19:12:30
  * @Description: 应用初始化
  */
 
@@ -7,7 +10,7 @@ import { app, protocol, BrowserWindow } from 'electron'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
-import { initTray, showTray } from './tray'
+import { initTray } from './tray'
 import { appEvent } from './event'
 import { autoWindow, createWindow } from './window'
 
@@ -19,7 +22,9 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'Monit', privileges: { secure: t
 
 // mac 激活窗口
 app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow('welcome')
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow('welcome')
+  }
 })
 
 // mac 关闭窗口

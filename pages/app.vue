@@ -1,3 +1,11 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-05-25 23:36:33
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:15:25
+ * @Description: 基础组件
+-->
+
 <template>
   <router-view></router-view>
 </template>
@@ -17,8 +25,7 @@ body {
 
 /* TODO 可调透明度 */
 #app {
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.6);
+  @apply font-sans rounded-lg bg-gray-900 bg-opacity-75;
 }
 
 input,

@@ -1,5 +1,8 @@
 /*
  * @Author: fzf404
+ * @Date: 2022-05-24 22:06:34
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 19:14:54
  * @Description: 托盘图标
  */
 
@@ -46,10 +49,11 @@ const pluginOpen = pluginList.map(({ name }) => {
   }
 })
 
+// 初始化托盘
 export const initTray = () => {
   TrayMenu = new Tray(__static + '/icon.png')
 
-  // TODO 自动判断插件启动状态
+  // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
     { label: '插件列表', submenu: pluginMenu },
     { label: '插件自启', submenu: pluginOpen },
@@ -67,8 +71,4 @@ export const initTray = () => {
   ])
 
   TrayMenu.setContextMenu(contextMenu)
-}
-
-export const showTray = () => {
-  TrayMenu.show()
 }

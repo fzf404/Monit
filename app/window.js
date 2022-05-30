@@ -1,9 +1,12 @@
 /*
  * @Author: fzf404
+ * @Date: 2022-05-26 19:48:32
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:37:24
  * @Description: 窗口管理
  */
 
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, createProtocol } from 'electron'
 
 import { cget } from '../common/storage'
 import { pluginList } from '../common/plugin'
@@ -72,7 +75,6 @@ export const createWindow = (name) => {
   // 移除窗口
   win.on('closed', () => {
     windowList.splice(windowList.indexOf(windowList.find((item) => item.title === name)), 1)
-    console.log(windowList)
   })
 
   // 添加窗口
