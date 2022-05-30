@@ -1,13 +1,13 @@
 /*
  * @Author: fzf404
  * @Date: 2022-04-04 16:56:57
- * @LastEditTime: 2022-05-25 21:48:24
+ * @LastEditTime: 2022-05-30 13:10:35
  * @Description: router 配置
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
-import plugins from '../../common/plugin'
+import { pluginList } from '../../common/plugin'
 
-const routes = plugins.map((item) => {
+const routes = pluginList.map((item) => {
   return {
     name: item.name,
     path: '/' + item.name,

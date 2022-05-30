@@ -1,14 +1,12 @@
-module.exports = {
+const config = {
   // 设置入口点
   configureWebpack: {
     entry: './pages/main.js',
   },
-  // svg 加载
   chainWebpack: (config) => {
+    // svg 加载
     const svgRule = config.module.rule('svg')
-
     svgRule.uses.clear()
-
     svgRule.use('vue-loader-v16').loader('vue-loader-v16').end().use('vue-svg-loader').loader('vue-svg-loader')
   },
   // electron 打包
@@ -35,3 +33,10 @@ module.exports = {
     },
   },
 }
+
+if (process.env.NODE_ENV === 'development') {
+  // 热重载配置
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['app/*.js']
+}
+
+module.exports = { ...config }
