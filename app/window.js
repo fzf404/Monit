@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 21:25:29
+ * @LastEditTime: 2022-05-30 21:52:43
  * @Description: 窗口管理
  */
 
@@ -75,7 +75,7 @@ export const createWindow = (name) => {
 
   // 移除窗口
   win.on('closed', () => {
-    windowList.splice(windowList.indexOf(windowList.find((item) => item.title === name)), 1)
+    windowList.splice(windowList.indexOf(win), 1)
   })
 
   // 添加窗口
