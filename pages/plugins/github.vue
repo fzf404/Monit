@@ -4,55 +4,28 @@
   <!-- 内容 -->
   <main class="h-screen relative p-3 grid grid-cols-12 grid-rows-5 text-white">
     <!-- 设置模态框 -->
-    <div v-if="setting" class="absolute z-10 inset-0 flex justify-center items-center bg-black bg-opacity-50">
+    <div v-if="setting" class="setting-container">
       <!-- 中心框 -->
-      <section class="w-56 z-50 p-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200">
-        <!-- 开机自启 设置 -->
-        <div class="menu-item">
-          <label for="auto-open" class="text-gray-500 font-sans text-xs">开机自启</label>
-          <input
-            id="auto-open"
-            type="checkbox"
-            class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
-            v-model.lazy="open"
-          />
-        </div>
+      <section class="setting-box">
         <!-- 消息通知 设置 -->
-        <div class="menu-item">
-          <label for="notice-open" class="text-gray-500 font-sans text-xs">消息通知</label>
-          <input
-            id="notice-open"
-            type="checkbox"
-            class="w-4 h-4 checked:bg-blue-400 checked:border-transparent"
-            v-model.lazy="notice"
-          />
+        <div class="setting-item">
+          <label for="notice-open">消息通知</label>
+          <input id="notice-open" type="checkbox" v-model.lazy="notice" />
         </div>
         <!-- Github 设置 -->
-        <div class="menu-item">
-          <label for="github-github" class="text-gray-500 font-sans text-xs">用户名</label>
-          <input
-            id="github-github"
-            v-model.lazy="user"
-            type="text"
-            spellcheck="false"
-            class="w-28 my-2 px-2 py-1 outline-none shadow-inner border-1 rounded-md bg-gray-200 text-purple-400 focus:text-purple-500 font-sans text-xs"
-            @keyup.enter="changeSetting"
-          />
+        <div class="setting-item">
+          <label for="github-github">用户名</label>
+          <input id="github-github" v-model.lazy="user" type="text" spellcheck="false" @keyup.enter="changeSetting" />
         </div>
         <!-- 保存 -->
-        <div class="flex justify-end items-center">
-          <button
-            class="px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 font-sans text-xs font-bold"
-            @click="changeSetting"
-          >
-            OK
-          </button>
+        <div class="setting-save">
+          <button @click="changeSetting">OK</button>
         </div>
       </section>
     </div>
     <!-- follower -->
-    <section class="flex-col-center col-span-7 row-span-3">
-      <header class="text-intro m-1">follower</header>
+    <section class="flex-col-center col-span-7 row-span-3 mt-4">
+      <span pan class="text-intro mb-1">follower</span>
       <div class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
@@ -82,7 +55,7 @@
         @click="updateRepo(value.repo)"
       >
         <!-- repo svg -->
-        <RepoSVG height="14" class="mr-1 stroke-current text-green-400" />
+        <RepoSVG height="14" class="mt-0.5 mr-1 stroke-current text-green-400" />
         <span class="text-sm mr-1">
           {{ value.star }}
         </span>
@@ -101,10 +74,13 @@
     </section>
     <!-- star -->
     <section class="flex-col-center col-span-3 row-span-2">
-      <header class="text-intro">star</header>
+      <span class="text-intro">star</span>
       <div class="flex-row-center-bottom">
         <!-- star svg -->
-        <StarSVG class="mb-1 stroke-current text-yellow-400" :class="{ 'h-6': star < 1000, 'h-5': star > 999 }" />
+        <StarSVG
+          class="mb-1.5 mr-0.5 stroke-current text-yellow-400"
+          :class="{ 'h-5': star < 1000, 'h-4': star > 999 }"
+        />
         <!-- star number -->
         <span :class="{ 'text-2xl': star < 1000, 'text-xl': star > 999 }">
           {{ star }}
@@ -120,13 +96,13 @@
     </section>
     <!-- fork -->
     <section class="flex-col-center col-span-4 row-span-2">
-      <header class="text-intro">fork</header>
+      <span class="text-intro">fork</span>
       <div class="flex-row-center-bottom">
         <!-- fork svg -->
         <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
 
         <!-- fork number -->
-        <span :class="{ 'text-2xl': fork < 1000, 'text-1xl': fork > 999 }">{{ fork }}</span>
+        <span :class="{ 'text-2xl': fork < 1000, 'text-xl': fork > 999 }">{{ fork }}</span>
         <!-- fork change -->
         <span
           class="text-xl text-gray-400 clickable"
@@ -169,14 +145,11 @@ export default {
     ForkSVG,
     RepoSVG,
   },
-  // emits: ['onTop', 'network', 'onSetting'],
   data() {
     return {
       setting: false, // 设置
       network: false, // 网络
 
-      top: get('top', false), // 窗口置顶
-      open: get('open', false), // 开机自启
       user: get('user', ''), // 用户名
       notice: get('notice', false), // 提醒
 
@@ -194,7 +167,7 @@ export default {
     }
   },
   created() {
-    if (get('user', '') === '') {
+    if (this.user === '') {
       // 打开设置
       this.setting = true
     } else {
@@ -214,7 +187,7 @@ export default {
       const changeNum = this.newFollower - this.follower
       // 发送通知
       if (changeNum != 0) {
-        this.sendNotice({ title: 'Github Follower', body: 'follower is changed' })
+        this.sendNotice('follower is changed')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -227,7 +200,7 @@ export default {
     forkChange() {
       const changeNum = this.newFork - this.fork
       if (changeNum != 0) {
-        this.sendNotice({ title: 'Github Fork', body: 'fork is changed' })
+        this.sendNotice('fork is changed')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -239,7 +212,7 @@ export default {
     starChange() {
       const changeNum = this.newStar - this.star
       if (changeNum != 0) {
-        this.sendNotice({ title: 'Gihtub Star', body: 'star is changed' })
+        this.sendNotice('star is changed')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -260,14 +233,11 @@ export default {
   methods: {
     // 发送通知
     sendNotice(option) {
-      if (this.notice) {
-        ipcRenderer.send('notice', option)
-      }
+      ipcRenderer.send('window-notice', option)
     },
     // 设置更改
     changeSetting() {
       // 保存设置
-      ipcRenderer.send('auto-start', this.open)
       set('user', this.user)
       set('notice', this.notice)
       // 初始化数据
@@ -394,12 +364,6 @@ export default {
       set('repo', this.newRepoInfo)
     },
   },
-  // 监听用户修改
-  // watch: {
-  //   user() {
-  //     this.initGithubData()
-  //   },
-  // },
 }
 </script>
 
@@ -418,6 +382,6 @@ export default {
   @apply flex flex-row flex-nowrap items-end;
 }
 .text-intro {
-  @apply font-mono text-gray-400;
+  @apply font-mono text-sm text-gray-400;
 }
 </style>
