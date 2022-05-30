@@ -2,38 +2,37 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 20:18:16
+ * @LastEditTime: 2022-05-30 23:32:34
  * @Description: github 信息监控
 -->
 <template>
   <!--布局控制器 -->
   <Layout :network="network" v-model:setting="setting" />
-  <!-- 内容 -->
   <main class="h-screen relative p-3 grid grid-cols-12 grid-rows-5 text-white">
     <!-- 设置模态框 -->
-    <div v-if="setting" class="setting-container">
+    <aside v-if="setting" class="setting-container">
       <!-- 中心框 -->
-      <section class="setting-box">
+      <ul class="setting-box">
         <!-- 消息通知 设置 -->
-        <div class="setting-item">
+        <li class="setting-item">
           <label for="notice-open">消息通知</label>
           <input id="notice-open" type="checkbox" v-model.lazy="notice" />
-        </div>
+        </li>
         <!-- Github 设置 -->
-        <div class="setting-item">
+        <li class="setting-item">
           <label for="github-github">用户名</label>
-          <input id="github-github" v-model.lazy="user" type="text" spellcheck="false" @keyup.enter="changeSetting" />
-        </div>
+          <input id="github-github" type="text" spellcheck="false" v-model.lazy="user" @keyup.enter="changeSetting" />
+        </li>
         <!-- 保存 -->
-        <div class="setting-save">
+        <li class="setting-save">
           <button @click="changeSetting">OK</button>
-        </div>
-      </section>
-    </div>
+        </li>
+      </ul>
+    </aside>
     <!-- follower -->
     <section class="flex-col-center col-span-7 row-span-3 mt-4">
-      <header pan class="text-intro mb-1">follower</header>
-      <div class="flex-row-center-bottom">
+      <h1 pan class="text-intro mb-1">follower</h1>
+      <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
           class="mr-1 mb-1 stroke-current text-blue-400"
@@ -51,19 +50,19 @@
         >
           {{ followerChange }}
         </span>
-      </div>
+      </p>
     </section>
     <!-- repo -->
     <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll">
-      <div
-        class="flex-row-center space-y-0.5 clickable"
+      <p
+        class="flex-row-center space-x-1 space-y-1 clickable"
         v-for="(value, index) in repoChange"
         :key="index"
         @click="updateRepo(value.repo)"
       >
         <!-- repo svg -->
-        <RepoSVG height="14" class="mt-0.5 mr-1 stroke-current text-green-400" />
-        <span class="text-sm mr-1">
+        <RepoSVG height="14" class="mt-1 stroke-current text-green-400" />
+        <span class="text-sm">
           {{ value.star }}
         </span>
         <span class="text-intro">
@@ -77,17 +76,14 @@
               : value.repo
           }}
         </span>
-      </div>
+      </p>
     </section>
     <!-- star -->
     <section class="flex-col-center col-span-3 row-span-2">
-      <header class="text-intro">star</header>
-      <div class="flex-row-center-bottom">
+      <h1 class="text-intro">star</h1>
+      <p class="flex-row-center-bottom ">
         <!-- star svg -->
-        <StarSVG
-          class="mb-1.5 mr-0.5 stroke-current text-yellow-400"
-          :class="{ 'h-5': star < 1000, 'h-4': star > 999 }"
-        />
+        <StarSVG class="mr-0.5 mb-1.5 stroke-current text-yellow-400" :class="{ 'h-5': star < 1000, 'h-4': star > 999 }" />
         <!-- star number -->
         <span :class="{ 'text-2xl': star < 1000, 'text-xl': star > 999 }">
           {{ star }}
@@ -99,12 +95,12 @@
           @click="updateStar"
           >{{ starChange }}</span
         >
-      </div>
+      </p>
     </section>
     <!-- fork -->
     <section class="flex-col-center col-span-4 row-span-2">
-      <header class="text-intro">fork</header>
-      <div class="flex-row-center-bottom">
+      <h1 class="text-intro">fork</h1>
+      <p class="flex-row-center-bottom">
         <!-- fork svg -->
         <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
 
@@ -115,9 +111,9 @@
           class="text-xl text-gray-400 clickable"
           :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
           @click="updateFork"
-          >{{ forkChange }}</span
-        >
-      </div>
+          >{{ forkChange }}
+        </span>
+      </p>
     </section>
   </main>
 </template>
@@ -129,6 +125,7 @@ import { getArrDiffKey } from '../utils/statistic'
 import { cget, cset } from '../../common/storage'
 
 import Layout from '../layout/common.vue'
+
 import GihubSVG from '../assets/github/github.svg'
 import StarSVG from '../assets/github/star.svg'
 import ForkSVG from '../assets/github/fork.svg'

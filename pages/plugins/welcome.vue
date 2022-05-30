@@ -2,28 +2,35 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 20:03:28
+ * @LastEditTime: 2022-05-30 23:01:22
  * @Description: 欢迎 & 指引
 -->
 <template>
-  <Layout />
-
-  <article>
-    <h1>欢迎使用</h1>
-
-    <p>请在托盘图标中找到 Monit</p>
-    <p>点击插件列表启动插件</p>
-
-    <button @click="openGithub">
-      <GithubSVG height="22" />
-    </button>
-  </article>
+  <main>
+    <!-- 窗口控制器 -->
+    <Layout />
+    <!-- 引导页 -->
+    <article>
+      <!-- 欢迎-->
+      <h1>欢迎使用</h1>
+      <!-- 提示 -->
+      <p>托盘图标中找到 <FaviconSVG class="inline h-5 mb-0.5" /></p>
+      <p>在插件列表中启动插件</p>
+      <!-- Github 跳转 -->
+      <button @click="openGithub">
+        <GithubSVG height="22" />
+      </button>
+    </article>
+  </main>
 </template>
 
 <script setup>
 import { shell } from 'electron'
-import GithubSVG from '../assets/github/github.svg'
+
 import Layout from '../layout/common.vue'
+
+import FaviconSVG from '../assets/favicon.svg'
+import GithubSVG from '../assets/github/github.svg'
 
 // 打开链接
 const openGithub = () => shell.openExternal('https://github.com/fzf404/Monit')
@@ -40,6 +47,6 @@ article p {
   @apply text-sm text-gray-400;
 }
 article button {
-  @apply outline-none rounded p-1 text-sm bg-purple-500 hover:bg-purple-600 text-purple-100;
+  @apply outline-none rounded p-1 bg-purple-500 hover:bg-purple-600 text-purple-100;
 }
 </style>

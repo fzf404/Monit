@@ -2,28 +2,30 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 20:16:55
+ * @LastEditTime: 2022-05-30 23:21:42
  * @Description: 通用布局
 -->
 
 <template>
-  <!-- 窗口控制器 -->
-  <div class="absolute z-10 left-2">
-    <!-- 关闭 -->
-    <CloseSVG height="17" class="menu-svg clickable text-red-400" @click="sendEvent('window-close')" />
-    <!-- 最小化 -->
-    <MiniSVG height="17" class="menu-svg clickable text-yellow-400" @click="sendEvent('window-mini')" />
-    <!-- 置顶 -->
-    <DownSVG height="17" v-if="top" class="menu-svg clickable text-green-400" @click="changeTop" />
-    <UpSVG height="17" v-if="!top" class="menu-svg clickable text-green-400" @click="changeTop" />
-  </div>
-  <!-- 状态控制器 -->
-  <div class="absolute z-20 right-2 space-x-1">
-    <!-- 断网提示 -->
-    <WifiSVG height="17" class="menu-svg text-red-500" v-show="!network" />
-    <!-- 设置 -->
-    <SettingSVG height="15" class="menu-svg clickable text-blue-500" @click="$emit('update:setting', !setting)" />
-  </div>
+  <nav>
+    <!-- 窗口控制器 -->
+    <ul class="absolute z-10 left-2">
+      <!-- 关闭 -->
+      <CloseSVG height="17" class="menu-svg clickable text-red-400" @click="sendEvent('window-close')" />
+      <!-- 最小化 -->
+      <MiniSVG height="17" class="menu-svg clickable text-yellow-400" @click="sendEvent('window-mini')" />
+      <!-- 置顶 -->
+      <DownSVG height="17" v-if="top" class="menu-svg clickable text-green-400" @click="changeTop" />
+      <UpSVG height="17" v-if="!top" class="menu-svg clickable text-green-400" @click="changeTop" />
+    </ul>
+    <!-- 状态控制器 -->
+    <ul class="absolute z-20 right-2 space-x-1">
+      <!-- 断网提示 -->
+      <WifiSVG height="17" class="menu-svg text-red-500" v-show="!network" />
+      <!-- 设置 -->
+      <SettingSVG height="15" class="menu-svg clickable text-blue-500" @click="$emit('update:setting', !setting)" />
+    </ul>
+  </nav>
 </template>
 
 <script>
