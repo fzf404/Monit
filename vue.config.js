@@ -12,9 +12,12 @@ const config = {
   // electron 打包
   pluginOptions: {
     electronBuilder: {
-      mainProcessFile: 'app/main.js',
-      rendererProcessFile: 'pages/main.js',
       nodeIntegration: true,
+      // 主进程入口
+      mainProcessFile: 'app/main.js',
+      // 渲染进程入口
+      rendererProcessFile: 'pages/main.js',
+      // 构建选项
       builderOptions: {
         appId: 'com.fzf404.monit',
         productName: 'Monit',
@@ -36,7 +39,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['app/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['app/*.js', 'common/*.js']
 }
 
 module.exports = { ...config }

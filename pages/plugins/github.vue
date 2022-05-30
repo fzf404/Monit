@@ -1,3 +1,10 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-05-18 23:06:12
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:18:16
+ * @Description: github 信息监控
+-->
 <template>
   <!--布局控制器 -->
   <Layout :network="network" v-model:setting="setting" />
@@ -25,7 +32,7 @@
     </div>
     <!-- follower -->
     <section class="flex-col-center col-span-7 row-span-3 mt-4">
-      <span pan class="text-intro mb-1">follower</span>
+      <header pan class="text-intro mb-1">follower</header>
       <div class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
@@ -59,14 +66,14 @@
         <span class="text-sm mr-1">
           {{ value.star }}
         </span>
-        <span class="font-mono text-sm text-gray-400">
+        <span class="text-intro">
           {{
             value.star > 999
               ? value.repo.length > 10
-                ? value.repo.slice(0, 8) + '..'
+                ? value.repo.slice(0, 9) + '..'
                 : value.repo
               : value.repo.length > 12
-              ? value.repo.slice(0, 10) + '..'
+              ? value.repo.slice(0, 11) + '..'
               : value.repo
           }}
         </span>
@@ -74,7 +81,7 @@
     </section>
     <!-- star -->
     <section class="flex-col-center col-span-3 row-span-2">
-      <span class="text-intro">star</span>
+      <header class="text-intro">star</header>
       <div class="flex-row-center-bottom">
         <!-- star svg -->
         <StarSVG
@@ -96,7 +103,7 @@
     </section>
     <!-- fork -->
     <section class="flex-col-center col-span-4 row-span-2">
-      <span class="text-intro">fork</span>
+      <header class="text-intro">fork</header>
       <div class="flex-row-center-bottom">
         <!-- fork svg -->
         <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />

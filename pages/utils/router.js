@@ -1,12 +1,15 @@
 /*
  * @Author: fzf404
- * @Date: 2022-04-04 16:56:57
- * @LastEditTime: 2022-05-30 13:10:35
- * @Description: router 配置
+ * @Date: 2022-05-25 23:18:50
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:04:09
+ * @Description: 路由配置
  */
+
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { pluginList } from '../../common/plugin'
 
+// 自动生成路由
 const routes = pluginList.map((item) => {
   return {
     name: item.name,

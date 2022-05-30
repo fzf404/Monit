@@ -1,3 +1,10 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-05-30 15:14:46
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:03:28
+ * @Description: 欢迎 & 指引
+-->
 <template>
   <Layout />
 
@@ -30,9 +37,9 @@ article h1 {
   @apply text-lg text-white;
 }
 article p {
-  @apply text-sm items-center text-gray-400;
+  @apply text-sm text-gray-400;
 }
 article button {
-  @apply p-1 outline-none rounded-md bg-purple-500 hover:bg-purple-700 text-purple-100 text-sm;
+  @apply outline-none rounded p-1 text-sm bg-purple-500 hover:bg-purple-600 text-purple-100;
 }
 </style>

@@ -1,8 +1,9 @@
 /*
  * @Author: fzf404
- * @Date: 2022-02-18 17:38:10
- * @LastEditTime: 2022-05-30 15:37:20
- * @Description: 工具函数
+ * @Date: 2022-05-18 23:06:12
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-05-30 20:04:32
+ * @Description: 数值分析
  */
 
 /**
