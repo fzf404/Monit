@@ -1,4 +1,8 @@
-![Monit](https://socialify.git.ci/fzf404/Monit/image?description=1&descriptionEditable=%E4%BD%BF%E7%94%A8%20Vue%20%2B%20Electron%20%E5%BC%80%E5%8F%91%E7%9A%84%E6%A1%8C%E9%9D%A2%E5%B0%8F%E7%BB%84%E4%BB%B6&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Ffzf404%2FMonit%2Fmain%2Fbuild%2Ficon.png&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Dark)
+![Monit](https://socialify.git.ci/fzf404/monit/image?description=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Ffzf404%2FMonit%2Fmain%2Fbuild%2Ficon.png&name=1&owner=1&stargazers=1&theme=Dark)
+
+## 💡 展示
+
+![show](show.jpeg)
 
 ## 🎁 安装
 
