@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:36:33
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 15:59:13
+ * @LastEditTime: 2022-05-31 17:46:28
  * @Description: 基础组件
 -->
 
@@ -25,7 +25,7 @@ body {
 
 /* TODO 可调透明度 */
 #app {
-  @apply rounded-lg bg-gray-900 bg-opacity-75 font-sans text-white;
+  @apply rounded-lg bg-gray-900 bg-opacity-70 font-sans text-white;
 }
 
 input,
