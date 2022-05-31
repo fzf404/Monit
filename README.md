@@ -113,7 +113,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
        <article>
          <h1 class="text-gray-400">计数器</h1>
          <span class="text-4xl">{{ count }}</span>
-         <!-- Github 跳转 -->
+         <!-- 增加 & 减少按钮 -->
          <p class="space-x-4">
            <button class="btn bg-red-500 hover:bg-red-600 text-red-100" @click="reduce">-1</button>
            <button class="btn bg-green-500 hover:bg-green-600 text-green-100" @click="increase">+1</button>
@@ -161,7 +161,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    ```js
    export const pluginList = [
      // ...添加如下行
-     { name: 'count', size: [1, 1], description: '快速开始插件开发' },
+     { name: 'count', size: [1, 1], description: '计数器' },
    ]
    ```
 
