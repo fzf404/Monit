@@ -41,7 +41,7 @@ article {
   @apply h-screen pt-4 flex flex-col justify-center items-center space-y-3;
 }
 article h1 {
-  @apply text-lg text-white;
+  @apply text-lg;
 }
 article p {
   @apply text-sm text-gray-400;
