@@ -9,7 +9,7 @@ const config = {
     svgRule.uses.clear()
     svgRule.use('vue-loader-v16').loader('vue-loader-v16').end().use('vue-svg-loader').loader('vue-svg-loader')
   },
-  // electron 打包
+  // 打包配置
   pluginOptions: {
     electronBuilder: {
       nodeIntegration: true,
@@ -19,8 +19,8 @@ const config = {
       rendererProcessFile: 'pages/main.js',
       // 构建选项
       builderOptions: {
-        appId: 'com.fzf404.monit',
         productName: 'Monit',
+        appId: 'com.fzf404.monit',
         artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
         linux: {
           target: 'AppImage',
@@ -28,8 +28,8 @@ const config = {
         },
         mac: {
           target: {
-            arch: ['x64', 'arm64'],
             target: 'dmg',
+            arch: ['x64', 'arm64'],
           },
         },
       },
