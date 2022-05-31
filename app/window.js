@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 16:23:20
+ * @LastEditTime: 2022-05-31 18:00:32
  * @Description: 窗口管理
  */
 
@@ -38,6 +38,7 @@ export const createWindow = (name) => {
   const top = cget(name, 'top', false)
 
   // 创建窗口
+  // TODO 隐藏任务栏图标
   const win = new BrowserWindow({
     x: x,
     y: y,
@@ -46,6 +47,7 @@ export const createWindow = (name) => {
     height: size[1] * BasicMesh,
     alwaysOnTop: top, // 置顶
 
+    skipTaskbar: true, // 隐藏任务栏图标
     transparent: true, // 透明
     hasShadow: false, // 阴影
     frame: false, // 隐藏边框
