@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 16:23:13
+ * @LastEditTime: 2022-05-31 19:35:27
  * @Description: 应用入口
  */
 
@@ -42,11 +42,15 @@ app.on('ready', async () => {
   // 应用事件监听
   appEvent()
 
-  // 延时启动窗口 用于修复 Linux 窗口不透明
-  setTimeout(() => {
+  if (process.platform === 'linux') {
+    // 延时启动窗口 用于修复 Linux 窗口不透明
+    setTimeout(() => {
+      autoWindow()
+    }, 300)
+  } else {
     // 自动打开窗口
     autoWindow()
-  }, 300)
+  }
 
   // 自动检查更新
   autoUpdater.checkForUpdatesAndNotify()
