@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 17:16:08
+ * @LastEditTime: 2022-05-31 19:49:58
  * @Description: 托盘图标
  */
 
@@ -60,11 +60,8 @@ export const initTray = () => {
     { type: 'separator' }, // 分割线
     {
       label: '开机自启',
-      type: 'checkbox',
-      checked: app.getLoginItemSettings.openAtLogin,
       click: () => {
-        const open = app.getLoginItemSettings.openAtLogin
-        app.setLoginItemSettings({ openAtLogin: !open })
+        app.setLoginItemSettings({ openAtLogin: true })
       },
     },
     { label: '退出', click: () => app.exit() },
