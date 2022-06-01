@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 16:15:48
+ * @LastEditTime: 2022-06-01 12:16:32
  * @Description: github 信息监控
 -->
 <template>
@@ -161,7 +161,7 @@ export default {
       network: false, // 网络
 
       user: get('user', ''), // 用户名
-      notice: get('notice', false), // 提醒
+      notice: get('notice', false), // 开启提醒
 
       follower: get('follower', 0), // follower 数
       newFollower: get('follower', 0), // 新 follower 数

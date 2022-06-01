@@ -1,11 +1,15 @@
 {
   "name": "monit",
   "version": "0.3.0",
+  "author": "fzf404",
+  "description": "Hello World!",
   "private": true,
   "main": "background.js",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "prettier": "prettier --write .",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
