@@ -15,8 +15,7 @@
       <!-- 最小化 -->
       <MiniSVG height="17" class="menu-svg clickable text-yellow-400" @click="sendEvent('window-mini')" />
       <!-- 置顶 -->
-      <DownSVG height="17" v-if="top" class="menu-svg clickable text-green-400" @click="changeTop" />
-      <UpSVG height="17" v-if="!top" class="menu-svg clickable text-green-400" @click="changeTop" />
+      <UpSVG height="17" class="menu-svg clickable text-green-400" :class="top ? '' : 'turn'" @click="changeTop" />
     </ul>
     <!-- 状态控制器 -->
     <ul class="absolute z-20 right-2 space-x-1">
@@ -35,7 +34,6 @@ import { cget } from '../../common/storage'
 
 import CloseSVG from '../assets/menu/close.svg'
 import MiniSVG from '../assets/menu/mini.svg'
-import DownSVG from '../assets/menu/down.svg'
 import UpSVG from '../assets/menu/up.svg'
 
 import WifiSVG from '../assets/menu/wifi.svg'
@@ -88,6 +86,9 @@ export default {
 <style>
 .menu-svg {
   @apply inline stroke-current;
+}
+.menu-svg.turn {
+  @apply transform-gpu rotate-180;
 }
 .setting-container {
   @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg bg-black bg-opacity-50;
