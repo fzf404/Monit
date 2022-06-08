@@ -1,37 +1,35 @@
 {
   "name": "monit",
   "version": "0.3.0",
-  "author": "fzf404",
-  "description": "Hello World!",
   "private": true,
-  "main": "background.js",
-  "license": "MIT",
+  "description": "Hello World!",
+  "author": "fzf404",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "prettier": "prettier --write .",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "prettier": "prettier --write ."
   },
+  "main": "background.js",
   "dependencies": {
     "autoprefixer": "^9",
     "axios": "^0.27.2",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
-    "vue": "^3.2.13",
+    "vue": "^3.2.37",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vue/cli-service": "~4.5.0",
-    "electron": "^13.0.0",
+    "electron": "^18.0.0",
     "electron-builder": "^23.0.3",
     "electron-devtools-installer": "^3.1.0",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "vue-cli-plugin-electron-builder": "~2.1.1",
     "vue-cli-plugin-tailwind": "~2.2.18",
     "vue-svg-loader": "^0.17.0-beta.2"
-  }
+  },
+  "license": "MIT"
 }
