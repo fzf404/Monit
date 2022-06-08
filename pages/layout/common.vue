@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 23:21:42
+ * @LastEditTime: 2022-06-08 23:40:24
  * @Description: 通用布局
 -->
 
@@ -43,7 +43,6 @@ export default {
   components: {
     CloseSVG,
     MiniSVG,
-    DownSVG,
     UpSVG,
     WifiSVG,
     SettingSVG,

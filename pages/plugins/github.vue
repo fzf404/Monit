@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-01 12:16:32
+ * @LastEditTime: 2022-06-08 23:48:49
  * @Description: github 信息监控
 -->
 <template>
@@ -20,7 +20,7 @@
             <label for="notice-open">消息通知</label>
             <input id="notice-open" type="checkbox" v-model.lazy="notice" />
           </li>
-          <!-- Github 设置 -->
+          <!-- Github 用户 -->
           <li class="setting-item">
             <label for="github-github">用户名</label>
             <input id="github-github" type="text" spellcheck="false" v-model.lazy="user" @keyup.enter="changeSetting" />
@@ -57,9 +57,9 @@
       <!-- repo -->
       <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll">
         <p
+          :key="index"
           class="flex-row-center space-x-1 space-y-1 clickable"
           v-for="(value, index) in repoChange"
-          :key="index"
           @click="updateRepo(value.repo)"
         >
           <!-- repo svg -->

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 18:00:32
+ * @LastEditTime: 2022-06-08 22:49:44
  * @Description: 窗口管理
  */
 
@@ -25,8 +25,7 @@ export const createWindow = (name) => {
   const exist = windowList.find((item) => item.title === name)
   if (exist) {
     // 展示窗口
-    exist.show()
-    return
+    return exist.show()
   }
 
   // 窗口大小
@@ -38,7 +37,6 @@ export const createWindow = (name) => {
   const top = cget(name, 'top', false)
 
   // 创建窗口
-  // TODO 隐藏任务栏图标
   const win = new BrowserWindow({
     x: x,
     y: y,
