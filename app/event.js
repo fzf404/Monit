@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 14:59:04
+ * @LastEditTime: 2022-06-11 01:59:22
  * @Description: 事件处理
  */
 
@@ -16,8 +16,8 @@ export const appEvent = () => {
   ipcMain.on('window-close', function (event) {
     // 从事件中获得窗口
     const win = BrowserWindow.fromWebContents(event.sender)
-    // 销毁窗口
-    win.destroy()
+    // 关闭窗口
+    win.close()
   })
 
   // 窗口最小化

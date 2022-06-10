@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 19:49:58
+ * @LastEditTime: 2022-06-11 01:56:20
  * @Description: 托盘图标
  */
 
@@ -64,7 +64,7 @@ export const initTray = () => {
         app.setLoginItemSettings({ openAtLogin: true })
       },
     },
-    { label: '退出', click: () => app.exit() },
+    { label: '退出', click: () => app.quit() },
   ])
 
   TrayMenu.setContextMenu(contextMenu)
