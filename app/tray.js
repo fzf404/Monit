@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-11 01:56:20
+ * @LastEditTime: 2022-06-12 15:52:52
  * @Description: 托盘图标
  */
 
@@ -18,30 +18,37 @@ let TrayMenu
 // 插件启动列表
 let openPlugins = cget('_config', 'open', [])
 
+// 调试模式
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+// 生产模式 & debug 不开启插件
+const pluginLists = pluginList.filter(({ debug }) => !(!isDevelopment && debug))
+
 // 全部插件菜单
-const pluginMenu = pluginList.map(({ name }) => {
+const pluginMenu = pluginLists.map((item) => {
+  // 调试模式开启全部插件
   return {
-    label: name,
+    label: `${item.name} - ${item.description}`,
     click: () => {
       // 创建窗口
-      createWindow(name)
+      createWindow(item.name)
     },
   }
 })
 
 // 自启动插件菜单
-const pluginOpen = pluginList.map(({ name }) => {
+const pluginOpen = pluginLists.map((item) => {
   return {
-    label: name,
+    label: `${item.name} - ${item.description}`,
     type: 'checkbox',
-    checked: openPlugins.includes(name),
+    checked: openPlugins.includes(item.name),
     click: () => {
       // 切换插件自启动状态
-      const index = openPlugins.indexOf(name)
+      const index = openPlugins.indexOf(item.name)
       if (index > -1) {
         openPlugins.splice(index, 1)
       } else {
-        openPlugins.push(name)
+        openPlugins.push(item.name)
       }
       // 保存插件自启动状态
       cset('_config', 'open', openPlugins)
