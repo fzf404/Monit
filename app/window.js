@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-08 22:49:44
+ * @LastEditTime: 2022-06-12 15:55:59
  * @Description: 窗口管理
  */
 
@@ -21,11 +21,17 @@ const windowList = []
 
 // 创建窗口
 export const createWindow = (name) => {
-  // 判断窗口是否存在
-  const exist = windowList.find((item) => item.title === name)
-  if (exist) {
+  // 判断窗口存在
+  const isExist = pluginList.find((item) => item.name === name)
+  if (!isExist) {
+    return
+  }
+
+  // 判断窗口启动
+  const isOpen = windowList.find((item) => item.title === name)
+  if (isOpen) {
     // 展示窗口
-    return exist.show()
+    return isOpen.show()
   }
 
   // 窗口大小
