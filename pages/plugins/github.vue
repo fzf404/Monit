@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-08 23:48:49
+ * @LastEditTime: 2022-06-12 16:05:15
  * @Description: github 信息监控
 -->
 <template>
@@ -55,7 +55,7 @@
         </p>
       </section>
       <!-- repo -->
-      <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll">
+      <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
         <p
           :key="index"
           class="flex-row-center space-x-1 space-y-1 clickable"
