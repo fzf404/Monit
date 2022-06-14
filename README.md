@@ -1,5 +1,3 @@
-![Monit](https://socialify.git.ci/fzf404/monit/image?description=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Ffzf404%2FMonit%2Fmain%2Fbuild%2Ficon.png&name=1&owner=1&stargazers=1&theme=Dark)
-
 ## 💡 展示
 
 ![show](show.jpeg)
