@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-08 23:40:24
+ * @LastEditTime: 2022-06-14 10:17:33
  * @Description: 通用布局
 -->
 
 <template>
   <nav>
     <!-- 窗口控制器 -->
-    <ul class="absolute z-10 left-2">
+    <ul class="absolute z-50 left-2">
       <!-- 关闭 -->
       <CloseSVG height="17" class="menu-svg clickable text-red-400" @click="sendEvent('window-close')" />
       <!-- 最小化 -->
@@ -18,7 +18,7 @@
       <UpSVG height="17" class="menu-svg clickable text-green-400" :class="top ? '' : 'turn'" @click="changeTop" />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="absolute z-20 right-2 space-x-1">
+    <ul class="absolute z-50 right-2 space-x-1">
       <!-- 断网提示 -->
       <WifiSVG height="17" class="menu-svg text-red-500" v-show="!network" />
       <!-- 设置 -->

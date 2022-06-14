@@ -1,9 +1,9 @@
 <template>
-  <main class="h-screen">
+  <main>
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article class="flex-col-center space-y-4">
+    <article class="h-screen flex-col-center space-y-4">
       <h1 class="text-gray-400">计数器</h1>
       <p class="text-5xl">{{ count }}</p>
       <!-- 增加 & 减少按钮 -->

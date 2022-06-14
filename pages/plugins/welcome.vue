@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 23:01:22
+ * @LastEditTime: 2022-06-14 10:22:59
  * @Description: 欢迎 & 指引
 -->
 <template>
@@ -38,10 +38,10 @@ const openGithub = () => shell.openExternal('https://github.com/fzf404/Monit')
 
 <style scoped>
 article {
-  @apply h-screen pt-4 flex flex-col justify-center items-center space-y-3;
+  @apply h-screen flex flex-col justify-center items-center space-y-3;
 }
 article h1 {
-  @apply text-lg;
+  @apply mt-4 text-lg;
 }
 article p {
   @apply text-sm text-gray-400;
