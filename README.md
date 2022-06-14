@@ -30,6 +30,7 @@
 | -------- | ----------------- | ---- |
 | welcome  | 欢迎 & 使用指引   | ✅   |
 | github   | github 信息监控   | ✅   |
+| clock    | 时钟翻牌器        | ✅   |
 | music    | 网易云音乐播放    | ⛔️  |
 | todo     | 待办事项管理      | ⛔️  |
 | bilibili | bilibili 信息监控 | ⛔️  |
@@ -71,7 +72,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 
 ### ✨ 技术
 
-- Electron 13
+- Electron 18
   - 跨平台的桌面应用程序构建工具
   - [官方文档](https://www.electronjs.org/zh/docs/latest)
 - Vue 3
