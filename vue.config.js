@@ -1,6 +1,6 @@
 const config = {
-  // 设置入口点
   configureWebpack: {
+    // electron 入口点
     entry: './pages/main.js',
   },
   chainWebpack: (config) => {
@@ -9,8 +9,8 @@ const config = {
     svgRule.uses.clear()
     svgRule.use('vue-loader-v16').loader('vue-loader-v16').end().use('vue-svg-loader').loader('vue-svg-loader')
   },
-  // 打包配置
   pluginOptions: {
+    // electron 打包配置
     electronBuilder: {
       nodeIntegration: true,
       // 主进程入口
