@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-14 12:09:12
+ * @LastEditTime: 2022-06-15 12:10:37
  * @Description: 翻牌时钟
 -->
 <template>
@@ -190,7 +190,7 @@ onMounted(startClock)
 
 .flip .digital:after {
   line-height: 0;
-  @apply top-1/2 bottom-0 rounded-b-lg border-t border-gray-400;
+  @apply top-1/2 bottom-0 rounded-b-lg border-t-2 border-gray-400;
 }
 
 /*向下翻*/
