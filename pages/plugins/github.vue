@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-12 16:05:15
+ * @LastEditTime: 2022-06-15 14:52:34
  * @Description: github 信息监控
 -->
 <template>
@@ -22,8 +22,14 @@
           </li>
           <!-- Github 用户 -->
           <li class="setting-item">
-            <label for="github-github">用户名</label>
-            <input id="github-github" type="text" spellcheck="false" v-model.lazy="user" @keyup.enter="changeSetting" />
+            <label for="github-username">用户名</label>
+            <input
+              id="github-username"
+              type="text"
+              spellcheck="false"
+              v-model.lazy="user"
+              @keyup.enter="changeSetting"
+            />
           </li>
           <!-- 保存 -->
           <li class="setting-save">

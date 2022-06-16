@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-14 10:17:33
+ * @LastEditTime: 2022-06-15 16:19:16
  * @Description: 通用布局
 -->
 
@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .menu-svg {
   @apply inline stroke-current;
 }
@@ -112,5 +112,16 @@ export default {
 }
 .setting-save button {
   @apply px-3 py-1 outline-none shadow-md rounded-lg bg-purple-500 hover:bg-purple-600 text-purple-100 text-xs font-bold;
+}
+
+/* 动画效果 */
+.mode-fade-enter-active,
+.mode-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.mode-fade-enter-from,
+.mode-fade-leave-to {
+  opacity: 0;
 }
 </style>

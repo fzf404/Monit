@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-15 12:10:37
+ * @LastEditTime: 2022-06-15 16:12:01
  * @Description: 翻牌时钟
 -->
 <template>
@@ -46,8 +46,10 @@
       <!-- 控制器 -->
       <section class="space-x-6">
         <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">时钟</button>
-        <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
-        <button v-else class="btn bg-red-500 hover:bg-red-600" @click="clear">停止</button>
+        <transition name="mode-fade" mode="out-in">
+          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
+          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="clear">停止</button>
+        </transition>
       </section>
     </article>
   </main>

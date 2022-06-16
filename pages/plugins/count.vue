@@ -3,9 +3,9 @@
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article class="h-screen flex-col-center space-y-4">
+    <article class="h-screen flex-col-center space-y-3">
       <h1 class="text-gray-400">计数器</h1>
-      <p class="text-5xl">{{ count }}</p>
+      <p class="pb-2 text-5xl">{{ count }}</p>
       <!-- 增加 & 减少按钮 -->
       <p class="space-x-4">
         <button class="btn bg-red-500 hover:bg-red-600" @click="reduce">-</button>
