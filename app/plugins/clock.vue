@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-15 16:12:01
+ * @LastEditTime: 2022-06-19 12:43:06
  * @Description: 翻牌时钟
 -->
 <template>
@@ -48,7 +48,7 @@
         <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">时钟</button>
         <transition name="mode-fade" mode="out-in">
           <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
-          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="clear">停止</button>
+          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">停止</button>
         </transition>
       </section>
     </article>
@@ -56,25 +56,32 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { ref } from 'vue'
-import Layout from '../layout/common.vue'
+import { onMounted, ref } from 'vue'
+import Layout from '../layout/custom.vue'
 
-// 计时器状态
+// 是否正在计时
 const timing = ref(false)
 
-// 翻牌中
+// 翻牌状态
 let fliping = [false, false, false, false, false, false]
+
 // setInterval() 回调
 let interval = null
 
 // 上次更新的时间
 let old = '000000'
 
-// 切换数字
+/**
+ * @description: 对其中一位数字进行翻牌
+ * @param {*} digit 第几位数字
+ * @param {*} num 修改成的数字
+ * @return {*}
+ */
 const changeNumber = (digit, num) => {
-  // 正在翻转中则返回
+  // 正在翻转中则 return
   if (fliping[digit]) return
+
+  // 翻转开始
   fliping[digit] = true
 
   // 获取 DOM
@@ -95,8 +102,8 @@ const changeNumber = (digit, num) => {
   }, 600)
 }
 
-// 清除计时器
-const clear = () => {
+// 停止计时器
+const stop = () => {
   timing.value = false
   interval && clearInterval(interval)
 }
@@ -108,7 +115,7 @@ const startClock = () => {
   // 每秒获取最新时间
   interval = setInterval(() => {
     const date = new Date()
-    const time = date.toLocaleTimeString().replace(/\:/g, '')
+    const time = date.toLocaleTimeString('en-GB').replace(/\:/g, '')
     // 遍历时间字符串
     for (let i = 0, len = time.length; i < len; i++) {
       // 判断数字是否修改
@@ -133,6 +140,7 @@ const numToStr = (num, length) => {
 const startTiming = () => {
   // 停止计时器
   interval && clearInterval(interval)
+
   // 开启计时
   timing.value = true
 
@@ -152,6 +160,7 @@ const startTiming = () => {
       time[1] = 0
       time[0]++
     }
+    // 大于 100时 小时清空
     if (time[0] === 100) {
       time[0] = 0
     }
@@ -175,27 +184,28 @@ onMounted(startClock)
 </script>
 
 <style>
+/* 底板 */
 .flip {
   @apply inline-block relative w-12 h-20 rounded-lg border-2 border-gray-400 bg-gray-600 text-gray-500 font-mono text-6xl text-center;
   line-height: 5rem;
 }
-
+/* 上下页 */
 .flip .digital:before,
 .flip .digital:after {
   content: '';
   @apply absolute left-0 right-0 bg-gray-200 overflow-hidden;
 }
-
+/* 上页 */
 .flip .digital:before {
   @apply top-0 bottom-1/2 rounded-t-lg border-b border-gray-400;
 }
-
+/* 下页 */
 .flip .digital:after {
   line-height: 0;
   @apply top-1/2 bottom-0 rounded-b-lg border-t-2 border-gray-400;
 }
 
-/*向下翻*/
+/* 下翻 */
 .flip.down .front:before {
   @apply z-30;
 }
@@ -222,7 +232,7 @@ onMounted(startClock)
   animation: backFlipDown 0.6s ease-in-out both;
 }
 
-/*向上翻*/
+/* 上翻 */
 .flip.up .front:after {
   @apply z-30;
 }
@@ -249,6 +259,7 @@ onMounted(startClock)
   animation: backFlipUp 0.6s ease-in-out both;
 }
 
+/* 动画 */
 @keyframes frontFlipDown {
   0% {
     transform: perspective(160px) rotateX(0deg);
@@ -289,6 +300,7 @@ onMounted(startClock)
   }
 }
 
+/* 数字 */
 .flip .n-0:before,
 .flip .n-0:after {
   content: '0';
@@ -337,9 +349,5 @@ onMounted(startClock)
 .flip .n-9:before,
 .flip .n-9:after {
   content: '9';
-}
-
-.btn {
-  @apply w-12 h-8 rounded;
 }
 </style>

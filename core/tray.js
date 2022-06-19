@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-12 15:52:52
+ * @LastEditTime: 2022-06-19 00:54:40
  * @Description: 托盘图标
  */
 
-import { app, Tray, Menu } from 'electron'
+import { app, Menu, Tray } from 'electron'
 
-import { cget, cset } from '../common/storage'
 import { pluginList } from '../common/plugin'
+import { cget, cset } from '../common/utils/storage'
 import { createWindow } from './window'
 
 // 托盘全局变量
@@ -58,7 +58,7 @@ const pluginOpen = pluginLists.map((item) => {
 
 // 初始化托盘
 export const initTray = () => {
-  TrayMenu = new Tray(__static + '/icon.png')
+  TrayMenu = new Tray(__static + '/logo/tray.png')
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([

@@ -1,3 +1,11 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-06-18 17:15:15
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-06-19 23:59:15
+ * @Description: Monit 说明文档
+-->
+
 ## 💡 展示
 
 ![show](show.jpeg)
@@ -29,8 +37,8 @@
 | welcome  | 欢迎 & 使用指引   | ✅   |
 | github   | github 信息监控   | ✅   |
 | clock    | 时钟翻牌器        | ✅   |
+| todo     | 待办事项管理      | 🟨   |
 | music    | 网易云音乐播放    | ⛔️  |
-| todo     | 待办事项管理      | ⛔️  |
 | bilibili | bilibili 信息监控 | ⛔️  |
 
 ## 📝 开发
@@ -48,36 +56,37 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 > 文件头部均有功能描述
 
 ```bash
-├── app # 主进程
-│   ├── event.js # 事件处理
-│   ├── main.js # 应用入口
-│   ├── tray.js # 托盘进程
-│   └── window.js # 窗口管理
-├── build # 应用 Logo
-├── common # 通用工具
-│   └── plugin.js # 插件配置
-├── docs # 文档
-├── pages # 渲染进程
+├── app # 渲染进程
 │   ├── assets # 静态资源
 │   ├── layout # 布局组件
 │   ├── plugins # 插件
 │   └── utils # 工具
-├── public # 应用图标
+
+├── build # 应用 Logo
+├── common # 通用工具
+│   └── plugin.js # 插件配置
+├── core # 主进程
+│   ├── event.js # 事件处理
+│   ├── main.js # 应用入口
+│   ├── tray.js # 托盘进程
+│   └── window.js # 窗口管理
+├── public # 静态文件
+├── .prettier # 代码格式化配置
 ├── postcss.config.js # postcss 配置
 ├── tailwind.config.js # tailwindcss 配置
-└── vue.config.js # vue 构建 & electron 打包配置
+└── vue.config.js # vue-cli 配置 & electron 打包配置
 ```
 
 ### ✨ 技术
 
-- Electron 18
+- Electron 16
   - 跨平台的桌面应用程序构建工具
   - [官方文档](https://www.electronjs.org/zh/docs/latest)
 - Vue 3
   - JavaScript 前端框架
   - [官方文档](https://v3.cn.vuejs.org/guide/introduction.html)
   - 可使用 setup 语法开发
-- Tailwindcss 2
+- Tailwindcss 3
   - 功能类 CSS 语法糖
   - [官方文档](https://www.tailwindcss.cn/docs)
   - 可选功能，可只使用 css 进行插件开发
@@ -96,12 +105,12 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    ```
 2. 安装项目依赖
    ```bash
-   # 假如您使用 npm, 请安装 yarn
-   npm i -g yarn
+   # 假如您使用 npm, 请安装 pnpm
+   npm i -g pnpm
    # 使用 yarn 安装依赖
-   yarn
+   pnpm i
    ```
-3. 编写插件页面 `pages/plugins/count.vue`
+3. 编写插件页面 `app/plugins/count.vue`
 
    ```vue
    <template>
@@ -122,7 +131,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    </template>
 
    <script>
-   import Layout from '../layout/common.vue'
+   import Layout from '../layout/custom.vue'
    import { cset, cget } from '../../common/storage.js'
 
    // 信息获取
@@ -171,10 +180,6 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    .flex-row-center {
      @apply flex flex-row flex-nowrap justify-center items-center;
    }
-   /* 按钮 */
-   .btn {
-     @apply w-8 h-8 text-xl rounded;
-   }
    </style>
    ```
 
@@ -190,12 +195,12 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 5. 启动 & 打包
 
    ```bash
-   # 启动应用
-   yarn electron:serve
+   # 调试应用
+   pnpm serve
    # 在托盘中启动 count 插件
 
    # 构建应用
-   yarn electron:build
+   pnpm build
    # 构建成功后即可在 dist_electron 找到安装包
    ```
 
@@ -208,4 +213,5 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 ### 🔥 提交代码
 
 1. 请使用 prettier 进行代码格式化
+
 2. 待补充...

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-15 14:52:34
+ * @LastEditTime: 2022-06-19 23:38:43
  * @Description: github 信息监控
 -->
 <template>
@@ -10,15 +10,15 @@
     <!-- 窗口控制器 -->
     <Layout :network="network" v-model:setting="setting" />
     <!-- 页面内容 -->
-    <article class="h-screen relative p-3 grid grid-cols-12 grid-rows-5">
+    <article class="h-screen relative grid grid-cols-12 grid-rows-5 p-3">
       <!-- 设置模态框 -->
-      <aside v-if="setting" class="setting-container">
+      <aside class="setting-container" v-show="setting">
         <!-- 中心框 -->
         <ul class="setting-box">
           <!-- 消息通知 设置 -->
           <li class="setting-item">
-            <label for="notice-open">消息通知</label>
-            <input id="notice-open" type="checkbox" v-model.lazy="notice" />
+            <label for="message-notice">消息通知</label>
+            <input id="message-notice" type="checkbox" v-model.lazy="notice" />
           </li>
           <!-- Github 用户 -->
           <li class="setting-item">
@@ -33,7 +33,7 @@
           </li>
           <!-- 保存 -->
           <li class="setting-save">
-            <button @click="changeSetting">OK</button>
+            <button class="btn-sm bg-purple-400 hover:bg-purple-500" @click="changeSetting">OK</button>
           </li>
         </ul>
       </aside>
@@ -52,8 +52,12 @@
           </span>
           <!-- follower change -->
           <span
-            class="text-3xl text-gray-400 clickable"
-            :class="{ 'text-green-400': follower < newFollower, 'text-red-400': follower > newFollower }"
+            class="text-3xl clickable"
+            :class="{
+              'text-green-400': follower < newFollower,
+              'text-red-400': follower > newFollower,
+              'text-gray-400': follower == newFollower,
+            }"
             @click="updateFollower"
           >
             {{ followerChange }}
@@ -61,7 +65,7 @@
         </p>
       </section>
       <!-- repo -->
-      <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
+      <section class="flex-col-center-left col-span-5 row-span-5 overflow-x-hidden overflow-y-scroll mt-px">
         <p
           :key="index"
           class="flex-row-center space-x-1 space-y-1 clickable"
@@ -69,7 +73,7 @@
           @click="updateRepo(value.repo)"
         >
           <!-- repo svg -->
-          <RepoSVG height="14" class="mt-1 stroke-current text-green-400" />
+          <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
           <span class="text-sm">
             {{ value.star }}
           </span>
@@ -101,8 +105,12 @@
           </span>
           <!-- star change -->
           <span
-            class="text-xl text-gray-400 clickable"
-            :class="{ 'text-green-400': star < newStar, 'text-red-400': star > newStar }"
+            class="text-xl clickable"
+            :class="{
+              'text-green-400': star < newStar,
+              'text-red-400': star > newStar,
+              'text-gray-400': star == newStar,
+            }"
             @click="updateStar"
             >{{ starChange }}</span
           >
@@ -114,13 +122,16 @@
         <p class="flex-row-center-bottom">
           <!-- fork svg -->
           <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
-
           <!-- fork number -->
           <span :class="{ 'text-2xl': fork < 1000, 'text-xl': fork > 999 }">{{ fork }}</span>
           <!-- fork change -->
           <span
-            class="text-xl text-gray-400 clickable"
-            :class="{ 'text-green-400': fork < newFork, 'text-red-400': fork > newFork }"
+            class="text-xl clickable"
+            :class="{
+              'text-green-400': fork < newFork,
+              'text-red-400': fork > newFork,
+              'text-gray-400': fork == newFork,
+            }"
             @click="updateFork"
             >{{ forkChange }}
           </span>
@@ -132,16 +143,19 @@
 
 <script>
 import { ipcRenderer, shell } from 'electron'
-import request from '../utils/request'
+import { cget, cset } from '../../common/utils/storage'
+import axios from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
-import { cget, cset } from '../../common/storage'
 
-import Layout from '../layout/common.vue'
+import Layout from '../layout/custom.vue'
 
-import GihubSVG from '../assets/github/github.svg'
-import StarSVG from '../assets/github/star.svg'
 import ForkSVG from '../assets/github/fork.svg'
+import GihubSVG from '../assets/github/github.svg'
 import RepoSVG from '../assets/github/repo.svg'
+import StarSVG from '../assets/github/star.svg'
+
+// 初始化 axios
+const request = axios('https://api.github.com')
 
 // 信息获取
 const get = (key, def) => {
@@ -263,7 +277,8 @@ export default {
     },
     // 初始化数据
     initGithubData() {
-      request(`/users/${this.user}`)
+      request
+        .get(`/users/${this.user}`)
         .then((data) => {
           // 修改网络状态
           this.network = true
@@ -281,7 +296,7 @@ export default {
 
           // 遍历 repo 信息
           while (pages--) {
-            request(`/users/${this.user}/repos?per_page=100`).then((data) => {
+            request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
               // 遍历数据
               data.forEach((item) => {
                 star += item.stargazers_count
@@ -309,7 +324,8 @@ export default {
     },
     // 请求数据
     getGithubData() {
-      request(`/users/${this.user}`)
+      request
+        .get(`/users/${this.user}`)
         .then((data) => {
           // 修改网络状态
           this.network = true
@@ -325,7 +341,7 @@ export default {
 
           // 遍历 repo 信息
           while (pages--) {
-            request(`/users/${this.user}/repos?per_page=100`).then((data) => {
+            request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
               // 遍历数据
               data.forEach((item) => {
                 star += item.stargazers_count
@@ -384,19 +400,23 @@ export default {
 </script>
 
 <style scoped>
+/* flex 竖向居中 */
 .flex-col-center {
-  @apply flex flex-col flex-wrap justify-center items-center;
+  @apply flex flex-col justify-center items-center;
 }
-
+/* flex 竖向靠左 */
 .flex-col-center-left {
-  @apply flex flex-col flex-nowrap items-start;
+  @apply flex flex-col items-start;
 }
+/* flex 横向居中 */
 .flex-row-center {
   @apply flex flex-row flex-nowrap justify-center items-center;
 }
+/* flex 横向靠下 */
 .flex-row-center-bottom {
   @apply flex flex-row flex-nowrap items-end;
 }
+/* 描述 */
 .text-intro {
   @apply font-mono text-sm text-gray-400;
 }

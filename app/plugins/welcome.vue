@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-14 10:22:59
+ * @LastEditTime: 2022-06-19 00:46:19
  * @Description: 欢迎 & 指引
 -->
 <template>
@@ -27,7 +27,7 @@
 <script setup>
 import { shell } from 'electron'
 
-import Layout from '../layout/common.vue'
+import Layout from '../layout/custom.vue'
 
 import FaviconSVG from '../assets/favicon.svg'
 import GithubSVG from '../assets/github/github.svg'
