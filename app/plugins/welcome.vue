@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 00:46:19
+ * @LastEditTime: 2022-06-20 00:14:12
  * @Description: 欢迎 & 指引
 -->
 <template>
@@ -17,7 +17,7 @@
       <p>托盘图标中找到 <FaviconSVG class="inline h-5 mb-0.5" /></p>
       <p>在插件列表中启动插件</p>
       <!-- Github 跳转 -->
-      <button @click="openGithub">
+      <button class="btn-square" @click="openGithub">
         <GithubSVG height="22" />
       </button>
     </article>
@@ -47,6 +47,6 @@ article p {
   @apply text-sm text-gray-400;
 }
 article button {
-  @apply outline-none rounded p-1 bg-purple-500 hover:bg-purple-600 text-purple-100;
+  @apply bg-purple-500 hover:bg-purple-600 text-purple-100;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 23:51:36
+ * @LastEditTime: 2022-06-20 00:13:31
  * @Description: macos 布局
 -->
 
@@ -131,6 +131,11 @@ export default {
 // 超小型按钮
 .btn-xs {
   @apply rounded px-1.5 py-0.5 text-xs;
+}
+
+// 方形按钮
+.btn-square {
+  @apply rounded p-1;
 }
 
 /* 动画效果 */
