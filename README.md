@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 23:59:15
+ * @LastEditTime: 2022-06-20 00:10:47
  * @Description: Monit 说明文档
 -->
 
@@ -37,7 +37,7 @@
 | welcome  | 欢迎 & 使用指引   | ✅   |
 | github   | github 信息监控   | ✅   |
 | clock    | 时钟翻牌器        | ✅   |
-| todo     | 待办事项管理      | 🟨   |
+| todo     | 待办事项管理      | ✅   |
 | music    | 网易云音乐播放    | ⛔️  |
 | bilibili | bilibili 信息监控 | ⛔️  |
 
@@ -60,10 +60,9 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 │   ├── assets # 静态资源
 │   ├── layout # 布局组件
 │   ├── plugins # 插件
-│   └── utils # 工具
-
-├── build # 应用 Logo
+│   └── utils # 工具类
 ├── common # 通用工具
+│   ├── utils # 公用工具类
 │   └── plugin.js # 插件配置
 ├── core # 主进程
 │   ├── event.js # 事件处理
@@ -114,25 +113,25 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 
    ```vue
    <template>
-     <main class="h-screen">
+     <main>
        <!-- 窗口控制器 -->
        <Layout />
        <!-- 页面内容 -->
-       <article class="flex-col-center space-y-4">
+       <article class="h-screen flex-col-center space-y-3">
          <h1 class="text-gray-400">计数器</h1>
-         <p class="text-5xl">{{ count }}</p>
+         <p class="pb-2 text-5xl">{{ count }}</p>
          <!-- 增加 & 减少按钮 -->
          <p class="space-x-4">
-           <button class="btn bg-red-500 hover:bg-red-600" @click="reduce">-</button>
-           <button class="btn bg-green-500 hover:bg-green-600" @click="increase">+</button>
+           <button class="btn bg-red-500 hover:bg-red-600" @click="reduce">-1</button>
+           <button class="btn bg-green-500 hover:bg-green-600" @click="increase">+1</button>
          </p>
        </article>
      </main>
    </template>
 
    <script>
+   import { cget, cset } from '../../common/utils/storage'
    import Layout from '../layout/custom.vue'
-   import { cset, cget } from '../../common/storage.js'
 
    // 信息获取
    const get = (key, def) => {
@@ -162,8 +161,8 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
          this.count -= 1
        },
      },
+     // 监听 count 变化
      watch: {
-       // 保存 count 值
        count() {
          set('count', this.count)
        },
@@ -185,12 +184,12 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
 
 4. 增加插件配置 `common/plugin.js`
 
-   ```js
-   export const pluginList = [
-     // ...添加如下行
-     { name: 'count', size: [1, 1], description: '计数器' },
-   ]
-   ```
+```js
+export const pluginList = [
+  // ...添加如下行
+  { name: 'count', size: [1, 1], description: '计数器', debug: true },
+]
+```
 
 5. 启动 & 打包
 

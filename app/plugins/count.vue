@@ -47,8 +47,8 @@ export default {
       this.count -= 1
     },
   },
+  // 监听 count 变化
   watch: {
-    // 保存 count 值
     count() {
       set('count', this.count)
     },
