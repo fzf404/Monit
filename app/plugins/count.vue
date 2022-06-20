@@ -16,18 +16,11 @@
 </template>
 
 <script>
-import { cget, cset } from '../../common/utils/storage'
+import { storage } from '../../common/utils/storage'
 import Layout from '../layout/custom.vue'
 
 // 信息获取
-const get = (key, def) => {
-  return cget('count', key, def)
-}
-
-// 信息保存
-const set = (key, value) => {
-  return cset('count', key, value)
-}
+const { set, get } = storage('count')
 
 export default {
   components: {

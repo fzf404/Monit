@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 23:38:43
+ * @LastEditTime: 2022-06-20 23:35:29
  * @Description: github 信息监控
 -->
 <template>
@@ -143,7 +143,7 @@
 
 <script>
 import { ipcRenderer, shell } from 'electron'
-import { cget, cset } from '../../common/utils/storage'
+import { storage } from '../../common/utils/storage'
 import axios from '../utils/request'
 import { getArrDiffKey } from '../utils/statistic'
 
@@ -157,15 +157,7 @@ import StarSVG from '../assets/github/star.svg'
 // 初始化 axios
 const request = axios('https://api.github.com')
 
-// 信息获取
-const get = (key, def) => {
-  return cget('github', key, def)
-}
-
-// 信息保存
-const set = (key, value) => {
-  return cset('github', key, value)
-}
+const { set, get } = storage('github')
 
 export default {
   components: {

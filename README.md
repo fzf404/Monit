@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-20 00:10:47
+ * @LastEditTime: 2022-06-20 23:45:53
  * @Description: Monit 说明文档
 -->
 
@@ -32,14 +32,14 @@
 
 ## ✨ 功能
 
-| 插件名   | 功能              | 状态 |
-| -------- | ----------------- | ---- |
-| welcome  | 欢迎 & 使用指引   | ✅   |
-| github   | github 信息监控   | ✅   |
-| clock    | 时钟翻牌器        | ✅   |
-| todo     | 待办事项管理      | ✅   |
-| music    | 网易云音乐播放    | ⛔️  |
-| bilibili | bilibili 信息监控 | ⛔️  |
+| 插件名   | 功能              | 技术                   | 状态 |
+| -------- | ----------------- | ---------------------- | ---- |
+| welcome  | 欢迎 & 使用指引   | Vue + Tailwind        | ✅   |
+| github   | github 信息监控   | Vue2 + Tailwind        | ✅   |
+| clock    | 时钟翻牌器        | Vue + Scss + Tailwind | ✅   |
+| todo     | 待办事项管理      | Vue + Pug + Tailwind  | ✅   |
+| music    | 网易云音乐播放    |                        | ⛔️  |
+| bilibili | bilibili 信息监控 |                        | ⛔️  |
 
 ## 📝 开发
 
@@ -130,18 +130,11 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    </template>
 
    <script>
-   import { cget, cset } from '../../common/utils/storage'
+   import { storage } from '../../common/utils/storage'
    import Layout from '../layout/custom.vue'
 
    // 信息获取
-   const get = (key, def) => {
-     return cget('count', key, def)
-   }
-
-   // 信息保存
-   const set = (key, value) => {
-     return cset('count', key, value)
-   }
+   const { set, get } = storage('count')
 
    export default {
      components: {

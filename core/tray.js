@@ -2,21 +2,23 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 00:54:40
+ * @LastEditTime: 2022-06-20 23:32:50
  * @Description: 托盘图标
  */
 
 import { app, Menu, Tray } from 'electron'
 
 import { pluginList } from '../common/plugin'
-import { cget, cset } from '../common/utils/storage'
+import { storage } from '../common/utils/storage'
 import { createWindow } from './window'
+
+const { set, get } = storage('_config')
 
 // 托盘全局变量
 let TrayMenu
 
 // 插件启动列表
-let openPlugins = cget('_config', 'open', [])
+let openPlugins = get('open', [])
 
 // 调试模式
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -51,7 +53,7 @@ const pluginOpen = pluginLists.map((item) => {
         openPlugins.push(item.name)
       }
       // 保存插件自启动状态
-      cset('_config', 'open', openPlugins)
+      set('open', openPlugins)
     },
   }
 })
