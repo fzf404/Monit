@@ -14,7 +14,8 @@
     "electron-store": "^8.0.2",
     "electron-updater": "^5.0.1",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",

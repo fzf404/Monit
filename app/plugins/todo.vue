@@ -2,30 +2,35 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-20 23:38:12
+ * @LastEditTime: 2022-06-21 18:43:52
  * @Description: 代办事项
 -->
 
 <template lang="pug">
 main
   Layout
-  article.h-screen.grid.p-4.pt-8
-    ul.flex.flex-col.items-start.space-y-1.overflow-hidden.overflow-y-scroll
-      li.flex.items-center.space-x-2(v-for="(item,index) in todos")
-        input.h-4.w-4.accent-purple-500(v-model="item.checked" type="checkbox")
-        input.w-28.bg-transparent.outline-none(:class="item.checked?'line-through text-gray-500':'text-gray-200'" v-model="item.title" type="text")
-        RemoveSVG.w-5.stroke-current.clickable.text-purple-400(class="hover:text-purple-500" @click="remove(index)" )
-      li.flex.items-center.space-x-2
-        input.h-4.w-4.accent-purple-500( type="checkbox")
-        input.w-32.bg-transparent.outline-none( v-model="todo" @keyup.enter="add" type="text")
+  article.h-screen.p-4.pt-8
+    draggable.flex.flex-col.items-start.h-52.overflow-hidden.overflow-y-scroll( tag="ul" :list="todos" handle=".handle" :animation="200")
+      template(#item="{element,index}")
+        li.flex.items-center(class="space-y-0.5")
+          input.h-4.w-4.mr-2.list-item.accent-purple-500(v-model="element.checked" type="checkbox")
+          input.w-24.bg-transparent.outline-none.mr-3(:class="element.checked?'line-through text-gray-500':'text-gray-200'" v-model="element.title" type="text")
+          DeleteSVG.w-4.stroke-current.clickable.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
+          MoveSVG.w-5.stroke-current.clickable.text-purple-400.handle(class="hover:text-purple-500" @click="remove(index)" )
+    footer.flex.items-center.mt-3.pt-2.border-t-2.border-indigo-500
+      input.h-4.w-4.accent-purple-500.mr-2( type="checkbox")
+      input.w-24.bg-transparent.outline-none.mr-5( v-model="todo" @keyup.enter="add" type="text")
+      AddSVG.w-4.stroke-current.clickable.text-cyan-400(class="hover:text-cyan-500" @click="add")
 </template>
 
 <script setup>
 import { reactive, ref, watch } from 'vue'
+import draggable from 'vuedraggable'
 import { storage } from '../../common/utils/storage'
+import DeleteSVG from '../assets/todo/delete.svg'
+import MoveSVG from '../assets/todo/move.svg'
+import AddSVG from '../assets/todo/add.svg'
 import Layout from '../layout/custom.vue'
-
-import RemoveSVG from '../assets/todo/remove.svg'
 
 const { set, get } = storage('todo')
 
@@ -35,14 +40,11 @@ const todo = ref('')
 // 全部 todo 列表
 const todos = reactive(
   get('todos', [
-    { id: 1, title: '吃饭', checked: false },
-    { id: 2, title: '睡觉', checked: false },
-    { id: 3, title: '写代码', checked: true },
+    { title: '吃饭', checked: false },
+    { title: '睡觉', checked: false },
+    { title: '写代码', checked: true },
   ])
 )
-
-// 计算 todo 长度, 作为新 todo 的 id
-const number = ref(todos.length)
 
 // 监听 todos 修改
 watch(todos, (val) => {
@@ -52,9 +54,7 @@ watch(todos, (val) => {
 
 // 新增 todo
 const add = () => {
-  number.value++
   todos.push({
-    id: number.value,
     title: todo.value,
     checked: false,
   })
