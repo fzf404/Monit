@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-12 15:55:59
+ * @LastEditTime: 2022-06-19 02:08:53
  * @Description: 窗口管理
  */
 
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { cget } from '../common/storage'
 import { pluginList } from '../common/plugin'
+import { cget } from '../common/utils/storage'
 import { winEvent } from './event'
 
 // 窗口网格大小

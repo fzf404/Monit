@@ -1,3 +1,6 @@
 node_modules
+
 dist
 dist_electron
+
+pnpm-lock.yaml

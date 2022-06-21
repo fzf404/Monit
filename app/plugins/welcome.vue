@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-14 10:22:59
+ * @LastEditTime: 2022-06-21 10:07:58
  * @Description: 欢迎 & 指引
 -->
 <template>
@@ -17,7 +17,7 @@
       <p>托盘图标中找到 <FaviconSVG class="inline h-5 mb-0.5" /></p>
       <p>在插件列表中启动插件</p>
       <!-- Github 跳转 -->
-      <button @click="openGithub">
+      <button class="btn btn-square" @click="openGithub">
         <GithubSVG height="22" />
       </button>
     </article>
@@ -27,7 +27,7 @@
 <script setup>
 import { shell } from 'electron'
 
-import Layout from '../layout/common.vue'
+import Layout from '../layout/custom.vue'
 
 import FaviconSVG from '../assets/favicon.svg'
 import GithubSVG from '../assets/github/github.svg'
@@ -47,6 +47,6 @@ article p {
   @apply text-sm text-gray-400;
 }
 article button {
-  @apply outline-none rounded p-1 bg-purple-500 hover:bg-purple-600 text-purple-100;
+  @apply bg-purple-500 hover:bg-purple-600 text-purple-100;
 }
 </style>

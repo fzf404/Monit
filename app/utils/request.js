@@ -2,25 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-30 20:03:56
+ * @LastEditTime: 2022-06-19 00:42:53
  * @Description: axios 请求封装
  */
 
 import axios from 'axios'
 
-async function request(url, options) {
+const request = (url) => {
   // axios 实例
   const service = axios.create({
-    baseURL: 'https://api.github.com', // base url
-    timeout: 12000, // 超时时间
-  })
-  // 请求拦截
-  service.interceptors.request.use((config) => {
-    // 设置请求头等信息
-    if (options && options.body) {
-      config.data = options.body
-    }
-    return config
+    baseURL: url, // 基本路径
+    timeout: 30000, // 超时时间
   })
   // 返回拦截
   service.interceptors.response.use(
@@ -29,10 +21,11 @@ async function request(url, options) {
       return res.data
     },
     (err) => {
+      // 返回错误
       return Promise.reject(err.message)
     }
   )
-  return service(url, options)
+  return service
 }
 
 export default request
