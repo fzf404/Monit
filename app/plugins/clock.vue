@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 12:43:06
+ * @LastEditTime: 2022-06-21 09:49:54
  * @Description: 翻牌时钟
 -->
 <template>
@@ -46,7 +46,7 @@
       <!-- 控制器 -->
       <section class="space-x-6">
         <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">时钟</button>
-        <transition name="mode-fade" mode="out-in">
+        <transition name="fade" mode="out-in">
           <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
           <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">停止</button>
         </transition>
@@ -183,7 +183,7 @@ const startTiming = () => {
 onMounted(startClock)
 </script>
 
-<style>
+<style scoped>
 /* 底板 */
 .flip {
   @apply inline-block relative w-12 h-20 rounded-lg border-2 border-gray-400 bg-gray-600 text-gray-500 font-mono text-6xl text-center;

@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-20 00:13:31
- * @Description: macos 布局
+ * @LastEditTime: 2022-06-21 10:28:36
+ * @Description: 基础布局
 -->
 
 <template>
@@ -92,6 +92,34 @@ export default {
 </script>
 
 <style lang="scss">
+// 全局样式
+body {
+  // 禁用文字选择
+  user-select: none;
+  // 允许拖拽移动窗口
+  -webkit-app-region: drag;
+
+  // 隐藏滚动条
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  // TODO 可调透明度
+  #app {
+    @apply rounded-lg bg-black bg-opacity-60  text-white font-sans;
+  }
+
+  // 可点击
+  input,
+  button,
+  .clickable {
+    // 禁止拖拽移动窗口 响应点击事件
+    -webkit-app-region: no-drag;
+    // 更改鼠标样式
+    cursor: pointer;
+  }
+}
+
 // 设置窗口样式
 .setting-container {
   @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg bg-black bg-opacity-50;
@@ -123,29 +151,47 @@ export default {
 // 标准按钮
 .btn {
   @apply rounded px-2 py-1;
+  // transition: background-color 0.1s ease-in;
+
+  // &:hover {
+  //   transition: background-color 0.1s ease-out;
+  // }
 }
 // 小型按钮
 .btn-sm {
-  @apply rounded px-2 py-1 text-xs;
+  @apply px-2 py-1 text-xs;
 }
 // 超小型按钮
 .btn-xs {
-  @apply rounded px-1.5 py-0.5 text-xs;
+  @apply px-1.5 py-0.5 text-xs;
 }
 
 // 方形按钮
 .btn-square {
-  @apply rounded p-1;
+  @apply p-1;
 }
 
-/* 动画效果 */
-.mode-fade-enter-active,
-.mode-fade-leave-active {
+// 动画
+
+// 淡入淡出
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s ease;
 }
 
-.mode-fade-enter-from,
-.mode-fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
+}
+
+// 滑入滑出
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.6s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-20 23:35:29
+ * @LastEditTime: 2022-06-21 10:07:51
  * @Description: github 信息监控
 -->
 <template>
@@ -33,7 +33,7 @@
           </li>
           <!-- 保存 -->
           <li class="setting-save">
-            <button class="btn-sm bg-purple-400 hover:bg-purple-500" @click="changeSetting">OK</button>
+            <button class="btn btn-sm bg-purple-400 hover:bg-purple-500" @click="changeSetting">OK</button>
           </li>
         </ul>
       </aside>
