@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-21 10:28:36
+ * @LastEditTime: 2022-06-21 23:25:40
  * @Description: 基础布局
 -->
 
@@ -17,7 +17,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="h-4 w-4 inline stroke-current clickable text-green-400"
-        :class="top ? '' : 'turn'"
+        :class="top ? '' : 'rotate-180'"
         @click="changeTop"
       />
     </ul>

@@ -1,13 +1,9 @@
 name: Monit Release
 
-# on:
-#   push:
-#     tags:
-#       - 'v*.*.*'
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
   release:
@@ -32,8 +28,3 @@ jobs:
           yarn release
         env:
           GH_TOKEN: ${{ secrets.token }}
-      #   uses: samuelmeuli/action-electron-builder@v1
-      #   with:
-      #     github_token: ${{ secrets.token }}
-      #     release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-      #     # use_vue_cli: true
