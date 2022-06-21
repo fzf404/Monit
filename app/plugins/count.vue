@@ -8,26 +8,19 @@
       <p class="pb-2 text-5xl">{{ count }}</p>
       <!-- 增加 & 减少按钮 -->
       <p class="space-x-4">
-        <button class="btn bg-red-500 hover:bg-red-600" @click="reduce">-</button>
-        <button class="btn bg-green-500 hover:bg-green-600" @click="increase">+</button>
+        <button class="btn bg-red-500 hover:bg-red-600" @click="reduce">-1</button>
+        <button class="btn bg-green-500 hover:bg-green-600" @click="increase">+1</button>
       </p>
     </article>
   </main>
 </template>
 
 <script>
-import Layout from '../layout/common.vue'
-import { cset, cget } from '../../common/storage.js'
+import { storage } from '../../common/utils/storage'
+import Layout from '../layout/custom.vue'
 
 // 信息获取
-const get = (key, def) => {
-  return cget('count', key, def)
-}
-
-// 信息保存
-const set = (key, value) => {
-  return cset('count', key, value)
-}
+const { set, get } = storage('count')
 
 export default {
   components: {
@@ -47,8 +40,8 @@ export default {
       this.count -= 1
     },
   },
+  // 监听 count 变化
   watch: {
-    // 保存 count 值
     count() {
       set('count', this.count)
     },
@@ -64,9 +57,5 @@ export default {
 /* flex 横向居中 */
 .flex-row-center {
   @apply flex flex-row flex-nowrap justify-center items-center;
-}
-/* 按钮 */
-.btn {
-  @apply w-8 h-8 text-xl rounded;
 }
 </style>
