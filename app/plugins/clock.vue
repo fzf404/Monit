@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-21 09:49:54
+ * @LastEditTime: 2022-06-22 23:40:46
  * @Description: 翻牌时钟
 -->
 <template>
@@ -114,8 +114,7 @@ const startClock = () => {
   interval && clearInterval(interval)
   // 每秒获取最新时间
   interval = setInterval(() => {
-    const date = new Date()
-    const time = date.toLocaleTimeString('en-GB').replace(/\:/g, '')
+    const time = new Date().toLocaleTimeString('en-GB').replace(/\:/g, '')
     // 遍历时间字符串
     for (let i = 0, len = time.length; i < len; i++) {
       // 判断数字是否修改
@@ -144,26 +143,16 @@ const startTiming = () => {
   // 开启计时
   timing.value = true
 
-  // 计时开始时间
-  const time = [0, 0, 0]
+  const start = new Date().getTime()
   // 每秒更新计时器
   interval = setInterval(() => {
-    // 时间递增
-    time[2]++
-    // 大于 60秒 分钟递增
-    if (time[2] === 60) {
-      time[2] = 0
-      time[1]++
-    }
-    // 大于 60分 小时递增
-    if (time[1] === 60) {
-      time[1] = 0
-      time[0]++
-    }
-    // 大于 100时 小时清空
-    if (time[0] === 100) {
-      time[0] = 0
-    }
+    const diff = new Date().getTime() - start
+
+    const hour = diff % (24 * 3600 * 1000)
+    const minute = hour % (3600 * 1000)
+    const second = minute % (60 * 1000)
+
+    const time = [Math.floor(hour / (3600 * 1000)), Math.floor(minute / (60 * 1000)), Math.floor(second / 1000)]
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
 
