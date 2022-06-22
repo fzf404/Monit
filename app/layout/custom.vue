@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-21 23:25:40
+ * @LastEditTime: 2022-06-22 23:52:03
  * @Description: 基础布局
 -->
 
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { ipcRenderer } from 'electron'
+import { sendEvent } from '../../common/utils/event'
 
 import { cget } from '../../common/utils/storage'
 
@@ -78,14 +78,10 @@ export default {
     this.top = cget(this.name, 'top', false)
   },
   methods: {
-    // 发送事件
-    sendEvent(event, option) {
-      return ipcRenderer.send(event, option)
-    },
     // 切换置顶
     changeTop() {
       this.top = !this.top
-      this.sendEvent(`window-top`, this.top)
+      sendEvent(`window-top`, this.top)
     },
   },
 }

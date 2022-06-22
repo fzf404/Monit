@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-21 10:07:51
+ * @LastEditTime: 2022-06-23 00:11:45
  * @Description: github 信息监控
 -->
 <template>
@@ -142,10 +142,11 @@
 </template>
 
 <script>
-import { ipcRenderer, shell } from 'electron'
+import { shell } from 'electron'
+import { notification } from '../../common/utils/event'
+import axios from '../../common/utils/request'
 import { storage } from '../../common/utils/storage'
-import axios from '../utils/request'
-import { getArrDiffKey } from '../utils/statistic'
+import { getArrDiffKey } from '../../common/utils/statistic'
 
 import Layout from '../layout/custom.vue'
 
@@ -209,7 +210,7 @@ export default {
       const changeNum = this.newFollower - this.follower
       // 发送通知
       if (changeNum != 0) {
-        this.sendNotice('follower is changed')
+        notification('follower is changed')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -222,7 +223,7 @@ export default {
     forkChange() {
       const changeNum = this.newFork - this.fork
       if (changeNum != 0) {
-        this.sendNotice('fork is changed')
+        notification('fork is changed')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -234,7 +235,7 @@ export default {
     starChange() {
       const changeNum = this.newStar - this.star
       if (changeNum != 0) {
-        this.sendNotice('star is changed')
+        notification('star is changed')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -253,10 +254,6 @@ export default {
     },
   },
   methods: {
-    // 发送通知
-    sendNotice(option) {
-      ipcRenderer.send('window-notice', option)
-    },
     // 设置更改
     changeSetting() {
       // 保存设置
