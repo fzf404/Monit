@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-22 23:52:03
+ * @LastEditTime: 2022-06-23 00:19:39
  * @Description: 基础布局
 -->
 
@@ -78,6 +78,7 @@ export default {
     this.top = cget(this.name, 'top', false)
   },
   methods: {
+    sendEvent: sendEvent,
     // 切换置顶
     changeTop() {
       this.top = !this.top
