@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-22 16:20:47
+ * @LastEditTime: 2022-06-26 13:54:30
  * @Description: 代办事项
 -->
 
@@ -16,7 +16,7 @@ main
           input.h-4.w-4.mr-2.list-item.accent-purple-500(v-model="element.checked" type="checkbox")
           input.w-24.bg-transparent.outline-none.mr-3(:class="element.checked?'line-through text-gray-400':'text-gray-200'" v-model="element.title" type="text")
           DeleteSVG.w-4.stroke-current.clickable.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
-          MoveSVG.w-5.stroke-current.clickable.text-purple-400.handle(class="hover:text-purple-500" @click="remove(index)" )
+          MoveSVG.w-5.stroke-current.clickable.text-purple-400.handle(class="hover:text-purple-500")
     footer.flex.items-center.mt-3.pt-2.border-t-2.border-indigo-500
       input.h-4.w-4.accent-purple-500.mr-2( type="checkbox")
       input.w-24.bg-transparent.outline-none.mr-5( v-model="todo" @keyup.enter="add" type="text")
