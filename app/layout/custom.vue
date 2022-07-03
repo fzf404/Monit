@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-23 00:19:39
+ * @LastEditTime: 2022-07-03 21:33:29
  * @Description: 基础布局
 -->
 
@@ -103,7 +103,7 @@ body {
 
   // TODO 可调透明度
   #app {
-    @apply rounded-lg bg-black bg-opacity-60  text-white font-sans;
+    @apply rounded-lg bg-black bg-opacity-60 text-white font-sans;
   }
 
   // 可点击
