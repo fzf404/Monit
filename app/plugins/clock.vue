@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-22 23:40:46
+ * @LastEditTime: 2022-07-15 21:01:24
  * @Description: 翻牌时钟
 -->
 <template>
@@ -153,6 +153,7 @@ const startTiming = () => {
     const second = minute % (60 * 1000)
 
     const time = [Math.floor(hour / (3600 * 1000)), Math.floor(minute / (60 * 1000)), Math.floor(second / 1000)]
+
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
 

@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-03 23:07:21
+ * @LastEditTime: 2022-07-15 20:19:44
  * @Description: 窗口管理
  */
 
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, systemPreferences } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
 import { pluginList } from '../custom/plugin'
@@ -20,7 +20,7 @@ const BasicMesh = 200
 const windowList = []
 
 // 创建窗口
-export const createWindow = (name) => {
+export const createWindow = async (name) => {
   // 判断窗口存在
   const isExist = pluginList.find((item) => item.name === name)
   if (!isExist) {
@@ -32,6 +32,12 @@ export const createWindow = (name) => {
   if (isOpen) {
     // 展示窗口
     return isOpen.show()
+  }
+
+  // 分配权限
+  if (name === 'camera') {
+    await systemPreferences.askForMediaAccess('camera')
+    await systemPreferences.askForMediaAccess('microphone')
   }
 
   // 窗口大小
@@ -60,8 +66,8 @@ export const createWindow = (name) => {
     roundedCorners: false, // 圆角
 
     webPreferences: {
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   })
 
