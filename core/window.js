@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 20:19:44
+ * @LastEditTime: 2022-07-15 23:14:04
  * @Description: 窗口管理
  */
 
@@ -35,7 +35,7 @@ export const createWindow = async (name) => {
   }
 
   // 分配权限
-  if (name === 'camera') {
+  if (process.platform === 'darwin' && name === 'camera') {
     await systemPreferences.askForMediaAccess('camera')
     await systemPreferences.askForMediaAccess('microphone')
   }
