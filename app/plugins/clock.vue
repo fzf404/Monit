@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-22 23:40:46
+ * @LastEditors: XINYUAN CHEN 2766799927@qq.com
+ * @LastEditTime: 2022-07-15 20:45:03
  * @Description: 翻牌时钟
 -->
 <template>
@@ -50,6 +50,7 @@
           <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
           <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">停止</button>
         </transition>
+        <button class="btn bg-blue-500 hover:bg-blue-600" @click="pomodoroClock">番茄钟</button>
       </section>
     </article>
   </main>
@@ -167,7 +168,33 @@ const startTiming = () => {
     old = timeStr
   }, 1000)
 }
-
+// 番茄钟
+const pomodoroClock = () => {
+  interval && clearInterval(interval)
+  // 番茄工作时间
+  let pomodoro = [0, 24, 60]
+  interval = setInterval(() => {
+    pomodoro[2]--
+    if (pomodoro[2] === -1) {
+      pomodoro[2] = 59
+      pomodoro[1]--
+    }
+    if (pomodoro[1] === -1) {
+      pomodoro = [0, 5, 0]
+    }
+    // 转为字符串
+    const timeStr = numToStr(pomodoro[0], 2) + numToStr(pomodoro[1], 2) + numToStr(pomodoro[2], 2)
+    // 遍历时间字符串
+    for (let i = 0, len = timeStr.length; i < len; i++) {
+      // 判断数字是否修改
+      if (timeStr[i] !== old[i]) {
+        // 修改翻牌器数字
+        changeNumber(i, timeStr[i])
+      }
+    }
+    old = timeStr
+  }, 1000)
+}
 // 挂载后执行
 onMounted(startClock)
 </script>
