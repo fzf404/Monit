@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { storage } from '../../common/utils/storage'
+import { storage } from '../../custom/storage'
 import Layout from '../layout/custom.vue'
 
 // 信息获取

@@ -33,7 +33,7 @@
           </li>
           <!-- 保存 -->
           <li class="setting-save">
-            <button class="btn btn-sm bg-purple-400 hover:bg-purple-500" @click="changeSetting">OK</button>
+            <button @click="changeSetting">OK</button>
           </li>
         </ul>
       </aside>
@@ -143,10 +143,10 @@
 
 <script>
 import { shell } from 'electron'
-import { notification } from '../../common/utils/event'
-import axios from '../../common/utils/request'
-import { storage } from '../../common/utils/storage'
-import { getArrDiffKey } from '../../common/utils/statistic'
+import { notification } from '../../custom/ipc'
+import axios from '../../custom/request'
+import { storage } from '../../custom/storage'
+import { getArrDiffKey } from '../../custom/statistic'
 
 import Layout from '../layout/custom.vue'
 

@@ -9,8 +9,8 @@
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { pluginList } from '../common/plugin'
-import { cget } from '../common/utils/storage'
+import { pluginList } from '../custom/plugin'
+import { cget } from '../custom/storage'
 import { winEvent } from './event'
 
 // 窗口网格大小

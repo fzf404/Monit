@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 18:35:39
+ * @LastEditTime: 2022-07-15 17:59:00
  * @Description: 应用入口
  */
 
@@ -15,7 +15,7 @@ import { initTray } from './tray'
 import { autoWindow, createWindow } from './window'
 
 // 调试模式
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDebug = process.env.NODE_ENV === 'development'
 
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'Monit', privileges: { secure: true, standard: true } }])
@@ -37,7 +37,7 @@ app.on('window-all-closed', () => {
 // 准备就绪
 app.on('ready', async () => {
   // 初始化系统托盘
-  initTray()
+  initTray(isDebug)
 
   // 应用事件监听
   appEvent()
@@ -58,7 +58,7 @@ app.on('ready', async () => {
 
 // 调试模式下安装 vue-devtools
 app.on('ready', () => {
-  if (isDevelopment && !process.env.IS_TEST) {
+  if (isDebug && !process.env.IS_TEST) {
     try {
       installExtension(VUEJS3_DEVTOOLS)
     } catch (e) {
@@ -68,7 +68,7 @@ app.on('ready', () => {
 })
 
 // 调试模式下退出
-if (isDevelopment) {
+if (isDebug) {
   if (process.platform === 'win32') {
     process.on('message', (data) => {
       if (data === 'graceful-exit') {
@@ -81,3 +81,5 @@ if (isDevelopment) {
     })
   }
 }
+
+export { isDebug }

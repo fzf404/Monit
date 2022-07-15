@@ -134,7 +134,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源。因此，您
    </template>
 
    <script>
-   import { storage } from '../../common/utils/storage'
+   import { storage } from '../../custom/storage'
    import Layout from '../layout/custom.vue'
 
    // 信息获取

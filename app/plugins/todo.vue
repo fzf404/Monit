@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-14 21:44:51
+ * @LastEditTime: 2022-07-15 15:23:23
  * @Description: 代办事项
 -->
 
@@ -10,7 +10,7 @@
 main
   Layout
   article.h-screen.p-4.pt-7
-    draggable.flex.flex-col.items-start.h-56.overflow-hidden.overflow-y-scroll( tag="ul" :list="todos" handle=".handle" :animation="200")
+    draggable.flex.flex-col.items-start.h-56.overflow-hidden.overflow-y-scroll( tag="ul" :list="todos" handle=".handle" :animation="200" item-key="id")
       template(#item="{element,index}")
         li.flex.items-center(class="space-y-1")
           input.h-4.w-4.mr-2.list-item.accent-purple-500(v-model="element.checked" type="checkbox")
@@ -26,7 +26,7 @@ main
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import draggable from 'vuedraggable'
-import { storage } from '../../common/utils/storage'
+import { storage } from '../../custom/storage'
 import DeleteSVG from '../assets/todo/delete.svg'
 import MoveSVG from '../assets/todo/move.svg'
 import AddSVG from '../assets/todo/add.svg'

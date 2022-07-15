@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-03 21:33:29
+ * @LastEditTime: 2022-07-15 15:56:29
  * @Description: 基础布局
 -->
 
@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import { sendEvent } from '../../common/utils/event'
+import { sendEvent } from '../../custom/ipc'
 
-import { cget } from '../../common/utils/storage'
+import { cget } from '../../custom/storage'
 
 import CloseSVG from '../assets/menu/close.svg'
 import MiniSVG from '../assets/menu/mini.svg'
@@ -141,6 +141,9 @@ body {
     }
     .setting-save {
       @apply flex justify-end items-center;
+      button {
+        @apply btn btn-sm bg-purple-500 hover:bg-purple-600;
+      }
     }
   }
 }

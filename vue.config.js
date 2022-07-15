@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-18 17:25:59
+ * @LastEditTime: 2022-07-15 18:29:42
  * @Description: vue-cli 配置
  */
 
@@ -50,7 +50,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'common/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.js']
 }
 
 module.exports = { ...config }
