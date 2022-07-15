@@ -38,6 +38,13 @@ const config = {
           publish: ['github'],
         },
         mac: {
+          hardenedRuntime: true,
+          entitlements: 'entitlements.mac.plist',
+          extendInfo: {
+            NSCameraUsageDescription: ' 请允许 Monit 访问您的摄像头',
+            NSMicrophoneUsageDescription: '请允许 Monit 访问您的麦克风',
+            LSRequiresNativeExecution: true,
+          },
           target: {
             target: 'dmg',
             arch: ['x64', 'arm64'],
