@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 15:13:15
+ * @LastEditTime: 2022-07-16 11:14:05
  * @Description: 托盘图标
  */
 
@@ -57,8 +57,10 @@ export const initTray = (isDebug) => {
     }
   })
 
+  // 托盘 Logo
+  const trayLogo = process.platform === 'darwin' ? `${__static}/logo/tray.png` : `${__static}/logo/icon.png`
   // 初始化托盘菜单
-  TrayMenu = new Tray(__static + '/logo/tray.png')
+  TrayMenu = new Tray(trayLogo)
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
