@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 20:57:15
+ * @LastEditTime: 2022-07-16 15:35:33
  * @Description: vue-cli 配置
  */
 
@@ -16,8 +16,7 @@ const config = {
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
     svgRule.delete('type')
-    svgRule.delete('generator')
-    svgRule.use('vue-loader').loader('vue-loader').end().use('vue-svg-loader').loader('vue-svg-loader')
+    svgRule.use('svg-vue3-loader').loader('svg-vue3-loader')
   },
   pluginOptions: {
     // electron 打包配置
