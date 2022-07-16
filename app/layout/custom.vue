@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 15:56:29
+ * @LastEditTime: 2022-07-16 11:17:34
  * @Description: 基础布局
 -->
 
@@ -27,6 +27,7 @@
       <WifiSVG v-show="!network" class="h-4 w-4 mb-0.5 inline stroke-current clickable text-red-500" />
       <!-- 设置 -->
       <SettingSVG
+        v-show="setting !== undefined"
         class="h-4 w-4 inline stroke-current clickable text-blue-500"
         @click="$emit('update:setting', !setting)"
       />
@@ -58,7 +59,7 @@ export default {
   props: {
     setting: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     network: {
       type: Boolean,
