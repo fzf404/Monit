@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 23:25:00
+ * @LastEditTime: 2022-07-16 13:56:23
  * @Description: 翻牌时钟
 -->
 <template>
@@ -44,11 +44,17 @@
         </div>
       </section>
       <!-- 控制器 -->
-      <section class="space-x-6">
-        <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">时钟</button>
+      <section class="space-x-4">
+        <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">
+          <ClockSVG class="w-6" />
+        </button>
         <transition name="fade" mode="out-in">
-          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
-          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">停止</button>
+          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">
+            <TimerSVG class="w-6" />
+          </button>
+          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">
+            <OffSVG class="w-6" />
+          </button>
         </transition>
       </section>
     </article>
@@ -58,6 +64,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import Layout from '../layout/custom.vue'
+import ClockSVG from '../assets/clock/clock.svg'
+import TimerSVG from '../assets/clock/timer.svg'
+import OffSVG from '../assets/clock/off.svg'
 
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]
@@ -106,7 +115,7 @@ const startClock = () => {
 
   // 每秒获取最新时间
   interval = setInterval(() => {
-    const time = new Date().toLocaleTimeString('en-GB').replace(/\:/g, '')
+    const time = new Date().toLocaleTimeString().replace(/\:/g, '')
     // 遍历时间字符串
     for (let i = 0, len = time.length; i < len; i++) {
       // 判断数字是否修改
