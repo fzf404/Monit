@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 23:14:04
+ * @LastEditTime: 2022-07-16 14:12:55
  * @Description: 窗口管理
  */
 
@@ -73,9 +73,10 @@ export const createWindow = async (name) => {
 
   // 根据模式启动应用
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // 调试模式
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
-    if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
+    // 加载应用
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name)
+    // 默认不开启调试器
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     // 生产模式
     createProtocol('app') // 创建协议
