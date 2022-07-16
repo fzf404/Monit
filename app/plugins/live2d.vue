@@ -6,7 +6,9 @@
   </article>
 </template>
 
+<!-- TODO -->
 <script setup>
+import { ref } from 'vue'
 import Layout from '../layout/custom.vue'
 
 character = ref(null)
