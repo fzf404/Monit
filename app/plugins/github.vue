@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 11:35:45
+ * @LastEditTime: 2022-07-17 15:57:59
  * @Description: github 信息监控
 -->
 <template>
@@ -65,7 +65,7 @@
         </p>
       </section>
       <!-- repo -->
-      <section class="flex-col-center-left col-span-5 row-span-5 overflow-x-hidden overflow-y-scroll mt-px">
+      <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
         <p
           :key="index"
           class="flex-row-center space-x-1 space-y-1 clickable"
@@ -189,6 +189,27 @@ export default {
       newRepoInfo: get('repo', []), // 新 repo 信息
     }
   },
+  // 监听设置更改
+  watch: {
+    user(value) {
+      set('user', value)
+    },
+    notice(value) {
+      set('notice', value)
+    },
+    follower(value) {
+      set('follower', value)
+    },
+    star(value) {
+      set('star', value)
+    },
+    fork(value) {
+      set('fork', value)
+    },
+    repoInfo(value) {
+      set('repo', value)
+    },
+  },
   created() {
     if (this.user === '') {
       // 打开设置
@@ -256,66 +277,24 @@ export default {
   methods: {
     // 设置更改
     changeSetting() {
-      // 保存设置
-      set('user', this.user)
-      set('notice', this.notice)
-      // 初始化数据
-      this.initGithubData()
       // 更改设置状态
       this.setting = false
+      // 初始化数据
+      this.initGithubData()
     },
     // 初始化数据
-    initGithubData() {
-      request
-        .get(`/users/${this.user}`)
-        .then((data) => {
-          // 修改网络状态
-          this.network = true
-
-          // 设置 follower
-          this.newFollower = data.followers
-          this.follower = data.followers
-          set('follower', data.followers)
-
-          // 统计 stat fork repo
-          let star = 0,
-            fork = 0,
-            repoInfo = [],
-            pages = Math.ceil(data.public_repos / 100)
-
-          // 遍历 repo 信息
-          while (pages--) {
-            request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
-              // 遍历数据
-              data.forEach((item) => {
-                star += item.stargazers_count
-                fork += item.forks_count
-                repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
-              })
-              // 设置 star
-              this.newStar = star
-              this.star = star
-              set('star', star)
-              // 设置 fork
-              this.newFork = fork
-              this.fork = fork
-              set('fork', fork)
-              // 设置 repo
-              this.newRepoInfo = repoInfo
-              this.repoInfo = repoInfo
-              set('repo', repoInfo)
-            })
-          }
-        })
-        .catch(() => {
-          this.network = false
-        })
+    async initGithubData() {
+      await this.getGithubData()
+      this.follower = this.newFollower
+      this.star = this.newStar
+      this.fork = this.newFork
+      this.repoInfo = this.newRepoInfo
     },
     // 请求数据
-    getGithubData() {
-      request
+    async getGithubData() {
+      await request
         .get(`/users/${this.user}`)
-        .then((data) => {
+        .then(async (data) => {
           // 修改网络状态
           this.network = true
 
@@ -330,7 +309,7 @@ export default {
 
           // 遍历 repo 信息
           while (pages--) {
-            request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
+            await request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
               // 遍历数据
               data.forEach((item) => {
                 star += item.stargazers_count
@@ -351,7 +330,6 @@ export default {
     // 更新 follower
     updateFollower() {
       this.follower = this.newFollower
-      set('follower', this.newFollower) // 保存 follow 数据
       shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
     },
     // 更新 repo
@@ -361,7 +339,6 @@ export default {
     // 更新 star
     updateStar() {
       this.star = this.newStar
-      set('star', this.newStar) // 保存 star 数
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
         // 访问
@@ -369,12 +346,10 @@ export default {
       })
       // 更新 repo
       this.repoInfo = this.newRepoInfo
-      set('repo', this.newRepoInfo)
     },
     // 更新 fork
     updateFork() {
       this.fork = this.newFork
-      set('fork', this.newFork) // 保存 fork 数
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
         // 访问
@@ -382,7 +357,6 @@ export default {
       })
       // 更新 repo
       this.repoInfo = this.newRepoInfo
-      set('repo', this.newRepoInfo)
     },
   },
 }
