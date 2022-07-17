@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-23 00:11:45
+ * @LastEditTime: 2022-07-17 11:35:45
  * @Description: github 信息监控
 -->
 <template>
@@ -12,16 +12,16 @@
     <!-- 页面内容 -->
     <article class="h-screen relative grid grid-cols-12 grid-rows-5 p-3">
       <!-- 设置模态框 -->
-      <aside class="setting-container" v-show="setting">
+      <aside class="setting" v-show="setting">
         <!-- 中心框 -->
-        <ul class="setting-box">
+        <ul>
           <!-- 消息通知 设置 -->
-          <li class="setting-item">
+          <li>
             <label for="message-notice">消息通知</label>
             <input id="message-notice" type="checkbox" v-model.lazy="notice" />
           </li>
           <!-- Github 用户 -->
-          <li class="setting-item">
+          <li>
             <label for="github-username">用户名</label>
             <input
               id="github-username"
@@ -32,9 +32,9 @@
             />
           </li>
           <!-- 保存 -->
-          <li class="setting-save">
+          <ol>
             <button @click="changeSetting">OK</button>
-          </li>
+          </ol>
         </ul>
       </aside>
       <!-- follower -->
@@ -148,7 +148,7 @@ import axios from '../../custom/request'
 import { storage } from '../../custom/storage'
 import { getArrDiffKey } from '../../custom/statistic'
 
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 
 import ForkSVG from '../assets/github/fork.svg'
 import GihubSVG from '../assets/github/github.svg'

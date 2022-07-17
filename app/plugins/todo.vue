@@ -30,7 +30,7 @@ import { storage } from '../../custom/storage'
 import DeleteSVG from '../assets/todo/delete.svg'
 import MoveSVG from '../assets/todo/move.svg'
 import AddSVG from '../assets/todo/add.svg'
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 
 const { set, get } = storage('todo')
 

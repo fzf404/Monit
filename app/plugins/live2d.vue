@@ -9,7 +9,7 @@
 <!-- TODO -->
 <script setup>
 import { ref } from 'vue'
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 
 character = ref(null)
 </script>

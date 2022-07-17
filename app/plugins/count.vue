@@ -5,11 +5,11 @@
     <!-- 页面内容 -->
     <article class="h-screen">
       <!-- 设置 -->
-      <aside class="setting-container" v-show="setting">
+      <aside class="setting setting-sm" v-show="setting">
         <!-- 中心框 -->
-        <ul class="setting-box setting-box-sm">
+        <ul>
           <!-- 计数值 -->
-          <li class="setting-item">
+          <li>
             <label for="count-number">数值</label>
             <input
               id="count-number"
@@ -20,7 +20,7 @@
             />
           </li>
           <!-- 步长值 -->
-          <li class="setting-item">
+          <li>
             <label for="step-number">步长</label>
             <input
               id="step-number"
@@ -31,9 +31,9 @@
             />
           </li>
           <!-- 保存 -->
-          <li class="setting-save">
+          <ol>
             <button @click="this.setting = false">OK</button>
-          </li>
+          </ol>
         </ul>
       </aside>
       <!-- 主主体 -->
@@ -52,7 +52,7 @@
 
 <script>
 import { storage } from '../../custom/storage'
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 import AddSVG from '../assets/count/add.svg'
 import SubSVG from '../assets/count/sub.svg'
 

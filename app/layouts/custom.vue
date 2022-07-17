@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-16 16:22:50
+ * @LastEditTime: 2022-07-17 11:41:37
  * @Description: 基础布局
 -->
 
@@ -91,6 +91,7 @@ export default {
 
 <style lang="scss">
 // 全局样式
+html,
 body {
   // 禁用文字选择
   user-select: none;
@@ -119,22 +120,18 @@ body {
 }
 
 // 设置窗口样式
-.setting-container {
+.setting {
   @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg bg-black bg-opacity-50;
 
-  .setting-box {
+  ul {
     @apply w-3/5 z-20 px-4 py-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200;
 
-    .setting-item {
+    // 设置内容
+    li {
       @apply h-8 px-2 flex justify-between items-center shadow rounded bg-white;
 
       label {
         @apply text-gray-500 text-xs;
-      }
-
-      input[type='number'],
-      input[type='text'] {
-        @apply w-3/5 px-2 py-1 outline-none border-none shadow-inner rounded text-right text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
       }
 
       // 去除箭头
@@ -142,18 +139,29 @@ body {
         -webkit-appearance: none;
       }
 
+      input[type='number'],
+      input[type='text'] {
+        @apply w-3/5 px-2 py-1 outline-none border-none shadow-inner rounded text-right text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
+      }
+
       input[type='checkbox'] {
         @apply w-4 h-4 outline-none accent-purple-500;
       }
     }
-    .setting-save {
+
+    // 设置操作
+    ol {
       @apply flex justify-end items-center;
       button {
         @apply btn btn-sm bg-purple-500 hover:bg-purple-600;
       }
     }
   }
-  .setting-box-sm {
+}
+
+// 设置小窗口样式
+.setting-sm {
+  ul {
     @apply w-3/4;
   }
 }
@@ -181,8 +189,6 @@ body {
 .btn-sq-sm {
   @apply p-1;
 }
-
-// 动画
 
 // 淡入淡出
 .fade-enter-active,

@@ -63,7 +63,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 import ClockSVG from '../assets/clock/clock.svg'
 import TimerSVG from '../assets/clock/timer.svg'
 import OffSVG from '../assets/clock/off.svg'

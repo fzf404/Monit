@@ -16,7 +16,7 @@
 
 <!-- TODO -->
 <script setup>
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 </script>
 
 <style scoped></style>

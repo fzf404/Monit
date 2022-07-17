@@ -5,18 +5,18 @@
     <!-- 页面内容 -->
     <article class="h-screen relative">
       <!-- 设置模态框 -->
-      <aside class="setting-container" v-show="setting.show">
+      <aside class="setting" v-show="setting.show">
         <!-- 中心框 -->
-        <ul class="setting-box">
+        <ul>
           <!-- 消息通知 设置 -->
-          <li class="setting-item">
+          <li>
             <label for="contorl-open">控制器</label>
             <input id="contorl-open" type="checkbox" v-model.lazy="setting.control" />
           </li>
           <!-- 保存 -->
-          <li class="setting-save">
+          <ol>
             <button @click="setting.show = false">OK</button>
-          </li>
+          </ol>
         </ul>
       </aside>
       <!-- 主屏幕 -->
@@ -53,7 +53,7 @@ import { onMounted, ref, reactive } from 'vue'
 import CameraSVG from '../assets/camera/camera.svg'
 import VideoSVG from '../assets/camera/video.svg'
 import OffSVG from '../assets/camera/off.svg'
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 
 // VNodeRef
 const video = ref(null)

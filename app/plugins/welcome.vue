@@ -27,7 +27,7 @@
 <script setup>
 import { shell } from 'electron'
 
-import Layout from '../layout/custom.vue'
+import Layout from '../layouts/custom.vue'
 
 import FaviconSVG from '../assets/favicon.svg'
 import GithubSVG from '../assets/github/github.svg'
