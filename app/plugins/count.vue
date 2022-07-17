@@ -76,10 +76,12 @@ export default {
   },
   methods: {
     increase() {
-      this.count += this.step
+      // 浮点数运算精度
+      this.count = Number((this.count + this.step).toFixed(2))
     },
     reduce() {
-      this.count -= this.step
+      // 浮点数运算精度
+      this.count = Number((this.count - this.step).toFixed(2))
     },
   },
   // 监听 count 变化
