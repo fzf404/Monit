@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 17:22:42
+ * @LastEditTime: 2022-07-17 18:31:13
  * @Description: 应用入口
  */
 
@@ -42,23 +42,16 @@ app.on('ready', async () => {
   // 应用事件监听
   appEvent()
 
-  if (process.platform === 'linux') {
-    // 延时启动窗口 用于修复 Linux 窗口不透明
-    setTimeout(() => {
-      autoWindow()
-    }, 300)
-  } else {
-    // 自动打开窗口
-    autoWindow()
-  }
+  // 自动打开窗口
+  autoWindow()
 
   // 自动检查更新
-  autoUpdater.checkForUpdatesAndNotify()
+  if (!isDebug) autoUpdater.checkForUpdatesAndNotify()
 })
 
 // 调试模式下安装 vue-devtools
 app.on('ready', () => {
-  if (isDebug && !process.env.IS_TEST) {
+  if (isDebug) {
     try {
       installExtension(VUEJS3_DEVTOOLS)
     } catch (e) {
