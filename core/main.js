@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 17:59:00
+ * @LastEditTime: 2022-07-17 17:22:42
  * @Description: 应用入口
  */
 
@@ -18,7 +18,7 @@ import { autoWindow, createWindow } from './window'
 const isDebug = process.env.NODE_ENV === 'development'
 
 // 注册协议
-protocol.registerSchemesAsPrivileged([{ scheme: 'Monit', privileges: { secure: true, standard: true } }])
+protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
 // mac 激活窗口
 app.on('activate', () => {

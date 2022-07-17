@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-16 14:12:55
+ * @LastEditTime: 2022-07-17 18:02:13
  * @Description: 窗口管理
  */
 
@@ -79,8 +79,8 @@ export const createWindow = async (name) => {
     // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     // 生产模式
-    createProtocol('app') // 创建协议
-    win.loadURL('app://./index.html#/' + name) // 加载应用
+    createProtocol('monit') // 创建协议
+    win.loadURL('monit://./index.html#/' + name) // 加载应用
   }
 
   // 监听事件

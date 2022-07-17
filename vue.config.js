@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-16 15:35:33
+ * @LastEditTime: 2022-07-17 17:45:37
  * @Description: vue-cli 配置
  */
 
@@ -21,7 +21,10 @@ const config = {
   pluginOptions: {
     // electron 打包配置
     electronBuilder: {
+      // node 集成
       nodeIntegration: true,
+      // 自定义通信协议
+      customFileProtocol: 'monit://./',
       // 主进程入口
       mainProcessFile: 'core/main.js',
       // 渲染进程入口
