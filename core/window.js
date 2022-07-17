@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-03 23:07:21
+ * @LastEditTime: 2022-07-17 18:02:13
  * @Description: 窗口管理
  */
 
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, systemPreferences } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { pluginList } from '../common/plugin'
-import { cget } from '../common/utils/storage'
+import { pluginList } from '../custom/plugin'
+import { cget } from '../custom/storage'
 import { winEvent } from './event'
 
 // 窗口网格大小
@@ -20,7 +20,7 @@ const BasicMesh = 200
 const windowList = []
 
 // 创建窗口
-export const createWindow = (name) => {
+export const createWindow = async (name) => {
   // 判断窗口存在
   const isExist = pluginList.find((item) => item.name === name)
   if (!isExist) {
@@ -32,6 +32,12 @@ export const createWindow = (name) => {
   if (isOpen) {
     // 展示窗口
     return isOpen.show()
+  }
+
+  // 分配权限
+  if (process.platform === 'darwin' && name === 'camera') {
+    await systemPreferences.askForMediaAccess('camera')
+    await systemPreferences.askForMediaAccess('microphone')
   }
 
   // 窗口大小
@@ -60,20 +66,21 @@ export const createWindow = (name) => {
     roundedCorners: false, // 圆角
 
     webPreferences: {
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   })
 
   // 根据模式启动应用
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // 调试模式
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name) // 加载应用
-    if (!process.env.IS_TEST) win.webContents.openDevTools() // 打开调试器
+    // 加载应用
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/' + name)
+    // 默认不开启调试器
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     // 生产模式
-    createProtocol('app') // 创建协议
-    win.loadURL('app://./index.html#/' + name) // 加载应用
+    createProtocol('monit') // 创建协议
+    win.loadURL('monit://./index.html#/' + name) // 加载应用
   }
 
   // 监听事件

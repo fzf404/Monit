@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-18 17:25:59
+ * @LastEditTime: 2022-07-17 19:27:35
  * @Description: vue-cli 配置
  */
 
@@ -16,13 +16,15 @@ const config = {
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
     svgRule.delete('type')
-    svgRule.delete('generator')
-    svgRule.use('vue-loader').loader('vue-loader').end().use('vue-svg-loader').loader('vue-svg-loader')
+    svgRule.use('svg-vue3-loader').loader('svg-vue3-loader')
   },
   pluginOptions: {
     // electron 打包配置
     electronBuilder: {
+      // node 集成
       nodeIntegration: true,
+      // 自定义通信协议
+      customFileProtocol: 'monit://./',
       // 主进程入口
       mainProcessFile: 'core/main.js',
       // 渲染进程入口
@@ -33,9 +35,13 @@ const config = {
         icon: 'public/logo/icon.png', // 图标
         appId: 'top.fzf404.monit', // app id
         artifactName: '${productName}-${version}-${os}-${arch}.${ext}', // 打包命名方式
+        // 发布地址
+        publish: ['github'],
+        win: {
+          target: ['nsis', '7z'],
+        },
         linux: {
           target: 'AppImage',
-          publish: ['github'],
         },
         mac: {
           target: {
@@ -50,7 +56,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'common/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.js']
 }
 
 module.exports = { ...config }

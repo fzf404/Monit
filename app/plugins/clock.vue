@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-22 23:40:46
+ * @LastEditTime: 2022-07-16 13:56:23
  * @Description: 翻牌时钟
 -->
 <template>
@@ -44,11 +44,17 @@
         </div>
       </section>
       <!-- 控制器 -->
-      <section class="space-x-6">
-        <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">时钟</button>
+      <section class="space-x-4">
+        <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">
+          <ClockSVG class="w-6" />
+        </button>
         <transition name="fade" mode="out-in">
-          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">计时</button>
-          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">停止</button>
+          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">
+            <TimerSVG class="w-6" />
+          </button>
+          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">
+            <OffSVG class="w-6" />
+          </button>
         </transition>
       </section>
     </article>
@@ -57,10 +63,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import Layout from '../layout/custom.vue'
-
-// 是否正在计时
-const timing = ref(false)
+import Layout from '../layouts/custom.vue'
+import ClockSVG from '../assets/clock/clock.svg'
+import TimerSVG from '../assets/clock/timer.svg'
+import OffSVG from '../assets/clock/off.svg'
 
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]
@@ -68,7 +74,7 @@ let fliping = [false, false, false, false, false, false]
 // setInterval() 回调
 let interval = null
 
-// 上次更新的时间
+// 上次翻牌数字
 let old = '000000'
 
 /**
@@ -78,10 +84,10 @@ let old = '000000'
  * @return {*}
  */
 const changeNumber = (digit, num) => {
-  // 正在翻转中则 return
+  // 翻转中则返回
   if (fliping[digit]) return
 
-  // 翻转开始
+  // 设置翻牌状态
   fliping[digit] = true
 
   // 获取 DOM
@@ -89,11 +95,11 @@ const changeNumber = (digit, num) => {
   const front = document.querySelectorAll('.front')[digit]
   const back = document.querySelectorAll('.back')[digit]
 
-  // 更改背后数字 & 增加动画
+  // 更改数字 & 启动动画
   back.setAttribute('class', `digital back n-${num}`)
   flip.classList.add('go')
 
-  // 600ms 后清除动画 & 修改前面数字
+  // 延时 600ms 停止动画 & 修改前面数字
   setTimeout(() => {
     flip.classList.remove('go')
     front.setAttribute('class', `digital front n-${num}`)
@@ -102,19 +108,14 @@ const changeNumber = (digit, num) => {
   }, 600)
 }
 
-// 停止计时器
-const stop = () => {
-  timing.value = false
-  interval && clearInterval(interval)
-}
-
 // 开启时钟
 const startClock = () => {
-  // 停止计时器
+  // 停止 setInterval()
   interval && clearInterval(interval)
+
   // 每秒获取最新时间
   interval = setInterval(() => {
-    const time = new Date().toLocaleTimeString('en-GB').replace(/\:/g, '')
+    const time = new Date().toLocaleTimeString().replace(/\:/g, '')
     // 遍历时间字符串
     for (let i = 0, len = time.length; i < len; i++) {
       // 判断数字是否修改
@@ -135,16 +136,20 @@ const numToStr = (num, length) => {
   return numToStr('0' + num, length)
 }
 
+// 是否正在计时
+const timing = ref(false)
+
 // 开启计时
 const startTiming = () => {
-  // 停止计时器
+  // 停止 setInterval()
   interval && clearInterval(interval)
 
   // 开启计时
   timing.value = true
 
   const start = new Date().getTime()
-  // 每秒更新计时器
+
+  // 每秒更新计时
   interval = setInterval(() => {
     const diff = new Date().getTime() - start
 
@@ -153,6 +158,7 @@ const startTiming = () => {
     const second = minute % (60 * 1000)
 
     const time = [Math.floor(hour / (3600 * 1000)), Math.floor(minute / (60 * 1000)), Math.floor(second / 1000)]
+
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
 
@@ -166,6 +172,12 @@ const startTiming = () => {
     }
     old = timeStr
   }, 1000)
+}
+
+// 停止计时
+const stop = () => {
+  timing.value = false
+  interval && clearInterval(interval)
 }
 
 // 挂载后执行

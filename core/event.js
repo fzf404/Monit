@@ -8,7 +8,7 @@
 
 import { BrowserWindow, ipcMain, Notification } from 'electron'
 
-import { cget, cset } from '../common/utils/storage'
+import { cget, cset } from '../custom/storage'
 
 // 应用事件
 export const appEvent = () => {

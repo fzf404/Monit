@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-03 21:33:29
+ * @LastEditTime: 2022-07-17 15:30:34
  * @Description: 基础布局
 -->
 
@@ -17,7 +17,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="h-4 w-4 inline stroke-current clickable text-green-400"
-        :class="top ? '' : 'rotate-180'"
+        :class="{ 'rotate-180': top }"
         @click="changeTop"
       />
     </ul>
@@ -27,6 +27,7 @@
       <WifiSVG v-show="!network" class="h-4 w-4 mb-0.5 inline stroke-current clickable text-red-500" />
       <!-- 设置 -->
       <SettingSVG
+        v-show="setting !== undefined"
         class="h-4 w-4 inline stroke-current clickable text-blue-500"
         @click="$emit('update:setting', !setting)"
       />
@@ -35,9 +36,9 @@
 </template>
 
 <script>
-import { sendEvent } from '../../common/utils/event'
+import { sendEvent } from '../../custom/ipc'
 
-import { cget } from '../../common/utils/storage'
+import { cget } from '../../custom/storage'
 
 import CloseSVG from '../assets/menu/close.svg'
 import MiniSVG from '../assets/menu/mini.svg'
@@ -58,7 +59,7 @@ export default {
   props: {
     setting: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     network: {
       type: Boolean,
@@ -90,12 +91,15 @@ export default {
 
 <style lang="scss">
 // 全局样式
+html,
 body {
   // 禁用文字选择
   user-select: none;
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
 
+  // 禁止滚动
+  overflow: hidden;
   // 隐藏滚动条
   ::-webkit-scrollbar {
     display: none;
@@ -109,6 +113,7 @@ body {
   // 可点击
   input,
   button,
+  select,
   .clickable {
     // 禁止拖拽移动窗口 响应点击事件
     -webkit-app-region: no-drag;
@@ -118,57 +123,79 @@ body {
 }
 
 // 设置窗口样式
-.setting-container {
+.setting {
   @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg bg-black bg-opacity-50;
 
-  .setting-box {
-    @apply w-56 z-20  px-4 py-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200;
+  ul {
+    @apply w-3/5 z-20 px-4 py-3 pb-2 space-y-2 ring-4 ring-opacity-50 rounded-lg ring-purple-400 bg-gray-200;
 
-    .setting-item {
-      @apply h-8 px-2.5 flex justify-between items-center shadow rounded bg-white;
+    // 设置内容
+    li {
+      @apply h-8 px-2 flex justify-between items-center shadow rounded bg-white;
 
       label {
         @apply text-gray-500 text-xs;
       }
 
+      // 去除箭头
+      input[type='number']::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+
+      input[type='number'],
       input[type='text'] {
-        @apply w-24 px-2 py-1 outline-none border-none shadow-inner rounded text-right text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
+        @apply w-3/5 px-2 py-1 outline-none border-none shadow-inner rounded text-right text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
       }
 
       input[type='checkbox'] {
         @apply w-4 h-4 outline-none accent-purple-500;
       }
+
+      select {
+        @apply w-3/5 px-2 py-1 outline-none border-none shadow-inner rounded text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
+      }
     }
-    .setting-save {
+
+    // 设置操作
+    ol {
       @apply flex justify-end items-center;
+      button {
+        @apply btn btn-sm bg-purple-500 hover:bg-purple-600;
+      }
     }
+  }
+}
+
+// 设置小窗口样式
+.setting-sm {
+  ul {
+    @apply w-3/4;
   }
 }
 
 // 标准按钮
 .btn {
   @apply rounded px-2 py-1;
-  // transition: background-color 0.1s ease-in;
-
-  // &:hover {
-  //   transition: background-color 0.1s ease-out;
-  // }
 }
+
 // 小型按钮
 .btn-sm {
   @apply px-2 py-1 text-xs;
 }
+
 // 超小型按钮
 .btn-xs {
   @apply px-1.5 py-0.5 text-xs;
 }
 
 // 方形按钮
-.btn-square {
-  @apply p-1;
+.btn-sq {
+  @apply p-1.5;
 }
 
-// 动画
+.btn-sq-sm {
+  @apply p-1;
+}
 
 // 淡入淡出
 .fade-enter-active,
