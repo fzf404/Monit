@@ -34,7 +34,7 @@
       <!-- 主屏幕 -->
       <section class="rounded-lg overflow-hidden">
         <!-- 预览窗口 -->
-        <video ref="video" class="w-screen" :class="{ mirror: setting.mirror }" autoplay />
+        <video ref="video" class="w-screen h-screen" :class="{ mirror: setting.mirror }" autoplay />
         <!-- 拍照 -->
         <canvas ref="canvas" class="hidden" />
         <!-- 记录 -->
@@ -81,8 +81,8 @@ const devices = ref(null)
 // 设置状态
 const setting = reactive({
   show: false, // 菜单栏
-  control: true, // 控制器
-  mirror: false, // 镜像
+  control: get('control', true), // 控制器
+  mirror: get('mirror', false), // 镜像
   camera: null, // 设备ID
 })
 
@@ -103,11 +103,13 @@ onMounted(async () => {
 
 // 切换摄像头
 watchEffect(async () => {
-  video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-    video: {
-      optional: [{ sourceId: setting.camera }],
-    },
-  })
+  if (setting.camera) {
+    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+      video: {
+        optional: [{ sourceId: setting.camera }],
+      },
+    })
+  }
 })
 
 // 监听设置修改
