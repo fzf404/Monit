@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 11:41:37
+ * @LastEditTime: 2022-07-17 15:30:34
  * @Description: 基础布局
 -->
 
@@ -17,7 +17,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="h-4 w-4 inline stroke-current clickable text-green-400"
-        :class="top ? '' : 'rotate-180'"
+        :class="{ 'rotate-180': top }"
         @click="changeTop"
       />
     </ul>
@@ -98,6 +98,8 @@ body {
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
 
+  // 禁止滚动
+  overflow: hidden;
   // 隐藏滚动条
   ::-webkit-scrollbar {
     display: none;
@@ -111,6 +113,7 @@ body {
   // 可点击
   input,
   button,
+  select,
   .clickable {
     // 禁止拖拽移动窗口 响应点击事件
     -webkit-app-region: no-drag;
@@ -146,6 +149,10 @@ body {
 
       input[type='checkbox'] {
         @apply w-4 h-4 outline-none accent-purple-500;
+      }
+
+      select {
+        @apply w-3/5 px-2 py-1 outline-none border-none shadow-inner rounded text-xs bg-gray-200 text-purple-400 focus:text-purple-500;
       }
     }
 

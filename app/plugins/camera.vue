@@ -11,7 +11,19 @@
           <!-- 消息通知 设置 -->
           <li>
             <label for="contorl-open">控制器</label>
-            <input id="contorl-open" type="checkbox" v-model.lazy="setting.control" />
+            <input id="contorl-open" type="checkbox" v-model="setting.control" />
+          </li>
+          <li>
+            <label for="mirror-open">镜像</label>
+            <input id="mirror-open" type="checkbox" v-model="setting.mirror" />
+          </li>
+          <li>
+            <label for="camera-select">设备</label>
+            <select id="camera-select" v-model="setting.camera">
+              <option v-for="device in devices" :value="device.deviceId" @select="switchCamera">
+                {{ device.label.slice(0, 22) }}
+              </option>
+            </select>
           </li>
           <!-- 保存 -->
           <ol>
@@ -22,7 +34,7 @@
       <!-- 主屏幕 -->
       <section class="rounded-lg overflow-hidden">
         <!-- 预览窗口 -->
-        <video ref="video" class="w-screen" autoplay />
+        <video ref="video" class="w-screen" :class="{ mirror: setting.mirror }" autoplay />
         <!-- 拍照 -->
         <canvas ref="canvas" class="hidden" />
         <!-- 记录 -->
@@ -49,34 +61,76 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, watchEffect, watch } from 'vue'
 import CameraSVG from '../assets/camera/camera.svg'
 import VideoSVG from '../assets/camera/video.svg'
 import OffSVG from '../assets/camera/off.svg'
 import Layout from '../layouts/custom.vue'
+import { storage } from '../../custom/storage'
+
+const { set, get } = storage('camera')
 
 // VNodeRef
 const video = ref(null)
 const canvas = ref(null)
 const record = ref(null)
 
+// 设备
+const devices = ref(null)
+
 // 设置状态
 const setting = reactive({
   show: false, // 菜单栏
   control: true, // 控制器
+  mirror: false, // 镜像
+  camera: null, // 设备ID
 })
 
 onMounted(async () => {
   // 判断摄像头是否存在
   if (navigator.mediaDevices) {
-    // 获取摄像头
-    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-      video: true,
+    // 读取列表
+    devices.value = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
+      return device.kind === 'videoinput'
     })
+
+    // 设置默认摄像头
+    setting.camera = get('camera', devices.value[0].deviceId)
   } else {
     alert('摄像头不存在！')
   }
 })
+
+// 切换摄像头
+watchEffect(async () => {
+  video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+    video: {
+      optional: [{ sourceId: setting.camera }],
+    },
+  })
+})
+
+// 监听设置修改
+watch(
+  () => setting.camera,
+  (camera) => {
+    set('camera', camera)
+  }
+)
+
+watch(
+  () => setting.mirror,
+  (mirror) => {
+    set('mirror', mirror)
+  }
+)
+
+watch(
+  () => setting.control,
+  (control) => {
+    set('control', control)
+  }
+)
 
 // 拍照
 const takePhoto = () => {
@@ -114,8 +168,8 @@ const startRecord = () => {
         // 创建记录器
         recorder = new MediaRecorder(stream)
         // 停止后回调
-        recorder.ondataavailable = (e) => {
-          record.value.href = URL.createObjectURL(e.data)
+        recorder.ondataavailable = (event) => {
+          record.value.href = URL.createObjectURL(event.data)
           record.value.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
           record.value.click()
         }
@@ -135,3 +189,9 @@ const stopRecord = () => {
   recording.value = false
 }
 </script>
+
+<style scoped>
+.mirror {
+  transform: scaleX(-1);
+}
+</style>
