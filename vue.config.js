@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 17:45:37
+ * @LastEditTime: 2022-07-17 18:34:46
  * @Description: vue-cli 配置
  */
 
@@ -35,9 +35,20 @@ const config = {
         icon: 'public/logo/icon.png', // 图标
         appId: 'top.fzf404.monit', // app id
         artifactName: '${productName}-${version}-${os}-${arch}.${ext}', // 打包命名方式
+        // 发布地址
+        publish: [
+          {
+            provider: 'github',
+            owner: 'fzf404',
+            repo: 'Monit',
+            releaseType: 'release', // release or prerelease
+          },
+        ],
+        win: {
+          target: ['nsis', '7z'],
+        },
         linux: {
           target: 'AppImage',
-          publish: ['github'],
         },
         mac: {
           target: {
