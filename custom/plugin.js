@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 17:03:59
+ * @LastEditTime: 2022-07-17 17:44:19
  * @Description: 插件配置
  */
 
@@ -15,11 +15,11 @@
 
 export const pluginList = [
   { name: 'welcome', size: [1, 1], description: '欢迎' },
+  { name: 'count', size: [1, 1], description: '计数器' },
   { name: 'github', size: [2, 1], description: '监控' },
   { name: 'clock', size: [2, 1], description: '翻牌时钟' },
   { name: 'todo', size: [1, 1.5], description: '待办' },
   // debug 模式下 build 时不会被打包
-  { name: 'count', size: [1, 1], description: '计数器', debug: true },
   { name: 'bilibili', size: [1, 1], description: '监控', debug: true },
   { name: 'music', size: [2, 1], description: '音乐', debug: true },
   { name: 'camera', size: [2, 1.5], description: '相机' },

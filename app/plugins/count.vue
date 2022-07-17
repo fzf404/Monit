@@ -1,3 +1,10 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-07-15 22:03:19
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-07-17 18:38:41
+ * @Description: 计数器
+-->
 <template>
   <main>
     <!-- 窗口控制器 -->
@@ -8,7 +15,7 @@
       <aside class="setting setting-sm" v-show="setting">
         <!-- 中心框 -->
         <ul>
-          <!-- 计数值 -->
+          <!-- 数值 -->
           <li>
             <label for="count-number">数值</label>
             <input
@@ -19,7 +26,7 @@
               @keyup.enter="this.setting = false"
             />
           </li>
-          <!-- 步长值 -->
+          <!-- 步长 -->
           <li>
             <label for="step-number">步长</label>
             <input
@@ -36,11 +43,11 @@
           </ol>
         </ul>
       </aside>
-      <!-- 主主体 -->
+      <!-- 主体 -->
       <section class="flex-col-center space-y-3">
         <h1 class="text-gray-400">计数器</h1>
         <p class="text-5xl">{{ count }}</p>
-        <!-- 增加 & 减少按钮 -->
+        <!-- 增加 & 减少 -->
         <p class="space-x-4">
           <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
           <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
@@ -56,7 +63,7 @@ import Layout from '../layouts/custom.vue'
 import AddSVG from '../assets/count/add.svg'
 import SubSVG from '../assets/count/sub.svg'
 
-// 信息获取
+// 信息存储 & 读取
 const { set, get } = storage('count')
 
 export default {
