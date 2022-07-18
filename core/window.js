@@ -2,13 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 18:02:13
+ * @LastEditTime: 2022-07-18 13:15:31
  * @Description: 窗口管理
  */
 
-import { BrowserWindow, systemPreferences } from 'electron'
+import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
+import { premission } from '../custom/permission'
 import { pluginList } from '../custom/plugin'
 import { cget } from '../custom/storage'
 import { winEvent } from './event'
@@ -34,11 +35,8 @@ export const createWindow = async (name) => {
     return isOpen.show()
   }
 
-  // 分配权限
-  if (process.platform === 'darwin' && name === 'camera') {
-    await systemPreferences.askForMediaAccess('camera')
-    await systemPreferences.askForMediaAccess('microphone')
-  }
+  // 权限申请
+  // await premission(name)
 
   // 窗口大小
   const size = pluginList.find(({ name: n }) => n === name).size
