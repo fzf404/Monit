@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 15:57:59
+ * @LastEditTime: 2022-07-18 12:45:26
  * @Description: github 信息监控
 -->
 <template>
@@ -80,11 +80,11 @@
           <span class="text-intro">
             {{
               value.star > 999
-                ? value.repo.length > 10
+                ? value.repo.length > 11
                   ? value.repo.slice(0, 9) + '..'
                   : value.repo
                 : value.repo.length > 12
-                ? value.repo.slice(0, 11) + '..'
+                ? value.repo.slice(0, 10) + '..'
                 : value.repo
             }}
           </span>
@@ -158,6 +158,7 @@ import StarSVG from '../assets/github/star.svg'
 // 初始化 axios
 const request = axios('https://api.github.com')
 
+// 初始化存储类
 const { set, get } = storage('github')
 
 export default {
@@ -309,19 +310,20 @@ export default {
 
           // 遍历 repo 信息
           while (pages--) {
-            await request.get(`/users/${this.user}/repos?per_page=100`).then((data) => {
+            await request.get(`/users/${this.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
               // 遍历数据
               data.forEach((item) => {
                 star += item.stargazers_count
                 fork += item.forks_count
                 repoInfo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
               })
-              // 设置数据
-              this.newStar = star
-              this.newFork = fork
-              this.newRepoInfo = repoInfo
             })
           }
+
+          // 设置数据
+          this.newStar = star
+          this.newFork = fork
+          this.newRepoInfo = repoInfo
         })
         .catch(() => {
           this.network = false
