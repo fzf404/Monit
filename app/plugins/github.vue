@@ -144,9 +144,9 @@
 <script>
 import { shell } from 'electron'
 import { notification } from '../../custom/ipc'
-import axios from '../../custom/request'
-import { storage } from '../../custom/storage'
-import { getArrDiffKey } from '../../custom/statistic'
+import axios from '../../lib/request'
+import { storage } from '../../lib/storage'
+import { getArrDiffKey } from '../../lib/statistic'
 
 import Layout from '../layouts/custom.vue'
 

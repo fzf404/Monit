@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 15:30:34
+ * @LastEditTime: 2022-07-18 16:04:42
  * @Description: 基础布局
 -->
 
@@ -38,7 +38,7 @@
 <script>
 import { sendEvent } from '../../custom/ipc'
 
-import { cget } from '../../custom/storage'
+import { cget } from '../../lib/storage'
 
 import CloseSVG from '../assets/menu/close.svg'
 import MiniSVG from '../assets/menu/mini.svg'
@@ -75,7 +75,7 @@ export default {
     }
   },
   created() {
-    // 获取默认置顶状态
+    // 读取默认置顶状态
     this.top = cget(this.name, 'top', false)
   },
   methods: {
@@ -104,22 +104,22 @@ body {
   ::-webkit-scrollbar {
     display: none;
   }
+}
 
-  // TODO 可调透明度
-  #app {
-    @apply rounded-lg bg-black bg-opacity-60 text-white font-sans;
-  }
+// TODO 可调透明度
+#app {
+  @apply rounded-lg bg-black bg-opacity-60 text-white font-sans;
+}
 
-  // 可点击
-  input,
-  button,
-  select,
-  .clickable {
-    // 禁止拖拽移动窗口 响应点击事件
-    -webkit-app-region: no-drag;
-    // 更改鼠标样式
-    cursor: pointer;
-  }
+// 可点击
+input,
+button,
+select,
+.clickable {
+  // 禁止拖拽移动窗口 响应点击事件
+  -webkit-app-region: no-drag;
+  // 更改鼠标样式
+  cursor: pointer;
 }
 
 // 设置窗口样式

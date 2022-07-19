@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { storage } from '../../custom/storage'
+import { storage } from '../../lib/storage'
 import Layout from '../layouts/custom.vue'
 import AddSVG from '../assets/count/add.svg'
 import SubSVG from '../assets/count/sub.svg'

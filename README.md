@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 18:40:48
+ * @LastEditTime: 2022-07-19 16:55:51
  * @Description: Monit 说明文档
 -->
 
@@ -14,9 +14,7 @@
 
 > 使用 Github Action 自动打包，无需担心安全问题
 
-前往 [Release](https://github.com/fzf404/Monit/releases) 寻找操作系统对应的安装包
-
-[国内镜像](https://hub.fastgit.xyz/fzf404/Monit/releases)
+前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://hub.fastgit.xyz/fzf404/Monit/releases) 寻找操作系统对应的安装包
 
 - Windows
 
@@ -72,20 +70,24 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 ├── app # 渲染进程
 │   ├── assets # 静态资源
 │   ├── layouts # 布局组件
-│   ├── plugins # 插件
-│   └── utils # 工具类
-├── custom # 自定义工具
-│   ├── ... # 公用工具类
-│   └── plugin.js # 插件配置
+│   └── plugins # 插件
 ├── core # 主进程
-│   ├── event.js # 事件处理
 │   ├── main.js # 应用入口
 │   ├── tray.js # 托盘进程
 │   └── window.js # 窗口管理
+├── custom # 自定义工具
+│   ├── access.js # 权限获取
+│   ├── event.js # 事件处理
+│   ├── ipc.js # IPC通信
+│   └── plugin.js # 插件配置
+├── lib # 库文件
+│   ├── request.js # 请求封装
+│   ├── statistic.js # 统计封装
+│   └── storage.js # 本地存储封装
 ├── public # 静态文件
 ├── .prettier # 代码格式化配置
-├── postcss.config.js # postcss 配置
 ├── tailwind.config.js # tailwindcss 配置
+├── postcss.config.js # postcss 配置
 └── vue.config.js # vue-cli 配置 & electron 打包配置
 ```
 
@@ -182,7 +184,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
    </template>
 
    <script>
-   import { storage } from '../../custom/storage'
+   import { storage } from '../../lib/storage'
    import Layout from '../layouts/custom.vue'
    import AddSVG from '../assets/count/add.svg'
    import SubSVG from '../assets/count/sub.svg'
@@ -262,9 +264,13 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 
 ### 🍻 API 说明
 
-1. 通用布局：`./app/layouts/custom.vue`
-2. Axios 封装：`./custom/request.js`
-3. Store 封装：`./custom/storage.js`
+1. Layout 布局：`./app/layouts/custom.vue`
+2. Axios 封装：`./lib/request.js`
+3. Store 封装：`./lib/storage.js`
+   - 配置文件
+     - Mac：`/Users/[user]/Library/Application Support/monit/config.json`
+     - Windows：`C:\Users\[user]\AppData\Roaming\monit\config.json`
+     - Linux：`/home/[user]/.config/monit/config.json`
 4. Notice 封装：`./custom/ipc.js`
 
 > 待续...

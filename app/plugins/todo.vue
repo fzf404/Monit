@@ -26,7 +26,7 @@ main
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import draggable from 'vuedraggable'
-import { storage } from '../../custom/storage'
+import { storage } from '../../lib/storage'
 import DeleteSVG from '../assets/todo/delete.svg'
 import MoveSVG from '../assets/todo/move.svg'
 import AddSVG from '../assets/todo/add.svg'

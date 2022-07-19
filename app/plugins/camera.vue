@@ -61,12 +61,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, watchEffect, watch } from 'vue'
+import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
+import { storage } from '../../lib/storage'
 import CameraSVG from '../assets/camera/camera.svg'
-import VideoSVG from '../assets/camera/video.svg'
 import OffSVG from '../assets/camera/off.svg'
+import VideoSVG from '../assets/camera/video.svg'
 import Layout from '../layouts/custom.vue'
-import { storage } from '../../custom/storage'
 
 const { set, get } = storage('camera')
 
@@ -83,7 +83,7 @@ const setting = reactive({
   show: false, // 菜单栏
   control: get('control', true), // 控制器
   mirror: get('mirror', false), // 镜像
-  camera: null, // 设备ID
+  camera: get('camera', null), // 设备ID
 })
 
 onMounted(async () => {
@@ -95,20 +95,9 @@ onMounted(async () => {
     })
 
     // 设置默认摄像头
-    setting.camera = get('camera', devices.value[0].deviceId)
+    setting.camera = setting.camera || devices.value[0].deviceId
   } else {
     alert('摄像头不存在！')
-  }
-})
-
-// 切换摄像头
-watchEffect(async () => {
-  if (setting.camera) {
-    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-      video: {
-        optional: [{ sourceId: setting.camera }],
-      },
-    })
   }
 })
 
@@ -134,6 +123,17 @@ watch(
   }
 )
 
+// 切换摄像头
+watchEffect(async () => {
+  if (setting.camera) {
+    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+      video: {
+        optional: [{ sourceId: setting.camera }],
+      },
+    })
+  }
+})
+
 // 拍照
 const takePhoto = () => {
   // 判断摄像头是否存在
@@ -147,6 +147,8 @@ const takePhoto = () => {
     record.value.href = canvas.value.toDataURL('image/jpeg')
     record.value.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
     record.value.click()
+  } else {
+    alert('摄像头不存在！')
   }
 }
 
@@ -180,6 +182,8 @@ const startRecord = () => {
         // 更新状态
         recording.value = true
       })
+  } else {
+    alert('摄像头/麦克风不存在！')
   }
 }
 

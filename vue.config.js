@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 19:27:35
+ * @LastEditTime: 2022-07-19 16:59:02
  * @Description: vue-cli 配置
  */
 
@@ -32,7 +32,7 @@ const config = {
       // 构建选项
       builderOptions: {
         productName: 'Monit', // 应用名
-        icon: 'public/logo/icon.png', // 图标
+        icon: 'public/icons/icon.png', // 图标
         appId: 'top.fzf404.monit', // app id
         artifactName: '${productName}-${version}-${os}-${arch}.${ext}', // 打包命名方式
         // 发布地址
@@ -56,7 +56,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.js', 'lib/*.js']
 }
 
 module.exports = { ...config }
