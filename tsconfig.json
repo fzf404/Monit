@@ -15,8 +15,13 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": ["webpack-env"],
+    "paths": {
+      "@/*": ["app/*"],
+      "#/*": ["custom/*"],
+      "~/*": ["./lib/*"]
+    },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["lib/*.ts", "core/*.ts", "app/**/*.vue", "custom/store.ts"],
+  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"],
   "exclude": ["node_modules"]
 }

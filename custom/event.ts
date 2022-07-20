@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 16:43:26
+ * @LastEditTime: 2022-07-20 23:35:31
  * @Description: 事件处理
  */
 
 import { BrowserWindow, ipcMain, Notification } from 'electron'
 
-import { cget, cset } from '../lib/storage'
+import { cget, cset } from '~/storage'
 
 // 应用事件
 export const appEvent = () => {

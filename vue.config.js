@@ -2,10 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 16:42:49
+ * @LastEditTime: 2022-07-21 00:26:18
  * @Description: vue-cli 配置
  */
 const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -16,9 +17,10 @@ const config = {
     // electron 入口点
     entry: './core/main.js',
   },
-  chainWebpack: (config) => {
-    config.resolve.alias.set('~', resolve('./lib')).set('@', resolve('./app')).set('#', resolve('./custom'))
 
+  chainWebpack: (config) => {
+    // 配置别名
+    config.resolve.alias.set('@', resolve('app')).set('#', resolve('custom')).set('~', resolve('lib'))
     // svg 加载
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -30,12 +32,19 @@ const config = {
     electronBuilder: {
       // node 集成
       nodeIntegration: true,
+
       // 自定义通信协议
       customFileProtocol: 'monit://./',
+      // 允许外部访问
+      externals: ['picgo'],
       // 主进程入口
       mainProcessFile: 'core/main.js',
       // 渲染进程入口
       rendererProcessFile: 'app/main.js',
+      chainWebpackMainProcess: (config) => {
+        // 配置别名
+        config.resolve.alias.set('@', resolve('app')).set('#', resolve('custom')).set('~', resolve('lib'))
+      },
       // 构建选项
       builderOptions: {
         productName: 'Monit', // 应用名
@@ -63,7 +72,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.js', 'lib/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js']
 }
 
 module.exports = { ...config }

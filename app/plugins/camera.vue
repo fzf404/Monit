@@ -79,7 +79,7 @@
 <script setup>
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
 import { recordVideo, stopVideo, takePhoto } from '~/camera'
-// import { initHolistic, drawResult } from '~/holistic'
+import { startHolistic } from '~/holistic'
 import { useMainStore } from '#/store'
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
@@ -117,6 +117,9 @@ onMounted(async () => {
 
     // 设置默认摄像头
     setting.camera = setting.camera || setting.devices[0].deviceId
+
+    // 开启目标跟踪
+    startHolistic(canvas, video)
   } else {
     alert('摄像头不存在！')
   }

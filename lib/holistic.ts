@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 11:28:45
+ * @LastEditTime: 2022-07-21 00:44:11
  * @Description:
  */
 
@@ -17,9 +17,12 @@ export const initHolistic = (): Holistic.Holistic => {
   // Holistic 配置
   const config: Holistic.HolisticConfig = {
     locateFile: (file) => {
-      return `node_modules/@mediapipe/holistic/${file}`
+      // return `/static/holistic/${file}`
+      // return `node_modules/@mediapipe/holistic/${file}`
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@${Holistic.VERSION}/${file}`
     },
   }
+
   // Holistic 实例
   const holistic = new Holistic.Holistic(config)
 
@@ -42,7 +45,7 @@ export const initHolistic = (): Holistic.Holistic => {
  * @param {Holistic} results
  * @return {*}
  */
-export const drawResult = (canvas: HTMLCanvasElement, video: HTMLVideoElement, results: Holistic.Results) => {
+export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, results: Holistic.Results) => {
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
 
@@ -120,4 +123,18 @@ export const drawResult = (canvas: HTMLCanvasElement, video: HTMLVideoElement, r
   drawHandLandmarks()
 
   ctx.restore()
+}
+
+/**
+ * @description: 启动 Holistic 实例
+ * @param {HTMLCanvasElement} canvas
+ * @param {HTMLVideoElement} video
+ * @return {*}
+ */
+export const startHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement) => {
+  const holistic = initHolistic()
+  holistic.onResults((result: Holistic.Results) => {
+    drawResults(canvas, video, result)
+  })
+  holistic.send({ image: video })
 }
