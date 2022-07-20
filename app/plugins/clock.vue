@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-16 13:56:23
+ * @LastEditTime: 2022-07-20 16:40:05
  * @Description: 翻牌时钟
 -->
 <template>
@@ -63,10 +63,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import Layout from '../layouts/custom.vue'
-import ClockSVG from '../assets/clock/clock.svg'
-import TimerSVG from '../assets/clock/timer.svg'
-import OffSVG from '../assets/clock/off.svg'
+import Layout from '@/layouts/mato.vue'
+import ClockSVG from '@/assets/clock/clock.svg'
+import TimerSVG from '@/assets/clock/timer.svg'
+import OffSVG from '@/assets/clock/off.svg'
 
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-15 15:23:23
+ * @LastEditTime: 2022-07-20 19:46:03
  * @Description: 代办事项
 -->
 
@@ -14,7 +14,7 @@ main
       template(#item="{element,index}")
         li.flex.items-center(class="space-y-1")
           input.h-4.w-4.mr-2.list-item.accent-purple-500(v-model="element.checked" type="checkbox")
-          input.w-28.bg-transparent.outline-none.text-sm(:class="element.checked?'line-through text-gray-500':'text-gray-200'" v-model="element.title" type="text")
+          input.w-28.bg-transparent.outline-none.text-sm(:class="element.checked?'line-through text-gray-400':'text-gray-200'" v-model="element.title" type="text")
           DeleteSVG.w-4.stroke-current.clickable.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
           MoveSVG.w-5.stroke-current.clickable.text-purple-400.handle(class="hover:text-purple-500")
     footer.flex.items-center.pt-2.border-t-2.border-indigo-500
@@ -24,15 +24,15 @@ main
 </template>
 
 <script setup>
+import AddSVG from '@/assets/todo/add.svg'
+import DeleteSVG from '@/assets/todo/delete.svg'
+import MoveSVG from '@/assets/todo/move.svg'
+import Layout from '@/layouts/mato.vue'
 import { reactive, ref, watch } from 'vue'
 import draggable from 'vuedraggable'
-import { storage } from '../../lib/storage'
-import DeleteSVG from '../assets/todo/delete.svg'
-import MoveSVG from '../assets/todo/move.svg'
-import AddSVG from '../assets/todo/add.svg'
-import Layout from '../layouts/custom.vue'
+import { storage } from '~/storage'
 
-const { set, get } = storage('todo')
+const { set, get } = storage()
 
 // 新增 todo 信息
 const todo = ref('')
@@ -65,5 +65,3 @@ const remove = (index) => {
   todos.splice(index, 1)
 }
 </script>
-
-<style scoped></style>

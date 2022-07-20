@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-05-31 16:14:32
+ * @LastEditTime: 2022-07-20 19:42:53
  * @Description: 网易云音乐播放
 -->
 <template>
   <main>
     <Layout />
-    <article class="h-screen flex justify-center items-center">
+    <article class="h-screen flex-col-center">
       <h1 class="text-lg">Music</h1>
     </article>
   </main>
@@ -16,7 +16,7 @@
 
 <!-- TODO -->
 <script setup>
-import Layout from '../layouts/custom.vue'
+import Layout from '@/layouts/mato.vue'
 </script>
 
 <style scoped></style>

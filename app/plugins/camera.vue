@@ -1,14 +1,14 @@
 <template>
   <main>
     <!-- 窗口控制器 -->
-    <Layout v-model:setting="setting.show" />
+    <Layout />
     <!-- 页面内容 -->
     <article class="h-screen relative">
       <!-- 设置模态框 -->
-      <aside class="setting" v-show="setting.show">
+      <aside class="setting" v-show="store.setting">
         <!-- 中心框 -->
         <ul>
-          <!-- 消息通知 设置 -->
+          <!-- 设置 -->
           <li>
             <label for="contorl-open">控制器</label>
             <input id="contorl-open" type="checkbox" v-model="setting.control" />
@@ -20,23 +20,23 @@
           <li>
             <label for="camera-select">设备</label>
             <select id="camera-select" v-model="setting.camera">
-              <option v-for="device in devices" :value="device.deviceId" @select="switchCamera">
+              <option v-for="device in setting.devices" :value="device.deviceId" @select="switchCamera">
                 {{ device.label.slice(0, 22) }}
               </option>
             </select>
           </li>
           <!-- 保存 -->
           <ol>
-            <button @click="setting.show = false">OK</button>
+            <button @click="store.setting = false">OK</button>
           </ol>
         </ul>
       </aside>
       <!-- 主屏幕 -->
-      <section class="rounded-lg overflow-hidden">
+      <section class="rounded-lg overflow-hidden relative w-screen h-screen">
         <!-- 预览窗口 -->
-        <video ref="video" class="w-screen h-screen" :class="{ mirror: setting.mirror }" autoplay />
+        <video ref="video" class="absolute w-screen h-screen" :class="{ mirror: setting.mirror }" autoplay />
         <!-- 拍照 -->
-        <canvas ref="canvas" class="hidden" />
+        <canvas ref="canvas" class="absolute w-screen h-screen" />
         <!-- 记录 -->
         <a ref="record" class="hidden" />
       </section>
@@ -44,15 +44,31 @@
       <section v-show="setting.control" class="absolute left-0 right-0 bottom-4 space-x-4 text-center">
         <!-- 拍照 -->
         <button class="btn bg-indigo-500 hover:bg-indigo-600">
-          <CameraSVG class="w-6" @click="takePhoto" />
+          <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
         </button>
         <!-- 录像 -->
         <transition name="fade" mode="out-in">
-          <button v-if="!recording" class="btn bg-pink-500 hover:bg-pink-600">
-            <VideoSVG class="w-6" @click="startRecord" />
+          <button v-if="!setting.recording" class="btn bg-pink-500 hover:bg-pink-600">
+            <VideoSVG
+              class="w-6"
+              @click="
+                () => {
+                  recordVideo(record)
+                  setting.recording = true
+                }
+              "
+            />
           </button>
           <button v-else class="btn bg-rose-600 hover:bg-rose-500">
-            <OffSVG class="w-6" @click="stopRecord" />
+            <OffSVG
+              class="w-6"
+              @click="
+                () => {
+                  stopVideo()
+                  setting.recording = false
+                }
+              "
+            />
           </button>
         </transition>
       </section>
@@ -62,43 +78,59 @@
 
 <script setup>
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
-import { storage } from '../../lib/storage'
-import CameraSVG from '../assets/camera/camera.svg'
-import OffSVG from '../assets/camera/off.svg'
-import VideoSVG from '../assets/camera/video.svg'
-import Layout from '../layouts/custom.vue'
+import { recordVideo, stopVideo, takePhoto } from '~/camera'
+// import { initHolistic, drawResult } from '~/holistic'
+import { useMainStore } from '#/store'
+import CameraSVG from '@/assets/camera/camera.svg'
+import OffSVG from '@/assets/camera/off.svg'
+import VideoSVG from '@/assets/camera/video.svg'
+import Layout from '@/layouts/mato.vue'
+import { storage } from '~/storage'
 
-const { set, get } = storage('camera')
+// 初始化 store
+const store = useMainStore()
+// 初始化存储类
+const { set, get } = storage()
 
 // VNodeRef
 const video = ref(null)
 const canvas = ref(null)
 const record = ref(null)
 
-// 设备
-const devices = ref(null)
-
 // 设置状态
 const setting = reactive({
-  show: false, // 菜单栏
+  devices: [], // 设备列表
+  recording: false, // 录像状态
   control: get('control', true), // 控制器
   mirror: get('mirror', false), // 镜像
   camera: get('camera', null), // 设备ID
 })
 
+// 初始化设备
 onMounted(async () => {
   // 判断摄像头是否存在
   if (navigator.mediaDevices) {
     // 读取列表
-    devices.value = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
+    setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
       return device.kind === 'videoinput'
     })
 
     // 设置默认摄像头
-    setting.camera = setting.camera || devices.value[0].deviceId
+    setting.camera = setting.camera || setting.devices[0].deviceId
   } else {
     alert('摄像头不存在！')
   }
+
+  // 切换摄像头
+  watchEffect(async () => {
+    if (setting.camera) {
+      video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+        video: {
+          optional: [{ sourceId: setting.camera }],
+        },
+      })
+    }
+  })
 })
 
 // 监听设置修改
@@ -122,78 +154,6 @@ watch(
     set('control', control)
   }
 )
-
-// 切换摄像头
-watchEffect(async () => {
-  if (setting.camera) {
-    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-      video: {
-        optional: [{ sourceId: setting.camera }],
-      },
-    })
-  }
-})
-
-// 拍照
-const takePhoto = () => {
-  // 判断摄像头是否存在
-  if (navigator.mediaDevices) {
-    // 设置画布信息
-    canvas.value.width = video.value.videoWidth
-    canvas.value.height = video.value.videoHeight
-    // 绘制画布
-    canvas.value.getContext('2d').drawImage(video.value, 0, 0)
-    // 保存图片
-    record.value.href = canvas.value.toDataURL('image/jpeg')
-    record.value.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
-    record.value.click()
-  } else {
-    alert('摄像头不存在！')
-  }
-}
-
-// 是否录像中
-const recording = ref(false)
-
-// 录像器
-let recorder = null
-
-// 开始录像
-const startRecord = () => {
-  // 判断摄像头是否存在
-  if (navigator.mediaDevices) {
-    // 获取摄像头
-    navigator.mediaDevices
-      .getUserMedia({
-        video: true,
-        audio: true,
-      })
-      .then((stream) => {
-        // 创建记录器
-        recorder = new MediaRecorder(stream)
-        // 停止后回调
-        recorder.ondataavailable = (event) => {
-          record.value.href = URL.createObjectURL(event.data)
-          record.value.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
-          record.value.click()
-        }
-        // 开始
-        recorder.start()
-        // 更新状态
-        recording.value = true
-      })
-  } else {
-    alert('摄像头/麦克风不存在！')
-  }
-}
-
-// 停止录像
-const stopRecord = () => {
-  // 停止
-  recorder.stop()
-  // 更新状态
-  recording.value = false
-}
 </script>
 
 <style scoped>
