@@ -1,0 +1,156 @@
+/*
+ * @Author: fzf404
+ * @Date: 2022-07-20 13:21:44
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-07-20 17:56:50
+ * @Description: 基础样式
+ */
+
+#app {
+  @apply rounded-lg;
+}
+
+/**
+ * 主题切换
+ */
+.dark {
+  @import 'dark.scss';
+}
+
+.light {
+  @import 'light.scss';
+}
+
+/**
+* 布局
+* flex 竖向居中
+*/
+.flex-col-center {
+  @apply flex flex-col justify-center items-center;
+}
+
+// flex 竖向靠左
+.flex-col-center-left {
+  @apply flex flex-col items-start;
+}
+
+// flex 横向居中
+.flex-row-center {
+  @apply flex flex-row flex-nowrap justify-center items-center;
+}
+
+// flex 横向靠下
+.flex-row-center-bottom {
+  @apply flex flex-row flex-nowrap items-end;
+}
+
+/**
+ * 按钮
+ */
+.btn {
+  @apply rounded px-2 py-1;
+}
+
+// 小型
+.btn-sm {
+  @apply px-2 py-1 text-xs;
+}
+
+// 超小型
+.btn-xs {
+  @apply px-1.5 py-0.5 text-xs;
+}
+
+// 方形
+.btn-sq {
+  @apply p-1.5;
+}
+
+// 小方形
+.btn-sq-sm {
+  @apply p-1;
+}
+
+/**
+ * 文字
+ */
+
+.text-intro {
+  @apply font-mono text-sm text-gray;
+}
+
+/**
+ * 动画
+ * 淡入淡出
+ */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 滑入滑出
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.6s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/**
+ * 设置
+ */
+.setting {
+  @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg;
+
+  ul {
+    @apply w-3/5 z-20 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;
+
+    // 设置内容
+    li {
+      @apply h-8 px-2 flex justify-between items-center rounded;
+
+      label {
+        @apply text-xs;
+      }
+
+      select {
+        @apply w-3/5 px-2 py-1 outline-none border-none rounded text-xs;
+      }
+
+      input[type='checkbox'] {
+        @apply w-4 h-4 outline-none;
+      }
+
+      // 去除箭头
+      input[type='number']::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+
+      input[type='number'],
+      input[type='text'] {
+        @apply w-3/5 px-2 py-1 outline-none border-none rounded text-right text-xs;
+      }
+    }
+
+    // 设置操作
+    ol {
+      @apply flex justify-end items-center;
+      button {
+        @apply btn btn-sm;
+      }
+    }
+  }
+}
+
+.setting-sm {
+  ul {
+    @apply w-3/4;
+  }
+}

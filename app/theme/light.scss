@@ -1,0 +1,62 @@
+/*
+ * @Author: fzf404
+ * @Date: 2022-07-20 12:52:31
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-07-20 19:36:24
+ * @Description: 明亮主题
+ */
+
+/**
+ * 基底
+ */
+#app {
+  @apply bg-white bg-opacity-30 text-white;
+}
+
+/**
+ * 文字
+ */
+
+.text-gray {
+  @apply text-gray-300;
+}
+
+/**
+ * 设置
+ */
+.setting {
+  @apply bg-black bg-opacity-50;
+
+  ul {
+    @apply ring-opacity-50  ring-purple-500 bg-gray-200;
+
+    // 设置内容
+    li {
+      @apply shadow bg-white;
+
+      label {
+        @apply text-gray-500;
+      }
+
+      select {
+        @apply shadow-inner bg-gray-200 text-purple-400 focus:text-purple-500;
+      }
+
+      input[type='checkbox'] {
+        @apply accent-purple-500;
+      }
+
+      input[type='number'],
+      input[type='text'] {
+        @apply shadow-inner bg-gray-200 text-purple-400 focus:text-purple-500;
+      }
+    }
+
+    // 设置操作
+    ol {
+      button {
+        @apply bg-purple-500 hover:bg-purple-600;
+      }
+    }
+  }
+}
