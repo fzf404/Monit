@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 18:44:52
+ * @LastEditTime: 2022-07-20 20:29:23
  * @Description: 基础布局
 -->
 
@@ -66,7 +66,7 @@ import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
 // 引入主题样式
-import '@/theme/theme.scss'
+import '@/themes/basic.scss'
 
 // 初始化 store
 const store = useMainStore()
