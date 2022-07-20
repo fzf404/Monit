@@ -2,11 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-19 16:28:36
+ * @LastEditTime: 2022-07-20 19:49:14
  * @Description: 存储配置
  */
 
 import Store from 'electron-store'
+import { useRoute } from 'vue-router'
 
 // 初始化 store
 const store = new Store({
@@ -20,13 +21,13 @@ const store = new Store({
 
 /**
  * @description: 保存值
- * @param {*} node 节点名
- * @param {*} key 键名
- * @param {*} value 值
+ * @param {string} node 节点名
+ * @param {string} key 键名
+ * @param {any} val 默认值
  * @return {*}
  */
-export const cset = (node, key, value) => {
-  return store.set(node + '.' + key, value)
+export const cset = (node: string, key: string, val: any) => {
+  return store.set(node + '.' + key, val)
 }
 
 /**
@@ -36,7 +37,7 @@ export const cset = (node, key, value) => {
  * @param {*} def 默认值
  * @return {*}
  */
-export const cget = (node, key, def) => {
+export const cget = (node: string, key: string, def: any): any => {
   const value = store.get(node + '.' + key)
   return value === undefined ? def : value
 }
@@ -46,14 +47,14 @@ export const cget = (node, key, def) => {
  * @param {*} node 节点名
  * @return {*}
  */
-export const storage = (node) => {
+export const storage = (node: string = useRoute().name as string): any => {
   return {
     // 保存值
-    set: (key, val) => {
+    set: (key: string, val: any) => {
       return cset(node, key, val)
     },
-    //读取值
-    get: (key, def) => {
+    // 读取值
+    get: (key: string, def: any) => {
       return cget(node, key, def)
     },
   }
