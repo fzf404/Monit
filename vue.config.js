@@ -2,9 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-19 16:59:02
+ * @LastEditTime: 2022-07-20 16:42:49
  * @Description: vue-cli 配置
  */
+const path = require('path')
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 
 const config = {
   configureWebpack: {
@@ -12,6 +17,8 @@ const config = {
     entry: './core/main.js',
   },
   chainWebpack: (config) => {
+    config.resolve.alias.set('~', resolve('./lib')).set('@', resolve('./app')).set('#', resolve('./custom'))
+
     // svg 加载
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
