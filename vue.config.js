@@ -2,10 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 11:39:45
+ * @LastEditTime: 2022-07-21 21:52:02
  * @Description: vue-cli 配置
  */
 const path = require('path')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -16,7 +17,19 @@ const config = {
     // electron 入口点
     entry: './core/main.js',
   },
-
+  configureWebpack: {
+    plugins: [
+      // 拷贝静态文件到目标文件
+      // new CopyWebpackPlugin({
+      //   patterns: [
+      //     {
+      //       from: './node_modules/@mediapipe/holistic/holistic_solution_packed_assets.data',
+      //       to: 'node_modules/@mediapipe/holistic/holistic_solution_packed_assets.data',
+      //     },
+      //   ],
+      // }),
+    ],
+  },
   chainWebpack: (config) => {
     // 配置别名
     config.resolve.alias.set('@', resolve('app')).set('#', resolve('custom')).set('~', resolve('lib'))
@@ -31,11 +44,8 @@ const config = {
     electronBuilder: {
       // node 集成
       nodeIntegration: true,
-
       // 自定义通信协议
       customFileProtocol: 'monit://./',
-      // 允许外部访问
-      externals: ['picgo'],
       // 主进程入口
       mainProcessFile: 'core/main.js',
       // 渲染进程入口

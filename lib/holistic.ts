@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 20:11:15
+ * @LastEditTime: 2022-07-21 22:36:06
  * @Description: 角色跟踪
  */
 
@@ -34,7 +34,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
     DrawingUtils.drawConnectors(ctx, results.poseLandmarks, Holistic.POSE_CONNECTIONS, { color: 'white' })
 
     // 绘制关键点
-    DrawingUtils.drawLandmarks(ctx, results.poseLandmarks, { color: '#bdc3c7', lineWidth: 1 })
+    DrawingUtils.drawLandmarks(ctx, results.poseLandmarks, { color: '#aaa', lineWidth: 1 })
   }
 
   // 绘制手部标记
@@ -118,10 +118,7 @@ export const initHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement)
   // Holistic 配置
   const config: Holistic.HolisticConfig = {
     locateFile: (file) => {
-      // return `/static/holistic/${file}`
-      // return `node_modules/@mediapipe/holistic/${file}`
-      // if (file === 'holistic_solution_packed_assets.data') return `node_modules/@mediapipe/holistic/${file}`
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@${Holistic.VERSION}/${file}`
+      return `https://cdn.jsdelivr.net/npm/electron-mediapipe-holistic@1.0.2/${file}`
     },
   }
 

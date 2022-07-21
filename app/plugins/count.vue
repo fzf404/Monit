@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 19:50:30
+ * @LastEditTime: 2022-07-21 22:00:03
  * @Description: 计数器
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
-    <Layout v-model:setting="setting" />
+    <Layout />
     <!-- 页面内容 -->
     <article>
       <!-- 设置 -->
@@ -44,11 +44,11 @@
         </ul>
       </aside>
       <!-- 主体 -->
-      <section class="h-screen flex-col-center space-y-3">
+      <section class="h-screen flex-col-center space-y-2">
         <h1 class="text-intro">计数器</h1>
         <p class="text-5xl">{{ count }}</p>
         <!-- 增加 & 减少 -->
-        <p class="space-x-4">
+        <p class="space-x-4 pt-2">
           <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
           <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
         </p>

@@ -134,7 +134,6 @@ onMounted(async () => {
         deviceId: setting.camera,
       },
     })
-    set('camera', setting.camera)
   })
 
   // 设置默认摄像头
@@ -150,6 +149,13 @@ watch(
 )
 
 watch(
+  () => setting.control,
+  (val) => {
+    set('control', val)
+  }
+)
+
+watch(
   () => setting.holistic,
   (val) => {
     set('holistic', val)
@@ -158,9 +164,9 @@ watch(
 )
 
 watch(
-  () => setting.control,
+  () => setting.camera,
   (val) => {
-    set('control', val)
+    set('camera', val)
   }
 )
 </script>
