@@ -1,9 +1,16 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-07-15 22:55:49
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-07-22 00:52:52
+ * @Description: camera 相机监控
+-->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article class="h-screen relative">
+    <article class="h-screen">
       <!-- 设置模态框 -->
       <aside class="setting" v-show="store.setting">
         <!-- 中心框 -->
@@ -35,23 +42,26 @@
           </ol>
         </ul>
       </aside>
+      <!-- TODO 加载时模态框 -->
+      <section></section>
       <!-- 主屏幕 -->
-      <section class="rounded-lg overflow-hidden relative w-screen h-screen">
+      <section class="relative w-full h-full overflow-hidden rounded-lg">
         <!-- 绘制 -->
-        <canvas ref="canvas" class="absolute z-10 w-screen h-screen" :class="{ mirror: setting.mirror }" />
-        <!-- 预览窗口 -->
-        <video ref="video" class="absolute w-screen h-screen" :class="{ mirror: setting.mirror }" autoplay />
+        <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: setting.mirror }" />
+        <!-- 预览 -->
+        <video ref="video" class="absolute w-full h-full" :class="{ mirror: setting.mirror }" autoplay />
         <!-- 记录 -->
         <a ref="record" class="hidden" />
       </section>
-      <!-- 控制器 -->
-      <section v-show="setting.control" class="absolute z-10 left-0 right-0 bottom-4 space-x-4 text-center">
+      <!-- 相机控制器 -->
+      <section v-show="setting.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
         <!-- 拍照 -->
         <button class="btn bg-indigo-500 hover:bg-indigo-600">
           <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
         </button>
         <!-- 录像 -->
         <transition name="fade" mode="out-in">
+          <!-- 开始录像 -->
           <button v-if="!setting.recording" class="btn bg-pink-500 hover:bg-pink-600">
             <VideoSVG
               class="w-6"
@@ -63,6 +73,7 @@
               "
             />
           </button>
+          <!-- 停止录像 -->
           <button v-else class="btn bg-rose-600 hover:bg-rose-500">
             <OffSVG
               class="w-6"
@@ -82,21 +93,23 @@
 
 <script setup>
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
+
+import { useMainStore } from '#/store'
 import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
-import { useMainStore } from '#/store'
+import { storage } from '~/storage'
+
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
-import Layout from '@/layouts/mato.vue'
-import { storage } from '~/storage'
+import Layout from '@/layouts/macto.vue'
 
 // 初始化 store
 const store = useMainStore()
-// 初始化存储类
+// 初始化 storage
 const { set, get } = storage()
 
-// VNodeRef
+// HTMLElement Refs
 const video = ref(null)
 const canvas = ref(null)
 const record = ref(null)
@@ -104,6 +117,7 @@ const record = ref(null)
 // 设置状态
 const setting = reactive({
   devices: [], // 设备列表
+  loading: true, // 加载状态
   recording: false, // 录像状态
   mirror: get('mirror', true), // 镜像
   camera: get('camera', null), // 设备ID
@@ -118,25 +132,25 @@ onMounted(async () => {
     return device.kind === 'videoinput'
   })
 
-  // 判断摄像头是否存在
+  // 判断相机是否存在
   if (!setting.devices) {
-    return alert('摄像头不存在！')
+    return alert('相机不存在！')
   }
 
-  // 判断是否开启角色追踪
-  if (setting.holistic) {
-    return initHolistic(canvas.value, video.value).start()
-  }
-
+  // 监听设备修改
   watchEffect(async () => {
     video.value.srcObject = await navigator.mediaDevices.getUserMedia({
       video: {
         deviceId: setting.camera,
       },
     })
+    // 是否开启角色追踪
+    if (setting.holistic) {
+      await initHolistic(canvas.value, video.value)
+    }
+    setting.loading = false
   })
-
-  // 设置默认摄像头
+  // 设置默认相机
   setting.camera = setting.camera || setting.devices[0].deviceId
 })
 
@@ -167,10 +181,14 @@ watch(
   () => setting.camera,
   (val) => {
     set('camera', val)
+    // 切换相机时，重新加载窗口初始化角色追踪
+    if (setting.holistic) {
+      window.location.reload()
+    }
   }
 )
 </script>
-
+<!-- TODO 移动至 layout  -->
 <style scoped>
 .mirror {
   transform: scaleX(-1);
