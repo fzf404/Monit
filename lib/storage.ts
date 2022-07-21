@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 19:49:14
+ * @LastEditTime: 2022-07-22 00:59:40
  * @Description: 存储配置
  */
 
@@ -26,7 +26,7 @@ const store = new Store({
  * @param {any} val 默认值
  * @return {*}
  */
-export const cset = (node: string, key: string, val: any) => {
+export const cset = (node: string, key: string, val: any): any => {
   return store.set(node + '.' + key, val)
 }
 
@@ -43,7 +43,7 @@ export const cget = (node: string, key: string, def: any): any => {
 }
 
 /**
- * @description: 存储类构造
+ * @description:  storage 构造
  * @param {*} node 节点名
  * @return {*}
  */

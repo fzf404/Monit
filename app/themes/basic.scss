@@ -2,9 +2,38 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 13:17:07
- * @Description: 基础样式
+ * @LastEditTime: 2022-07-22 01:02:59
+ * @Description: macto 布局
  */
+
+/**
+ * 全局样式
+ */
+html,
+body {
+  // 禁用文字选择
+  user-select: none;
+  // 允许拖拽移动窗口
+  -webkit-app-region: drag;
+
+  // 禁止滚动
+  overflow: hidden;
+  // 隐藏滚动条
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// 允许点击
+input,
+button,
+select,
+.clickable {
+  // 禁止拖拽移动窗口 响应点击事件
+  -webkit-app-region: no-drag;
+  // 更改鼠标样式
+  cursor: pointer;
+}
 
 #app {
   @apply rounded-lg;
@@ -107,10 +136,10 @@
  * 设置
  */
 .setting {
-  @apply absolute z-20 inset-0 flex justify-center items-center rounded-lg;
+  @apply absolute z-30 inset-0 flex justify-center items-center rounded-lg;
 
   ul {
-    @apply w-3/5 z-20 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;
+    @apply w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;
 
     // 设置内容
     li {

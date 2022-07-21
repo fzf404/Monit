@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 00:46:27
- * @Description: 黑夜主题
+ * @LastEditTime: 2022-07-22 16:10:22
+ * @Description: macto 黑夜主题
  */
 
 /**
@@ -21,10 +21,16 @@
 }
 
 /**
+ * 模态框
+ */
+.modal {
+  @apply bg-black bg-opacity-40;
+}
+
+/**
  * 设置
  */
 .setting {
-  @apply bg-black bg-opacity-50;
   ul {
     @apply ring-opacity-50 ring-purple-500 bg-gray-800;
 

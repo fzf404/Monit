@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-19 16:03:17
- * @Description: 窗口管理
+ * @LastEditTime: 2022-07-22 00:51:20
+ * @Description: window 管理
  */
 
 import { BrowserWindow } from 'electron'

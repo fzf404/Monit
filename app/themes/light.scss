@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 01:32:37
- * @Description: 明亮主题
+ * @LastEditTime: 2022-07-22 16:09:28
+ * @Description: nacto 明亮主题
  */
 
 /**
@@ -22,13 +22,18 @@
 }
 
 /**
+ * 模态框
+ */
+.modal {
+  @apply bg-gray-200 bg-opacity-40;
+}
+
+/**
  * 设置
  */
 .setting {
-  @apply bg-black bg-opacity-50;
-
   ul {
-    @apply ring-opacity-50  ring-purple-500 bg-gray-200;
+    @apply ring-opacity-50 ring-purple-300 bg-gray-200;
 
     // 设置内容
     li {

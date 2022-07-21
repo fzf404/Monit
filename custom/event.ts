@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 23:35:31
- * @Description: 事件处理
+ * @LastEditTime: 2022-07-22 00:53:56
+ * @Description: event 处理
  */
 
 import { BrowserWindow, ipcMain, Notification } from 'electron'

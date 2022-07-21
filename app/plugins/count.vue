@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 22:00:03
- * @Description: 计数器
+ * @LastEditTime: 2022-07-22 00:52:39
+ * @Description: count 计数器
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article>
+    <article class="h-screen">
       <!-- 设置 -->
       <aside class="setting setting-sm" v-show="store.setting">
         <!-- 中心框 -->
@@ -44,7 +44,7 @@
         </ul>
       </aside>
       <!-- 主体 -->
-      <section class="h-screen flex-col-center space-y-2">
+      <section class="h-full flex-col-center space-y-2">
         <h1 class="text-intro">计数器</h1>
         <p class="text-5xl">{{ count }}</p>
         <!-- 增加 & 减少 -->
@@ -59,12 +59,13 @@
 
 <script>
 import { useMainStore } from '#/store'
-import AddSVG from '@/assets/count/add.svg'
-import SubSVG from '@/assets/count/sub.svg'
-import Layout from '@/layouts/mato.vue'
 import { storage } from '~/storage'
 
-// 初始化存储类
+import AddSVG from '@/assets/count/add.svg'
+import SubSVG from '@/assets/count/sub.svg'
+import Layout from '@/layouts/macto.vue'
+
+// 初始化 storage
 const { set, get } = storage('count')
 
 export default {

@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 18:21:00
- * @Description: 摄像头工具
+ * @LastEditTime: 2022-07-22 00:55:08
+ * @Description: camera 工具
  */
 
 /**
@@ -13,7 +13,7 @@
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
-export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, record: HTMLAnchorElement) => {
+export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, record: HTMLAnchorElement): void => {
   // 设置画布信息
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
@@ -43,8 +43,8 @@ let recorder: MediaRecorder
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
-export const recordVideo = (record: HTMLAnchorElement, device: string) => {
-  // 获取摄像头
+export const recordVideo = (record: HTMLAnchorElement, device: string): void => {
+  // 获取相机
   navigator.mediaDevices
     .getUserMedia({
       video: {

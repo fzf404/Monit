@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 13:13:48
+ * @LastEditTime: 2022-07-22 00:45:00
  * @Description: 翻牌时钟
 -->
 <template>
@@ -10,9 +10,9 @@
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article class="h-screen flex flex-col justify-center items-center space-y-6">
+    <article class="h-screen flex-col-center space-y-6">
       <!-- 翻牌器 -->
-      <section class="flex justify-center items-center mt-6 space-x-1.5">
+      <section class="flex-row-center mt-6 space-x-1.5">
         <!-- 时 -->
         <ul class="flip down">
           <li class="digital front n-0"></li>
@@ -45,9 +45,11 @@
       </section>
       <!-- 控制器 -->
       <section class="space-x-4">
+        <!-- 时钟模式 -->
         <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">
           <ClockSVG class="w-6" />
         </button>
+        <!-- 计时模式 -->
         <transition name="fade" mode="out-in">
           <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">
             <TimerSVG class="w-6" />
@@ -63,10 +65,12 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import Layout from '@/layouts/mato.vue'
+
+import Layout from '@/layouts/macto.vue'
+
 import ClockSVG from '@/assets/clock/clock.svg'
-import TimerSVG from '@/assets/clock/timer.svg'
 import OffSVG from '@/assets/clock/off.svg'
+import TimerSVG from '@/assets/clock/timer.svg'
 
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]
@@ -196,10 +200,12 @@ onMounted(startClock)
   content: '';
   @apply absolute left-0 right-0 bg-gray-200 overflow-hidden;
 }
+
 /* 上页 */
 .flip .digital:before {
   @apply top-0 bottom-1/2 rounded-t-lg border-b border-gray-400;
 }
+
 /* 下页 */
 .flip .digital:after {
   line-height: 0;
@@ -249,6 +255,7 @@ onMounted(startClock)
   @apply z-10;
 }
 
+/* 翻页动画 */
 .flip.up.go .front:after {
   transform-origin: 50% 0;
   animation: frontFlipUp 0.6s ease-in-out both;

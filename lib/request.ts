@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 19:59:37
- * @Description: axios 请求封装
+ * @LastEditTime: 2022-07-22 00:58:11
+ * @Description: axios 封装
  */
 
 import axios from 'axios'

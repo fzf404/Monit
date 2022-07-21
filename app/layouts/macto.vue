@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 13:17:19
- * @Description: 基础布局
+ * @LastEditTime: 2022-07-22 01:03:24
+ * @Description: macto 布局
 -->
 
 <template>
   <nav>
     <!-- 窗口控制器 -->
-    <ul class="z-20 absolute left-2 space-x-px">
+    <ul class="z-30 absolute left-2 space-x-px">
       <!-- 关闭 -->
       <CloseSVG class="w-4 inline stroke-current clickable text-red-400" @click="sendEvent('window-close')" />
       <!-- 最小化 -->
@@ -27,7 +27,7 @@
       />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="z-30 absolute right-2 space-x-1.5">
+    <ul class="z-40 absolute right-2 space-x-1.5">
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-4 inline stroke-current clickable text-red-500" />
       <!-- 主题 -->
@@ -70,18 +70,21 @@ import '@/themes/basic.scss'
 
 // 初始化 store
 const store = useMainStore()
-// 初始化存储类
+// 初始化 storage
 const { get, set } = storage()
 
+// 状态数据
 const state = reactive({
   top: get('top', false),
   theme: get('theme', 'dark'),
 })
 
+// 挂在后初始化
 onMounted(() => {
   document.body.classList = [state.theme]
 })
 
+// 监听状态变化
 watch(
   () => state.top,
   (val) => {
@@ -97,32 +100,3 @@ watch(
   }
 )
 </script>
-
-<style lang="scss">
-// 全局样式
-html,
-body {
-  // 禁用文字选择
-  user-select: none;
-  // 允许拖拽移动窗口
-  -webkit-app-region: drag;
-
-  // 禁止滚动
-  overflow: hidden;
-  // 隐藏滚动条
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-// 可点击
-input,
-button,
-select,
-.clickable {
-  // 禁止拖拽移动窗口 响应点击事件
-  -webkit-app-region: no-drag;
-  // 更改鼠标样式
-  cursor: pointer;
-}
-</style>

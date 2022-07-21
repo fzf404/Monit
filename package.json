@@ -11,7 +11,6 @@
     "release": "vue-cli-service electron:build --publish always"
   },
   "dependencies": {
-    "@mediapipe/camera_utils": "^0.3.1640029074",
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/holistic": "^0.5.1635989137",
     "axios": "^0.27.2",

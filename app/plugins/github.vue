@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 20:00:37
+ * @LastEditTime: 2022-07-22 00:45:17
  * @Description: github 信息监控
 -->
 <template>
@@ -10,7 +10,7 @@
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 页面内容 -->
-    <article class="h-screen relative grid grid-cols-12 grid-rows-5 p-3">
+    <article class="h-screen grid grid-cols-12 grid-rows-5 p-3">
       <!-- 设置模态框 -->
       <aside class="setting" v-show="store.setting">
         <!-- 中心框 -->
@@ -143,27 +143,22 @@
 
 <script>
 import { shell } from 'electron'
-import axios from '~/request'
-import { getArrDiffKey } from '~/statistic'
-import { cget, cset } from '~/storage'
-import { sendNotice } from '../../custom/ipc'
 
 import { useMainStore } from '#/store'
+import axios from '~/request'
+import { getArrDiffKey } from '~/statistic'
+import { storage } from '~/storage'
+import { sendNotice } from '#/ipc'
 
-import Layout from '@/layouts/mato.vue'
+import Layout from '@/layouts/macto.vue'
 
 import ForkSVG from '@/assets/github/fork.svg'
 import GihubSVG from '@/assets/github/github.svg'
 import RepoSVG from '@/assets/github/repo.svg'
 import StarSVG from '@/assets/github/star.svg'
 
-// 初始化存储类
-const set = (key, val) => {
-  return cset('github', key, val)
-}
-const get = (key, def) => {
-  return cget('github', key, def)
-}
+// 初始化 storage
+const { set, get } = storage('github')
 
 // 初始化 axios
 const request = axios('https://api.github.com')

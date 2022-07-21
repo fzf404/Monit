@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-19 17:05:51
- * @Description: 应用入口
+ * @LastEditTime: 2022-07-22 00:51:08
+ * @Description: main 入口
  */
 
 import { app, BrowserWindow, protocol } from 'electron'

@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 17:57:33
- * @Description: 欢迎 & 指引
+ * @LastEditTime: 2022-07-22 00:52:02
+ * @Description: welcome 用户指引
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
     <!-- 引导页 -->
-    <article class="h-screen flex flex-col justify-center items-center space-y-3">
+    <article class="h-screen flex-col-center space-y-3">
       <!-- 欢迎-->
       <h1 class="mt-4 text-lg">欢迎使用</h1>
       <!-- 提示 -->
@@ -27,7 +27,7 @@
 <script setup>
 import { shell } from 'electron'
 
-import Layout from '@/layouts/mato.vue'
+import Layout from '@/layouts/macto.vue'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import GithubSVG from '@/assets/github/github.svg'

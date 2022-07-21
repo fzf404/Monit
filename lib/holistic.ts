@@ -2,13 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 22:36:06
+ * @LastEditTime: 2022-07-22 00:57:56
  * @Description: 角色跟踪
  */
 
 import Holistic from '@mediapipe/holistic'
 import DrawingUtils from '@mediapipe/drawing_utils'
-import CameraUtils from '@mediapipe/camera_utils'
 
 /**
  * @description: 绘制跟踪结果
@@ -17,13 +16,14 @@ import CameraUtils from '@mediapipe/camera_utils'
  * @param {Holistic} results
  * @return {*}
  */
-export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, results: Holistic.Results) => {
+export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, results: Holistic.Results): void => {
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
 
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
+  ctx.save() // 保存状态
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   // 绘制人物姿势
@@ -105,7 +105,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
   // 绘制手部
   drawHandLandmarks()
 
-  ctx.restore()
+  ctx.restore() // 恢复状态
 }
 
 /**
@@ -114,7 +114,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
  * @param {HTMLVideoElement} video
  * @return {*}
  */
-export const initHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement) => {
+export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<number> => {
   // Holistic 配置
   const config: Holistic.HolisticConfig = {
     locateFile: (file) => {
@@ -139,12 +139,11 @@ export const initHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement)
     drawResults(canvas, video, result)
   })
 
-  // 初始化摄像头
-  const camera = new CameraUtils.Camera(video, {
-    onFrame: async () => {
-      await holistic.send({ image: video })
-    },
-  })
+  // 发送视频流
+  const sendVideo = async () => {
+    await holistic.send({ image: video })
+    return requestAnimationFrame(sendVideo)
+  }
 
-  return camera
+  return sendVideo()
 }
