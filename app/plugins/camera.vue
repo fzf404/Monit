@@ -10,12 +10,16 @@
         <ul>
           <!-- 设置 -->
           <li>
+            <label for="mirror-open">镜像</label>
+            <input id="mirror-open" type="checkbox" v-model="setting.mirror" />
+          </li>
+          <li>
             <label for="contorl-open">控制器</label>
             <input id="contorl-open" type="checkbox" v-model="setting.control" />
           </li>
           <li>
-            <label for="mirror-open">镜像</label>
-            <input id="mirror-open" type="checkbox" v-model="setting.mirror" />
+            <label for="holistic-open">角色跟踪</label>
+            <input id="holistic-open" type="checkbox" v-model="setting.holistic" />
           </li>
           <li>
             <label for="camera-select">设备</label>
@@ -41,7 +45,7 @@
         <a ref="record" class="hidden" />
       </section>
       <!-- 控制器 -->
-      <section v-show="setting.control" class="absolute left-0 right-0 bottom-4 space-x-4 text-center">
+      <section v-show="setting.control" class="absolute z-10 left-0 right-0 bottom-4 space-x-4 text-center">
         <!-- 拍照 -->
         <button class="btn bg-indigo-500 hover:bg-indigo-600">
           <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
@@ -79,7 +83,7 @@
 <script setup>
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
 import { recordVideo, stopVideo, takePhoto } from '~/camera'
-import { startHolistic } from '~/holistic'
+import { initHolistic } from '~/holistic'
 import { useMainStore } from '#/store'
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
@@ -101,46 +105,43 @@ const record = ref(null)
 const setting = reactive({
   devices: [], // 设备列表
   recording: false, // 录像状态
-  control: get('control', true), // 控制器
-  mirror: get('mirror', false), // 镜像
+  mirror: get('mirror', true), // 镜像
   camera: get('camera', null), // 设备ID
+  control: get('control', true), // 控制器
+  holistic: get('holistic', true), // 角色跟踪
 })
 
 // 初始化设备
 onMounted(async () => {
-  //   // 判断摄像头是否存在
-  //   if (navigator.mediaDevices) {
-  //     // 读取列表
-  //     setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
-  //       return device.kind === 'videoinput'
-  //     })
-  //     // 设置默认摄像头
-  //     setting.camera = setting.camera || setting.devices[0].deviceId
-  //   } else {
-  //     alert('摄像头不存在！')
-  //   }
-  //   // 切换摄像头
-  //   watchEffect(async () => {
-  //     if (setting.camera) {
-  //       video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-  //         video: {
-  //           deviceId: setting.camera,
-  //         },
-  //       })
-  //     }
-  //   })
-  // 开启目标跟踪
-  startHolistic(canvas.value, video.value)
+  // 读取设备列表
+  setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
+    return device.kind === 'videoinput'
+  })
+
+  // 判断摄像头是否存在
+  if (!setting.devices) {
+    return alert('摄像头不存在！')
+  }
+
+  // 判断是否开启角色追踪
+  if (setting.holistic) {
+    return initHolistic(canvas.value, video.value).start()
+  }
+
+  watchEffect(async () => {
+    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+      video: {
+        deviceId: setting.camera,
+      },
+    })
+    set('camera', setting.camera)
+  })
+
+  // 设置默认摄像头
+  setting.camera = setting.camera || setting.devices[0].deviceId
 })
 
 // 监听设置修改
-watch(
-  () => setting.camera,
-  (camera) => {
-    set('camera', camera)
-  }
-)
-
 watch(
   () => setting.mirror,
   (mirror) => {
@@ -149,9 +150,17 @@ watch(
 )
 
 watch(
+  () => setting.holistic,
+  (val) => {
+    set('holistic', val)
+    window.location.reload()
+  }
+)
+
+watch(
   () => setting.control,
-  (control) => {
-    set('control', control)
+  (val) => {
+    set('control', val)
   }
 )
 </script>

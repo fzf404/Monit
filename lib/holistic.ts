@@ -2,43 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 17:53:20
- * @Description:
+ * @LastEditTime: 2022-07-21 20:11:15
+ * @Description: 角色跟踪
  */
 
 import Holistic from '@mediapipe/holistic'
 import DrawingUtils from '@mediapipe/drawing_utils'
 import CameraUtils from '@mediapipe/camera_utils'
-
-/**
- * @description: 初始化 Holistic 实例
- * @return {*}
- */
-export const initHolistic = (): Holistic.Holistic => {
-  // Holistic 配置
-  const config: Holistic.HolisticConfig = {
-    locateFile: (file) => {
-      // return `/static/holistic/${file}`
-      // return `node_modules/@mediapipe/holistic/${file}`
-      if (file === 'holistic_solution_packed_assets.data') return `node_modules/@mediapipe/holistic/${file}`
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@${Holistic.VERSION}/${file}`
-    },
-  }
-
-  // Holistic 实例
-  const holistic = new Holistic.Holistic(config)
-
-  // Holistic 选项
-  holistic.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    minDetectionConfidence: 0.7,
-    minTrackingConfidence: 0.7,
-    refineFaceLandmarks: true,
-  })
-
-  return holistic
-}
 
 /**
  * @description: 绘制跟踪结果
@@ -61,19 +31,10 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
     if (!ctx) return
 
     // 绘制连接线
-    DrawingUtils.drawConnectors(ctx, results.poseLandmarks, Holistic.POSE_CONNECTIONS, { color: '#eee' })
+    DrawingUtils.drawConnectors(ctx, results.poseLandmarks, Holistic.POSE_CONNECTIONS, { color: 'white' })
 
     // 绘制关键点
-    DrawingUtils.drawLandmarks(
-      ctx,
-      Object.values(Holistic.POSE_LANDMARKS_LEFT).map((index) => results.poseLandmarks[index]),
-      { visibilityMin: 0.65, color: '#ccc', fillColor: 'rgb(255,138,0)' }
-    )
-    DrawingUtils.drawLandmarks(
-      ctx,
-      Object.values(Holistic.POSE_LANDMARKS_RIGHT).map((index) => results.poseLandmarks[index]),
-      { visibilityMin: 0.65, color: '#ccc', fillColor: 'rgb(0,217,231)' }
-    )
+    DrawingUtils.drawLandmarks(ctx, results.poseLandmarks, { color: '#bdc3c7', lineWidth: 1 })
   }
 
   // 绘制手部标记
@@ -84,17 +45,18 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
     // 左手关键点
     DrawingUtils.drawLandmarks(ctx, results.leftHandLandmarks, {
       color: 'white',
-      fillColor: 'rgb(255,138,0)',
+      fillColor: 'rgb(0,217,231)',
+
       lineWidth: 2,
       radius: (data: DrawingUtils.Data) => {
         return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
       },
     })
-    // 右手
+    // 右手关键点
     DrawingUtils.drawConnectors(ctx, results.rightHandLandmarks, Holistic.HAND_CONNECTIONS, { color: 'white' })
     DrawingUtils.drawLandmarks(ctx, results.rightHandLandmarks, {
       color: 'white',
-      fillColor: 'rgb(0,217,231)',
+      fillColor: 'rgb(255,138,0)',
       lineWidth: 2,
       radius: (data: DrawingUtils.Data) => {
         return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
@@ -147,21 +109,45 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
 }
 
 /**
- * @description: 启动 Holistic 实例
+ * @description: 初始化 Holistic 实例
  * @param {HTMLCanvasElement} canvas
  * @param {HTMLVideoElement} video
  * @return {*}
  */
-export const startHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<void> => {
-  const holistic = initHolistic()
+export const initHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement) => {
+  // Holistic 配置
+  const config: Holistic.HolisticConfig = {
+    locateFile: (file) => {
+      // return `/static/holistic/${file}`
+      // return `node_modules/@mediapipe/holistic/${file}`
+      // if (file === 'holistic_solution_packed_assets.data') return `node_modules/@mediapipe/holistic/${file}`
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@${Holistic.VERSION}/${file}`
+    },
+  }
+
+  // Holistic 实例
+  const holistic = new Holistic.Holistic(config)
+
+  // Holistic 选项
+  holistic.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
+    minDetectionConfidence: 0.7,
+    minTrackingConfidence: 0.7,
+    refineFaceLandmarks: true,
+  })
+
+  // Holistic 回调
   holistic.onResults((result: Holistic.Results) => {
     drawResults(canvas, video, result)
   })
 
+  // 初始化摄像头
   const camera = new CameraUtils.Camera(video, {
     onFrame: async () => {
       await holistic.send({ image: video })
     },
   })
-  camera.start()
+
+  return camera
 }

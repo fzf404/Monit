@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 01:18:24
+ * @LastEditTime: 2022-07-21 18:21:00
  * @Description: 摄像头工具
  */
 
@@ -14,30 +14,25 @@
  * @return {*}
  */
 export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, record: HTMLAnchorElement) => {
-  // 判断摄像头是否存在
-  if (navigator.mediaDevices) {
-    // 设置画布信息
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
+  // 设置画布信息
+  canvas.width = video.videoWidth
+  canvas.height = video.videoHeight
 
-    // 获取画布上下文
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+  // 获取画布上下文
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
 
-    // 绘制画布
-    ctx.drawImage(video, 0, 0)
+  // 绘制画布
+  ctx.drawImage(video, 0, 0)
 
-    // 保存图片
-    record.href = canvas.toDataURL('image/jpeg')
-    // 设置下载文件名
-    record.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
-    record.click()
+  // 保存图片
+  record.href = canvas.toDataURL('image/jpeg')
+  // 设置下载文件名
+  record.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
+  record.click()
 
-    // 清空画布
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-  } else {
-    alert('摄像头不存在！')
-  }
+  // 清空画布
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
 // 记录器
@@ -49,35 +44,30 @@ let recorder: MediaRecorder
  * @return {*}
  */
 export const recordVideo = (record: HTMLAnchorElement, device: string) => {
-  // 判断摄像头是否存在
-  if (navigator.mediaDevices) {
-    // 获取摄像头
-    navigator.mediaDevices
-      .getUserMedia({
-        video: {
-          deviceId: device,
-        },
-        audio: true,
-      })
-      .then((stream) => {
-        // 创建记录器
-        recorder = new MediaRecorder(stream)
-        // 停止后回调
-        recorder.ondataavailable = (event) => {
-          record.href = URL.createObjectURL(event.data)
-          record.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
-          record.click()
-        }
-        // 停止后销毁
-        recorder.onstop = () => {
-          stream.getTracks().forEach((track) => track.stop())
-        }
-        // 开始
-        recorder.start()
-      })
-  } else {
-    alert('摄像头/麦克风不存在！')
-  }
+  // 获取摄像头
+  navigator.mediaDevices
+    .getUserMedia({
+      video: {
+        deviceId: device,
+      },
+      audio: true,
+    })
+    .then((stream) => {
+      // 创建记录器
+      recorder = new MediaRecorder(stream)
+      // 停止后回调
+      recorder.ondataavailable = (event) => {
+        record.href = URL.createObjectURL(event.data)
+        record.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
+        record.click()
+      }
+      // 停止后销毁
+      recorder.onstop = () => {
+        stream.getTracks().forEach((track) => track.stop())
+      }
+      // 开始
+      recorder.start()
+    })
 }
 
 // 停止录像
