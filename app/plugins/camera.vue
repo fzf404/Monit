@@ -33,10 +33,10 @@
       </aside>
       <!-- 主屏幕 -->
       <section class="rounded-lg overflow-hidden relative w-screen h-screen">
+        <!-- 绘制 -->
+        <canvas ref="canvas" class="absolute z-10 w-screen h-screen" :class="{ mirror: setting.mirror }" />
         <!-- 预览窗口 -->
         <video ref="video" class="absolute w-screen h-screen" :class="{ mirror: setting.mirror }" autoplay />
-        <!-- 拍照 -->
-        <canvas ref="canvas" class="absolute w-screen h-screen" />
         <!-- 记录 -->
         <a ref="record" class="hidden" />
       </section>
@@ -53,7 +53,7 @@
               class="w-6"
               @click="
                 () => {
-                  recordVideo(record)
+                  recordVideo(record, setting.camera)
                   setting.recording = true
                 }
               "
@@ -108,32 +108,29 @@ const setting = reactive({
 
 // 初始化设备
 onMounted(async () => {
-  // 判断摄像头是否存在
-  if (navigator.mediaDevices) {
-    // 读取列表
-    setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
-      return device.kind === 'videoinput'
-    })
-
-    // 设置默认摄像头
-    setting.camera = setting.camera || setting.devices[0].deviceId
-
-    // 开启目标跟踪
-    startHolistic(canvas, video)
-  } else {
-    alert('摄像头不存在！')
-  }
-
-  // 切换摄像头
-  watchEffect(async () => {
-    if (setting.camera) {
-      video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-        video: {
-          optional: [{ sourceId: setting.camera }],
-        },
-      })
-    }
-  })
+  //   // 判断摄像头是否存在
+  //   if (navigator.mediaDevices) {
+  //     // 读取列表
+  //     setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
+  //       return device.kind === 'videoinput'
+  //     })
+  //     // 设置默认摄像头
+  //     setting.camera = setting.camera || setting.devices[0].deviceId
+  //   } else {
+  //     alert('摄像头不存在！')
+  //   }
+  //   // 切换摄像头
+  //   watchEffect(async () => {
+  //     if (setting.camera) {
+  //       video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+  //         video: {
+  //           deviceId: setting.camera,
+  //         },
+  //       })
+  //     }
+  //   })
+  // 开启目标跟踪
+  startHolistic(canvas.value, video.value)
 })
 
 // 监听设置修改

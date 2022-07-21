@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 20:29:23
+ * @LastEditTime: 2022-07-21 13:17:19
  * @Description: 基础布局
 -->
 
 <template>
   <nav>
     <!-- 窗口控制器 -->
-    <ul class="z-10 absolute left-2 space-x-px">
+    <ul class="z-20 absolute left-2 space-x-px">
       <!-- 关闭 -->
       <CloseSVG class="w-4 inline stroke-current clickable text-red-400" @click="sendEvent('window-close')" />
       <!-- 最小化 -->
@@ -27,7 +27,7 @@
       />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="z-20 absolute right-2 space-x-1.5">
+    <ul class="z-30 absolute right-2 space-x-1.5">
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-4 inline stroke-current clickable text-red-500" />
       <!-- 主题 -->

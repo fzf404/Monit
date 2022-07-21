@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 17:56:50
+ * @LastEditTime: 2022-07-21 13:17:07
  * @Description: 基础样式
  */
 
@@ -107,7 +107,7 @@
  * 设置
  */
 .setting {
-  @apply absolute z-10 inset-0 flex justify-center items-center rounded-lg;
+  @apply absolute z-20 inset-0 flex justify-center items-center rounded-lg;
 
   ul {
     @apply w-3/5 z-20 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;

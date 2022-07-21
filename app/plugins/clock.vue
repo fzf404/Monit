@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 16:40:05
+ * @LastEditTime: 2022-07-21 13:13:48
  * @Description: 翻牌时钟
 -->
 <template>
@@ -115,7 +115,7 @@ const startClock = () => {
 
   // 每秒获取最新时间
   interval = setInterval(() => {
-    const time = new Date().toLocaleTimeString().replace(/\:/g, '')
+    const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
     for (let i = 0, len = time.length; i < len; i++) {
       // 判断数字是否修改

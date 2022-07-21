@@ -2,11 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 00:26:18
+ * @LastEditTime: 2022-07-21 11:39:45
  * @Description: vue-cli 配置
  */
 const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-20 20:31:08
+ * @LastEditTime: 2022-07-21 01:18:24
  * @Description: 摄像头工具
  */
 
@@ -48,13 +48,15 @@ let recorder: MediaRecorder
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
-export const recordVideo = (record: HTMLAnchorElement) => {
+export const recordVideo = (record: HTMLAnchorElement, device: string) => {
   // 判断摄像头是否存在
   if (navigator.mediaDevices) {
     // 获取摄像头
     navigator.mediaDevices
       .getUserMedia({
-        video: true,
+        video: {
+          deviceId: device,
+        },
         audio: true,
       })
       .then((stream) => {
@@ -66,6 +68,10 @@ export const recordVideo = (record: HTMLAnchorElement) => {
           record.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
           record.click()
         }
+        // 停止后销毁
+        recorder.onstop = () => {
+          stream.getTracks().forEach((track) => track.stop())
+        }
         // 开始
         recorder.start()
       })
@@ -76,7 +82,5 @@ export const recordVideo = (record: HTMLAnchorElement) => {
 
 // 停止录像
 export const stopVideo = () => {
-  if (recorder) {
-    recorder.stop()
-  }
+  recorder.stop()
 }

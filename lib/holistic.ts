@@ -2,12 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 00:44:11
+ * @LastEditTime: 2022-07-21 17:53:20
  * @Description:
  */
 
 import Holistic from '@mediapipe/holistic'
 import DrawingUtils from '@mediapipe/drawing_utils'
+import CameraUtils from '@mediapipe/camera_utils'
 
 /**
  * @description: 初始化 Holistic 实例
@@ -19,6 +20,7 @@ export const initHolistic = (): Holistic.Holistic => {
     locateFile: (file) => {
       // return `/static/holistic/${file}`
       // return `node_modules/@mediapipe/holistic/${file}`
+      if (file === 'holistic_solution_packed_assets.data') return `node_modules/@mediapipe/holistic/${file}`
       return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@${Holistic.VERSION}/${file}`
     },
   }
@@ -54,6 +56,51 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+  // 绘制人物姿势
+  function drawPoseLandmarks() {
+    if (!ctx) return
+
+    // 绘制连接线
+    DrawingUtils.drawConnectors(ctx, results.poseLandmarks, Holistic.POSE_CONNECTIONS, { color: '#eee' })
+
+    // 绘制关键点
+    DrawingUtils.drawLandmarks(
+      ctx,
+      Object.values(Holistic.POSE_LANDMARKS_LEFT).map((index) => results.poseLandmarks[index]),
+      { visibilityMin: 0.65, color: '#ccc', fillColor: 'rgb(255,138,0)' }
+    )
+    DrawingUtils.drawLandmarks(
+      ctx,
+      Object.values(Holistic.POSE_LANDMARKS_RIGHT).map((index) => results.poseLandmarks[index]),
+      { visibilityMin: 0.65, color: '#ccc', fillColor: 'rgb(0,217,231)' }
+    )
+  }
+
+  // 绘制手部标记
+  function drawHandLandmarks() {
+    if (!ctx) return
+    // 左手连接线
+    DrawingUtils.drawConnectors(ctx, results.leftHandLandmarks, Holistic.HAND_CONNECTIONS, { color: 'white' })
+    // 左手关键点
+    DrawingUtils.drawLandmarks(ctx, results.leftHandLandmarks, {
+      color: 'white',
+      fillColor: 'rgb(255,138,0)',
+      lineWidth: 2,
+      radius: (data: DrawingUtils.Data) => {
+        return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
+      },
+    })
+    // 右手
+    DrawingUtils.drawConnectors(ctx, results.rightHandLandmarks, Holistic.HAND_CONNECTIONS, { color: 'white' })
+    DrawingUtils.drawLandmarks(ctx, results.rightHandLandmarks, {
+      color: 'white',
+      fillColor: 'rgb(0,217,231)',
+      lineWidth: 2,
+      radius: (data: DrawingUtils.Data) => {
+        return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
+      },
+    })
+  }
   // 绘制面部标记
   function drawFaceLandmarks() {
     if (!ctx) return
@@ -85,41 +132,15 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
     })
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_LIPS, {
       color: '#E0E0E0',
-      lineWidth: 5,
+      lineWidth: 4,
     })
   }
 
-  // 绘制手部标记
-  function drawHandLandmarks() {
-    if (!ctx) return
-    DrawingUtils.drawConnectors(ctx, results.leftHandLandmarks, Holistic.HAND_CONNECTIONS, {
-      color: '#ff000099',
-      lineWidth: 4,
-    })
-    // 近大远小
-    DrawingUtils.drawLandmarks(ctx, results.leftHandLandmarks, {
-      color: 'white',
-      fillColor: 'rgb(0,217,231)',
-      lineWidth: 2,
-      radius: (data: DrawingUtils.Data) => {
-        return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
-      },
-    })
-    DrawingUtils.drawConnectors(ctx, results.rightHandLandmarks, Holistic.HAND_CONNECTIONS, {
-      color: '#0000ff99',
-      lineWidth: 4,
-    })
-    DrawingUtils.drawLandmarks(ctx, results.rightHandLandmarks, {
-      color: 'white',
-      fillColor: 'rgb(255,138,0)',
-      lineWidth: 2,
-      radius: (data: DrawingUtils.Data) => {
-        return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
-      },
-    })
-  }
-
+  // 绘制姿势
+  drawPoseLandmarks()
+  // 绘制人脸
   drawFaceLandmarks()
+  // 绘制手部
   drawHandLandmarks()
 
   ctx.restore()
@@ -131,10 +152,16 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
  * @param {HTMLVideoElement} video
  * @return {*}
  */
-export const startHolistic = (canvas: HTMLCanvasElement, video: HTMLVideoElement) => {
+export const startHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<void> => {
   const holistic = initHolistic()
   holistic.onResults((result: Holistic.Results) => {
     drawResults(canvas, video, result)
   })
-  holistic.send({ image: video })
+
+  const camera = new CameraUtils.Camera(video, {
+    onFrame: async () => {
+      await holistic.send({ image: video })
+    },
+  })
+  camera.start()
 }
