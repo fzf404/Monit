@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "jsx": "preserve",
     "target": "ESNext",
     "module": "ESNext",
     "types": ["webpack"],

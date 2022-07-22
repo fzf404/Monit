@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:52:52
+ * @LastEditTime: 2022-07-22 16:30:35
  * @Description: camera 相机监控
 -->
 <template>
@@ -42,10 +42,15 @@
           </ol>
         </ul>
       </aside>
-      <!-- TODO 加载时模态框 -->
-      <section></section>
       <!-- 主屏幕 -->
       <section class="relative w-full h-full overflow-hidden rounded-lg">
+        <!-- TODO 加载时模态框 -->
+        <section v-show="setting.loading" class="absolute w-full h-full z-30 modal flex-col-center space-y-2">
+          <LoadSVG class="w-16 load-rotating" />
+          <p class="text-intro">正在加载中...</p>
+          <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
+          <p class="text-intro">可能需要 30s 以上</p>
+        </section>
         <!-- 绘制 -->
         <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: setting.mirror }" />
         <!-- 预览 -->
@@ -99,10 +104,12 @@ import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
+import Layout from '@/layouts/macto.vue'
+
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
-import Layout from '@/layouts/macto.vue'
+import LoadSVG from '@/assets/layout/load.svg'
 
 // 初始化 store
 const store = useMainStore()
@@ -137,21 +144,19 @@ onMounted(async () => {
     return alert('相机不存在！')
   }
 
-  // 监听设备修改
-  watchEffect(async () => {
-    video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-      video: {
-        deviceId: setting.camera,
-      },
-    })
-    // 是否开启角色追踪
-    if (setting.holistic) {
-      await initHolistic(canvas.value, video.value)
-    }
-    setting.loading = false
-  })
   // 设置默认相机
   setting.camera = setting.camera || setting.devices[0].deviceId
+
+  video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+    video: {
+      deviceId: setting.camera,
+    },
+  })
+  // 是否开启角色追踪
+  if (setting.holistic) {
+    await initHolistic(canvas.value, video.value)
+  }
+  setting.loading = false
 })
 
 // 监听设置修改
@@ -179,11 +184,19 @@ watch(
 
 watch(
   () => setting.camera,
-  (val) => {
+  async (val) => {
     set('camera', val)
-    // 切换相机时，重新加载窗口初始化角色追踪
+    // 是否开启角色追踪
     if (setting.holistic) {
+      // 重新加载窗口初始化角色追踪
       window.location.reload()
+    } else {
+      // 切换摄像头
+      video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+        video: {
+          deviceId: val,
+        },
+      })
     }
   }
 )

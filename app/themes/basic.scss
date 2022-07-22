@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 01:02:59
+ * @LastEditTime: 2022-07-22 16:23:07
  * @Description: macto 布局
  */
 
@@ -110,8 +110,23 @@ select,
 
 /**
  * 动画
- * 淡入淡出
  */
+
+// 加载旋转
+.load-rotating {
+  animation: load-rotating 2s linear infinite;
+}
+
+@keyframes load-rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// 淡入淡出
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease;
@@ -136,7 +151,7 @@ select,
  * 设置
  */
 .setting {
-  @apply absolute z-30 inset-0 flex justify-center items-center rounded-lg;
+  @apply absolute z-30 inset-0 modal flex justify-center items-center rounded-lg;
 
   ul {
     @apply w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;
