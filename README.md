@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 17:36:57
+ * @LastEditTime: 2022-07-22 21:43:50
  * @Description: Monit 说明文档
 -->
 
@@ -272,7 +272,7 @@ Monit
 
 参考：`app/layouts/macto.vue`
 
-...待续
+> 待续...
 
 ### 🍻 API 说明
 
