@@ -2,21 +2,21 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-19 12:14:33
+ * @LastEditTime: 2022-07-22 00:46:39
  * @Description: bilibili 信息监控
 -->
 <template>
   <main>
+    <!-- 窗口控制器 -->
     <Layout />
-    <article class="h-screen flex justify-center items-center">
+    <!-- 页面内容 -->
+    <article class="h-screen flex-col-center">
       <h1 class="text-lg">Bilibili</h1>
     </article>
   </main>
 </template>
 
-<!-- TODO -->
+<!-- TODO 插件 bilibili -->
 <script setup>
-import Layout from '../layouts/custom.vue'
+import Layout from '@/layouts/macto.vue'
 </script>
-
-<style scoped></style>

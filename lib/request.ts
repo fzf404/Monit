@@ -2,13 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-06-29 11:01:54
- * @Description: axios 请求封装
+ * @LastEditTime: 2022-07-22 00:58:11
+ * @Description: axios 封装
  */
 
 import axios from 'axios'
+import { useMainStore } from '../custom/store'
 
-const request = (url) => {
+const store = useMainStore()
+
+const request = (url: string) => {
   // axios 实例
   const service = axios.create({
     baseURL: url, // 基本路径
@@ -17,12 +20,14 @@ const request = (url) => {
   // 响应拦截
   service.interceptors.response.use(
     (res) => {
+      // 响应成功
+      store.network = true
       // 返回数据
       return res.data
     },
     (err) => {
-      // 返回错误
-      return Promise.reject(err.message)
+      // 请求错误
+      store.network = false
     }
   )
   return service

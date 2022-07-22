@@ -1,9 +1,9 @@
 <!--
  * @Author: fzf404
- * @Date: 2022-07-15 22:55:49
+ * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:46:07
- * @Description: live2d 虚拟角色追踪
+ * @LastEditTime: 2022-07-22 00:52:14
+ * @Description: setting 全局设置
 -->
 <template>
   <main>
@@ -11,15 +11,14 @@
     <Layout />
     <!-- 页面内容 -->
     <article class="h-screen flex-col-center">
-      <video ref="character"></video>
+      <h1 class="text-lg">Setting</h1>
     </article>
   </main>
 </template>
 
-<!-- TODO 插件 live2d -->
+<!-- TODO 插件 setting -->
 <script setup>
-import { ref } from 'vue'
 import Layout from '@/layouts/macto.vue'
-
-const character = ref(null)
 </script>
+
+<style scoped></style>

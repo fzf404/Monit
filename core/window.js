@@ -2,16 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 18:02:13
- * @Description: 窗口管理
+ * @LastEditTime: 2022-07-22 00:51:20
+ * @Description: window 管理
  */
 
-import { BrowserWindow, systemPreferences } from 'electron'
+import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
 import { pluginList } from '../custom/plugin'
-import { cget } from '../custom/storage'
-import { winEvent } from './event'
+import { cget } from '../lib/storage'
+import { winEvent } from '../custom/event'
 
 // 窗口网格大小
 const BasicMesh = 200
@@ -20,24 +20,12 @@ const BasicMesh = 200
 const windowList = []
 
 // 创建窗口
-export const createWindow = async (name) => {
-  // 判断窗口存在
-  const isExist = pluginList.find((item) => item.name === name)
-  if (!isExist) {
-    return
-  }
-
+export const createWindow = (name) => {
   // 判断窗口启动
   const isOpen = windowList.find((item) => item.title === name)
   if (isOpen) {
     // 展示窗口
     return isOpen.show()
-  }
-
-  // 分配权限
-  if (process.platform === 'darwin' && name === 'camera') {
-    await systemPreferences.askForMediaAccess('camera')
-    await systemPreferences.askForMediaAccess('microphone')
   }
 
   // 窗口大小

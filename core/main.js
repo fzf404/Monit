@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-17 18:31:13
- * @Description: 应用入口
+ * @LastEditTime: 2022-07-22 00:51:08
+ * @Description: main 入口
  */
 
 import { app, BrowserWindow, protocol } from 'electron'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
-import { appEvent } from './event'
+import { appEvent } from '../custom/event'
 import { initTray } from './tray'
 import { autoWindow, createWindow } from './window'
 

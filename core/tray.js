@@ -2,14 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-16 11:14:05
- * @Description: 托盘图标
+ * @LastEditTime: 2022-07-22 00:51:30
+ * @Description: tary 托盘
  */
 
 import { app, Menu, Tray } from 'electron'
 
 import { pluginList } from '../custom/plugin'
-import { storage } from '../custom/storage'
+import { storage } from '../lib/storage'
+import { isDebug } from './main'
 import { createWindow } from './window'
 
 const { set, get } = storage('_config')
@@ -18,16 +19,16 @@ const { set, get } = storage('_config')
 let TrayMenu
 
 // 初始化托盘
-export const initTray = (isDebug) => {
+export const initTray = () => {
   // 插件启动列表
   let openPlugins = get('open', [])
 
-  // 生产模式 & debug 不开启插件
+  // 生产模式 不开启 debug 插件
   const pluginLists = pluginList.filter(({ debug }) => !(!isDebug && debug))
 
   // 全部插件菜单
   const pluginMenu = pluginLists.map((item) => {
-    // 调试模式开启全部插件
+    // 调试模式 开启全部插件
     return {
       label: `${item.name} - ${item.description}`,
       click: () => {
@@ -58,7 +59,7 @@ export const initTray = (isDebug) => {
   })
 
   // 托盘 Logo
-  const trayLogo = process.platform === 'darwin' ? `${__static}/logo/tray.png` : `${__static}/logo/icon.png`
+  const trayLogo = process.platform === 'darwin' ? `${__static}/icons/tray.png` : `${__static}/icons/icon.png`
   // 初始化托盘菜单
   TrayMenu = new Tray(trayLogo)
 
