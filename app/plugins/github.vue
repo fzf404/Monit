@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:45:17
+ * @LastEditTime: 2022-07-22 18:41:40
  * @Description: github 信息监控
 -->
 <template>
@@ -177,9 +177,6 @@ export default {
   },
   data() {
     return {
-      setting: false, // 设置
-      network: false, // 网络
-
       user: get('user', ''), // 用户名
       notice: get('notice', false), // 开启提醒
 
@@ -220,7 +217,7 @@ export default {
   created() {
     if (this.user === '') {
       // 打开设置
-      this.setting = true
+      this.store.setting = true
     } else {
       // 刷新数据
       this.getGithubData()
