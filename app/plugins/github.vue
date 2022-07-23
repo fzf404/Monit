@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 18:41:40
+ * @LastEditTime: 2022-07-23 23:07:54
  * @Description: github 信息监控
 -->
 <template>
@@ -67,9 +67,8 @@
       <!-- repo -->
       <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
         <p
-          :key="index"
+          v-for="value in repoChange"
           class="flex-row-center space-x-1 space-y-1 clickable"
-          v-for="(value, index) in repoChange"
           @click="updateRepo(value.repo)"
         >
           <!-- repo svg -->
