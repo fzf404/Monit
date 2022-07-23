@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:07:54
+ * @LastEditTime: 2022-07-23 23:23:40
  * @Description: github 信息监控
 -->
 <template>
@@ -11,7 +11,7 @@
     <Layout />
     <!-- 页面内容 -->
     <article class="h-screen grid grid-cols-12 grid-rows-5 p-3">
-      <!-- 设置模态框 -->
+      <!-- TODO 设置模态框 -->
       <aside class="setting" v-show="store.setting">
         <!-- 中心框 -->
         <ul>

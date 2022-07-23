@@ -2,9 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:59:40
+ * @LastEditTime: 2022-07-23 23:03:33
  * @Description: 存储配置
  */
+
+// TODO 解除 Node 依赖
 
 import Store from 'electron-store'
 import { useRoute } from 'vue-router'

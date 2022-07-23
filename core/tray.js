@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:51:30
+ * @LastEditTime: 2022-07-23 23:24:39
  * @Description: tary 托盘
  */
 
@@ -60,9 +60,8 @@ export const initTray = () => {
 
   // 托盘 Logo
   const trayLogo = process.platform === 'darwin' ? `${__static}/icons/tray.png` : `${__static}/icons/icon.png`
-  // 初始化托盘菜单
-  TrayMenu = new Tray(trayLogo)
-
+  // 托盘提示
+  const trayTip = 'Monit'
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
     { label: '插件列表', submenu: pluginMenu },
@@ -77,5 +76,10 @@ export const initTray = () => {
     { label: '退出', click: () => app.quit() },
   ])
 
+  // 初始化托盘
+  TrayMenu = new Tray(trayLogo)
+  // 设置托盘提示
+  TrayMenu.setToolTip(trayTip)
+  // 设置托盘菜单
   TrayMenu.setContextMenu(contextMenu)
 }

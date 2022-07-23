@@ -1,4 +1,4 @@
-name: Monit Release
+name: release
 
 on:
   push:

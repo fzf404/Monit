@@ -17,11 +17,11 @@
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "node",
     "paths": {
+      "~/*": ["lib/*"],
       "@/*": ["app/*"],
-      "#/*": ["custom/*"],
-      "~/*": ["lib/*"]
+      "#/*": ["custom/*"]
     }
   },
-  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"],
+  "include": ["app/**/*.vue", "custom/*.ts", "core/*.ts", "lib/*.ts"],
   "exclude": ["node_modules"]
 }

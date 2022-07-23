@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 22:36:29
+ * @LastEditTime: 2022-07-23 23:23:28
  * @Description: camera 相机监控
 -->
 <template>
@@ -11,7 +11,7 @@
     <Layout />
     <!-- 页面内容 -->
     <article class="h-screen">
-      <!-- 设置模态框 -->
+      <!-- TODO 设置模态框 -->
       <aside class="setting" v-show="store.setting">
         <!-- 中心框 -->
         <ul>
@@ -44,7 +44,6 @@
       </aside>
       <!-- 主屏幕 -->
       <section class="relative w-full h-full overflow-hidden rounded-lg">
-        <!-- TODO 加载时模态框 -->
         <section v-show="setting.loading" class="absolute w-full h-full z-50 modal flex-col-center space-y-2">
           <LoadSVG class="w-16 load-rotating" />
           <p class="text-intro">正在加载中...</p>

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-21 21:52:02
+ * @LastEditTime: 2022-07-23 22:40:27
  * @Description: vue-cli 配置
  */
 const path = require('path')
@@ -32,7 +32,7 @@ const config = {
   },
   chainWebpack: (config) => {
     // 配置别名
-    config.resolve.alias.set('@', resolve('app')).set('#', resolve('custom')).set('~', resolve('lib'))
+    config.resolve.alias.set('~', resolve('lib')).set('@', resolve('app')).set('#', resolve('custom'))
     // svg 加载
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -52,7 +52,7 @@ const config = {
       rendererProcessFile: 'app/main.js',
       chainWebpackMainProcess: (config) => {
         // 配置别名
-        config.resolve.alias.set('@', resolve('app')).set('#', resolve('custom')).set('~', resolve('lib'))
+        config.resolve.alias.set('~', resolve('lib')).set('@', resolve('app')).set('#', resolve('custom'))
       },
       // 构建选项
       builderOptions: {
@@ -81,7 +81,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'vue.config.js']
 }
 
 module.exports = { ...config }
