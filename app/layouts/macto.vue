@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 01:03:24
+ * @LastEditTime: 2022-07-23 23:22:41
  * @Description: macto 布局
 -->
 
@@ -39,12 +39,9 @@
       <DarkSVG v-else class="w-4 inline stroke-current clickable text-indigo-300" @click="state.theme = 'dark'" />
       <!-- 设置 -->
       <SettingSVG
+        v-show="store.settingList"
         class="w-4 inline stroke-current clickable text-blue-500"
-        @click="
-          () => {
-            store.setting = !store.setting
-          }
-        "
+        @click="store.setting = !store.setting"
       />
     </ul>
   </nav>
