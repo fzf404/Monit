@@ -42,14 +42,15 @@
           </ol>
         </ul>
       </aside>
+      <!-- 加载 -->
+      <section v-show="setting.loading" class="absolute w-full h-full z-30 modal flex-col-center space-y-2">
+        <LoadSVG class="w-16 load-rotating" />
+        <p class="text-intro">正在加载中...</p>
+        <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
+        <p class="text-intro">可能需要 30s 以上</p>
+      </section>
       <!-- 主屏幕 -->
       <section class="relative w-full h-full overflow-hidden rounded-lg">
-        <section v-show="setting.loading" class="absolute w-full h-full z-50 modal flex-col-center space-y-2">
-          <LoadSVG class="w-16 load-rotating" />
-          <p class="text-intro">正在加载中...</p>
-          <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
-          <p class="text-intro">可能需要 30s 以上</p>
-        </section>
         <!-- 绘制 -->
         <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: setting.mirror }" />
         <!-- 预览 -->
@@ -134,17 +135,20 @@ const setting = reactive({
 // 初始化设备
 onMounted(async () => {
   // 读取设备列表
-  setting.devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
+  const devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => {
     return device.kind === 'videoinput'
   })
 
   // 判断相机是否存在
-  if (!setting.devices) {
+  if (devices.length === 0) {
     return alert('相机不存在！')
   }
 
+  // 设置相机列表
+  setting.devices = devices
+
   // 设置默认相机
-  setting.camera = setting.camera || setting.devices[0].deviceId
+  setting.camera = setting.camera || setting.devices[0]
 
   video.value.srcObject = await navigator.mediaDevices.getUserMedia({
     video: {
@@ -155,6 +159,8 @@ onMounted(async () => {
   if (setting.holistic) {
     await initHolistic(canvas.value, video.value)
   }
+
+  // 隐藏加载框
   setting.loading = false
 })
 
