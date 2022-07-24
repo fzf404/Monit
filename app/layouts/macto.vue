@@ -9,7 +9,7 @@
 <template>
   <nav>
     <!-- 窗口控制器 -->
-    <ul class="z-30 absolute left-2 space-x-px">
+    <ul class="absolute left-2 z-40 space-x-px">
       <!-- 关闭 -->
       <CloseSVG class="w-4 inline stroke-current clickable text-red-400" @click="sendEvent('window-close')" />
       <!-- 最小化 -->
@@ -27,7 +27,7 @@
       />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="z-40 absolute right-2 space-x-1.5">
+    <ul class="absolute right-2 z-40 space-x-1.5">
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-4 inline stroke-current clickable text-red-500" />
       <!-- 主题 -->

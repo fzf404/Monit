@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.18.9
-  '@mediapipe/camera_utils': ^0.3.1640029074
   '@mediapipe/drawing_utils': ^0.3.1620248257
   '@mediapipe/holistic': ^0.5.1635989137
   '@vue/cli-plugin-typescript': ^5.0.8
@@ -37,7 +36,6 @@ specifiers:
   webpack: ^5.73.0
 
 dependencies:
-  '@mediapipe/camera_utils': 0.3.1640029074
   '@mediapipe/drawing_utils': 0.3.1620248257
   '@mediapipe/holistic': 0.5.1635989137
   axios: 0.27.2
@@ -412,10 +410,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@mediapipe/camera_utils/0.3.1640029074:
-    resolution: {integrity: sha512-jRV/Mp2lgqNYT68TeVRu/Xq+ptZO9F9vCjxzQsA3VM2r7oXg0TrnfO9De2KKOUTpt0p28dKHs625J8GdWjha8A==}
-    dev: false
 
   /@mediapipe/drawing_utils/0.3.1620248257:
     resolution: {integrity: sha512-s598oo1K6C62mX3rWXJ7n1RJFdXjyQn3f6CeI+lU6kD69MVyBcV3hdmO5LnEZlCw5NRDANtaM8WAOuqZHaldLg==}
