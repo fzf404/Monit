@@ -27,12 +27,12 @@ app.on('activate', () => {
   }
 })
 
-// mac 关闭窗口
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+// 自动关闭窗口
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     app.quit()
+//   }
+// })
 
 // 准备就绪
 app.on('ready', async () => {
