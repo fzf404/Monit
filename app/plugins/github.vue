@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:23:40
+ * @LastEditTime: 2022-07-27 17:20:09
  * @Description: github 信息监控
 -->
 <template>
@@ -111,8 +111,9 @@
               'text-gray': star == newStar,
             }"
             @click="updateStar"
-            >{{ starChange }}</span
           >
+            {{ starChange }}
+          </span>
         </p>
       </section>
       <!-- fork -->
@@ -132,7 +133,8 @@
               'text-gray': fork == newFork,
             }"
             @click="updateFork"
-            >{{ forkChange }}
+          >
+            {{ forkChange }}
           </span>
         </p>
       </section>
@@ -143,11 +145,11 @@
 <script>
 import { shell } from 'electron'
 
+import { sendNotice } from '#/ipc'
 import { useMainStore } from '#/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
-import { sendNotice } from '#/ipc'
 
 import Layout from '@/layouts/macto.vue'
 

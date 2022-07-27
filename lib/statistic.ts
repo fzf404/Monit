@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:58:32
+ * @LastEditTime: 2022-07-27 17:18:53
  * @Description: 数值分析
  */
 
@@ -32,10 +32,10 @@ export const getArrDiff = (arr1: Array<any>, arr2: Array<any>): Array<any> => {
  * @param {*} key
  * @return {*}
  */
-export const getArrDiffKey = (arr1: repo[], arr2: Array<repo>, key: 'star' | 'fork'): Array<repo> => {
+export const getArrDiffKey = (arr1: repo[], arr2: repo[], key: 'star' | 'fork'): Array<repo> => {
   return arr2.filter((items) => {
     return !arr1.some((item) => {
-      return items.repo === items.repo && items[key] === item[key]
+      return items.repo === item.repo && items[key] === item[key]
     })
   })
 }
