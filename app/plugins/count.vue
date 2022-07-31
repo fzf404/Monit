@@ -2,21 +2,21 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:18:13
+ * @LastEditTime: 2022-07-31 23:55:33
  * @Description: count 计数器
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
+    <!-- 设置 -->
+    <Setting size="small" :setting="setting" :config="config" />
     <!-- 页面内容 -->
     <article class="h-screen">
-      <!-- 设置 -->
-      <Setting size="small" />
       <!-- 主体 -->
       <section class="h-full flex-col-center space-y-2">
         <h1 class="text-intro">计数器</h1>
-        <p class="text-5xl">{{ store.config.count }}</p>
+        <p class="text-5xl">{{ config.count }}</p>
         <!-- 增加 & 减少 -->
         <p class="space-x-4 pt-2">
           <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
@@ -28,45 +28,47 @@
 </template>
 
 <script>
-import { useMainStore } from '#/store'
-import { storage } from '~/storage'
-
-import Setting from '@/layouts/setting.vue'
-
 import AddSVG from '@/assets/count/add.svg'
 import SubSVG from '@/assets/count/sub.svg'
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
+import Setting from '@/layouts/setting.vue'
+import { reactive } from 'vue'
+import { storage } from '~/storage'
 
 export default {
   setup() {
-    // 初始化 store
-    const store = useMainStore()
     // 初始化 storage
     const { get } = storage()
 
     // 配置项
-    store.config = {
+    const config = reactive({
       // 读取 count 值
       count: get('count', 0), // 数值
       // 读取 setp 值
       step: get('step', 1), // 步长
-    }
+    })
 
-    // 设置菜单
-    store.settingList = [
+    // 设置信息
+    const setting = [
       {
         id: 'count',
-        title: '数值',
+        label: '数值',
         type: 'number',
+        options: {
+          len: 5,
+        },
       },
       {
         id: 'step',
-        title: '步长',
+        label: '步长',
         type: 'number',
+        options: {
+          len: 3,
+        },
       },
     ]
 
-    return { store }
+    return { setting, config }
   },
   components: {
     Layout,
@@ -77,11 +79,11 @@ export default {
   methods: {
     increase() {
       // 浮点数运算精度
-      this.store.config.count = Number((this.store.config.count + this.store.config.step).toFixed(2))
+      this.config.count = Number((this.config.count + this.config.step).toFixed(2))
     },
     reduce() {
       // 浮点数运算精度
-      this.store.config.count = Number((this.store.config.count - this.store.config.step).toFixed(2))
+      this.config.count = Number((this.config.count - this.config.step).toFixed(2))
     },
   },
 }

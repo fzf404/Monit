@@ -18,5 +18,5 @@
 
 <!-- TODO 插件 bilibili -->
 <script setup>
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
 </script>

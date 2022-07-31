@@ -2,41 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-27 17:20:09
+ * @LastEditTime: 2022-07-31 23:54:59
  * @Description: github 信息监控
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
+    <!-- 设置 -->
+    <Setting :setting="setting" :config="config" @save="onSave" />
     <!-- 页面内容 -->
     <article class="h-screen grid grid-cols-12 grid-rows-5 p-3">
-      <!-- TODO 设置模态框 -->
-      <aside class="setting" v-show="store.setting">
-        <!-- 中心框 -->
-        <ul>
-          <!-- 消息通知 设置 -->
-          <li>
-            <label for="message-notice">消息通知</label>
-            <input id="message-notice" type="checkbox" v-model.lazy="notice" />
-          </li>
-          <!-- Github 用户 -->
-          <li>
-            <label for="github-username">用户名</label>
-            <input
-              id="github-username"
-              type="text"
-              spellcheck="false"
-              v-model.lazy="user"
-              @keyup.enter="changeSetting"
-            />
-          </li>
-          <!-- 保存 -->
-          <ol>
-            <button @click="changeSetting">OK</button>
-          </ol>
-        </ul>
-      </aside>
       <!-- follower -->
       <section class="flex-col-center col-span-7 row-span-3 mt-4">
         <h1 pan class="text-intro mb-1">follower</h1>
@@ -146,17 +122,17 @@
 import { shell } from 'electron'
 
 import { sendNotice } from '#/ipc'
-import { useMainStore } from '#/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
 
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
 
 import ForkSVG from '@/assets/github/fork.svg'
 import GihubSVG from '@/assets/github/github.svg'
 import RepoSVG from '@/assets/github/repo.svg'
 import StarSVG from '@/assets/github/star.svg'
+import Setting from '@/layouts/setting.vue'
 
 // 初始化 storage
 const { set, get } = storage('github')
@@ -165,22 +141,35 @@ const { set, get } = storage('github')
 const request = axios('https://api.github.com')
 
 export default {
-  setup() {
-    // 初始化 store
-    return { store: useMainStore() }
-  },
   components: {
     Layout,
     GihubSVG,
     StarSVG,
     ForkSVG,
     RepoSVG,
+    Setting,
   },
   data() {
     return {
-      user: get('user', ''), // 用户名
-      notice: get('notice', false), // 开启提醒
-
+      // 配置数据
+      config: {
+        notice: get('notice', false), // 开启提醒
+        user: get('user', ''), // 用户名
+      },
+      // 设置菜单
+      setting: [
+        {
+          id: 'notice',
+          label: '消息通知',
+          type: 'checkbox',
+        },
+        {
+          id: 'user',
+          label: '用户名',
+          type: 'text',
+        },
+      ],
+      // 状态数据
       follower: get('follower', 0), // follower 数
       newFollower: get('follower', 0), // 新 follower 数
 
@@ -196,12 +185,6 @@ export default {
   },
   // 监听设置更改
   watch: {
-    user(value) {
-      set('user', value)
-    },
-    notice(value) {
-      set('notice', value)
-    },
     follower(value) {
       set('follower', value)
     },
@@ -216,7 +199,7 @@ export default {
     },
   },
   created() {
-    if (this.user === '') {
+    if (this.config.user === '') {
       // 打开设置
       this.store.setting = true
     } else {
@@ -281,9 +264,7 @@ export default {
   },
   methods: {
     // 设置更改
-    changeSetting() {
-      // 更改设置状态
-      this.store.setting = false
+    onSave() {
       // 初始化数据
       this.initGithubData()
     },
@@ -297,7 +278,7 @@ export default {
     },
     // 请求数据
     async getGithubData() {
-      await request.get(`/users/${this.user}`).then(async (data) => {
+      await request.get(`/users/${this.config.user}`).then(async (data) => {
         // 修改网络状态
         this.network = true
 
@@ -312,7 +293,7 @@ export default {
 
         // 遍历 repo 信息
         while (pages--) {
-          await request.get(`/users/${this.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
+          await request.get(`/users/${this.config.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
             // 遍历数据
             data.forEach((item) => {
               star += item.stargazers_count
@@ -331,11 +312,11 @@ export default {
     // 更新 follower
     updateFollower() {
       this.follower = this.newFollower
-      shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
+      shell.openExternal(`https://github.com/${this.config.user}?tab=followers`, '_blank')
     },
     // 更新 repo
     updateRepo(repo) {
-      shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
+      shell.openExternal(`https://github.com/${this.config.user}/${repo}`, '_blank')
     },
     // 更新 star
     updateStar() {
@@ -343,7 +324,7 @@ export default {
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
         // 访问
-        shell.openExternal(`https://github.com/${this.user}/${item.repo}/stargazers`, '_blank')
+        shell.openExternal(`https://github.com/${this.config.user}/${item.repo}/stargazers`, '_blank')
       })
       // 更新 repo
       this.repoInfo = this.newRepoInfo
@@ -354,7 +335,7 @@ export default {
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
         // 访问
-        shell.openExternal(`https://github.com/${this.user}/${item.repo}/network/members`, '_blank')
+        shell.openExternal(`https://github.com/${this.config.user}/${item.repo}/network/members`, '_blank')
       })
       // 更新 repo
       this.repoInfo = this.newRepoInfo
