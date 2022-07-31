@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:58:11
+ * @LastEditTime: 2022-07-29 22:23:14
  * @Description: axios 封装
  */
 
 import axios from 'axios'
-import { useMainStore } from '../custom/store'
+import { useStore } from '@/store'
 
-const store = useMainStore()
+const store = useStore()
 
 const request = (url: string) => {
   // axios 实例

@@ -22,6 +22,6 @@
       "#/*": ["custom/*"]
     }
   },
-  "include": ["app/**/*.vue", "custom/*.ts", "core/*.ts", "lib/*.ts"],
+  "include": ["app/**/*.{ts,vue}", "custom/*.ts", "core/*.ts", "lib/*.ts"],
   "exclude": ["node_modules"]
 }
