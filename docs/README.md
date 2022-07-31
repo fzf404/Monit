@@ -2,13 +2,30 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 21:43:50
+ * @LastEditTime: 2022-08-01 00:34:22
  * @Description: Monit 说明文档
 -->
 
 ## 💡 展示
 
 ![show](show.jpeg)
+
+## ✨ 功能
+
+> VueC 指 Composition API，VueO 指 Options API
+
+| 插件名   | 功能              | 技术                         | 状态 |
+| -------- | ----------------- | ---------------------------- | ---- |
+| welcome  | 使用指引          | Vue Composition API          | ✅   |
+| count    | 计数器            | Vue Options API              | ✅   |
+| github   | github 信息监控   | VueO + Axios + Grid          | ✅   |
+| clock    | 时钟翻牌器        | VueC + Scss + Keyframes      | ✅   |
+| todo     | 待办事项管理      | VueC + Pug + Draggable       | ✅   |
+| camera   | 相机监控          | VueC + Canvas + MediaPipe    | ✅   |
+| live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe | ⛔️  |
+| music    | 网易云音乐播放    |                              | ⛔️  |
+| bilibili | bilibili 信息监控 |                              | ⛔️  |
+| weather  | 天气信息监控      |                              | ⛔️  |
 
 ## 🎁 安装
 
@@ -31,23 +48,6 @@
   ```bash
   sudo xattr -rd com.apple.quarantine [应用位置](将应用程序中的 Monit 拖进来)
   ```
-
-## ✨ 功能
-
-> VueC 指 Composition API，VueO 指 Options API
-
-| 插件名   | 功能              | 技术                         | 状态 |
-| -------- | ----------------- | ---------------------------- | ---- |
-| welcome  | 使用指引          | Vue Composition API          | ✅   |
-| count    | 计数器            | Vue Options API              | ✅   |
-| github   | github 信息监控   | VueO + Axios + Grid          | ✅   |
-| clock    | 时钟翻牌器        | VueC + Scss + Keyframes      | ✅   |
-| todo     | 待办事项管理      | VueC + Pug + Draggable       | ✅   |
-| camera   | 相机监控          | VueC + Canvas + MediaPipe    | ✅   |
-| live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe | ⛔️  |
-| music    | 网易云音乐播放    |                              | ⛔️  |
-| bilibili | bilibili 信息监控 |                              | ⛔️  |
-| weather  | 天气信息监控      |                              | ⛔️  |
 
 ## 📝 开发
 
@@ -106,7 +106,7 @@ Monit
   - 可跨平台使用多种操作系统 API
 - Vue 3
   - JavaScript 前端框架
-  - [官方文档](https://v3.cn.vuejs.org/guide/introduction.html)
+  - [官方文档](https://staging-cn.vuejs.org/)
   - 可使用 setup 语法开发
 - Tailwindcss 3
   - 功能类 CSS 语法糖
@@ -134,6 +134,11 @@ Monit
    ```bash
    # 假如您使用 npm，请安装 pnpm
    npm i -g pnpm
+
+   # 更换国内源
+   pnpm config set registry https://registry.npmmirror.com
+   pnpm config set electron_mirror https://registry.npmmirror.com/-/binary/electron/
+
    # 使用 pnpm 安装依赖
    pnpm i
    ```
@@ -196,12 +201,12 @@ Monit
    </template>
 
    <script>
-   import { useMainStore } from '#/store'
+   import { useStore } from '#/store'
    import { storage } from '~/storage'
 
    import AddSVG from '@/assets/count/add.svg'
    import SubSVG from '@/assets/count/sub.svg'
-   import Layout from '@/layouts/macto.vue'
+   import Layout from '@/layouts/maco.vue'
 
    // 初始化 storage
    const { set, get } = storage('count')
@@ -209,7 +214,7 @@ Monit
    export default {
      setup() {
        // 初始化 store
-       return { store: useMainStore() }
+       return { store: useStore() }
      },
      components: {
        Layout,
@@ -270,13 +275,13 @@ Monit
 
 ### 主题开发
 
-参考：`app/layouts/macto.vue`
+参考：`app/layouts/maco.vue`
 
 > 待续...
 
 ### 🍻 API 说明
 
-1. Layout 布局：`app/layouts/macto.vue`
+1. Layout 布局：`app/layouts/maco.vue`
 2. Pinia 封装：`custom/store.ts`
 3. Notice 封装：`custom/ipc.ts`
 4. Axios 封装：`lib/request.ts`
