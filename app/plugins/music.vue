@@ -18,7 +18,7 @@
 
 <!-- TODO 插件 music -->
 <script setup>
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
 </script>
 
 <style scoped></style>

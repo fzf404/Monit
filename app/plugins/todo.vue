@@ -33,7 +33,7 @@ import { storage } from '~/storage'
 import AddSVG from '@/assets/todo/add.svg'
 import DeleteSVG from '@/assets/todo/delete.svg'
 import MoveSVG from '@/assets/todo/move.svg'
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
 
 // 初始化 storeage
 const { set, get } = storage()

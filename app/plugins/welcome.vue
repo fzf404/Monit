@@ -27,7 +27,7 @@
 <script setup>
 import { shell } from 'electron'
 
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/maco.vue'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import GithubSVG from '@/assets/github/github.svg'

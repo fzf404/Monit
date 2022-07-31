@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:22:41
- * @Description: macto 布局
+ * @LastEditTime: 2022-07-31 23:56:40
+ * @Description: maco 布局
 -->
 
 <template>
@@ -36,12 +36,16 @@
         class="w-4 inline stroke-current clickable text-orange-400"
         @click="state.theme = 'light'"
       />
-      <DarkSVG v-else class="w-4 inline stroke-current clickable text-indigo-300" @click="state.theme = 'dark'" />
+      <DarkSVG
+        v-else-if="state.theme === 'light'"
+        class="w-4 inline stroke-current clickable text-indigo-300"
+        @click="state.theme = 'dark'"
+      />
       <!-- 设置 -->
       <SettingSVG
-        v-show="store.settingList"
+        v-show="store.setting.has"
         class="w-4 inline stroke-current clickable text-blue-500"
-        @click="store.setting = !store.setting"
+        @click="store.setting.show = true"
       />
     </ul>
   </nav>
@@ -49,16 +53,16 @@
 
 <script setup>
 import { sendEvent } from '#/ipc'
-import { useMainStore } from '#/store'
-import { reactive, watch, onMounted } from 'vue'
+import { useStore } from '@/store'
+import { onMounted, reactive, watch } from 'vue'
 import { storage } from '~/storage'
 
 import CloseSVG from '@/assets/layout/close.svg'
 import MiniSVG from '@/assets/layout/mini.svg'
 import UpSVG from '@/assets/layout/up.svg'
 
-import LightSVG from '@/assets/layout/light.svg'
 import DarkSVG from '@/assets/layout/dark.svg'
+import LightSVG from '@/assets/layout/light.svg'
 import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
@@ -66,7 +70,7 @@ import WifiSVG from '@/assets/layout/wifi.svg'
 import '@/themes/basic.scss'
 
 // 初始化 store
-const store = useMainStore()
+const store = useStore()
 // 初始化 storage
 const { get, set } = storage()
 
