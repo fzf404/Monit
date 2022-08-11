@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:07:18
+ * @LastEditTime: 2022-08-09 12:02:39
  * @Description: event 处理
  */
 
-import { BrowserWindow, ipcMain, Notification } from 'electron'
+import { BrowserWindow, ipcMain, Notification, shell } from 'electron'
 
 import { cget, cset } from '~/storage'
 import { createWindow } from '../core/window'
@@ -14,8 +14,8 @@ import { createWindow } from '../core/window'
 // 应用事件
 export const appEvent = () => {
   // 开启窗口
-  ipcMain.on('window-start', function (event, option) {
-    createWindow(option)
+  ipcMain.on('window-start', function (event, name) {
+    createWindow(name)
   })
 
   // 关闭窗口
@@ -33,24 +33,41 @@ export const appEvent = () => {
   })
 
   // 置顶窗口
-  ipcMain.on('window-top', function (event, option) {
+  ipcMain.on('window-top', function (event, state) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     // 设置置顶
-    win.setAlwaysOnTop(option)
+    win.setAlwaysOnTop(state)
   })
 
   // 发送通知
-  ipcMain.on('window-notice', function (event, option) {
+  ipcMain.on('window-notice', function (event, message) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     // 通知开启状态
-    const notice = cget(name, 'notice', false)
+    const notice = cget(name, 'notice')
     if (notice) {
-      new Notification({ title: `Monit: ${name}`, body: option }).show()
+      new Notification({ title: `Monit: ${name}`, body: message }).show()
     }
   })
 
-  // TODO shell 事件
+  // 打开网址
+  ipcMain.on('open-url', function (event, url) {
+    shell.openExternal(url)
+  })
+
+  // 保存值
+  ipcMain.on('set-value', function (event, key, value) {
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    const name = win.title
+    cset(name, key, JSON.parse(value))
+  })
+
+  // 读取值
+  ipcMain.on('get-value', function (event, key) {
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    const name = win.title
+    event.returnValue = cget(name, key)
+  })
 }
 
 // 窗口事件

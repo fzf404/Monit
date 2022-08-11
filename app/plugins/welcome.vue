@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 23:09:47
+ * @LastEditTime: 2022-08-01 17:37:59
  * @Description: welcome 用户指引
 -->
 <template>
@@ -25,13 +25,12 @@
 </template>
 
 <script setup>
-import { shell } from 'electron'
-
+import { openURL } from '#/ipc'
 import Layout from '@/layouts/maco.vue'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import GithubSVG from '@/assets/github/github.svg'
 
 // 打开链接
-const openGithub = () => shell.openExternal('https://github.com/fzf404/Monit')
+const openGithub = () => openURL('https://github.com/fzf404/Monit')
 </script>

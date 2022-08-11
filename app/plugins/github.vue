@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-31 23:54:59
+ * @LastEditTime: 2022-08-01 17:35:58
  * @Description: github 信息监控
 -->
 <template>
@@ -45,7 +45,7 @@
         <p
           v-for="value in repoChange"
           class="flex-row-center space-x-1 space-y-1 clickable"
-          @click="updateRepo(value.repo)"
+          @click="openRepo(value.repo)"
         >
           <!-- repo svg -->
           <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
@@ -119,9 +119,7 @@
 </template>
 
 <script>
-import { shell } from 'electron'
-
-import { sendNotice } from '#/ipc'
+import { openURL, sendNotice } from '#/ipc'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
@@ -309,36 +307,33 @@ export default {
         this.newRepoInfo = repoInfo
       })
     },
+
     // 更新 follower
     updateFollower() {
       this.follower = this.newFollower
-      shell.openExternal(`https://github.com/${this.config.user}?tab=followers`, '_blank')
-    },
-    // 更新 repo
-    updateRepo(repo) {
-      shell.openExternal(`https://github.com/${this.config.user}/${repo}`, '_blank')
+      openURL(`https://github.com/${this.config.user}?tab=followers`)
     },
     // 更新 star
     updateStar() {
       this.star = this.newStar
+      this.repoInfo = this.newRepoInfo
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
-        // 访问
-        shell.openExternal(`https://github.com/${this.config.user}/${item.repo}/stargazers`, '_blank')
+        openURL(`https://github.com/${this.config.user}/${item.repo}/stargazers`)
       })
-      // 更新 repo
-      this.repoInfo = this.newRepoInfo
     },
     // 更新 fork
     updateFork() {
       this.fork = this.newFork
+      this.repoInfo = this.newRepoInfo
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
-        // 访问
-        shell.openExternal(`https://github.com/${this.config.user}/${item.repo}/network/members`, '_blank')
+        openURL(`https://github.com/${this.config.user}/${item.repo}/network/members`)
       })
-      // 更新 repo
-      this.repoInfo = this.newRepoInfo
+    },
+    // 打开 repo
+    openRepo(repo) {
+      openURL(`https://github.com/${this.config.user}/${repo}`)
     },
   },
 }

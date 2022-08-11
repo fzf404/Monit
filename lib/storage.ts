@@ -2,17 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 23:03:33
+ * @LastEditTime: 2022-08-09 22:35:26
  * @Description: 存储配置
  */
-
-// TODO 解除 Node 依赖
-
 import Store from 'electron-store'
-import { useRoute } from 'vue-router'
+
+import { getValue, setValue } from '#/ipc'
 
 // 初始化 store
-const store = new Store({
+export const store = new Store({
   // 版本更新初始化
   migrations: {
     '>=0.3.0': (store) => {
@@ -25,39 +23,37 @@ const store = new Store({
  * @description: 保存值
  * @param {string} node 节点名
  * @param {string} key 键名
- * @param {any} val 默认值
+ * @param {any} value 值
  * @return {*}
  */
-export const cset = (node: string, key: string, val: any): any => {
-  return store.set(node + '.' + key, val)
+export const cset = (node: string, key: string, value: any): void => {
+  store.set(node + '.' + key, value) // 存储值
 }
 
 /**
  * @description: 读取值
  * @param {*} node 节点名
  * @param {*} key 键名
- * @param {*} def 默认值
  * @return {*}
  */
-export const cget = (node: string, key: string, def: any): any => {
-  const value = store.get(node + '.' + key)
-  return value === undefined ? def : value
+export const cget = (node: string, key: string): any => {
+  return store.get(node + '.' + key) // 读取值
 }
 
 /**
- * @description:  storage 构造
- * @param {*} node 节点名
+ * @description:  storage 构造器
  * @return {*}
  */
-export const storage = (node: string = useRoute().name as string): any => {
+export const storage = (): object => {
   return {
     // 保存值
-    set: (key: string, val: any) => {
-      return cset(node, key, val)
+    set: (key: string, value: any) => {
+      setValue(key, value)
     },
     // 读取值
-    get: (key: string, def: any) => {
-      return cget(node, key, def)
+    get: (key: string, define: any) => {
+      const value = getValue(key)
+      return value === undefined ? define : value
     },
   }
 }
