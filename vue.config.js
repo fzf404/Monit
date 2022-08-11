@@ -2,11 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-23 22:40:27
+ * @LastEditTime: 2022-08-09 12:05:49
  * @Description: vue-cli 配置
  */
 const path = require('path')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -14,21 +13,8 @@ function resolve(dir) {
 
 const config = {
   configureWebpack: {
-    // electron 入口点
+    // electron 入口
     entry: './core/main.js',
-  },
-  configureWebpack: {
-    plugins: [
-      // 拷贝静态文件到目标文件
-      // new CopyWebpackPlugin({
-      //   patterns: [
-      //     {
-      //       from: './node_modules/@mediapipe/holistic/holistic_solution_packed_assets.data',
-      //       to: 'node_modules/@mediapipe/holistic/holistic_solution_packed_assets.data',
-      //     },
-      //   ],
-      // }),
-    ],
   },
   chainWebpack: (config) => {
     // 配置别名
@@ -51,7 +37,7 @@ const config = {
       // 渲染进程入口
       rendererProcessFile: 'app/main.js',
       chainWebpackMainProcess: (config) => {
-        // 配置别名
+        // 路径别名
         config.resolve.alias.set('~', resolve('lib')).set('@', resolve('app')).set('#', resolve('custom'))
       },
       // 构建选项
@@ -62,6 +48,7 @@ const config = {
         artifactName: '${productName}-${version}-${os}-${arch}.${ext}', // 打包命名方式
         // 发布地址
         publish: ['github'],
+        // 多平台打包设置
         win: {
           target: ['nsis', '7z'],
         },
@@ -81,7 +68,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'vue.config.js']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['core/*.js', 'custom/*.ts']
 }
 
 module.exports = { ...config }

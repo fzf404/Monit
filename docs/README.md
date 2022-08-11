@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-01 00:34:22
+ * @LastEditTime: 2022-08-06 23:45:09
  * @Description: Monit 说明文档
 -->
 
@@ -46,7 +46,7 @@
   > 由于没有 Apple 开发者账号，打开时如出现 `Monit.app 已损坏`，请执行如下指令
 
   ```bash
-  sudo xattr -rd com.apple.quarantine [应用位置](将应用程序中的 Monit 拖进来)
+  sudo xattr -rd com.apple.quarantine /Applications/Monit.app
   ```
 
 ## 📝 开发
@@ -273,7 +273,7 @@ Monit
    # 构建成功后即可在 dist_electron 找到安装包
    ```
 
-### 主题开发
+### 🌲 主题开发
 
 参考：`app/layouts/maco.vue`
 
@@ -297,3 +297,7 @@ Monit
 
 1. 提交代码请到 beta 分支
 2. 执行 commit 操作时会自动进行代码格式化
+
+## ⭐ 标星
+
+[Star](https://star-history.com/#fzf404/Monit&Date)

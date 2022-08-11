@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-31 23:56:40
- * @Description: maco 布局
+ * @LastEditTime: 2022-08-11 15:58:04
+ * @Description: maco 菜单栏
 -->
 
 <template>
@@ -18,12 +18,7 @@
       <UpSVG
         class="w-4 inline stroke-current clickable text-green-400"
         :class="{ 'rotate-180': state.top }"
-        @click="
-          () => {
-            state.top = !state.top
-            sendEvent('window-top', state.top)
-          }
-        "
+        @click="state.top = !state.top"
       />
     </ul>
     <!-- 状态控制器 -->
@@ -76,11 +71,11 @@ const { get, set } = storage()
 
 // 状态数据
 const state = reactive({
-  top: get('top', false),
-  theme: get('theme', 'dark'),
+  top: get('top', false), // 置顶
+  theme: get('theme', 'dark'), // 主题
 })
 
-// 挂在后初始化
+// 初始化主题
 onMounted(() => {
   document.body.classList = [state.theme]
 })
@@ -90,6 +85,7 @@ watch(
   () => state.top,
   (val) => {
     set('top', val)
+    sendEvent('window-top', state.top)
   }
 )
 

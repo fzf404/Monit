@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 16:23:07
- * @Description: macto 布局
+ * @LastEditTime: 2022-08-01 13:46:28
+ * @Description: maco 布局
  */
 
 /**
@@ -40,7 +40,7 @@ select,
 }
 
 /**
- * 主题切换
+ * 主题
  */
 .dark {
   @import 'dark.scss';
@@ -112,6 +112,11 @@ select,
  * 动画
  */
 
+// 镜像
+.mirror {
+  transform: scaleX(-1);
+}
+
 // 加载旋转
 .load-rotating {
   animation: load-rotating 2s linear infinite;
@@ -151,7 +156,7 @@ select,
  * 设置
  */
 .setting {
-  @apply absolute z-30 inset-0 modal flex justify-center items-center rounded-lg;
+  @apply absolute z-50 inset-0 modal flex justify-center items-center rounded-lg;
 
   ul {
     @apply w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;

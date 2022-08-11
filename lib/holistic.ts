@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:57:56
+ * @LastEditTime: 2022-08-09 11:16:03
  * @Description: 角色跟踪
  */
 
-import Holistic from '@mediapipe/holistic'
 import DrawingUtils from '@mediapipe/drawing_utils'
+import Holistic from '@mediapipe/holistic'
 
 /**
  * @description: 绘制跟踪结果
@@ -40,6 +40,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
   // 绘制手部标记
   function drawHandLandmarks() {
     if (!ctx) return
+
     // 左手连接线
     DrawingUtils.drawConnectors(ctx, results.leftHandLandmarks, Holistic.HAND_CONNECTIONS, { color: 'white' })
     // 左手关键点
@@ -52,8 +53,10 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
         return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
       },
     })
-    // 右手关键点
+
+    // 右手连接线
     DrawingUtils.drawConnectors(ctx, results.rightHandLandmarks, Holistic.HAND_CONNECTIONS, { color: 'white' })
+    // 右手关键点
     DrawingUtils.drawLandmarks(ctx, results.rightHandLandmarks, {
       color: 'white',
       fillColor: 'rgb(255,138,0)',
@@ -63,11 +66,12 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
       },
     })
   }
+
   // 绘制面部标记
   function drawFaceLandmarks() {
     if (!ctx) return
 
-    // 网格
+    // 面部网格
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_TESSELATION, {
       color: '#C0C0C070',
       lineWidth: 1,

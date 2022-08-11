@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-31 23:43:38
- * @Description: setting 布局
+ * @LastEditTime: 2022-08-01 13:52:17
+ * @Description: setting 组件
 -->
 <template>
   <!-- 设置模态框 -->
@@ -14,7 +14,6 @@
       <li v-for="item in setting">
         <!-- 设置标签 -->
         <label :for="item.id">{{ item.label }}</label>
-
         <!-- 选择框 -->
         <select v-if="item.type === 'select'" v-model.lazy="config[item.id]">
           <option v-for="option in item.options" :value="option.value">
@@ -46,21 +45,25 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@/store'
 import { onMounted, watchEffect } from 'vue'
+
+import { useStore } from '@/store'
 import { storage } from '~/storage'
 
-// 初始化 storage
-const { set } = storage()
 // 初始化 store
 const store = useStore()
+// 初始化 storage
+const { set } = storage()
 
 // 初始化 props
 interface Props {
+  // 尺寸
   size?: 'small'
+  // 配置
   config: {
     [key: string]: any
   }
+  // 信息
   setting: (
     | {
         id: string
@@ -85,13 +88,13 @@ interface Props {
 const props = defineProps<Props>()
 const emit = defineEmits(['save'])
 
+// 初始化设置
 onMounted(() => {
-  // 初始化配置
   store.setting.has = true
 })
 
+// 保存数据
 watchEffect(() => {
-  // 保存数据
   for (const key in props.config) {
     set(key, props.config[key])
   }
@@ -105,5 +108,3 @@ const onSave = () => {
   emit('save')
 }
 </script>
-
-<style scoped></style>
