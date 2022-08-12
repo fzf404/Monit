@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-01 17:35:58
+ * @LastEditTime: 2022-08-12 16:32:01
  * @Description: github 信息监控
 -->
 <template>
@@ -124,13 +124,13 @@ import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
 
-import Layout from '@/layouts/maco.vue'
+import Layout from '@/layouts/layout.vue'
 
 import ForkSVG from '@/assets/github/fork.svg'
 import GihubSVG from '@/assets/github/github.svg'
 import RepoSVG from '@/assets/github/repo.svg'
 import StarSVG from '@/assets/github/star.svg'
-import Setting from '@/layouts/setting.vue'
+import Setting from '@/components/setting.vue'
 
 // 初始化 storage
 const { set, get } = storage('github')

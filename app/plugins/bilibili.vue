@@ -20,6 +20,6 @@
 
 <!-- TODO 插件 bilibili -->
 <script setup>
-import Layout from '@/layouts/maco.vue'
+import Layout from '@/layouts/layout.vue'
 import Setting from '@/plugins/bilibili.vue'
 </script>

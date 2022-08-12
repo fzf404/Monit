@@ -26,7 +26,7 @@
 
 <script setup>
 import { openURL } from '#/ipc'
-import Layout from '@/layouts/maco.vue'
+import Layout from '@/layouts/layout.vue'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import GithubSVG from '@/assets/github/github.svg'

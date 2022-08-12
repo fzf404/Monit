@@ -66,7 +66,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-import Layout from '@/layouts/maco.vue'
+import Layout from '@/layouts/layout.vue'
 
 import ClockSVG from '@/assets/clock/clock.svg'
 import OffSVG from '@/assets/clock/off.svg'

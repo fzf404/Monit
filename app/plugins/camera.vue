@@ -74,8 +74,8 @@ import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
-import Layout from '@/layouts/maco.vue'
-import Setting from '@/layouts/setting.vue'
+import Setting from '@/components/setting.vue'
+import Layout from '@/layouts/layout.vue'
 
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'

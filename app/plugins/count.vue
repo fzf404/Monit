@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-31 23:55:33
+ * @LastEditTime: 2022-08-12 19:35:20
  * @Description: count 计数器
 -->
 <template>
@@ -30,8 +30,8 @@
 <script>
 import AddSVG from '@/assets/count/add.svg'
 import SubSVG from '@/assets/count/sub.svg'
-import Layout from '@/layouts/maco.vue'
-import Setting from '@/layouts/setting.vue'
+import Setting from '@/components/setting.vue'
+import Layout from '@/layouts/layout.vue'
 import { reactive } from 'vue'
 import { storage } from '~/storage'
 
