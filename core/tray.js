@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-11 17:28:38
+ * @LastEditTime: 2022-08-12 18:03:34
  * @Description: tary 托盘
  */
 
@@ -67,13 +67,6 @@ const initMenu = () => {
             initMenu()
           },
         },
-        {
-          label: '全部取消自启',
-          click: () => {
-            cset('_config', 'open', [])
-            initMenu()
-          },
-        },
         // 分割线
         { type: 'separator' },
         // 全部插件列表
@@ -96,6 +89,15 @@ const initMenu = () => {
             },
           }
         }),
+        // 分割线
+        { type: 'separator' },
+        {
+          label: '全部关闭自启',
+          click: () => {
+            cset('_config', 'open', [])
+            initMenu()
+          },
+        },
       ],
     },
     // 分割线
@@ -107,16 +109,16 @@ const initMenu = () => {
         app.setLoginItemSettings({ openAtLogin: true })
       },
     },
-    // 重启应用
-    {
-      label: '重启',
-      click: () => {
-        app.relaunch()
-        app.exit()
-      },
-    },
     // 退出应用
     { label: '退出', click: () => app.quit() },
+    // 重启应用
+    // {
+    //   label: '重启',
+    //   click: () => {
+    //     app.relaunch()
+    //     app.exit()
+    //   },
+    // },
   ])
 
   // 设置托盘菜单

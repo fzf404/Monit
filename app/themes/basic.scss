@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-01 13:46:28
+ * @LastEditTime: 2022-08-12 21:21:25
  * @Description: maco 布局
  */
 
@@ -13,11 +13,13 @@ html,
 body {
   // 禁用文字选择
   user-select: none;
+
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
 
   // 禁止滚动
   overflow: hidden;
+
   // 隐藏滚动条
   ::-webkit-scrollbar {
     display: none;
@@ -31,10 +33,12 @@ select,
 .clickable {
   // 禁止拖拽移动窗口 响应点击事件
   -webkit-app-region: no-drag;
+
   // 更改鼠标样式
   cursor: pointer;
 }
 
+// 窗口圆角
 #app {
   @apply rounded-lg;
 }
@@ -51,9 +55,9 @@ select,
 }
 
 /**
-* 布局
-* flex 竖向居中
-*/
+ * 布局
+ * flex 竖向居中
+ */
 .flex-col-center {
   @apply flex flex-col justify-center items-center;
 }
@@ -100,10 +104,14 @@ select,
   @apply p-1;
 }
 
+// svg 按钮
+.btn-svg {
+  @apply inline stroke-current clickable;
+}
+
 /**
  * 文字
  */
-
 .text-intro {
   @apply font-mono text-sm text-gray;
 }
@@ -117,11 +125,15 @@ select,
   transform: scaleX(-1);
 }
 
+// 鼠标移入
+.hover-dynamic {
+  @apply p-0.5 rounded hover:bg-opacity-40 hover:bg-white;
+}
+
 // 加载旋转
 .load-rotating {
   animation: load-rotating 2s linear infinite;
 }
-
 @keyframes load-rotating {
   0% {
     transform: rotate(0deg);
@@ -150,6 +162,13 @@ select,
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+/**
+ * 模态框
+ */
+.modal {
+  @apply rounded-lg;
 }
 
 /**

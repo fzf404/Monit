@@ -1,34 +1,46 @@
 <!--
  * @Author: fzf404
- * @Date: 2022-05-23 17:03:20
+ * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 21:03:26
- * @Description: maco 布局
+ * @LastEditTime: 2022-08-12 23:08:20
+ * @Description: winer 布局
 -->
 <template>
-  <nav>
+  <nav class="layout">
+    <!-- 状态控制器 -->
+    <ul class="absolute left-1 z-40 space-x-0.5">
+      <!-- 设置 -->
+      <SettingSVG
+        v-show="store.setting.has"
+        class="w-5 hover-dynamic btn-svg ml-1 text-blue-500"
+        @click="store.setting.show = true"
+      />
+      <!-- 主题 -->
+      <LightSVG
+        v-if="state.theme === 'dark'"
+        class="w-5 hover-dynamic btn-svg text-orange-400"
+        @click="state.theme = 'light'"
+      />
+      <DarkSVG
+        v-else-if="state.theme === 'light'"
+        class="w-5 hover-dynamic btn-svg text-indigo-300"
+        @click="state.theme = 'dark'"
+      />
+      <!-- 断网提示 -->
+      <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-500" />
+    </ul>
     <!-- 窗口控制器 -->
-    <ul class="absolute left-2 z-40 space-x-1">
-      <!-- 关闭 -->
-      <CloseSVG class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 text-primary" @click="sendEvent('window-close')" />
-      <!-- 最小化 -->
-      <MiniSVG class="w-3.5 p-0.5 btn-svg rounded-full bg-yellow-300 text-primary" @click="sendEvent('window-mini')" />
+    <ul class="absolute right-2 z-40">
       <!-- 置顶 -->
       <UpSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-green-400 text-primary"
+        class="w-5 btn-svg hover-dynamic text-green-400"
         :class="{ 'rotate-180': state.top }"
         @click="state.top = !state.top"
       />
-    </ul>
-    <!-- 状态控制器 -->
-    <ul class="absolute right-2 z-40 space-x-1.5">
-      <!-- 断网提示 -->
-      <WifiSVG v-show="!store.network" class="w-4 btn-svg text-red-500" />
-      <!-- 主题 -->
-      <LightSVG v-if="state.theme === 'dark'" class="w-4 btn-svg text-orange-400" @click="state.theme = 'light'" />
-      <DarkSVG v-else-if="state.theme === 'light'" class="w-4 btn-svg text-indigo-300" @click="state.theme = 'dark'" />
-      <!-- 设置 -->
-      <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-500" @click="store.setting.show = true" />
+      <!-- 最小化 -->
+      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('window-mini')" />
+      <!-- 关闭 -->
+      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('window-close')" />
     </ul>
   </nav>
 </template>

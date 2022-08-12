@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-09 22:35:26
+ * @LastEditTime: 2022-08-12 20:19:47
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -44,7 +44,7 @@ export const cget = (node: string, key: string): any => {
  * @description:  storage 构造器
  * @return {*}
  */
-export const storage = (): object => {
+export const storage = (): any => {
   return {
     // 保存值
     set: (key: string, value: any) => {

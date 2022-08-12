@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-06 23:45:09
+ * @LastEditTime: 2022-08-12 23:15:13
  * @Description: Monit 说明文档
 -->
 
@@ -206,7 +206,7 @@ Monit
 
    import AddSVG from '@/assets/count/add.svg'
    import SubSVG from '@/assets/count/sub.svg'
-   import Layout from '@/layouts/maco.vue'
+   import Layout from '@/layouts/layout.vue'
 
    // 初始化 storage
    const { set, get } = storage('count')
@@ -300,4 +300,4 @@ Monit
 
 ## ⭐ 标星
 
-[Star](https://star-history.com/#fzf404/Monit&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=fzf404/Monit&type=Date)

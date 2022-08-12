@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-31 22:38:19
+ * @LastEditTime: 2022-08-12 21:01:49
  * @Description: nacto 明亮主题
  */
 
@@ -16,6 +16,9 @@
 /**
  * 文字
  */
+.text-primary {
+  @apply text-gray-500;
+}
 
 .text-gray {
   @apply text-gray-300;

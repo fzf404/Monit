@@ -15,6 +15,7 @@
     "module": "ESNext",
     "types": ["webpack"],
     "lib": ["ESNext", "DOM"],
+    "outDir": "dist_electron",
     "moduleResolution": "node",
     "paths": {
       "~/*": ["lib/*"],
@@ -22,5 +23,6 @@
       "#/*": ["custom/*"]
     }
   },
-  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"]
+  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"],
+  "exclude": ["node_modules"]
 }
