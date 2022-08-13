@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 19:47:09
+ * @LastEditTime: 2022-08-13 22:16:57
  * @Description: github 信息监控
 -->
 <template>
@@ -319,21 +319,23 @@ export default {
     },
     // 更新 star
     updateStar() {
-      this.star = this.newStar
-      this.repoInfo = this.newRepoInfo
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
         openURL(`https://github.com/${this.config.user}/${item.repo}/stargazers`)
       })
+      // 设置新数据
+      this.star = this.newStar
+      this.repoInfo = this.newRepoInfo
     },
     // 更新 fork
     updateFork() {
-      this.fork = this.newFork
-      this.repoInfo = this.newRepoInfo
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
         openURL(`https://github.com/${this.config.user}/${item.repo}/network/members`)
       })
+      // 设置新数据
+      this.fork = this.newFork
+      this.repoInfo = this.newRepoInfo
     },
     // 打开 repo
     openRepo(repo) {
