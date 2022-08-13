@@ -2,15 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:58:32
+ * @LastEditTime: 2022-08-09 11:18:05
  * @Description: 数值分析
  */
 
+// 仓库模型
 interface repo {
   repo: string
   star: number
   fork: number
 }
+
 /**
  * @description: 获取两个数组间的差集
  * @param {*} arr1
@@ -32,10 +34,10 @@ export const getArrDiff = (arr1: Array<any>, arr2: Array<any>): Array<any> => {
  * @param {*} key
  * @return {*}
  */
-export const getArrDiffKey = (arr1: repo[], arr2: Array<repo>, key: 'star' | 'fork'): Array<repo> => {
+export const getArrDiffKey = (arr1: repo[], arr2: repo[], key: 'star' | 'fork'): repo[] => {
   return arr2.filter((items) => {
     return !arr1.some((item) => {
-      return items.repo === items.repo && items[key] === item[key]
+      return items.repo === item.repo && items[key] === item[key]
     })
   })
 }

@@ -2,41 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 18:41:40
+ * @LastEditTime: 2022-08-13 22:16:57
  * @Description: github 信息监控
 -->
 <template>
   <main>
     <!-- 窗口控制器 -->
     <Layout />
+    <!-- 设置 -->
+    <Setting :setting="setting" :config="config" @save="onSave" />
     <!-- 页面内容 -->
     <article class="h-screen grid grid-cols-12 grid-rows-5 p-3">
-      <!-- 设置模态框 -->
-      <aside class="setting" v-show="store.setting">
-        <!-- 中心框 -->
-        <ul>
-          <!-- 消息通知 设置 -->
-          <li>
-            <label for="message-notice">消息通知</label>
-            <input id="message-notice" type="checkbox" v-model.lazy="notice" />
-          </li>
-          <!-- Github 用户 -->
-          <li>
-            <label for="github-username">用户名</label>
-            <input
-              id="github-username"
-              type="text"
-              spellcheck="false"
-              v-model.lazy="user"
-              @keyup.enter="changeSetting"
-            />
-          </li>
-          <!-- 保存 -->
-          <ol>
-            <button @click="changeSetting">OK</button>
-          </ol>
-        </ul>
-      </aside>
       <!-- follower -->
       <section class="flex-col-center col-span-7 row-span-3 mt-4">
         <h1 pan class="text-intro mb-1">follower</h1>
@@ -67,10 +43,9 @@
       <!-- repo -->
       <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
         <p
-          :key="index"
+          v-for="value in repoChange"
           class="flex-row-center space-x-1 space-y-1 clickable"
-          v-for="(value, index) in repoChange"
-          @click="updateRepo(value.repo)"
+          @click="openRepo(value.repo)"
         >
           <!-- repo svg -->
           <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
@@ -112,8 +87,9 @@
               'text-gray': star == newStar,
             }"
             @click="updateStar"
-            >{{ starChange }}</span
           >
+            {{ starChange }}
+          </span>
         </p>
       </section>
       <!-- fork -->
@@ -133,7 +109,8 @@
               'text-gray': fork == newFork,
             }"
             @click="updateFork"
-            >{{ forkChange }}
+          >
+            {{ forkChange }}
           </span>
         </p>
       </section>
@@ -142,15 +119,14 @@
 </template>
 
 <script>
-import { shell } from 'electron'
-
-import { useMainStore } from '#/store'
+import { openURL, sendNotice } from '#/ipc'
+import { useStore } from '@/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
-import { sendNotice } from '#/ipc'
 
-import Layout from '@/layouts/macto.vue'
+import Setting from '@/components/setting.vue'
+import Layout from '@/layouts/layout.vue'
 
 import ForkSVG from '@/assets/github/fork.svg'
 import GihubSVG from '@/assets/github/github.svg'
@@ -164,22 +140,38 @@ const { set, get } = storage('github')
 const request = axios('https://api.github.com')
 
 export default {
-  setup() {
-    // 初始化 store
-    return { store: useMainStore() }
-  },
   components: {
     Layout,
     GihubSVG,
     StarSVG,
     ForkSVG,
     RepoSVG,
+    Setting,
+  },
+  setup() {
+    return { store: useStore() }
   },
   data() {
     return {
-      user: get('user', ''), // 用户名
-      notice: get('notice', false), // 开启提醒
-
+      // 配置数据
+      config: {
+        notice: get('notice', false), // 开启提醒
+        user: get('user', ''), // 用户名
+      },
+      // 设置菜单
+      setting: [
+        {
+          id: 'notice',
+          label: '消息通知',
+          type: 'checkbox',
+        },
+        {
+          id: 'user',
+          label: '用户名',
+          type: 'text',
+        },
+      ],
+      // 状态数据
       follower: get('follower', 0), // follower 数
       newFollower: get('follower', 0), // 新 follower 数
 
@@ -195,12 +187,6 @@ export default {
   },
   // 监听设置更改
   watch: {
-    user(value) {
-      set('user', value)
-    },
-    notice(value) {
-      set('notice', value)
-    },
     follower(value) {
       set('follower', value)
     },
@@ -215,9 +201,9 @@ export default {
     },
   },
   created() {
-    if (this.user === '') {
+    if (this.config.user === '') {
       // 打开设置
-      this.store.setting = true
+      this.store.setting.show = true
     } else {
       // 刷新数据
       this.getGithubData()
@@ -235,7 +221,7 @@ export default {
       const changeNum = this.newFollower - this.follower
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('follower is changed')
+        sendNotice('follower 改变了！')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -248,7 +234,7 @@ export default {
     forkChange() {
       const changeNum = this.newFork - this.fork
       if (changeNum != 0) {
-        sendNotice('fork is changed')
+        sendNotice('fork 改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -260,7 +246,7 @@ export default {
     starChange() {
       const changeNum = this.newStar - this.star
       if (changeNum != 0) {
-        sendNotice('star is changed')
+        sendNotice('star 改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -280,9 +266,7 @@ export default {
   },
   methods: {
     // 设置更改
-    changeSetting() {
-      // 更改设置状态
-      this.store.setting = false
+    onSave() {
       // 初始化数据
       this.initGithubData()
     },
@@ -296,7 +280,7 @@ export default {
     },
     // 请求数据
     async getGithubData() {
-      await request.get(`/users/${this.user}`).then(async (data) => {
+      await request.get(`/users/${this.config.user}`).then(async (data) => {
         // 修改网络状态
         this.network = true
 
@@ -311,7 +295,7 @@ export default {
 
         // 遍历 repo 信息
         while (pages--) {
-          await request.get(`/users/${this.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
+          await request.get(`/users/${this.config.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
             // 遍历数据
             data.forEach((item) => {
               star += item.stargazers_count
@@ -327,36 +311,35 @@ export default {
         this.newRepoInfo = repoInfo
       })
     },
+
     // 更新 follower
     updateFollower() {
       this.follower = this.newFollower
-      shell.openExternal(`https://github.com/${this.user}?tab=followers`, '_blank')
-    },
-    // 更新 repo
-    updateRepo(repo) {
-      shell.openExternal(`https://github.com/${this.user}/${repo}`, '_blank')
+      openURL(`https://github.com/${this.config.user}?tab=followers`)
     },
     // 更新 star
     updateStar() {
-      this.star = this.newStar
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'star').forEach((item) => {
-        // 访问
-        shell.openExternal(`https://github.com/${this.user}/${item.repo}/stargazers`, '_blank')
+        openURL(`https://github.com/${this.config.user}/${item.repo}/stargazers`)
       })
-      // 更新 repo
+      // 设置新数据
+      this.star = this.newStar
       this.repoInfo = this.newRepoInfo
     },
     // 更新 fork
     updateFork() {
-      this.fork = this.newFork
       // 查找 star 变化的仓库
       getArrDiffKey(this.repoInfo, this.newRepoInfo, 'fork').forEach((item) => {
-        // 访问
-        shell.openExternal(`https://github.com/${this.user}/${item.repo}/network/members`, '_blank')
+        openURL(`https://github.com/${this.config.user}/${item.repo}/network/members`)
       })
-      // 更新 repo
+      // 设置新数据
+      this.fork = this.newFork
       this.repoInfo = this.newRepoInfo
+    },
+    // 打开 repo
+    openRepo(repo) {
+      openURL(`https://github.com/${this.config.user}/${repo}`)
     },
   },
 }

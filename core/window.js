@@ -2,19 +2,19 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:51:20
+ * @LastEditTime: 2022-08-10 07:03:53
  * @Description: window 管理
  */
 
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
+import { winEvent } from '../custom/event'
 import { pluginList } from '../custom/plugin'
 import { cget } from '../lib/storage'
-import { winEvent } from '../custom/event'
 
 // 窗口网格大小
-const BasicMesh = 200
+const BasicMesh = 100
 
 // 窗口列表
 const windowList = []

@@ -18,8 +18,8 @@
 
 <!-- TODO 插件 live2d -->
 <script setup>
+import Layout from '@/layouts/layout.vue'
 import { ref } from 'vue'
-import Layout from '@/layouts/macto.vue'
 
 const character = ref(null)
 </script>

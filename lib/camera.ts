@@ -55,13 +55,13 @@ export const recordVideo = (record: HTMLAnchorElement, device: string): void => 
     .then((stream) => {
       // 创建记录器
       recorder = new MediaRecorder(stream)
-      // 停止后回调
+      // 停止回调
       recorder.ondataavailable = (event) => {
         record.href = URL.createObjectURL(event.data)
         record.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
         record.click()
       }
-      // 停止后销毁
+      // 销毁
       recorder.onstop = () => {
         stream.getTracks().forEach((track) => track.stop())
       }

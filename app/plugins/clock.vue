@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:45:00
+ * @LastEditTime: 2022-07-27 00:12:22
  * @Description: 翻牌时钟
 -->
 <template>
@@ -66,7 +66,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-import Layout from '@/layouts/macto.vue'
+import Layout from '@/layouts/layout.vue'
 
 import ClockSVG from '@/assets/clock/clock.svg'
 import OffSVG from '@/assets/clock/off.svg'
@@ -209,7 +209,7 @@ onMounted(startClock)
 /* 下页 */
 .flip .digital:after {
   line-height: 0;
-  @apply top-1/2 bottom-0 rounded-b-lg border-t-2 border-gray-400;
+  @apply top-1/2 bottom-0 rounded-b-lg border-t border-gray-400;
 }
 
 /* 下翻 */

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 16:09:28
+ * @LastEditTime: 2022-08-12 21:01:49
  * @Description: nacto 明亮主题
  */
 
@@ -16,6 +16,9 @@
 /**
  * 文字
  */
+.text-primary {
+  @apply text-gray-500;
+}
 
 .text-gray {
   @apply text-gray-300;
@@ -48,7 +51,7 @@
       }
 
       input[type='checkbox'] {
-        @apply accent-purple-500;
+        @apply accent-[#b871fc];
       }
 
       input[type='number'],
@@ -60,7 +63,7 @@
     // 设置操作
     ol {
       button {
-        @apply bg-purple-500 hover:bg-purple-600;
+        @apply bg-purple-400 hover:bg-purple-500;
       }
     }
   }

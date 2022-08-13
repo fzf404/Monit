@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 16:10:22
- * @Description: macto 黑夜主题
+ * @LastEditTime: 2022-08-12 21:04:29
+ * @Description: maco 黑夜主题
  */
 
 /**
@@ -16,6 +16,10 @@
 /**
  * 文字
  */
+.text-primary {
+  @apply text-gray-700;
+}
+
 .text-gray {
   @apply text-gray-400;
 }
@@ -27,7 +31,7 @@
   @apply bg-black bg-opacity-40;
 }
 
-/**
+/*
  * 设置
  */
 .setting {
@@ -59,7 +63,7 @@
     // 设置操作
     ol {
       button {
-        @apply bg-purple-500 hover:bg-purple-600;
+        @apply bg-purple-500 hover:bg-purple-400;
       }
     }
   }

@@ -2,80 +2,144 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:51:30
+ * @LastEditTime: 2022-08-13 20:39:05
  * @Description: tary 托盘
  */
 
 import { app, Menu, Tray } from 'electron'
 
 import { pluginList } from '../custom/plugin'
-import { storage } from '../lib/storage'
+import { cget, cset } from '../lib/storage'
+import pkg from '../package.json'
 import { isDebug } from './main'
 import { createWindow } from './window'
-
-const { set, get } = storage('_config')
 
 // 托盘全局变量
 let TrayMenu
 
-// 初始化托盘
-export const initTray = () => {
-  // 插件启动列表
-  let openPlugins = get('open', [])
+// 初始化托盘菜单
+const initMenu = () => {
+  // 自启动列表
+  let openPlugins = cget('_config', 'open', [])
 
-  // 生产模式 不开启 debug 插件
-  const pluginLists = pluginList.filter(({ debug }) => !(!isDebug && debug))
-
-  // 全部插件菜单
-  const pluginMenu = pluginLists.map((item) => {
-    // 调试模式 开启全部插件
-    return {
-      label: `${item.name} - ${item.description}`,
-      click: () => {
-        // 创建窗口
-        createWindow(item.name)
-      },
-    }
-  })
-
-  // 自启动插件菜单
-  const pluginOpen = pluginLists.map((item) => {
-    return {
-      label: `${item.name} - ${item.description}`,
-      type: 'checkbox',
-      checked: openPlugins.includes(item.name),
-      click: () => {
-        // 切换插件自启动状态
-        const index = openPlugins.indexOf(item.name)
-        if (index > -1) {
-          openPlugins.splice(index, 1)
-        } else {
-          openPlugins.push(item.name)
-        }
-        // 保存插件自启动状态
-        set('open', openPlugins)
-      },
-    }
-  })
-
-  // 托盘 Logo
-  const trayLogo = process.platform === 'darwin' ? `${__static}/icons/tray.png` : `${__static}/icons/icon.png`
-  // 初始化托盘菜单
-  TrayMenu = new Tray(trayLogo)
+  // 生产模式插件列表
+  const enablePlugins = pluginList.filter(({ debug }) => !(!isDebug && debug))
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
-    { label: '插件列表', submenu: pluginMenu },
-    { label: '插件自启', submenu: pluginOpen },
-    { type: 'separator' }, // 分割线
+    { label: `Monit - ${pkg.version}` },
+    { type: 'separator' },
+
+    {
+      label: '插件列表',
+      // 全部插件列表
+      submenu: [
+        // 开启全部插件
+        {
+          label: '全部开启',
+          click: () => {
+            enablePlugins.map((item) => createWindow(item.name))
+          },
+        },
+        // 分割线
+        { type: 'separator' },
+        // 全部插件列表
+        ...enablePlugins.map((item) => {
+          return {
+            label: `${item.name} - ${item.description}`,
+            click: () => {
+              // 创建窗口
+              createWindow(item.name)
+            },
+          }
+        }),
+      ],
+    },
+    // 插件自启菜单
+    {
+      label: '插件自启',
+      submenu: [
+        // 自启全部插件
+        {
+          label: '全部自启',
+          click: () => {
+            cset(
+              '_config',
+              'open',
+              enablePlugins.map((item) => item.name)
+            )
+            initMenu()
+          },
+        },
+        // 分割线
+        { type: 'separator' },
+        // 全部插件列表
+        ...enablePlugins.map((item) => {
+          return {
+            label: `${item.name} - ${item.description}`,
+            type: 'checkbox',
+            checked: openPlugins.includes(item.name),
+            click: () => {
+              // 查找插件是否自启
+              const index = openPlugins.indexOf(item.name)
+              // 切换插件自启动状态
+              if (index > -1) {
+                openPlugins.splice(index, 1)
+              } else {
+                openPlugins.push(item.name)
+              }
+              // 保存插件自启动状态
+              cset('_config', 'open', openPlugins)
+            },
+          }
+        }),
+        // 分割线
+        { type: 'separator' },
+        {
+          label: '全部关闭自启',
+          click: () => {
+            cset('_config', 'open', [])
+            initMenu()
+          },
+        },
+      ],
+    },
+    // 分割线
+    { type: 'separator' },
+    // TODO 应用自启
     {
       label: '开机自启',
       click: () => {
         app.setLoginItemSettings({ openAtLogin: true })
       },
     },
+    // 退出应用
     { label: '退出', click: () => app.quit() },
+    // 重启应用
+    // {
+    //   label: '重启',
+    //   click: () => {
+    //     app.relaunch()
+    //     app.exit()
+    //   },
+    // },
   ])
 
+  // 设置托盘菜单
   TrayMenu.setContextMenu(contextMenu)
+}
+
+// 初始化托盘
+export const initTray = () => {
+  // 托盘 Logo
+  const trayLogo = process.platform === 'darwin' ? `${__static}/icons/tray.png` : `${__static}/icons/icon.png`
+  // 托盘提示
+  const trayTip = 'Monit'
+  // 初始化托盘
+  TrayMenu = new Tray(trayLogo)
+  // 设置托盘提示
+  TrayMenu.setToolTip(trayTip)
+
+  // 初始化托盘菜单
+  initMenu()
 }
