@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:55:08
+ * @LastEditTime: 2022-08-13 20:39:05
  * @Description: tary 托盘
  */
 
@@ -10,6 +10,7 @@ import { app, Menu, Tray } from 'electron'
 
 import { pluginList } from '../custom/plugin'
 import { cget, cset } from '../lib/storage'
+import pkg from '../package.json'
 import { isDebug } from './main'
 import { createWindow } from './window'
 
@@ -26,6 +27,9 @@ const initMenu = () => {
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
+    { label: `Monit - ${pkg.version}` },
+    { type: 'separator' },
+
     {
       label: '插件列表',
       // 全部插件列表

@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 23:15:13
+ * @LastEditTime: 2022-08-13 22:01:59
  * @Description: Monit 说明文档
 -->
 
 ## 💡 展示
 
-![show](show.jpeg)
+![show](https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-13_21-58-23.webp)
 
 ## ✨ 功能
 
