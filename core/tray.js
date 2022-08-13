@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 18:03:34
+ * @LastEditTime: 2022-08-13 18:55:08
  * @Description: tary 托盘
  */
 
@@ -102,7 +102,7 @@ const initMenu = () => {
     },
     // 分割线
     { type: 'separator' },
-    // 应用自启
+    // TODO 应用自启
     {
       label: '开机自启',
       click: () => {

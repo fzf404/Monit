@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-09 11:26:23
+ * @LastEditTime: 2022-08-13 18:25:01
  * @Description: main 入口
  */
 
@@ -32,6 +32,7 @@ app.on('ready', async () => {
   autoWindow()
 
   // 自动检查更新
+  // TODO 更新通知
   if (!isDebug) autoUpdater.checkForUpdatesAndNotify()
 })
 

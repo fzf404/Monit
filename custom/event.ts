@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-09 12:02:39
+ * @LastEditTime: 2022-08-13 19:20:47
  * @Description: event 处理
  */
 
@@ -44,7 +44,7 @@ export const appEvent = () => {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     // 通知开启状态
-    const notice = cget(name, 'notice')
+    const notice = cget(name, 'notice', false)
     if (notice) {
       new Notification({ title: `Monit: ${name}`, body: message }).show()
     }
@@ -63,10 +63,10 @@ export const appEvent = () => {
   })
 
   // 读取值
-  ipcMain.on('get-value', function (event, key) {
+  ipcMain.on('get-value', function (event, key, define) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
-    event.returnValue = cget(name, key)
+    event.returnValue = cget(name, key, define)
   })
 }
 
