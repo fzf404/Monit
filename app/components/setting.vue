@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-01 13:52:17
+ * @LastEditTime: 2022-08-13 18:28:37
  * @Description: setting 组件
 -->
 <template>
@@ -29,7 +29,7 @@
           @keyup.enter="onSave"
           @input="
             (event) => {
-              // number 设置最大长度
+              // number 最大长度
               if (item.type === 'number' && (event.target as HTMLInputElement).value.length > item.options.len)
                 (event.target as HTMLInputElement).value = (event.target as HTMLInputElement).value.slice(0, item.options.len)
             }
@@ -49,11 +49,6 @@ import { onMounted, watchEffect } from 'vue'
 
 import { useStore } from '@/store'
 import { storage } from '~/storage'
-
-// 初始化 store
-const store = useStore()
-// 初始化 storage
-const { set } = storage()
 
 // 初始化 props
 interface Props {
@@ -87,6 +82,11 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits(['save'])
+
+// 初始化 store
+const store = useStore()
+// 初始化 storage
+const { set } = storage()
 
 // 初始化设置
 onMounted(() => {

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 15:26:35
+ * @LastEditTime: 2022-08-13 18:33:46
  * @Description: maco 布局
 -->
 <template>
@@ -21,9 +21,9 @@
       />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="absolute right-2 z-40 space-x-1.5">
+    <ul class="absolute right-2 z-40 space-x-1">
       <!-- 断网提示 -->
-      <WifiSVG v-show="!store.network" class="w-4 btn-svg text-red-500" />
+      <WifiSVG v-show="!store.network" class="w-4 btn-svg text-red-400" />
       <!-- 布局 -->
       <MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = layouts[1]" />
       <!-- 主题 -->
@@ -34,7 +34,7 @@
         @click="state.theme = themes[0]"
       />
       <!-- 设置 -->
-      <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-500" @click="store.setting.show = true" />
+      <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-400" @click="store.setting.show = true" />
     </ul>
   </nav>
 </template>

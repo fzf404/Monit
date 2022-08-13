@@ -2,17 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 15:35:48
+ * @LastEditTime: 2022-08-13 18:32:02
  * @Description: winer 布局
 -->
 <template>
   <nav class="layout">
     <!-- 状态控制器 -->
-    <ul class="absolute left-1 z-40 space-x-0.5">
+    <ul class="absolute left-2 z-40">
       <!-- 设置 -->
       <SettingSVG
         v-show="store.setting.has"
-        class="w-5 hover-dynamic btn-svg ml-1 text-blue-500"
+        class="w-5 hover-dynamic btn-svg text-blue-400"
         @click="store.setting.show = true"
       />
       <!-- 主题 -->
@@ -29,7 +29,7 @@
       <!-- 布局 -->
       <WineSVG class="w-5 hover-dynamic btn-svg text-cyan-500" @click="state.layout = layouts[0]" />
       <!-- 断网提示 -->
-      <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-500" />
+      <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-400" />
     </ul>
     <!-- 窗口控制器 -->
     <ul class="absolute right-2 z-40">
