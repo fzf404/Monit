@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 19:20:47
+ * @LastEditTime: 2022-08-13 19:33:06
  * @Description: event 处理
  */
 
@@ -46,7 +46,7 @@ export const appEvent = () => {
     // 通知开启状态
     const notice = cget(name, 'notice', false)
     if (notice) {
-      new Notification({ title: `Monit: ${name}`, body: message }).show()
+      new Notification({ title: `Monit - ${name}`, body: message }).show()
     }
   })
 

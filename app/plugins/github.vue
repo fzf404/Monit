@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 16:32:01
+ * @LastEditTime: 2022-08-13 19:47:09
  * @Description: github 信息监控
 -->
 <template>
@@ -120,17 +120,18 @@
 
 <script>
 import { openURL, sendNotice } from '#/ipc'
+import { useStore } from '@/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
 
+import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
 
 import ForkSVG from '@/assets/github/fork.svg'
 import GihubSVG from '@/assets/github/github.svg'
 import RepoSVG from '@/assets/github/repo.svg'
 import StarSVG from '@/assets/github/star.svg'
-import Setting from '@/components/setting.vue'
 
 // 初始化 storage
 const { set, get } = storage('github')
@@ -146,6 +147,9 @@ export default {
     ForkSVG,
     RepoSVG,
     Setting,
+  },
+  setup() {
+    return { store: useStore() }
   },
   data() {
     return {
@@ -199,7 +203,7 @@ export default {
   created() {
     if (this.config.user === '') {
       // 打开设置
-      this.store.setting = true
+      this.store.setting.show = true
     } else {
       // 刷新数据
       this.getGithubData()
@@ -217,7 +221,7 @@ export default {
       const changeNum = this.newFollower - this.follower
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('follower is changed')
+        sendNotice('follower 改变了！')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -230,7 +234,7 @@ export default {
     forkChange() {
       const changeNum = this.newFork - this.fork
       if (changeNum != 0) {
-        sendNotice('fork is changed')
+        sendNotice('fork 改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -242,7 +246,7 @@ export default {
     starChange() {
       const changeNum = this.newStar - this.star
       if (changeNum != 0) {
-        sendNotice('star is changed')
+        sendNotice('star 改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
