@@ -9,7 +9,7 @@
 <template lang="pug">
 main
   Layout
-  article.h-screen.flex.flex-col.justify-between.pt-8.pl-4.pr-3.pb-3
+  article.h-screen.flex.flex-col.justify-between.pt-8.pb-3.px-4
     draggable.flex.flex-col.items-start.overflow-hidden.overflow-y-scroll(class="space-y-1" tag="ul" :list="todos" handle=".handle" :animation="200" item-key="id")
       template(#item="{element,index}")
         li.flex.items-center

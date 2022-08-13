@@ -2,7 +2,7 @@
   "name": "monit",
   "private": true,
   "author": "fzf404",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "桌面小组件",
   "scripts": {
     "prepare": "husky install",

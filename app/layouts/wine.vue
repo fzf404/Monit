@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 23:08:20
+ * @LastEditTime: 2022-08-13 15:35:48
  * @Description: winer 布局
 -->
 <template>
@@ -17,15 +17,17 @@
       />
       <!-- 主题 -->
       <LightSVG
-        v-if="state.theme === 'dark'"
+        v-if="state.theme === themes[0]"
         class="w-5 hover-dynamic btn-svg text-orange-400"
-        @click="state.theme = 'light'"
+        @click="state.theme = themes[1]"
       />
       <DarkSVG
-        v-else-if="state.theme === 'light'"
+        v-else="state.theme === themes[1]"
         class="w-5 hover-dynamic btn-svg text-indigo-300"
-        @click="state.theme = 'dark'"
+        @click="state.theme = themes[0]"
       />
+      <!-- 布局 -->
+      <WineSVG class="w-5 hover-dynamic btn-svg text-cyan-500" @click="state.layout = layouts[0]" />
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-500" />
     </ul>
@@ -48,51 +50,22 @@
 <script setup>
 import { sendEvent } from '#/ipc'
 import { useStore } from '@/store'
-import { onMounted, reactive, watch } from 'vue'
-import { storage } from '~/storage'
 
 import CloseSVG from '@/assets/layout/close.svg'
 import MiniSVG from '@/assets/layout/mini.svg'
 import UpSVG from '@/assets/layout/up.svg'
 
+import WineSVG from '@/assets/layout/wine.svg'
+
 import DarkSVG from '@/assets/layout/dark.svg'
 import LightSVG from '@/assets/layout/light.svg'
+
 import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
-// 引入主题样式
-import '@/themes/basic.scss'
+// 初始化 props
+const props = defineProps(['layouts', 'themes', 'state'])
 
 // 初始化 store
 const store = useStore()
-// 初始化 storage
-const { get, set } = storage()
-
-// 状态数据
-const state = reactive({
-  top: get('top', false), // 置顶
-  theme: get('theme', 'dark'), // 主题
-})
-
-// 初始化主题
-onMounted(() => {
-  document.body.classList = [state.theme]
-})
-
-// 监听状态变化
-watch(
-  () => state.top,
-  (val) => {
-    set('top', val)
-    sendEvent('window-top', state.top)
-  }
-)
-
-watch(
-  () => state.theme,
-  (val) => {
-    set('theme', val)
-    document.body.classList = [val]
-  }
-)
 </script>
