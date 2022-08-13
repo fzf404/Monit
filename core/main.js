@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:25:01
+ * @LastEditTime: 2022-08-13 19:47:41
  * @Description: main 入口
  */
 
@@ -33,7 +33,11 @@ app.on('ready', async () => {
 
   // 自动检查更新
   // TODO 更新通知
-  if (!isDebug) autoUpdater.checkForUpdatesAndNotify()
+  if (!isDebug)
+    autoUpdater.checkForUpdatesAndNotify({
+      title: 'Monit - update',
+      body: '已下载新版本，将会在软件关闭后自动更新。',
+    })
 })
 
 // 调试模式下安装 vue-devtools
