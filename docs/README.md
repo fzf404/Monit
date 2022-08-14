@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 22:01:59
+ * @LastEditTime: 2022-08-14 09:55:42
  * @Description: Monit 说明文档
 -->
 
 ## 💡 展示
 
-![show](https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-13_21-58-23.webp)
+<img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-13_21-58-23.webp" alt="bashow" style="zoom:50%;" />
 
 ## ✨ 功能
 
@@ -67,7 +67,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 >
 > 文件头部均有功能描述
 
-```shell
+```bash
 Monit
 ├── app # 渲染进程
 │   ├── assets # 静态资源
@@ -244,7 +244,7 @@ Monit
 
 5. 启动 & 打包
 
-   ```shell
+   ```bash
    # 调试应用
    pnpm serve
    # 在托盘中启动 count 插件
