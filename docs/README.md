@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 20:45:04
+ * @LastEditTime: 2022-08-15 22:53:46
  * @Description: Monit 说明文档
 -->
 
@@ -19,14 +19,14 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-13_21-58-23.webp" alt="bashow" style="zoom:30%;" />
+  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-15_22-51-29.webp" alt="bashow" style="zoom:50%;" />
 </p>
 
 ## ✨ 功能
 
 > VueC 指 Composition API，VueO 指 Options API
 
-| 插件名   | 功能              | 技术                         | 贡献者                                | 状态 |
+| 插件名   | 功能              | 技术                         | 贡献                                  | 状态 |
 | -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |
 | welcome  | 使用指引          | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
 | count    | 计数器            | Vue Options API              | [fzf404](https://github.com/fzf404)   | ✅   |

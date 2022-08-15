@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 21:21:25
+ * @LastEditTime: 2022-08-15 22:13:14
  * @Description: maco 布局
  */
 
@@ -60,6 +60,10 @@ select,
  */
 .flex-col-center {
   @apply flex flex-col justify-center items-center;
+}
+
+.flex-col-center-end {
+  @apply flex flex-col justify-end items-center;
 }
 
 // flex 竖向靠左
