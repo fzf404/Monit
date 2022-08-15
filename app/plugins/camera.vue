@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:40:23
+ * @LastEditTime: 2022-08-15 22:58:08
  * @Description: camera 相机监控
 -->
 <template>
@@ -100,7 +100,7 @@ const state = reactive({
 const config = reactive({
   mirror: get('mirror', true), // 镜像
   control: get('control', true), // 控制器
-  holistic: get('holistic', false), // 角色跟踪
+  holistic: get('holistic', true), // 角色跟踪
   camera: get('camera', null), // 设备ID
 })
 

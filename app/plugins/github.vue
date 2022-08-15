@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 22:16:57
+ * @LastEditTime: 2022-08-15 22:59:06
  * @Description: github 信息监控
 -->
 <template>
@@ -41,7 +41,7 @@
         </p>
       </section>
       <!-- repo -->
-      <section class="flex-col-center-left col-span-5 row-span-5 overflow-y-scroll mt-px">
+      <section class="flex-col-center-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll mt-px">
         <p
           v-for="value in repoChange"
           class="flex-row-center space-x-1 space-y-1 clickable"
@@ -52,17 +52,7 @@
           <span class="text-sm">
             {{ value.star }}
           </span>
-          <span class="text-intro">
-            {{
-              value.star > 999
-                ? value.repo.length > 11
-                  ? value.repo.slice(0, 9) + '..'
-                  : value.repo
-                : value.repo.length > 12
-                ? value.repo.slice(0, 10) + '..'
-                : value.repo
-            }}
-          </span>
+          <span class="whitespace-nowrap text-intro"> {{ value.repo }} </span>
         </p>
       </section>
       <!-- star -->
@@ -280,10 +270,8 @@ export default {
     },
     // 请求数据
     async getGithubData() {
+      // TODO 用户名不存在提示
       await request.get(`/users/${this.config.user}`).then(async (data) => {
-        // 修改网络状态
-        this.network = true
-
         // 设置 follower 信息
         this.newFollower = data.followers
 

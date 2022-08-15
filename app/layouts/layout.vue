@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 15:39:12
+ * @LastEditTime: 2022-08-14 17:47:16
  * @Description: 布局切换
 -->
 <template>
@@ -12,6 +12,7 @@
 <script setup>
 import { onMounted, reactive, watch } from 'vue'
 
+import { sendEvent } from '#/ipc'
 import { storage } from '~/storage'
 
 import maco from './maco.vue'

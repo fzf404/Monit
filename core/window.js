@@ -56,6 +56,7 @@ export const createWindow = (name) => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      webSecurity: false, // 跨域
     },
   })
 
