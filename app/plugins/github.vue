@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 22:31:38
+ * @LastEditTime: 2022-08-15 22:59:06
  * @Description: github 信息监控
 -->
 <template>
@@ -270,6 +270,7 @@ export default {
     },
     // 请求数据
     async getGithubData() {
+      // TODO 用户名不存在提示
       await request.get(`/users/${this.config.user}`).then(async (data) => {
         // 设置 follower 信息
         this.newFollower = data.followers
