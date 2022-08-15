@@ -27,5 +27,6 @@ export const pluginList: pluginList[] = [
   { name: '_config', size: [2, 3], description: '设置', debug: true },
   { name: 'live2d', size: [4, 3], description: '角色跟踪', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true },
+  { name: 'juejin', size: [4, 4], description: '监控',debug: true},
   { name: 'music', size: [4, 2], description: '音乐', debug: true },
 ]
