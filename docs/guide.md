@@ -1,3 +1,11 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-08-15 23:02:16
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-08-15 23:02:48
+ * @Description: Monit 开发指南
+-->
+
 Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自由使用项目中的代码。
 
 基于 Electron + Vue 开发，渲染进程使用 JS + Vue，主进程使用 JS 调用 Electron API。
