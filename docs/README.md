@@ -2,18 +2,23 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 22:53:46
+ * @LastEditTime: 2022-08-16 15:11:32
  * @Description: Monit 说明文档
 -->
 
 <p align="center">
   <a href="https://monit.fzf404.art" target="_blank">
-    <img src="icon.png" alt="Monit" height="200" width="500"/>
+    <img src="icon.png" alt="Monit" style="zoom:50%;"/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://monit.fzf404.top"> 开发文档 </a> ｜
+ 用于展示各种信息的桌面小组件
+</p>
+
+<p align="center">
+  <a href="https://github.com/fzf404/Monit"> Github </a> ｜
+  <a href="https://monit.fzf404.art"> 开发文档 </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a> ｜
   <a href="https://hub.fastgit.xyz/fzf404/Monit/releases"> 国内镜像 </a>
 </p>
