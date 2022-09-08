@@ -17,12 +17,12 @@ export const callEvent = (event: string, ...options: any): any => {
 }
 
 // 保存数据
-export const setValue = (key: string, value: any): any => {
+export const setValue = (key: string, value: Object): void => {
   sendEvent('set-value', key, JSON.stringify(value))
 }
 
 // 读取数据
-export const getValue = (key: string, define: any): any => {
+export const getValue = (key: string, define: Object): Object => {
   return callEvent('get-value', key, define)
 }
 
