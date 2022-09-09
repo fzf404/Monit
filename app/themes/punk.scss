@@ -1,0 +1,70 @@
+/*
+ * @Author: fzf404
+ * @Date: 2022-07-20 12:52:31
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-09-09 20:51:48
+ * @Description: punk 赛博主题
+ */
+
+/**
+ * 基底
+ */
+#app {
+  @apply bg-indigo-700 bg-opacity-40 text-white;
+}
+
+/**
+ * 文字
+ */
+.text-primary {
+  @apply text-indigo-500;
+}
+
+.text-gray {
+  @apply text-amber-300;
+}
+
+/**
+ * 模态框
+ */
+.modal {
+  @apply bg-indigo-200 bg-opacity-40;
+}
+
+/**
+ * 设置
+ */
+.setting {
+  ul {
+    @apply ring-opacity-50 ring-indigo-400 bg-yellow-200;
+
+    // 设置内容
+    li {
+      @apply shadow bg-yellow-100;
+
+      label {
+        @apply text-gray-500;
+      }
+
+      select {
+        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+      }
+
+      input[type='checkbox'] {
+        @apply accent-indigo-500;
+      }
+
+      input[type='number'],
+      input[type='text'] {
+        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-600;
+      }
+    }
+
+    // 设置操作
+    ol {
+      button {
+        @apply bg-indigo-500 hover:bg-indigo-600;
+      }
+    }
+  }
+}

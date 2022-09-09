@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:32:02
+ * @LastEditTime: 2022-09-09 20:45:26
  * @Description: winer 布局
 -->
 <template>
@@ -21,11 +21,12 @@
         class="w-5 hover-dynamic btn-svg text-orange-400"
         @click="state.theme = themes[1]"
       />
-      <DarkSVG
-        v-else="state.theme === themes[1]"
-        class="w-5 hover-dynamic btn-svg text-indigo-300"
-        @click="state.theme = themes[0]"
+      <PunkSVG
+        v-else-if="state.theme === themes[1]"
+        class="w-5 hover-dynamic btn-svg text-yellow-400"
+        @click="state.theme = themes[2]"
       />
+      <DarkSVG v-else class="w-5 hover-dynamic btn-svg text-indigo-300" @click="state.theme = themes[0]" />
       <!-- 布局 -->
       <WineSVG class="w-5 hover-dynamic btn-svg text-cyan-500" @click="state.layout = layouts[0]" />
       <!-- 断网提示 -->
@@ -58,6 +59,7 @@ import UpSVG from '@/assets/layout/up.svg'
 import WineSVG from '@/assets/layout/wine.svg'
 
 import DarkSVG from '@/assets/layout/dark.svg'
+import PunkSVG from '@/assets/layout/punk.svg'
 import LightSVG from '@/assets/layout/light.svg'
 
 import SettingSVG from '@/assets/layout/setting.svg'

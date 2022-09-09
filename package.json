@@ -52,6 +52,6 @@
     "node": ">=14"
   },
   "lint-staged": {
-    "*.{js,ts,scss,svg,vue,md}": "prettier --write ."
+    "*.{js,ts,scss,vue,md}": "prettier --write ."
   }
 }

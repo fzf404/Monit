@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:33:46
+ * @LastEditTime: 2022-09-09 20:38:19
  * @Description: maco 布局
 -->
 <template>
@@ -27,11 +27,12 @@
       <MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = layouts[1]" />
       <!-- 主题 -->
       <LightSVG v-if="state.theme === themes[0]" class="w-4 btn-svg text-orange-400" @click="state.theme = themes[1]" />
-      <DarkSVG
-        v-else="state.theme === themes[1]"
-        class="w-4 btn-svg text-indigo-300"
-        @click="state.theme = themes[0]"
+      <PunkSVG
+        v-else-if="state.theme === themes[1]"
+        class="w-4 btn-svg text-yellow-400"
+        @click="state.theme = themes[2]"
       />
+      <DarkSVG v-else class="w-4 btn-svg text-indigo-300" @click="state.theme = themes[0]" />
       <!-- 设置 -->
       <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-400" @click="store.setting.show = true" />
     </ul>
@@ -50,6 +51,7 @@ import MacoSVG from '@/assets/layout/maco.svg'
 
 import DarkSVG from '@/assets/layout/dark.svg'
 import LightSVG from '@/assets/layout/light.svg'
+import PunkSVG from '@/assets/layout/punk.svg'
 
 import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
