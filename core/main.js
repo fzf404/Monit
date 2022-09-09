@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 19:47:41
+ * @LastEditTime: 2022-09-09 20:55:03
  * @Description: main 入口
  */
 
@@ -10,7 +10,7 @@ import { app, BrowserWindow, protocol } from 'electron'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
-import { appEvent } from '../custom/event'
+import { appEvent } from '#/event'
 import { initTray } from './tray'
 import { autoWindow, createWindow } from './window'
 

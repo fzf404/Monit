@@ -2,16 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 16:10:13
+ * @LastEditTime: 2022-09-09 20:54:12
  * @Description: window 管理
  */
 
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { winEvent } from '../custom/event'
-import { pluginList } from '../custom/plugin'
-import { cget } from '../lib/storage'
+import { cget } from '~/storage'
+import { winEvent } from '#/event'
+import { pluginList } from '#/plugin'
 
 // 窗口网格大小
 const BasicMesh = 100
@@ -53,6 +53,7 @@ export const createWindow = (name) => {
     fullscreenable: false, // 禁止全屏
     roundedCorners: false, // 圆角
 
+    // vibrancy: 'dark', // 毛玻璃效果
     visualEffectState: 'active', // 保持激活
 
     webPreferences: {

@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-08 20:25:57
+ * @LastEditTime: 2022-09-09 20:54:53
  * @Description: tary 托盘
  */
 
 import { app, Menu, Tray } from 'electron'
 
-import { pluginList } from '../custom/plugin'
-import { cget, cset } from '../lib/storage'
-import pkg from '../package.json'
+import { pluginList } from '#/plugin'
+import pkg from 'root/package.json'
+import { cget, cset } from '~/storage'
 import { isDebug } from './main'
 import { createWindow } from './window'
 
