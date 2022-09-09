@@ -7,7 +7,6 @@
 -->
 <template>
   <nav>
-    <!-- 窗口控制器 -->
     <ul class="absolute left-2 z-40 space-x-1">
       <!-- 关闭 -->
       <CloseSVG class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 text-primary" @click="sendEvent('window-close')" />

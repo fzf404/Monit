@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 页面内容 -->
     <article class="h-screen flex-col-center">
       <h1 class="text-lg">Music</h1>
@@ -17,8 +15,6 @@
 </template>
 
 <!-- TODO 插件 music -->
-<script setup>
-import Layout from '@/layouts/layout.vue'
-</script>
+<script setup></script>
 
 <style scoped></style>

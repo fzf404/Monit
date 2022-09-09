@@ -41,8 +41,6 @@ pnpm i
 ```vue
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 设置 -->
     <Setting size="small" :setting="setting" :config="config" />
     <!-- 页面内容 -->

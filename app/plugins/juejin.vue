@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 设置 -->
     <Setting :setting="setting" :config="config" @save="onSave" />
     <!-- 页面内容 -->

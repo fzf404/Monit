@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-10 07:03:53
+ * @LastEditTime: 2022-09-09 16:10:13
  * @Description: window 管理
  */
 
@@ -16,7 +16,7 @@ import { cget } from '../lib/storage'
 // 窗口网格大小
 const BasicMesh = 100
 
-// 窗口列表
+// 已启动窗口列表
 const windowList = []
 
 // 创建窗口
@@ -45,17 +45,19 @@ export const createWindow = (name) => {
     height: size[1] * BasicMesh,
     alwaysOnTop: top, // 置顶
 
-    skipTaskbar: true, // 隐藏任务栏图标
-    transparent: true, // 透明
-    hasShadow: false, // 阴影
     frame: false, // 隐藏边框
     resizable: false, // 不可调整大小
+    hasShadow: false, // 阴影
+    transparent: true, // 透明
+    skipTaskbar: true, // 隐藏任务栏图标
     fullscreenable: false, // 禁止全屏
     roundedCorners: false, // 圆角
 
+    visualEffectState: 'active', // 保持激活
+
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: true, // node 集成
+      contextIsolation: false, // 上下文隔离
       webSecurity: false, // 跨域
     },
   })

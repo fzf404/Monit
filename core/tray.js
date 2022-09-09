@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 20:39:05
+ * @LastEditTime: 2022-09-08 20:25:57
  * @Description: tary 托盘
  */
 
@@ -29,7 +29,7 @@ const initMenu = () => {
   const contextMenu = Menu.buildFromTemplate([
     { label: `Monit - ${pkg.version}` },
     { type: 'separator' },
-
+    // 全部插件列表
     {
       label: '插件列表',
       // 全部插件列表

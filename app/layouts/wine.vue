@@ -31,7 +31,7 @@
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-400" />
     </ul>
-    <!-- 窗口控制器 -->
+
     <ul class="absolute right-2 z-40">
       <!-- 置顶 -->
       <UpSVG
