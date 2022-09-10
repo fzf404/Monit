@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:52:12
+ * @LastEditTime: 2022-09-10 14:04:30
  * @Description: 基础主题
  */
 
@@ -59,8 +59,9 @@ select,
 }
 /**
  * 布局
- * flex 竖向居中
  */
+
+// flex 竖向居中
 .flex-col-center {
   @apply flex flex-col justify-center items-center;
 }

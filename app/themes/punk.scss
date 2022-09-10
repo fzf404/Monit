@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:51:48
+ * @LastEditTime: 2022-09-10 15:18:50
  * @Description: punk 赛博主题
  */
 
@@ -10,14 +10,14 @@
  * 基底
  */
 #app {
-  @apply bg-indigo-700 bg-opacity-40 text-white;
+  @apply bg-indigo-800 bg-opacity-50 text-white;
 }
 
 /**
  * 文字
  */
 .text-primary {
-  @apply text-indigo-500;
+  @apply text-indigo-600;
 }
 
 .text-gray {
@@ -28,7 +28,7 @@
  * 模态框
  */
 .modal {
-  @apply bg-indigo-200 bg-opacity-40;
+  @apply bg-indigo-800 bg-opacity-40;
 }
 
 /**
@@ -36,14 +36,14 @@
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-indigo-400 bg-yellow-200;
+    @apply ring-opacity-50 ring-indigo-400 bg-amber-200;
 
     // 设置内容
     li {
-      @apply shadow bg-yellow-100;
+      @apply shadow bg-amber-100;
 
       label {
-        @apply text-gray-500;
+        @apply text-indigo-700;
       }
 
       select {

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:51:57
+ * @LastEditTime: 2022-09-10 15:09:19
  * @Description: light 明亮主题
  */
 
@@ -10,7 +10,7 @@
  * 基底
  */
 #app {
-  @apply bg-gray-300 bg-opacity-30 text-gray-200;
+  @apply bg-gray-300 bg-opacity-50 text-gray-200;
 }
 
 /**
@@ -28,7 +28,7 @@
  * 模态框
  */
 .modal {
-  @apply bg-gray-200 bg-opacity-40;
+  @apply bg-gray-300 bg-opacity-40;
 }
 
 /**
@@ -36,7 +36,7 @@
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-purple-300 bg-gray-200;
+    @apply ring-opacity-50 ring-purple-400 bg-gray-200;
 
     // 设置内容
     li {
@@ -47,7 +47,7 @@
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-purple-400 focus:text-purple-500;
+        @apply shadow-inner bg-gray-200 text-purple-500 focus:text-purple-600;
       }
 
       input[type='checkbox'] {
@@ -56,14 +56,14 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-purple-400 focus:text-purple-500;
+        @apply shadow-inner bg-gray-200 text-purple-500 focus:text-purple-600;
       }
     }
 
     // 设置操作
     ol {
       button {
-        @apply bg-purple-400 hover:bg-purple-500;
+        @apply bg-purple-500 hover:bg-purple-600;
       }
     }
   }

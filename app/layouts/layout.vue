@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:35:45
+ * @LastEditTime: 2022-09-10 14:37:08
  * @Description: 布局切换
 -->
 <template>
-  <component :is="layout[state.layout]" :layouts="layouts" :themes="themes" :state="state"></component>
+  <component :is="layout[state.layout]" :state="state"></component>
   <router-view> </router-view>
 </template>
 
@@ -30,10 +30,6 @@ const layout = {
   maco,
   wine,
 }
-// 布局列表
-const layouts = ['maco', 'wine']
-// 主题列表
-const themes = ['dark', 'light', 'punk']
 
 const state = reactive({
   top: get('top', false), // 置顶
