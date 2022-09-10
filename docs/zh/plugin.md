@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 23:03:13
+ * @LastEditTime: 2022-09-10 16:06:18
  * @Description: Monit 插件开发
 -->
 
@@ -34,9 +34,25 @@ pnpm config set electron_mirror https://registry.npmmirror.com/-/binary/electron
 pnpm i
 ```
 
-### 3. 编写插件页面
+### 3. 【可选】引入 svg 图像
 
-> `app/plugins/count-new.vue`
+> 推荐使用 svg 作为图像，可以去 [xicons](https://www.xicons.org/) 寻找
+
+```vue
+<template>
+  <!-- 指定 svg 颜色-->
+  <XxxSVG class="h-4 stroke-current text-green-400" />
+</template>
+
+<script setup>
+// 引入 svg
+import XxxSVG from '@/assets/xx/xxx.svg'
+</script>
+```
+
+### 4. 编写插件页面
+
+> `app/plugins/count.vue`
 
 ```vue
 <template>
@@ -52,9 +68,7 @@ pnpm i
         <!-- 增加 & 减少 -->
         <p class="space-x-4 pt-2">
           <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-          <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase">
-            <AddSVG class="w-5" />
-          </button>
+          <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
         </p>
       </section>
     </article>
@@ -65,7 +79,7 @@ pnpm i
 import AddSVG from '@/assets/count/add.svg'
 import SubSVG from '@/assets/count/sub.svg'
 import Setting from '@/components/setting.vue'
-import Layout from '@/layouts/layout.vue'
+
 import { reactive } from 'vue'
 import { storage } from '~/storage'
 
@@ -105,7 +119,6 @@ export default {
     return { setting, config }
   },
   components: {
-    Layout,
     AddSVG,
     SubSVG,
     Setting,
@@ -124,18 +137,18 @@ export default {
 </script>
 ```
 
-### 4. 增加插件配置
+### 5. 增加插件配置
 
 > `coustom/plugin.ts`
 
 ```typescript
 export const pluginList: pluginList[] = [
   // ...添加如下行
-  { name: 'count-new', size: [2, 2], description: '计数器', debug: true },
+  { name: 'count', size: [2, 2], description: '计数器', debug: true },
 ]
 ```
 
-### 5. 启动 & 打包
+### 6. 启动 & 打包
 
 ```bash
 # 调试应用
