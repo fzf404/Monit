@@ -2,13 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 22:58:08
+ * @LastEditTime: 2022-09-08 22:52:46
  * @Description: camera 相机监控
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 设置-->
     <Setting :setting="setting" :config="config" />
     <!-- 页面内容 -->
@@ -75,7 +73,6 @@ import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
-import Layout from '@/layouts/layout.vue'
 
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'

@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 引导页 -->
     <article class="h-screen flex-col-center space-y-3">
       <!-- 欢迎-->
@@ -26,7 +24,6 @@
 
 <script setup>
 import { openURL } from '#/ipc'
-import Layout from '@/layouts/layout.vue'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import GithubSVG from '@/assets/github/github.svg'

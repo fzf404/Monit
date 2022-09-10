@@ -2,25 +2,20 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "resolveJsonModule": true,
-    "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "jsx": "preserve",
     "target": "ESNext",
     "module": "ESNext",
-    "types": ["webpack"],
-    "lib": ["ESNext", "DOM"],
     "outDir": "dist_electron",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "paths": {
-      "~/*": ["lib/*"],
       "@/*": ["app/*"],
-      "#/*": ["custom/*"]
+      "#/*": ["custom/*"],
+      "~/*": ["lib/*"],
+      "root": ["./*"],
+      "core": ["core/*"]
     }
   },
   "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"],

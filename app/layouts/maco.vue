@@ -2,12 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 18:33:46
+ * @LastEditTime: 2022-09-10 14:37:39
  * @Description: maco 布局
 -->
 <template>
   <nav>
-    <!-- 窗口控制器 -->
     <ul class="absolute left-2 z-40 space-x-1">
       <!-- 关闭 -->
       <CloseSVG class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 text-primary" @click="sendEvent('window-close')" />
@@ -25,14 +24,11 @@
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-4 btn-svg text-red-400" />
       <!-- 布局 -->
-      <MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = layouts[1]" />
+      <MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = 'wine'" />
       <!-- 主题 -->
-      <LightSVG v-if="state.theme === themes[0]" class="w-4 btn-svg text-orange-400" @click="state.theme = themes[1]" />
-      <DarkSVG
-        v-else="state.theme === themes[1]"
-        class="w-4 btn-svg text-indigo-300"
-        @click="state.theme = themes[0]"
-      />
+      <LightSVG v-if="state.theme === 'dark'" class="w-4 btn-svg text-orange-400" @click="state.theme = 'light'" />
+      <PunkSVG v-else-if="state.theme === 'light'" class="w-4 btn-svg text-yellow-400" @click="state.theme = 'punk'" />
+      <DarkSVG v-else class="w-4 btn-svg text-indigo-300" @click="state.theme = 'dark'" />
       <!-- 设置 -->
       <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-400" @click="store.setting.show = true" />
     </ul>
@@ -51,12 +47,13 @@ import MacoSVG from '@/assets/layout/maco.svg'
 
 import DarkSVG from '@/assets/layout/dark.svg'
 import LightSVG from '@/assets/layout/light.svg'
+import PunkSVG from '@/assets/layout/punk.svg'
 
 import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
 // 初始化 props
-const props = defineProps(['layouts', 'themes', 'state'])
+const props = defineProps(['state'])
 
 // 初始化 store
 const store = useStore()

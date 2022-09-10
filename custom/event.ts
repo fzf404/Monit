@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-13 19:33:06
+ * @LastEditTime: 2022-09-09 21:17:12
  * @Description: event 处理
  */
 
 import { BrowserWindow, ipcMain, Notification, shell } from 'electron'
 
+import { createWindow } from 'core/window'
 import { cget, cset } from '~/storage'
-import { createWindow } from '../core/window'
 
 // 应用事件
 export const appEvent = () => {
@@ -44,8 +44,8 @@ export const appEvent = () => {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     // 通知开启状态
-    const notice = cget(name, 'notice', false)
-    if (notice) {
+    if (cget(name, 'notice', false)) {
+      // 发送通知
       new Notification({ title: `Monit - ${name}`, body: message }).show()
     }
   })

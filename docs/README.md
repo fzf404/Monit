@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-16 15:11:32
+ * @LastEditTime: 2022-09-10 16:18:04
  * @Description: Monit 说明文档
 -->
 
@@ -30,6 +30,8 @@
 ## ✨ 功能
 
 > VueC 指 Composition API，VueO 指 Options API
+>
+> 更多请查看：[开发文档](https://monit.fzf404.art)
 
 | 插件名   | 功能              | 技术                         | 贡献                                  | 状态 |
 | -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |

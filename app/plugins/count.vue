@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 设置 -->
     <Setting size="small" :setting="setting" :config="config" />
     <!-- 页面内容 -->
@@ -31,7 +29,7 @@
 import AddSVG from '@/assets/count/add.svg'
 import SubSVG from '@/assets/count/sub.svg'
 import Setting from '@/components/setting.vue'
-import Layout from '@/layouts/layout.vue'
+
 import { reactive } from 'vue'
 import { storage } from '~/storage'
 
@@ -71,7 +69,6 @@ export default {
     return { setting, config }
   },
   components: {
-    Layout,
     AddSVG,
     SubSVG,
     Setting,

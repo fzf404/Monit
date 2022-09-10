@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 页面内容 -->
     <article class="h-screen flex-col-center">
       <video ref="character"></video>
@@ -18,7 +16,6 @@
 
 <!-- TODO 插件 live2d -->
 <script setup>
-import Layout from '@/layouts/layout.vue'
 import { ref } from 'vue'
 
 const character = ref(null)

@@ -1,10 +1,22 @@
 <!--
  * @Author: fzf404
- * @Date: 2022-07-22 00:24:58
+ * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 14:40:25
- * @Description: winer 布局
+ * @LastEditTime: 2022-09-10 16:07:41
+ * @Description: Monit 布局开发
 -->
+
+写一个 Windows 系统的主题吧
+
+## ☣️ Wine 布局
+
+参考：`app/layouts/maco.vue`
+
+### 1. 编写主题
+
+> `app/layouts/wine.vue`
+
+```vue
 <template>
   <nav class="layout">
     <!-- 状态控制器 -->
@@ -71,3 +83,13 @@ const props = defineProps(['state'])
 // 初始化 store
 const store = useStore()
 </script>
+```
+
+### 2. 修改默认布局指向
+
+> `app/layouts/wine.vue`
+
+```vue
+<!-- 布局 -->
+<MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = 'wine'" />
+```

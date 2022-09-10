@@ -7,8 +7,6 @@
 -->
 <template>
   <main>
-    <!-- 窗口控制器 -->
-    <Layout />
     <!-- 页面内容 -->
     <article class="h-screen flex-col-center space-y-6">
       <!-- 翻牌器 -->
@@ -65,8 +63,6 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-
-import Layout from '@/layouts/layout.vue'
 
 import ClockSVG from '@/assets/clock/clock.svg'
 import OffSVG from '@/assets/clock/off.svg'

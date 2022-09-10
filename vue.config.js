@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-09 12:05:49
+ * @LastEditTime: 2022-09-07 19:55:33
  * @Description: vue-cli 配置
  */
 const path = require('path')
@@ -18,12 +18,14 @@ const config = {
   },
   chainWebpack: (config) => {
     // 配置别名
-    config.resolve.alias.set('~', resolve('lib')).set('@', resolve('app')).set('#', resolve('custom'))
+    config.resolve.alias
+      .set('@', resolve('app'))
+      .set('~', resolve('lib'))
+      .set('#', resolve('custom'))
+      .set('root', resolve('./'))
+      .set('core', resolve('core'))
     // svg 加载
-    const svgRule = config.module.rule('svg')
-    svgRule.uses.clear()
-    svgRule.delete('type')
-    svgRule.use('svg-vue3-loader').loader('svg-vue3-loader')
+    config.module.rule('svg').delete('type').use('svg-vue3-loader').loader('svg-vue3-loader')
   },
   pluginOptions: {
     // electron 打包配置
@@ -36,9 +38,14 @@ const config = {
       mainProcessFile: 'core/main.js',
       // 渲染进程入口
       rendererProcessFile: 'app/main.js',
+      // 路径别名
       chainWebpackMainProcess: (config) => {
-        // 路径别名
-        config.resolve.alias.set('~', resolve('lib')).set('@', resolve('app')).set('#', resolve('custom'))
+        config.resolve.alias
+          .set('@', resolve('app'))
+          .set('~', resolve('lib'))
+          .set('#', resolve('custom'))
+          .set('root', resolve('./'))
+          .set('core', resolve('core'))
       },
       // 构建选项
       builderOptions: {

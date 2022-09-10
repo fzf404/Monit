@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 22:13:14
- * @Description: maco 布局
+ * @LastEditTime: 2022-09-10 14:04:30
+ * @Description: 基础主题
  */
 
 /**
@@ -54,10 +54,14 @@ select,
   @import 'light.scss';
 }
 
+.punk {
+  @import 'punk.scss';
+}
 /**
  * 布局
- * flex 竖向居中
  */
+
+// flex 竖向居中
 .flex-col-center {
   @apply flex flex-col justify-center items-center;
 }
