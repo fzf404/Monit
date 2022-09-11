@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 16:07:41
+ * @LastEditTime: 2022-09-10 16:21:32
  * @Description: Monit 布局开发
 -->
 
@@ -92,4 +92,16 @@ const store = useStore()
 ```vue
 <!-- 布局 -->
 <MacoSVG class="w-4 btn-svg text-cyan-500" @click="state.layout = 'wine'" />
+```
+
+### 3. 启动 & 打包
+
+```bash
+# 调试应用
+pnpm serve
+# 在托盘中启动 count 插件
+
+# 构建应用
+pnpm build
+# 构建成功后即可在 dist_electron 找到安装包
 ```

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-14 23:23:56
+ * @LastEditTime: 2022-09-12 01:33:57
  * @Description: setting 组件
 -->
 <template>
@@ -55,7 +55,7 @@ interface Props {
   // 尺寸
   size?: 'small'
   // 配置
-  config: Record<string, any>
+  config: Record<string, Object>
   // 信息
   setting: (
     | {

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 11:48:08
+ * @LastEditTime: 2022-09-10 16:39:14
  * @Description: todo 代办事项管理
 -->
 
@@ -13,7 +13,7 @@ main
       template(#item="{element,index}")
         li.flex.items-center
           input.mr-2.accent-purple-500(v-model="element.checked" type="checkbox")
-          input.mr-2.w-full.bg-transparent.outline-none.text-sm(:class="element.checked?'line-through text-gray-400':'text-gray-200'" v-model="element.title" type="text")
+          input.mr-2.w-full.bg-transparent.outline-none.text-sm(:class="element.checked?'line-through text-gray':'text-gray-200'" v-model="element.title" type="text")
           DeleteSVG.w-6.stroke-current.clickable.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
           MoveSVG.w-7.stroke-current.clickable.text-purple-400.handle(class="hover:text-purple-500")
     footer.flex.items-center.border-t-2.border-indigo-500.pt-2
