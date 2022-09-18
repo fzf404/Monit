@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 16:39:14
+ * @LastEditTime: 2022-09-18 18:43:48
  * @Description: todo 代办事项管理
 -->
 
 <template lang="pug">
 main
-  article.h-screen.flex.flex-col.justify-between.pt-8.pb-3.px-4
+  article.flex-col-between.pt-8.pb-3.px-4
     draggable.flex.flex-col.items-start.overflow-hidden.overflow-y-scroll(class="space-y-1" tag="ul" :list="todos" handle=".handle" :animation="200" item-key="id")
       template(#item="{element,index}")
         li.flex.items-center

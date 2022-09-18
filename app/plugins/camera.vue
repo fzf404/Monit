@@ -2,67 +2,65 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-08 22:52:46
+ * @LastEditTime: 2022-09-18 19:36:24
  * @Description: camera 相机监控
 -->
 <template>
-  <main>
-    <!-- 设置-->
-    <Setting :setting="setting" :config="config" />
-    <!-- 页面内容 -->
-    <article class="h-screen">
-      <!-- 加载 -->
-      <section v-show="state.loading" class="absolute w-full h-full z-30 modal flex-col-center space-y-2">
-        <LoadSVG class="w-16 load-rotating" />
-        <p class="text-intro">正在加载中...</p>
-        <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
-        <p class="text-intro">可能需要 30s 以上</p>
-      </section>
-      <!-- 主屏幕 -->
-      <section class="relative w-full h-full overflow-hidden rounded-lg">
-        <!-- 绘制 -->
-        <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: config.mirror }" />
-        <!-- 预览 -->
-        <video ref="video" class="absolute w-full h-full" :class="{ mirror: config.mirror }" autoplay />
-        <!-- 记录器 -->
-        <a ref="record" class="hidden" />
-      </section>
-      <!-- 相机控制器 -->
-      <section v-show="config.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
-        <!-- 拍照 -->
-        <button class="btn bg-indigo-500 hover:bg-indigo-600">
-          <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
+  <!-- 设置-->
+  <Setting :setting="setting" :config="config" />
+  <!-- 页面内容 -->
+  <article>
+    <!-- 加载 -->
+    <section v-show="state.loading" class="absolute w-full h-full z-30 modal flex-col-center space-y-2">
+      <LoadSVG class="w-16 load-rotating" />
+      <p class="text-intro">正在加载中...</p>
+      <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
+      <p class="text-intro">可能需要 30s 以上</p>
+    </section>
+    <!-- 主屏幕 -->
+    <section class="relative w-full h-full overflow-hidden rounded-lg">
+      <!-- 绘制 -->
+      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: config.mirror }" />
+      <!-- 预览 -->
+      <video ref="video" class="absolute w-full h-full" :class="{ mirror: config.mirror }" autoplay />
+      <!-- 记录器 -->
+      <a ref="record" class="hidden" />
+    </section>
+    <!-- 相机控制器 -->
+    <section v-show="config.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
+      <!-- 拍照 -->
+      <button class="btn btn-md btn-purple">
+        <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
+      </button>
+      <!-- 录像 -->
+      <transition name="fade" mode="out-in">
+        <!-- 开始录像 -->
+        <button v-if="!state.recording" class="btn btn-md btn-blue">
+          <VideoSVG
+            class="w-6"
+            @click="
+              () => {
+                recordVideo(record, config.camera)
+                state.recording = true
+              }
+            "
+          />
         </button>
-        <!-- 录像 -->
-        <transition name="fade" mode="out-in">
-          <!-- 开始录像 -->
-          <button v-if="!state.recording" class="btn bg-pink-500 hover:bg-pink-600">
-            <VideoSVG
-              class="w-6"
-              @click="
-                () => {
-                  recordVideo(record, config.camera)
-                  state.recording = true
-                }
-              "
-            />
-          </button>
-          <!-- 停止录像 -->
-          <button v-else class="btn bg-rose-600 hover:bg-rose-500">
-            <OffSVG
-              class="w-6"
-              @click="
-                () => {
-                  stopVideo()
-                  state.recording = false
-                }
-              "
-            />
-          </button>
-        </transition>
-      </section>
-    </article>
-  </main>
+        <!-- 停止录像 -->
+        <button v-else class="btn btn-md btn-red">
+          <OffSVG
+            class="w-6"
+            @click="
+              () => {
+                stopVideo()
+                state.recording = false
+              }
+            "
+          />
+        </button>
+      </transition>
+    </section>
+  </article>
 </template>
 
 <script setup>

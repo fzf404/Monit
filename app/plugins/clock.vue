@@ -2,63 +2,61 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-27 00:12:22
+ * @LastEditTime: 2022-09-18 17:21:13
  * @Description: 翻牌时钟
 -->
 <template>
-  <main>
-    <!-- 页面内容 -->
-    <article class="h-screen flex-col-center space-y-6">
-      <!-- 翻牌器 -->
-      <section class="flex-row-center mt-6 space-x-1.5">
-        <!-- 时 -->
-        <ul class="flip down">
-          <li class="digital front n-0"></li>
-          <li class="digital back n-0"></li>
-        </ul>
-        <div class="flip down">
-          <div class="digital front n-0"></div>
-          <div class="digital back n-0"></div>
-        </div>
-        <span class="text-4xl">:</span>
-        <!-- 分 -->
-        <div class="flip down">
-          <div class="digital front n-0"></div>
-          <div class="digital back n-0"></div>
-        </div>
-        <div class="flip down">
-          <div class="digital front n-0"></div>
-          <div class="digital back n-0"></div>
-        </div>
-        <span class="text-4xl">:</span>
-        <!-- 秒 -->
-        <div class="flip down">
-          <div class="digital front n-0"></div>
-          <div class="digital back n-0"></div>
-        </div>
-        <div class="flip down">
-          <div class="digital front n-0"></div>
-          <div class="digital back n-0"></div>
-        </div>
-      </section>
-      <!-- 控制器 -->
-      <section class="space-x-4">
-        <!-- 时钟模式 -->
-        <button class="btn bg-blue-500 hover:bg-blue-600" @click="startClock">
-          <ClockSVG class="w-6" />
+  <!-- 页面内容 -->
+  <article class="flex-col-center space-y-6">
+    <!-- 翻牌器 -->
+    <section class="flex-row-center mt-6 space-x-1.5">
+      <!-- 时 -->
+      <ul class="flip down">
+        <li class="digital front n-0"></li>
+        <li class="digital back n-0"></li>
+      </ul>
+      <div class="flip down">
+        <div class="digital front n-0"></div>
+        <div class="digital back n-0"></div>
+      </div>
+      <span class="text-4xl">:</span>
+      <!-- 分 -->
+      <div class="flip down">
+        <div class="digital front n-0"></div>
+        <div class="digital back n-0"></div>
+      </div>
+      <div class="flip down">
+        <div class="digital front n-0"></div>
+        <div class="digital back n-0"></div>
+      </div>
+      <span class="text-4xl">:</span>
+      <!-- 秒 -->
+      <div class="flip down">
+        <div class="digital front n-0"></div>
+        <div class="digital back n-0"></div>
+      </div>
+      <div class="flip down">
+        <div class="digital front n-0"></div>
+        <div class="digital back n-0"></div>
+      </div>
+    </section>
+    <!-- 控制器 -->
+    <section class="space-x-4">
+      <!-- 时钟模式 -->
+      <button class="btn btn-md btn-blue" @click="startClock">
+        <ClockSVG class="w-6" />
+      </button>
+      <!-- 计时模式 -->
+      <transition name="fade" mode="out-in">
+        <button v-if="!timing" class="btn btn-md btn-purple" @click="startTiming">
+          <TimerSVG class="w-6" />
         </button>
-        <!-- 计时模式 -->
-        <transition name="fade" mode="out-in">
-          <button v-if="!timing" class="btn bg-purple-500 hover:bg-purple-600" @click="startTiming">
-            <TimerSVG class="w-6" />
-          </button>
-          <button v-else class="btn bg-red-500 hover:bg-red-600" @click="stop">
-            <OffSVG class="w-6" />
-          </button>
-        </transition>
-      </section>
-    </article>
-  </main>
+        <button v-else class="btn btn-md bg-red-500 hover:bg-red-600" @click="stop">
+          <OffSVG class="w-6" />
+        </button>
+      </transition>
+    </section>
+  </article>
 </template>
 
 <script setup>
@@ -187,7 +185,7 @@ onMounted(startClock)
 <style scoped>
 /* 底板 */
 .flip {
-  @apply inline-block relative w-12 h-20 rounded-lg border-2 border-gray-400 bg-gray-600 text-gray-500 font-mono text-6xl text-center;
+  @apply inline-block relative w-12 h-20 rounded-lg border-2 bg-gray-300 border-gray-400  text-gray-500 font-mono text-6xl text-center;
   line-height: 5rem;
 }
 /* 上下页 */

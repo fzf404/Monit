@@ -2,27 +2,25 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-12 19:35:20
+ * @LastEditTime: 2022-09-18 19:36:35
  * @Description: count 计数器
 -->
 <template>
-  <main>
-    <!-- 设置 -->
-    <Setting size="small" :setting="setting" :config="config" />
-    <!-- 页面内容 -->
-    <article class="h-screen">
-      <!-- 主体 -->
-      <section class="h-full flex-col-center space-y-2">
-        <h1 class="text-intro">计数器</h1>
-        <p class="text-5xl">{{ config.count }}</p>
-        <!-- 增加 & 减少 -->
-        <p class="space-x-4 pt-2">
-          <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-          <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
-        </p>
-      </section>
-    </article>
-  </main>
+  <!-- 设置 -->
+  <Setting size="small" :setting="setting" :config="config" />
+  <!-- 页面内容 -->
+  <article>
+    <!-- 主体 -->
+    <section class="h-full flex-col-center space-y-2">
+      <h1 class="text-intro">计数器</h1>
+      <p class="text-5xl">{{ config.count }}</p>
+      <!-- 增加 & 减少 -->
+      <p class="space-x-4 pt-2">
+        <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+        <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
+      </p>
+    </section>
+  </article>
 </template>
 
 <script>

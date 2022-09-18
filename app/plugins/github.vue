@@ -2,108 +2,102 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-12 00:15:24
+ * @LastEditTime: 2022-09-18 17:21:20
  * @Description: github 信息监控
 -->
 <template>
-  <main>
-    <!-- 设置 -->
-    <Setting :setting="setting" :config="config" @save="onSave" />
-    <!-- 页面内容 -->
-    <article class="h-screen grid grid-cols-12 grid-rows-5 p-3">
-      <!-- follower -->
-      <section class="flex-col-center col-span-7 row-span-3 mt-4">
-        <h1 pan class="text-intro mb-1">follower</h1>
-        <p class="flex-row-center-bottom">
-          <!-- github svg -->
-          <GihubSVG
-            class="mr-1 mb-1 stroke-current text-blue-400"
-            :class="{ 'h-9': follower < 1000, 'h-8': follower > 999 }"
-          />
-          <!-- follower number -->
-          <span :class="{ 'text-5xl': follower < 1000, 'text-4xl': follower > 999 }">
-            {{ follower }}
-          </span>
-          <!-- follower change -->
-          <span
-            class="text-3xl clickable"
-            :class="{
-              'text-green-400': follower < newFollower,
-              'text-red-400': follower > newFollower,
-              'text-gray': follower == newFollower,
-            }"
-            @click="updateFollower"
-          >
-            {{ followerChange }}
-          </span>
-        </p>
-      </section>
-      <!-- repo -->
-      <section class="flex-col-center-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll mt-px">
-        <p
-          v-for="value in repoChange"
-          class="flex-row-center space-x-1 space-y-1 clickable"
-          @click="openRepo(value.repo)"
+  <!-- 设置 -->
+  <Setting :setting="setting" :config="config" @save="onSave" />
+  <!-- 页面内容 -->
+  <article class="grid grid-cols-12 grid-rows-5 p-3">
+    <!-- follower -->
+    <section class="flex-col-center col-span-7 row-span-3 mt-4">
+      <h1 pan class="text-intro mb-1">follower</h1>
+      <p class="flex-row-center-bottom">
+        <!-- github svg -->
+        <GihubSVG
+          class="mr-1 mb-1 stroke-current text-blue-400"
+          :class="{ 'h-9': follower < 1000, 'h-8': follower > 999 }"
+        />
+        <!-- follower number -->
+        <span :class="{ 'text-5xl': follower < 1000, 'text-4xl': follower > 999 }">
+          {{ follower }}
+        </span>
+        <!-- follower change -->
+        <span
+          class="text-3xl clickable"
+          :class="{
+            'text-green-400': follower < newFollower,
+            'text-red-400': follower > newFollower,
+            'text-gray': follower == newFollower,
+          }"
+          @click="updateFollower"
         >
-          <!-- repo svg -->
-          <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
-          <span class="text-sm">
-            {{ value.star }}
-          </span>
-          <span class="whitespace-nowrap text-intro"> {{ value.repo }} </span>
-        </p>
-      </section>
-      <!-- star -->
-      <section class="flex-col-center col-span-3 row-span-2">
-        <h1 class="text-intro">star</h1>
-        <p class="flex-row-center-bottom">
-          <!-- star svg -->
-          <StarSVG
-            class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
-            :class="{ 'h-5': star < 1000, 'h-4': star > 999 }"
-          />
-          <!-- star number -->
-          <span :class="{ 'text-2xl': star < 1000, 'text-xl': star > 999 }">
-            {{ star }}
-          </span>
-          <!-- star change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': star < newStar,
-              'text-red-400': star > newStar,
-              'text-gray': star == newStar,
-            }"
-            @click="updateStar"
-          >
-            {{ starChange }}
-          </span>
-        </p>
-      </section>
-      <!-- fork -->
-      <section class="flex-col-center col-span-4 row-span-2">
-        <h1 class="text-intro">fork</h1>
-        <p class="flex-row-center-bottom">
-          <!-- fork svg -->
-          <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
-          <!-- fork number -->
-          <span :class="{ 'text-2xl': fork < 1000, 'text-xl': fork > 999 }">{{ fork }}</span>
-          <!-- fork change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': fork < newFork,
-              'text-red-400': fork > newFork,
-              'text-gray': fork == newFork,
-            }"
-            @click="updateFork"
-          >
-            {{ forkChange }}
-          </span>
-        </p>
-      </section>
-    </article>
-  </main>
+          {{ followerChange }}
+        </span>
+      </p>
+    </section>
+    <!-- repo -->
+    <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll mt-px">
+      <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
+        <!-- repo svg -->
+        <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
+        <span class="text-sm">
+          {{ item.star }}
+        </span>
+        <span class="whitespace-nowrap text-intro"> {{ item.repo }} </span>
+      </p>
+    </section>
+    <!-- star -->
+    <section class="flex-col-center col-span-3 row-span-2">
+      <h1 class="text-intro">star</h1>
+      <p class="flex-row-center-bottom">
+        <!-- star svg -->
+        <StarSVG
+          class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
+          :class="{ 'h-5': star < 1000, 'h-4': star > 999 }"
+        />
+        <!-- star number -->
+        <span :class="{ 'text-2xl': star < 1000, 'text-xl': star > 999 }">
+          {{ star }}
+        </span>
+        <!-- star change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': star < newStar,
+            'text-red-400': star > newStar,
+            'text-gray': star == newStar,
+          }"
+          @click="updateStar"
+        >
+          {{ starChange }}
+        </span>
+      </p>
+    </section>
+    <!-- fork -->
+    <section class="flex-col-center col-span-4 row-span-2">
+      <h1 class="text-intro">fork</h1>
+      <p class="flex-row-center-bottom">
+        <!-- fork svg -->
+        <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
+        <!-- fork number -->
+        <span :class="{ 'text-2xl': fork < 1000, 'text-xl': fork > 999 }">{{ fork }}</span>
+        <!-- fork change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': fork < newFork,
+            'text-red-400': fork > newFork,
+            'text-gray': fork == newFork,
+          }"
+          @click="updateFork"
+        >
+          {{ forkChange }}
+        </span>
+      </p>
+    </section>
+  </article>
 </template>
 
 <script>
@@ -122,7 +116,7 @@ import RepoSVG from '@/assets/github/repo.svg'
 import StarSVG from '@/assets/github/star.svg'
 
 // 初始化 storage
-const { set, get } = storage('github')
+const { set, get } = storage()
 
 // 初始化 axios
 const request = axios('https://api.github.com')
@@ -323,6 +317,7 @@ export default {
       this.fork = this.newFork
       this.repoInfo = this.newRepoInfo
     },
+
     // 打开 repo
     openRepo(repo) {
       openURL(`https://github.com/${this.config.user}/${repo}`)

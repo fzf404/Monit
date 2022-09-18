@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 15:09:19
+ * @LastEditTime: 2022-09-18 11:50:52
  * @Description: light 明亮主题
  */
 
@@ -63,7 +63,7 @@
     // 设置操作
     ol {
       button {
-        @apply bg-purple-500 hover:bg-purple-600;
+        @apply btn-purple;
       }
     }
   }

@@ -2,146 +2,141 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 22:41:12
+ * @LastEditTime: 2022-09-18 19:36:40
  * @Description: juejin 信息监控
 -->
 <template>
-  <main>
-    <!-- 设置 -->
-    <Setting :setting="setting" :config="config" @save="onSave" />
-    <!-- 页面内容 -->
-    <article class="h-screen grid grid-cols-7 grid-rows-6 p-3 pb-4">
-      <!-- 关注者 -->
-      <section class="flex-col-center col-start-1 col-end-3 row-start-2">
-        <h1 class="text-intro">关注者</h1>
-        <p class="flex-row-center-bottom">
-          <!-- 关注者 svg -->
-          <FollowerSVG
-            class="mr-1 mb-1 stroke-current text-violet-500"
-            :class="{ 'h-5': follower < 1000, 'h-4': follower > 999 }"
-          />
-          <!-- 关注者 number -->
-          <span :class="{ 'text-2xl': follower < 1000, 'text-xl': follower > 999 }">
-            {{ follower }}
-          </span>
-          <!-- 关注者 change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': follower < newFollower,
-              'text-red-400': follower > newFollower,
-              'text-gray': follower == newFollower,
-            }"
-            @click="updateFollower"
-          >
-            {{ followerChange }}
-          </span>
-        </p>
-      </section>
-      <!-- 掘力值 -->
-      <section class="flex-col-center col-start-2 col-end-5 row-start-3">
-        <h1 class="text-intro">掘力值</h1>
-        <p class="flex-row-center-bottom">
-          <!-- 掘力 svg -->
-          <PowerSVG
-            class="mr-1 mb-1 stroke-current text-blue-400"
-            :class="{ 'h-5': power < 1000, 'h-4': power > 999 }"
-          />
-          <!-- 掘力 number -->
-          <span :class="{ 'text-2xl': power < 1000, 'text-xl': power > 999 }">
-            {{ power >= 1000 ? `${(power / 1000).toFixed(2)}k` : power }}
-          </span>
-          <!-- 掘力 change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': power < newPower,
-              'text-red-400': power > newPower,
-              'text-gray': power == newPower,
-            }"
-            @click="updatePower"
-          >
-            {{ powerChange }}
-          </span>
-        </p>
-      </section>
-      <!-- 点赞数 -->
-      <section class="flex-col-center col-start-1 col-end-3 row-start-4">
-        <h1 class="text-intro">获赞数</h1>
-        <p class="flex-row-center-bottom">
-          <!-- 点赞 svg -->
-          <LikeSVG
-            class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
-            :class="{ 'h-5': like < 1000, 'h-4': like > 999 }"
-          />
-          <!-- 点赞数 number -->
-          <span :class="{ 'text-2xl': like < 1000, 'text-xl': like > 999 }">
-            {{ like >= 1000 ? `${(like / 1000).toFixed(2)}k` : like }}
-          </span>
-          <!-- 点赞数 change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': like < newLike,
-              'text-red-400': like > newLike,
-              'text-gray': like == newLike,
-            }"
-            @click="updatelike"
-          >
-            {{ likeChange }}
-          </span>
-        </p>
-      </section>
-      <!-- 阅读数 -->
-      <section class="flex-col-center col-start-2 col-end-5 row-start-5">
-        <h1 class="text-intro">阅读数</h1>
-        <p class="flex-row-center-bottom">
-          <!-- 阅读 svg -->
-          <ViewSVG class="mr-1 mb-1 stroke-current text-red-400" :class="{ 'h-5': view < 1000, 'h-4': view > 999 }" />
-          <!-- 阅读 number -->
-          <span :class="{ 'text-2xl': view < 1000, 'text-xl': view > 999 }">{{
-            view >= 10000 ? `${(view / 1000).toFixed(2)}k` : view
-          }}</span>
-          <!-- 阅读 change -->
-          <span
-            class="text-xl clickable"
-            :class="{
-              'text-green-400': view < newView,
-              'text-red-400': view > newView,
-              'text-gray': view == newView,
-            }"
-            @click="updateView"
-          >
-            {{ viewChange }}
-          </span>
-        </p>
-      </section>
-      <!-- 用户名 -->
-      <section class="flex-col-center-end col-start-1 col-end-5 row-start-6">
-        <p class="flex-row-center-bottom">
-          <!-- 掘金 svg -->
-          <JuejinSVG class="h-5 pr-1" />
-          <span class="text-intro">
-            {{ `${name.length > 9 ? name.slice(0, 7) + '..' : name}` }}
-          </span>
-        </p>
-      </section>
-      <!-- 文章 -->
-      <section class="flex-col-center-left col-start-5 col-end-8 row-start-1 row-end-7 overflow-y-scroll mt-1">
-        <p
-          v-for="item in articleChange"
-          class="flex-row-center space-x-1 space-y-3 clickable"
-          @click="openArticle(item.id)"
+  <!-- 设置 -->
+  <Setting :setting="setting" :config="config" @save="onSave" />
+  <!-- 页面内容 -->
+  <article class="grid grid-cols-7 grid-rows-6 p-3 pb-4">
+    <!-- 关注者 -->
+    <section class="flex-col-center col-start-1 col-end-3 row-start-2">
+      <h1 class="text-intro">关注者</h1>
+      <p class="flex-row-center-bottom">
+        <!-- 关注者 svg -->
+        <FollowerSVG
+          class="mr-1 mb-1 stroke-current text-violet-500"
+          :class="{ 'h-5': follower < 1000, 'h-4': follower > 999 }"
+        />
+        <!-- 关注者 number -->
+        <span :class="{ 'text-2xl': follower < 1000, 'text-xl': follower > 999 }">
+          {{ follower }}
+        </span>
+        <!-- 关注者 change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': follower < newFollower,
+            'text-red-400': follower > newFollower,
+            'text-gray': follower == newFollower,
+          }"
+          @click="updateFollower"
         >
-          <!-- article svg -->
-          <ArticleSVG class="h-4 mt-3 stroke-current text-blue-400" />
-          <span class="whitespace-nowrap text-intro">
-            {{ item.title }}
-          </span>
-        </p>
-      </section>
-    </article>
-  </main>
+          {{ followerChange }}
+        </span>
+      </p>
+    </section>
+    <!-- 掘力值 -->
+    <section class="flex-col-center col-start-2 col-end-5 row-start-3">
+      <h1 class="text-intro">掘力值</h1>
+      <p class="flex-row-center-bottom">
+        <!-- 掘力 svg -->
+        <PowerSVG class="mr-1 mb-1 stroke-current text-blue-400" :class="{ 'h-5': power < 1000, 'h-4': power > 999 }" />
+        <!-- 掘力 number -->
+        <span :class="{ 'text-2xl': power < 1000, 'text-xl': power > 999 }">
+          {{ power >= 1000 ? `${(power / 1000).toFixed(2)}k` : power }}
+        </span>
+        <!-- 掘力 change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': power < newPower,
+            'text-red-400': power > newPower,
+            'text-gray': power == newPower,
+          }"
+          @click="updatePower"
+        >
+          {{ powerChange }}
+        </span>
+      </p>
+    </section>
+    <!-- 点赞数 -->
+    <section class="flex-col-center col-start-1 col-end-3 row-start-4">
+      <h1 class="text-intro">获赞数</h1>
+      <p class="flex-row-center-bottom">
+        <!-- 点赞 svg -->
+        <LikeSVG
+          class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
+          :class="{ 'h-5': like < 1000, 'h-4': like > 999 }"
+        />
+        <!-- 点赞数 number -->
+        <span :class="{ 'text-2xl': like < 1000, 'text-xl': like > 999 }">
+          {{ like >= 1000 ? `${(like / 1000).toFixed(2)}k` : like }}
+        </span>
+        <!-- 点赞数 change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': like < newLike,
+            'text-red-400': like > newLike,
+            'text-gray': like == newLike,
+          }"
+          @click="updatelike"
+        >
+          {{ likeChange }}
+        </span>
+      </p>
+    </section>
+    <!-- 阅读数 -->
+    <section class="flex-col-center col-start-2 col-end-5 row-start-5">
+      <h1 class="text-intro">阅读数</h1>
+      <p class="flex-row-center-bottom">
+        <!-- 阅读 svg -->
+        <ViewSVG class="mr-1 mb-1 stroke-current text-red-400" :class="{ 'h-5': view < 1000, 'h-4': view > 999 }" />
+        <!-- 阅读 number -->
+        <span :class="{ 'text-2xl': view < 1000, 'text-xl': view > 999 }">{{
+          view >= 10000 ? `${(view / 1000).toFixed(2)}k` : view
+        }}</span>
+        <!-- 阅读 change -->
+        <span
+          class="text-xl clickable"
+          :class="{
+            'text-green-400': view < newView,
+            'text-red-400': view > newView,
+            'text-gray': view == newView,
+          }"
+          @click="updateView"
+        >
+          {{ viewChange }}
+        </span>
+      </p>
+    </section>
+    <!-- 用户名 -->
+    <section class="flex-col-center-end col-start-1 col-end-5 row-start-6">
+      <p class="flex-row-center-bottom">
+        <!-- 掘金 svg -->
+        <JuejinSVG class="h-5 pr-1" />
+        <span class="text-intro">
+          {{ `${name.length > 9 ? name.slice(0, 7) + '..' : name}` }}
+        </span>
+      </p>
+    </section>
+    <!-- 文章 -->
+    <section class="flex-col-left col-start-5 col-end-8 row-start-1 row-end-7 overflow-y-scroll mt-1">
+      <p
+        v-for="item in articleChange"
+        class="flex-row-center space-x-1 space-y-3 clickable"
+        @click="openArticle(item.id)"
+      >
+        <!-- article svg -->
+        <ArticleSVG class="h-4 mt-3 stroke-current text-blue-400" />
+        <span class="whitespace-nowrap text-intro">
+          {{ item.title }}
+        </span>
+      </p>
+    </section>
+  </article>
 </template>
 
 <script>
@@ -329,9 +324,7 @@ export default {
     // 请求数据
     async getJuejinData() {
       const { data } = await request.get(`user_api/v1/user/get?user_id=${this.config.user}`)
-      if (!data) {
-        alert('用户ID错误')
-      }
+
       console.log('data', data)
       this.name = data.user_name
       this.newFollower = data.follower_count
