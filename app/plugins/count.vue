@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:36:35
+ * @LastEditTime: 2022-09-18 19:43:46
  * @Description: count 计数器
 -->
 <template>
@@ -16,8 +16,8 @@
       <p class="text-5xl">{{ config.count }}</p>
       <!-- 增加 & 减少 -->
       <p class="space-x-4 pt-2">
-        <button class="btn btn-sq bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-        <button class="btn btn-sq bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
+        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase"><AddSVG class="w-5" /></button>
       </p>
     </section>
   </article>

@@ -2,16 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:54:53
+ * @LastEditTime: 2022-09-18 19:41:31
  * @Description: tary 托盘
  */
 
-import { app, Menu, Tray } from 'electron'
+import { app, Menu, shell, Tray } from 'electron'
 
 import { pluginList } from '#/plugin'
 import pkg from 'root/package.json'
 import { cget, cset } from '~/storage'
-import { isDebug } from './main'
 import { createWindow } from './window'
 
 // 托盘全局变量
@@ -20,10 +19,7 @@ let TrayMenu
 // 初始化托盘菜单
 const initMenu = () => {
   // 自启动列表
-  let openPlugins = cget('_config', 'open', [])
-
-  // 生产模式插件列表
-  const enablePlugins = pluginList.filter(({ debug }) => !(!isDebug && debug))
+  let openPlugins = cget('config', 'open', [])
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
@@ -38,13 +34,13 @@ const initMenu = () => {
         {
           label: '全部开启',
           click: () => {
-            enablePlugins.map((item) => createWindow(item.name))
+            pluginList.map((item) => createWindow(item.name))
           },
         },
         // 分割线
         { type: 'separator' },
         // 全部插件列表
-        ...enablePlugins.map((item) => {
+        ...pluginList.map((item) => {
           return {
             label: `${item.name} - ${item.description}`,
             click: () => {
@@ -64,9 +60,9 @@ const initMenu = () => {
           label: '全部自启',
           click: () => {
             cset(
-              '_config',
+              'config',
               'open',
-              enablePlugins.map((item) => item.name)
+              pluginList.map((item) => item.name)
             )
             initMenu()
           },
@@ -74,7 +70,7 @@ const initMenu = () => {
         // 分割线
         { type: 'separator' },
         // 全部插件列表
-        ...enablePlugins.map((item) => {
+        ...pluginList.map((item) => {
           return {
             label: `${item.name} - ${item.description}`,
             type: 'checkbox',
@@ -89,7 +85,7 @@ const initMenu = () => {
                 openPlugins.push(item.name)
               }
               // 保存插件自启动状态
-              cset('_config', 'open', openPlugins)
+              cset('config', 'open', openPlugins)
             },
           }
         }),
@@ -98,7 +94,7 @@ const initMenu = () => {
         {
           label: '全部关闭自启',
           click: () => {
-            cset('_config', 'open', [])
+            cset('config', 'open', [])
             initMenu()
           },
         },
@@ -106,23 +102,38 @@ const initMenu = () => {
     },
     // 分割线
     { type: 'separator' },
-    // TODO 应用自启
+
     {
       label: '开机自启',
+      type: 'checkbox',
+      checked: app.getLoginItemSettings.openAtLogin,
       click: () => {
-        app.setLoginItemSettings({ openAtLogin: true })
+        if (app.getLoginItemSettings.openAtLogin) {
+          app.setLoginItemSettings({ openAtLogin: false })
+        } else {
+          app.setLoginItemSettings({ openAtLogin: true })
+        }
+      },
+    },
+    // 分割线
+    { type: 'separator' },
+    {
+      label: '关于',
+
+      click: () => {
+        shell.openExternal('https://monit.fzf404.art')
+      },
+    },
+    // 重启应用
+    {
+      label: '重启',
+      click: () => {
+        app.relaunch()
+        app.exit()
       },
     },
     // 退出应用
     { label: '退出', click: () => app.quit() },
-    // 重启应用
-    // {
-    //   label: '重启',
-    //   click: () => {
-    //     app.relaunch()
-    //     app.exit()
-    //   },
-    // },
   ])
 
   // 设置托盘菜单

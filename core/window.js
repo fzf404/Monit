@@ -2,27 +2,24 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:54:12
+ * @LastEditTime: 2022-09-18 18:30:57
  * @Description: window 管理
  */
 
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { cget } from '~/storage'
 import { winEvent } from '#/event'
 import { pluginList } from '#/plugin'
+import { cget } from '~/storage'
 
 // 窗口网格大小
 const BasicMesh = 100
 
-// 已启动窗口列表
-const windowList = []
-
 // 创建窗口
 export const createWindow = (name) => {
   // 判断窗口启动
-  const isOpen = windowList.find((item) => item.title === name)
+  const isOpen = BrowserWindow.getAllWindows().find((item) => item.title === name)
   if (isOpen) {
     // 展示窗口
     return isOpen.show()
@@ -77,19 +74,11 @@ export const createWindow = (name) => {
 
   // 监听事件
   winEvent(win, name)
-
-  // 移除窗口
-  win.on('closed', () => {
-    windowList.splice(windowList.indexOf(win), 1)
-  })
-
-  // 添加窗口
-  windowList.push(win)
 }
 
 // 开机自启窗口
 export const autoWindow = () => {
-  const openPlugins = cget('_config', 'open', ['welcome'])
+  const openPlugins = cget('config', 'open', ['welcome'])
   openPlugins.forEach((item) => {
     createWindow(item)
   })

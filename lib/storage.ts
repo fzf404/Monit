@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-12 00:54:57
+ * @LastEditTime: 2022-09-17 23:04:32
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -15,6 +15,10 @@ export const store = new Store({
   migrations: {
     '>=0.3.0': (store) => {
       store.clear()
+    },
+    '>=0.7.0': (store) => {
+      store.set('config', store.get('_config'))
+      store.delete('_config')
     },
   },
 })
@@ -38,8 +42,7 @@ export const cset = (node: string, key: string, value: Object): void => {
  * @return {*}
  */
 export const cget = (node: string, key: string, define: Object): Object => {
-  const value = store.get(node + '.' + key) as Object // 读取值
-  return value === undefined ? define : value
+  return store.get(node + '.' + key) ?? define // 读取值
 }
 
 /**

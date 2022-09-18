@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 21:17:12
+ * @LastEditTime: 2022-09-18 18:48:14
  * @Description: event 处理
  */
 
@@ -14,16 +14,25 @@ import { cget, cset } from '~/storage'
 // 应用事件
 export const appEvent = () => {
   // 开启窗口
-  ipcMain.on('window-start', function (event, name) {
+  ipcMain.on('window-open', function (event, name) {
     createWindow(name)
   })
 
   // 关闭窗口
-  ipcMain.on('window-close', function (event) {
-    // 从事件中获得窗口
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    // 关闭窗口
-    win.close()
+  ipcMain.on('window-close', function (event, name) {
+    if (name) {
+      // 关闭窗口
+      BrowserWindow.getAllWindows().forEach((win) => {
+        if (win.title === name) {
+          win.close()
+        }
+      })
+    } else {
+      // 从事件中获得窗口
+      const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+      // 关闭窗口
+      win.close()
+    }
   })
 
   // 最小化窗口

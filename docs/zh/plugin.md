@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 16:18:50
+ * @LastEditTime: 2022-09-18 18:31:07
  * @Description: Monit 插件开发
 -->
 
@@ -60,7 +60,7 @@ import XxxSVG from '@/assets/xx/xxx.svg'
     <!-- 设置 -->
     <Setting size="small" :setting="setting" :config="config" />
     <!-- 页面内容 -->
-    <article class="h-screen">
+    <article>
       <!-- 主体 -->
       <section class="h-full flex-col-center space-y-2">
         <h1 class="text-intro">计数器</h1>
@@ -142,13 +142,15 @@ export default {
 > `coustom/plugin.ts`
 
 ```typescript
-export const pluginList: pluginList[] = [
+export const plugin: pluginList[] = [
   // ...添加如下行
   { name: 'count', size: [2, 2], description: '计数器', debug: true },
 ]
 ```
 
 ### 6. 启动 & 打包
+
+> 按 `Ctrl + Shift + I` 打开调试工具
 
 ```bash
 # 调试应用
