@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-12 01:33:57
+ * @LastEditTime: 2022-09-18 15:08:14
  * @Description: setting 组件
 -->
 <template>
@@ -20,6 +20,8 @@
             {{ option.label }}
           </option>
         </select>
+        <!-- 选择框 -->
+        <button v-else-if="item.type === 'button'" @click="item.options.click">{{ item.options.text }}</button>
         <!-- 输入框 -->
         <input
           v-else
@@ -74,6 +76,12 @@ interface Props {
         label: string
         type: 'select'
         options: { label: string; value: string }[]
+      }
+    | {
+        id: string
+        label: string
+        type: 'button'
+        options: { text: string; click: () => void }
       }
   )[]
 }
