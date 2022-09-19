@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:45:19
- * @Description: bilibili 信息监控
+ * @LastEditTime: 2022-09-19 21:04:16
+ * @Description: image 图像展示
 -->
 <template>
   <!-- 设置-->
@@ -14,7 +14,6 @@
   </article>
 </template>
 
-<!-- TODO 插件 image -->
 <script setup>
 import { reactive } from 'vue'
 import { storage } from '~/storage'

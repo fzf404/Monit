@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 19:48:00
+ * @LastEditTime: 2022-09-19 20:58:32
  * @Description: 基础主题
  */
 
@@ -112,14 +112,14 @@ select,
  * 文字
  */
 .text-intro {
-  @apply font-mono text-sm text-gray;
+  @apply font-mono text-gray  text-sm;
 }
 
 /**
  * 按钮
  */
 .btn {
-  @apply rounded  clickable;
+  @apply rounded clickable;
 }
 // 中型
 .btn-md {
@@ -127,11 +127,11 @@ select,
 }
 // 小型
 .btn-sm {
-  @apply px-2 py-1 text-xs clickable;
+  @apply px-2 py-1 text-xs;
 }
 // 超小型
 .btn-xs {
-  @apply px-1.5 py-0.5 text-xs clickable;
+  @apply px-1.5 py-0.5 text-xs;
 }
 
 // 方形

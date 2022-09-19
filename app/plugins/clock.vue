@@ -3,7 +3,7 @@
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
  * @LastEditTime: 2022-09-19 19:44:17
- * @Description: 翻牌时钟
+ * @Description: clock 翻牌时钟
 -->
 <template>
   <!-- 页面内容 -->

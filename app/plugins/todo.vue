@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:43:48
+ * @LastEditTime: 2022-09-19 21:05:14
  * @Description: todo 代办事项管理
 -->
 
@@ -55,7 +55,6 @@ watch(todos, (val) => {
 
 // 新增 todo
 const add = () => {
-  // TODO 增加动画
   todos.push({
     title: todo.value,
     checked: false,
