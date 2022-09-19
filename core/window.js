@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:30:57
+ * @LastEditTime: 2022-09-19 19:25:34
  * @Description: window 管理
  */
 
@@ -20,8 +20,8 @@ const BasicMesh = 100
 export const createWindow = (name) => {
   // 判断窗口启动
   const isOpen = BrowserWindow.getAllWindows().find((item) => item.title === name)
+
   if (isOpen) {
-    // 展示窗口
     return isOpen.show()
   }
 
@@ -78,8 +78,13 @@ export const createWindow = (name) => {
 
 // 开机自启窗口
 export const autoWindow = () => {
-  const openPlugins = cget('config', 'open', ['welcome'])
-  openPlugins.forEach((item) => {
-    createWindow(item)
-  })
+  const openPlugins = cget('config', 'open', [])
+  // 是否存在自启插件
+  if (openPlugins.length) {
+    openPlugins.forEach((item) => {
+      createWindow(item)
+    })
+  } else {
+    createWindow('welcome')
+  }
 }

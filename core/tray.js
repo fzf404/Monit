@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:41:31
+ * @LastEditTime: 2022-09-18 20:41:17
  * @Description: tary 托盘
  */
 
@@ -24,6 +24,7 @@ const initMenu = () => {
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
     { label: `Monit - ${pkg.version}` },
+    // 分割线
     { type: 'separator' },
     // 全部插件列表
     {
@@ -51,6 +52,7 @@ const initMenu = () => {
         }),
       ],
     },
+
     // 插件自启菜单
     {
       label: '插件自启',
@@ -100,26 +102,29 @@ const initMenu = () => {
         },
       ],
     },
+
     // 分割线
     { type: 'separator' },
-
+    // 插件设置
+    {
+      label: '插件设置',
+      checked: app.getLoginItemSettings().openAtLogin,
+      click: () => {
+        createWindow('config')
+      },
+    },
+    // 开机自启
     {
       label: '开机自启',
-      type: 'checkbox',
-      checked: app.getLoginItemSettings.openAtLogin,
       click: () => {
-        if (app.getLoginItemSettings.openAtLogin) {
-          app.setLoginItemSettings({ openAtLogin: false })
-        } else {
-          app.setLoginItemSettings({ openAtLogin: true })
-        }
+        app.setLoginItemSettings({ openAtLogin: true })
       },
     },
     // 分割线
     { type: 'separator' },
+
     {
       label: '关于',
-
       click: () => {
         shell.openExternal('https://monit.fzf404.art')
       },

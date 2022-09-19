@@ -2,17 +2,24 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:48:14
+ * @LastEditTime: 2022-09-18 22:21:35
  * @Description: event 处理
  */
 
-import { BrowserWindow, ipcMain, Notification, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, Notification, shell, dialog } from 'electron'
 
 import { createWindow } from 'core/window'
 import { cget, cset } from '~/storage'
 
 // 应用事件
 export const appEvent = () => {
+  // 开机自启
+  ipcMain.on('auto-open', function (event, state) {
+    app.setLoginItemSettings({
+      openAtLogin: state,
+    })
+  })
+
   // 开启窗口
   ipcMain.on('window-open', function (event, name) {
     createWindow(name)
@@ -58,6 +65,7 @@ export const appEvent = () => {
       new Notification({ title: `Monit - ${name}`, body: message }).show()
     }
   })
+
 
   // 打开网址
   ipcMain.on('open-url', function (event, url) {
