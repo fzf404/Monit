@@ -26,7 +26,7 @@ specifiers:
   sass-loader: ^13.0.2
   svg-vue3-loader: ^1.0.2
   tailwindcss: ^3.1.8
-  ts-loader: ^9.3.1
+  ts-loader: ^9.4.0
   typescript: ^4.8.3
   vue: ^3.2.39
   vue-cli-plugin-electron-builder: 3.0.0-alpha.4
@@ -66,7 +66,7 @@ devDependencies:
   sass: 1.54.9
   sass-loader: 13.0.2_sass@1.54.9+webpack@5.74.0
   svg-vue3-loader: 1.0.2_@vue+compiler-sfc@3.2.39
-  ts-loader: 9.3.1_kb3egcnme7w23lfa5xodfjfhge
+  ts-loader: 9.4.0_kb3egcnme7w23lfa5xodfjfhge
   typescript: 4.8.3
   vue-cli-plugin-electron-builder: 3.0.0-alpha.4
   vue-cli-plugin-tailwind: 3.0.0
@@ -748,7 +748,7 @@ packages:
       fork-ts-checker-webpack-plugin: 6.5.2_kb3egcnme7w23lfa5xodfjfhge
       globby: 11.1.0
       thread-loader: 3.0.4_webpack@5.74.0
-      ts-loader: 9.3.1_kb3egcnme7w23lfa5xodfjfhge
+      ts-loader: 9.4.0_kb3egcnme7w23lfa5xodfjfhge
       typescript: 4.8.3
       vue: 3.2.39
       webpack: 5.74.0
@@ -1576,7 +1576,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001402
+      caniuse-lite: 1.0.30001406
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -1764,7 +1764,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001402
+      caniuse-lite: 1.0.30001406
       electron-to-chromium: 1.4.254
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
@@ -1940,13 +1940,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001402
+      caniuse-lite: 1.0.30001406
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite/1.0.30001402:
-    resolution: {integrity: sha512-Mx4MlhXO5NwuvXGgVb+hg65HZ+bhUYsz8QtDGDo2QmaJS2GBX47Xfi2koL86lc8K+l+htXeTEB/Aeqvezoo6Ew==}
+  /caniuse-lite/1.0.30001406:
+    resolution: {integrity: sha512-bWTlaXUy/rq0BBtYShc/jArYfBPjEV95euvZ8JVtO43oQExEN/WquoqpufFjNu4kSpi5cy5kMbNvzztWDfv1Jg==}
     dev: true
 
   /capture-stack-trace/1.0.1:
@@ -7497,8 +7497,8 @@ packages:
       utf8-byte-length: 1.0.4
     dev: true
 
-  /ts-loader/9.3.1_kb3egcnme7w23lfa5xodfjfhge:
-    resolution: {integrity: sha512-OkyShkcZTsTwyS3Kt7a4rsT/t2qvEVQuKCTg4LJmpj9fhFR7ukGdZwV6Qq3tRUkqcXtfGpPR7+hFKHCG/0d3Lw==}
+  /ts-loader/9.4.0_kb3egcnme7w23lfa5xodfjfhge:
+    resolution: {integrity: sha512-0G3UMhk1bjgsgiwF4rnZRAeTi69j9XMDtmDDMghGSqlWESIAS3LFgJe//GYfE4vcjbyzuURLB9Us2RZIWp2clQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'

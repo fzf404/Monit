@@ -27,7 +27,7 @@
 /**
  * 文字
  */
-.text-primary {
+.text-dark {
   @apply text-indigo-500;
 }
 

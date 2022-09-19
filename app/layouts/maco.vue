@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 12:31:02
+ * @LastEditTime: 2022-09-18 21:06:17
  * @Description: maco 布局
 -->
 <template>
@@ -10,17 +10,17 @@
     <ul class="absolute left-2 z-40 space-x-1">
       <!-- 关闭 -->
       <CloseSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 hover:bg-red-500 text-primary"
+        class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 hover:bg-red-500 text-dark"
         @click="sendEvent('window-close')"
       />
       <!-- 最小化 -->
       <MiniSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-yellow-400 hover:bg-yellow-500 text-primary"
+        class="w-3.5 p-0.5 btn-svg rounded-full bg-yellow-400 hover:bg-yellow-500 text-dark"
         @click="sendEvent('window-mini')"
       />
       <!-- 置顶 -->
       <UpSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-green-400 hover:bg-green-500 text-primary"
+        class="w-3.5 p-0.5 btn-svg rounded-full bg-green-400 hover:bg-green-500 text-dark"
         :class="{ 'rotate-180': state.top }"
         @click="state.top = !state.top"
       />

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:10:11
+ * @LastEditTime: 2022-09-19 19:47:44
  * @Description: dark 黑夜主题
  */
 
@@ -16,7 +16,7 @@
 /**
  * 文字
  */
-.text-primary {
+.text-dark {
   @apply text-gray-700;
 }
 
@@ -24,36 +24,6 @@
   @apply text-gray-400;
 }
 
-/**
- * 按钮
- */
-.btn-purple {
-  @apply bg-purple-500 hover:bg-purple-600;
-}
-
-.btn-blue {
-  @apply bg-blue-500 hover:bg-blue-600;
-}
-
-.btn-red {
-  @apply bg-red-500 hover:bg-red-600;
-}
-
-.btn-yellow {
-  @apply bg-amber-500 hover:bg-amber-600;
-}
-
-.btn-green {
-  @apply bg-green-500 hover:bg-green-600;
-}
-
-.btn-pink {
-  @apply bg-pink-500 hover:bg-pink-600;
-}
-
-.btn-gray {
-  @apply bg-gray-500 hover:bg-gray-600;
-}
 /**
  * 模态框
  */

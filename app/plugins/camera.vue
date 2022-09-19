@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:36:24
+ * @LastEditTime: 2022-09-18 21:00:23
  * @Description: camera 相机监控
 -->
 <template>
@@ -163,7 +163,7 @@ watch(
 
 watch(
   () => config.camera,
-  async (value) => {
+  async (val) => {
     // 已开启角色追踪
     if (config.holistic) {
       // 重新加载窗口
@@ -172,7 +172,7 @@ watch(
       // 切换摄像头
       video.value.srcObject = await navigator.mediaDevices.getUserMedia({
         video: {
-          deviceId: value,
+          deviceId: val,
         },
       })
     }

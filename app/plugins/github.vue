@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 17:21:20
+ * @LastEditTime: 2022-09-18 22:25:40
  * @Description: github 信息监控
 -->
 <template>
@@ -38,7 +38,7 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll mt-px">
+    <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll mt-1">
       <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
@@ -192,10 +192,10 @@ export default {
     }
   },
   mounted() {
-    // 每 60s 重新获取信息
+    // 每 300s 重新获取信息
     setInterval(() => {
       this.getGithubData()
-    }, 60000)
+    }, 300000)
   },
   computed: {
     // follow 数据更改
@@ -262,8 +262,10 @@ export default {
     },
     // 请求数据
     async getGithubData() {
-      // TODO 用户名不存在提示
       await request.get(`/users/${this.config.user}`).then(async (data) => {
+        if (data === undefined) {
+          alert('用户不存在！')
+        }
         // 设置 follower 信息
         this.newFollower = data.followers
 

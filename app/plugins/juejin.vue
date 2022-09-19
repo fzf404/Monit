@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:36:40
+ * @LastEditTime: 2022-09-19 18:58:13
  * @Description: juejin 信息监控
 -->
 <template>
@@ -244,10 +244,10 @@ export default {
     }
   },
   mounted() {
-    // 每 60s 重新获取信息
+    // 每 300s 重新获取信息
     setInterval(() => {
       this.getJuejinData()
-    }, 60000)
+    }, 300000)
   },
   computed: {
     // 关注数据更改
@@ -324,8 +324,9 @@ export default {
     // 请求数据
     async getJuejinData() {
       const { data } = await request.get(`user_api/v1/user/get?user_id=${this.config.user}`)
-
-      console.log('data', data)
+      if (data.user_id === '0') {
+        return alert('用户ID错误！')
+      }
       this.name = data.user_name
       this.newFollower = data.follower_count
       this.newLike = data.got_digg_count

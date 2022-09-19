@@ -1,5 +1,5 @@
 <template>
-  <Setting size="sm" :setting="setting" :config="config" />
+  <Setting size="small" :setting="setting" :config="config" />
   <article class="flex flex-col justify-between pt-8 p-3">
     <section class="overflow-hidden overflow-y-scroll space-y-2">
       <p class="w-full flex-row-between">
@@ -26,7 +26,7 @@
           class="btn btn-sm btn-pink"
           @click="
             () => {
-              config.open = ['welcome']
+              config.open = []
               state.open = true
             }
           "
@@ -35,7 +35,9 @@
         </button>
       </p>
       <p v-for="item in pluginList" class="w-full flex-row-between">
-        <button class="btn btn-sm btn-purple w-2/3">{{ item.name + ' - ' + item.description }}</button>
+        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('window-open', item.name)">
+          {{ item.name + ' - ' + item.description }}
+        </button>
         <button
           class="btn btn-sm btn-green"
           v-if="config.open.includes(item.name)"
@@ -45,19 +47,21 @@
         </button>
         <button v-else class="btn btn-sm btn-red" @click="config.open.push(item.name)">自启关</button>
       </p>
+      <p class="flex-col-center-end text-intro">Monit {{ pkg.version }}</p>
     </section>
   </article>
 </template>
 
 <!-- TODO 插件 config -->
 <script setup>
-import { storage } from '~/storage'
+import { reactive, watch } from 'vue'
 
 import { sendEvent } from '#/ipc'
 import { pluginList } from '#/plugin'
+import pkg from 'root/package.json'
+import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
-import { reactive } from 'vue'
 
 const { get } = storage()
 
@@ -67,7 +71,7 @@ const state = reactive({
 
 const setting = [
   {
-    id: 'open',
+    id: 'auto',
     label: '开机自启',
     type: 'checkbox',
   },
@@ -75,5 +79,13 @@ const setting = [
 
 const config = reactive({
   open: get('open', []),
+  auto: get('auto', false),
 })
+
+watch(
+  () => config.auto,
+  (val) => {
+    sendEvent('auto-open', val)
+  }
+)
 </script>

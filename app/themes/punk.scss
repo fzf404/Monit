@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 15:18:50
+ * @LastEditTime: 2022-09-19 19:47:41
  * @Description: punk 赛博主题
  */
 
@@ -16,13 +16,14 @@
 /**
  * 文字
  */
-.text-primary {
+.text-dark {
   @apply text-indigo-600;
 }
 
 .text-gray {
   @apply text-amber-300;
 }
+
 
 /**
  * 模态框
