@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 21:32:24
+ * @LastEditTime: 2022-09-19 20:24:16
  * @Description: plugin 配置
  */
 interface pluginList {
@@ -17,17 +17,17 @@ interface pluginList {
  * @return {*}
  */
 const plugin: pluginList[] = [
-  { name: 'welcome', size: [2, 2], description: '欢迎' },
-  { name: 'count', size: [2, 2], description: '计数器' },
   { name: 'github', size: [4, 2], description: '监控' },
+  { name: 'juejin', size: [4, 3], description: '监控' },
   { name: 'clock', size: [4, 2], description: '翻页时钟' },
   { name: 'todo', size: [2, 3], description: '待办' },
+  { name: 'image', size: [4, 3], description: '图像' },
   { name: 'camera', size: [4, 3], description: '相机' },
-  { name: 'juejin', size: [4, 3], description: '监控' },
+  { name: 'welcome', size: [2, 2], description: '欢迎' },
+  { name: 'count', size: [2, 2], description: '计数器' },
   // debug 不会被打包
   { name: 'config', size: [2, 3], description: '设置', debug: true },
   { name: 'music', size: [4, 2], description: '音乐', debug: true },
-  { name: 'image', size: [4, 3], description: '图像', debug: true },
   { name: 'live2d', size: [4, 3], description: '角色跟踪', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true },
 ]

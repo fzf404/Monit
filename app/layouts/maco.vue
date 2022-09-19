@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 21:06:17
+ * @LastEditTime: 2022-09-19 20:47:46
  * @Description: maco 布局
 -->
 <template>
@@ -39,7 +39,7 @@
       />
       <PunkSVG
         v-else-if="state.theme === 'light'"
-        class="w-4 btn-svg text-yellow-400 hover:text-yellow-500"
+        class="w-4 btn-svg text-yellow-300 hover:text-yellow-400"
         @click="state.theme = 'punk'"
       />
       <DarkSVG v-else class="w-4 btn-svg text-indigo-300 hover:text-indigo-400" @click="state.theme = 'dark'" />

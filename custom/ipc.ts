@@ -26,6 +26,7 @@ export const getValue = (key: string, define: Object): Object => {
   return callEvent('get-value', key, define)
 }
 
+
 // 发送通知
 export const sendNotice = (message: string) => {
   sendEvent('window-notice', message)

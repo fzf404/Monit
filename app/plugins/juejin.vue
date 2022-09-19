@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 18:58:13
+ * @LastEditTime: 2022-09-19 20:12:17
  * @Description: juejin 信息监控
 -->
 <template>
@@ -301,8 +301,8 @@ export default {
     },
     // article 数据更改
     articleChange() {
-      const articleInfo = this.articleInfo
       // TODO 排序
+      const articleInfo = this.articleInfo
       return articleInfo
     },
   },

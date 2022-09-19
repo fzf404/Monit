@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 19:37:03
+ * @LastEditTime: 2022-09-19 20:45:19
  * @Description: bilibili 信息监控
 -->
 <template>
@@ -10,7 +10,7 @@
   <Setting :setting="setting" :config="config" />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <img class="object-contain" :src="config.image" />
+    <img class="w-full h-full rounded-lg object-contain" :src="config.image" alt="图像" />
   </article>
 </template>
 
@@ -19,6 +19,7 @@
 import { reactive } from 'vue'
 import { storage } from '~/storage'
 
+import { callEvent } from '#/ipc'
 import Setting from '@/components/setting.vue'
 
 // 初始化 storage
@@ -30,9 +31,6 @@ const setting = [
     id: 'image',
     label: '图像链接',
     type: 'text',
-    options: {
-      len: 5,
-    },
   },
   {
     id: 'local',
@@ -41,7 +39,10 @@ const setting = [
     options: {
       text: '浏 览',
       click: () => {
-        console.log('click')
+        const local = callEvent('open-image')
+        if (local) {
+          config.image = 'file://' + local
+        }
       },
     },
   },
@@ -49,6 +50,5 @@ const setting = [
 
 const config = reactive({
   image: get('image', 'https://monit.fzf404.art/icon.png'),
-  local: '',
 })
 </script>

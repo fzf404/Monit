@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 22:21:35
+ * @LastEditTime: 2022-09-19 20:29:17
  * @Description: event 处理
  */
 
-import { app, BrowserWindow, ipcMain, Notification, shell, dialog } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electron'
 
 import { createWindow } from 'core/window'
 import { cget, cset } from '~/storage'
@@ -66,6 +66,13 @@ export const appEvent = () => {
     }
   })
 
+  // 打开本地图像
+  ipcMain.on('open-image', function (event) {
+    event.returnValue = dialog.showOpenDialogSync({
+      properties: ['openFile'],
+      filters: [{ name: '图像', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'] }],
+    })
+  })
 
   // 打开网址
   ipcMain.on('open-url', function (event, url) {

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 11:50:52
+ * @LastEditTime: 2022-09-19 20:46:34
  * @Description: light 明亮主题
  */
 
@@ -44,6 +44,10 @@
 
       label {
         @apply text-gray-500;
+      }
+
+      button {
+        @apply bg-blue-500 hover:bg-blue-600;
       }
 
       select {

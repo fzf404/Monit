@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 19:47:41
+ * @LastEditTime: 2022-09-19 20:49:25
  * @Description: punk 赛博主题
  */
 
@@ -23,7 +23,6 @@
 .text-gray {
   @apply text-amber-300;
 }
-
 
 /**
  * 模态框
@@ -49,6 +48,10 @@
 
       select {
         @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+      }
+
+      button {
+        @apply bg-blue-500 hover:bg-blue-600;
       }
 
       input[type='checkbox'] {

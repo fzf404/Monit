@@ -25,7 +25,7 @@ export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, re
   // 绘制画布
   ctx.drawImage(video, 0, 0)
 
-  // 保存图片
+  // 保存图像
   record.href = canvas.toDataURL('image/jpeg')
   // 设置下载文件名
   record.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
