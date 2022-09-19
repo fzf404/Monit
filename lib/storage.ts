@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:07:05
+ * @LastEditTime: 2022-09-19 21:27:38
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -17,8 +17,10 @@ export const store = new Store({
       store.clear()
     },
     '>=0.7.0': (store) => {
-      store.set('config', store.get('_config'))
-      store.delete('_config')
+      if (store.has('_config')) {
+        store.set('config', store.get('_config'))
+        store.delete('_config')
+      }
     },
   },
 })
