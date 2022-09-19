@@ -1,3 +1,10 @@
+<!--
+ * @Author: fzf404
+ * @Date: 2022-09-18 01:13:05
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-09-19 21:05:08
+ * @Description: config 插件设置
+-->
 <template>
   <Setting size="small" :setting="setting" :config="config" />
   <article class="flex flex-col justify-between pt-8 p-3">
@@ -52,7 +59,6 @@
   </article>
 </template>
 
-<!-- TODO 插件 config -->
 <script setup>
 import { reactive, watch } from 'vue'
 
