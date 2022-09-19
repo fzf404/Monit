@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:28:07
+ * @LastEditTime: 2022-09-19 21:09:17
  * @Description: main 入口
  */
 
@@ -32,7 +32,7 @@ app.on('ready', async () => {
   // 自动打开窗口
   autoWindow()
 
-  // 自动检查更新
+  // TODO 自动检查更新
   if (!isDebug)
     autoUpdater.checkForUpdatesAndNotify({
       title: 'Monit - update',

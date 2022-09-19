@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 19:25:34
+ * @LastEditTime: 2022-09-19 21:16:55
  * @Description: window 管理
  */
 
@@ -18,6 +18,13 @@ const BasicMesh = 100
 
 // 创建窗口
 export const createWindow = (name) => {
+  
+  // 判断插件存在
+  const plugin = pluginList.find((item) => item.name === name)
+  if (!plugin) {
+    return
+  }
+
   // 判断窗口启动
   const isOpen = BrowserWindow.getAllWindows().find((item) => item.title === name)
 
@@ -26,7 +33,7 @@ export const createWindow = (name) => {
   }
 
   // 窗口大小
-  const size = pluginList.find(({ name: n }) => n === name).size
+  const size = plugin.size
 
   // 读取配置
   const x = cget(name, 'x', 20)

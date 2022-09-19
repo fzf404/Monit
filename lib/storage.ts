@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-17 23:04:32
+ * @LastEditTime: 2022-09-19 21:07:05
  * @Description: 存储配置
  */
 import Store from 'electron-store'
