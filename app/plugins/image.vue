@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:04:16
+ * @LastEditTime: 2022-09-20 10:20:46
  * @Description: image 图像展示
 -->
 <template>
@@ -10,7 +10,7 @@
   <Setting :setting="setting" :config="config" />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <img class="w-full h-full rounded-lg object-contain" :src="config.image" alt="图像" />
+    <img class="w-full h-full rounded-lg object-contain" :src="config.src" alt="图像" />
   </article>
 </template>
 
@@ -27,20 +27,20 @@ const { get } = storage()
 // 设置信息
 const setting = [
   {
-    id: 'image',
+    id: 'src',
     label: '图像链接',
     type: 'text',
   },
   {
     id: 'local',
-    label: '本地图像',
+    label: '本地图像', 
     type: 'button',
     options: {
       text: '浏 览',
       click: () => {
         const local = callEvent('open-image')
         if (local) {
-          config.image = 'file://' + local
+          config.src = 'file://' + local
         }
       },
     },
@@ -48,6 +48,6 @@ const setting = [
 ]
 
 const config = reactive({
-  image: get('image', 'https://monit.fzf404.art/icon.png'),
+  src: get('src', 'https://monit.fzf404.art/icon.png'),
 })
 </script>

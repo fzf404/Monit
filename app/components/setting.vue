@@ -16,6 +16,17 @@
       <!-- 设置列表 -->
       <li class="h-8 px-2 flex justify-between items-center rounded" v-for="item in setting">
         <!-- 设置标签 -->
+        <label :for="item.id" class="flex space-x-0.5 text-xs">
+          <span>
+            {{ item.label }}
+          </span>
+          <HelpSVG
+            v-show="item.help"
+            class="relative w-3 self-center btn-svg text-gray hover:"
+            @click="openURL(item.help as string)"
+          />
+        </label>
+
         <!-- 选择框 -->
         <select
           class="w-3/5 px-2 py-1 outline-none border-none rounded text-xs"
@@ -75,23 +86,27 @@ interface Props {
         id: string
         label: string
         type: 'text' | 'checkbox'
+        help?: string
       }
     | {
         id: string
         label: string
         type: 'number'
+        help?: string
         options: { len: number }
       }
     | {
         id: string
         label: string
         type: 'select'
+        help?: string
         options: { label: string; value: string }[]
       }
     | {
         id: string
         label: string
         type: 'button'
+        help?: string
         options: { text: string; click: () => void }
       }
   )[]
