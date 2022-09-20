@@ -2,26 +2,34 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 15:08:14
+ * @LastEditTime: 2022-09-20 12:02:42
  * @Description: setting 组件
 -->
 <template>
   <!-- 设置模态框 -->
-  <aside class="setting" :class="{ 'setting-sm': size === 'small' }" v-show="store.setting.show">
+  <aside
+    class="setting absolute z-50 inset-0 modal flex justify-center items-center rounded-lg"
+    v-show="store.setting.show"
+  >
     <!-- 设置框 -->
-    <ul>
+    <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4': size === 'small' }">
       <!-- 设置列表 -->
-      <li v-for="item in setting">
+      <li class="h-8 px-2 flex justify-between items-center rounded" v-for="item in setting">
         <!-- 设置标签 -->
-        <label :for="item.id">{{ item.label }}</label>
         <!-- 选择框 -->
-        <select v-if="item.type === 'select'" v-model.lazy="config[item.id]">
+        <select
+          class="w-3/5 px-2 py-1 outline-none border-none rounded text-xs"
+          v-if="item.type === 'select'"
+          v-model.lazy="config[item.id]"
+        >
           <option v-for="option in item.options" :value="option.value">
             {{ option.label }}
           </option>
         </select>
         <!-- 选择框 -->
-        <button v-else-if="item.type === 'button'" @click="item.options.click">{{ item.options.text }}</button>
+        <button class="btn btn-xs w-1/3" v-else-if="item.type === 'button'" @click="item.options.click">
+          {{ item.options.text }}
+        </button>
         <!-- 输入框 -->
         <input
           v-else
@@ -39,8 +47,8 @@
         />
       </li>
       <!-- 保存 -->
-      <ol>
-        <button @click="onSave">保存</button>
+      <ol class="flex justify-end items-center">
+        <button @click="onSave" class="btn btn-sm">保存</button>
       </ol>
     </ul>
   </aside>
@@ -49,8 +57,11 @@
 <script setup lang="ts">
 import { onMounted, watchEffect } from 'vue'
 
+import { openURL } from '#/ipc'
 import { useStore } from '@/store'
 import { storage } from '~/storage'
+
+import HelpSVG from '@/assets/setting/help.svg'
 
 // 初始化 props
 interface Props {
@@ -114,3 +125,19 @@ const onSave = () => {
   emit('save')
 }
 </script>
+
+<style scoped>
+input[type='checkbox'] {
+  @apply w-4 h-4 outline-none;
+}
+
+/* 去除箭头 */
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type='text'] {
+  @apply w-3/5 px-2 py-1 outline-none border-none rounded text-right text-xs;
+}
+</style>

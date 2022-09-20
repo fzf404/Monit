@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:58:32
+ * @LastEditTime: 2022-09-20 10:50:58
  * @Description: 基础主题
  */
 
@@ -233,60 +233,4 @@ select,
  */
 .modal {
   @apply rounded-lg;
-}
-
-/**
- * 设置
- */
-.setting {
-  @apply absolute z-50 inset-0 modal flex justify-center items-center rounded-lg;
-
-  ul {
-    @apply w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg;
-
-    // 设置内容
-    li {
-      @apply h-8 px-2 flex justify-between items-center rounded;
-
-      label {
-        @apply text-xs;
-      }
-
-      select {
-        @apply w-3/5 px-2 py-1 outline-none border-none rounded text-xs;
-      }
-
-      button {
-        @apply btn btn-xs w-1/3;
-      }
-
-      input[type='checkbox'] {
-        @apply w-4 h-4 outline-none;
-      }
-
-      // 去除箭头
-      input[type='number']::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-      }
-
-      input[type='number'],
-      input[type='text'] {
-        @apply w-3/5 px-2 py-1 outline-none border-none rounded text-right text-xs;
-      }
-    }
-
-    // 设置操作
-    ol {
-      @apply flex justify-end items-center;
-      button {
-        @apply btn btn-sm;
-      }
-    }
-  }
-}
-
-.setting-sm {
-  ul {
-    @apply w-3/4;
-  }
 }
