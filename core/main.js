@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:09:17
+ * @LastEditTime: 2022-09-22 11:23:55
  * @Description: main 入口
  */
 
@@ -26,7 +26,6 @@ app.on('ready', async () => {
   appEvent()
 
   // 初始化系统托盘
-  // TODO 托盘退出
   initTray()
 
   // 自动打开窗口
@@ -58,17 +57,5 @@ app.on('activate', () => {
   }
 })
 
-// 调试模式下退出
-if (isDebug) {
-  if (process.platform === 'win32') {
-    process.on('message', (data) => {
-      if (data === 'graceful-exit') {
-        app.quit()
-      }
-    })
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
-  }
-}
+// 阻止托盘退出
+app.on('window-all-closed', () => {})
