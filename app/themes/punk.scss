@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:49:25
+ * @LastEditTime: 2022-09-22 12:55:12
  * @Description: punk 赛博主题
  */
 
@@ -22,6 +22,18 @@
 
 .text-gray {
   @apply text-amber-300;
+}
+
+.text-theme {
+  @apply text-red-400;
+}
+
+/**
+ * 底色
+ */
+
+.bg-theme {
+  @apply bg-orange-400;
 }
 
 /**

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:27:38
+ * @LastEditTime: 2022-09-22 19:03:47
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -34,6 +34,7 @@ export const store = new Store({
  */
 export const cset = (node: string, key: string, value: Object): void => {
   store.set(node + '.' + key, value) // 存储值
+  console.log(node + '.' + key, value)
 }
 
 /**

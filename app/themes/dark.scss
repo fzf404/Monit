@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 19:47:44
+ * @LastEditTime: 2022-09-22 12:22:58
  * @Description: dark 黑夜主题
  */
 
@@ -22,6 +22,18 @@
 
 .text-gray {
   @apply text-gray-400;
+}
+
+.text-theme {
+  @apply text-pink-400;
+}
+
+/**
+ * 底色
+ */
+
+.bg-theme {
+  @apply bg-purple-400;
 }
 
 /**

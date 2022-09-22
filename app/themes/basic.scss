@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-20 10:50:58
+ * @LastEditTime: 2022-09-22 09:15:13
  * @Description: 基础主题
  */
 
@@ -151,14 +151,6 @@ select,
   @apply inline clickable stroke-current;
 }
 
-.btn-purple {
-  @apply bg-purple-500 hover:bg-purple-600;
-}
-
-.btn-blue {
-  @apply bg-blue-500 hover:bg-blue-600;
-}
-
 .btn-red {
   @apply bg-red-500 hover:bg-red-600;
 }
@@ -169,6 +161,22 @@ select,
 
 .btn-green {
   @apply bg-green-500 hover:bg-green-600;
+}
+
+.btn-teal {
+  @apply bg-teal-500 hover:bg-teal-600;
+}
+
+.btn-cyan {
+  @apply bg-cyan-500 hover:bg-cyan-600;
+}
+
+.btn-blue {
+  @apply bg-blue-500 hover:bg-blue-600;
+}
+
+.btn-purple {
+  @apply bg-purple-500 hover:bg-purple-600;
 }
 
 .btn-pink {
