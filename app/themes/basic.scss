@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 09:15:13
+ * @LastEditTime: 2022-09-22 22:04:45
  * @Description: 基础主题
  */
 
@@ -13,11 +13,10 @@ html,
 body {
   // 禁用文字选择
   user-select: none;
-  // 禁止用户拖动
-  -webkit-user-drag: none;
-
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
+  // 禁止用户拖动
+  -webkit-user-drag: none;
 
   // 禁止滚动
   overflow: hidden;
@@ -31,6 +30,10 @@ body {
 // 窗口圆角
 #app {
   @apply rounded-lg;
+}
+
+img {
+  -webkit-user-drag: none;
 }
 
 // 文档页
