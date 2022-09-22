@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 22:25:40
+ * @LastEditTime: 2022-09-22 18:13:00
  * @Description: github 信息监控
 -->
 <template>
   <!-- 设置 -->
-  <Setting :setting="setting" :config="config" @save="onSave" />
+  <Setting :setting="setting" :config="config" @save="initGithubData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-12 grid-rows-5 p-3">
     <!-- follower -->
@@ -247,14 +247,15 @@ export default {
     },
   },
   methods: {
-    // 设置更改
-    onSave() {
-      // 初始化数据
-      this.initGithubData()
-    },
     // 初始化数据
     async initGithubData() {
-      await this.getGithubData()
+      const data = await this.getGithubData()
+
+      if (data === undefined) {
+        alert('用户不存在！')
+        return
+      }
+
       this.follower = this.newFollower
       this.star = this.newStar
       this.fork = this.newFork
@@ -262,10 +263,12 @@ export default {
     },
     // 请求数据
     async getGithubData() {
-      await request.get(`/users/${this.config.user}`).then(async (data) => {
+      return await request.get(`/users/${this.config.user}`).then(async (data) => {
+        // 验证用户存在
         if (data === undefined) {
-          alert('用户不存在！')
+          return
         }
+
         // 设置 follower 信息
         this.newFollower = data.followers
 
@@ -291,6 +294,8 @@ export default {
         this.newStar = star
         this.newFork = fork
         this.newRepoInfo = repoInfo
+
+        return data
       })
     },
 

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 21:00:23
+ * @LastEditTime: 2022-09-22 20:41:32
  * @Description: camera 相机监控
 -->
 <template>
@@ -68,7 +68,6 @@ import { onMounted, reactive, ref, watch } from 'vue'
 
 import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
-import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
 
@@ -76,9 +75,6 @@ import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
 import LoadSVG from '@/assets/layout/load.svg'
-
-// 初始化 storage
-const { get } = storage()
 
 // HTMLElement Refs
 const video = ref(null)
@@ -93,10 +89,10 @@ const state = reactive({
 
 // 配置
 const config = reactive({
-  mirror: get('mirror', true), // 镜像
-  control: get('control', true), // 控制器
-  holistic: get('holistic', true), // 角色跟踪
-  camera: get('camera', null), // 设备ID
+  mirror: true, // 镜像
+  control: true, // 控制器
+  holistic: true, // 角色跟踪
+  camera: null, // 设备ID
 })
 
 // 设置

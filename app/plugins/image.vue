@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-20 10:20:46
+ * @LastEditTime: 2022-09-22 20:41:59
  * @Description: image 图像展示
 -->
 <template>
@@ -16,13 +16,9 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { storage } from '~/storage'
 
 import { callEvent } from '#/ipc'
 import Setting from '@/components/setting.vue'
-
-// 初始化 storage
-const { get } = storage()
 
 // 设置信息
 const setting = [
@@ -33,11 +29,12 @@ const setting = [
   },
   {
     id: 'local',
-    label: '本地图像', 
+    label: '本地图像',
     type: 'button',
     options: {
       text: '浏 览',
       click: () => {
+        // 打开本地图像
         const local = callEvent('open-image')
         if (local) {
           config.src = 'file://' + local
@@ -48,6 +45,6 @@ const setting = [
 ]
 
 const config = reactive({
-  src: get('src', 'https://monit.fzf404.art/icon.png'),
+  src: 'https://monit.fzf404.art/icon.png',
 })
 </script>

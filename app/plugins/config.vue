@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:05:08
+ * @LastEditTime: 2022-09-22 20:41:56
  * @Description: config 插件设置
 -->
 <template>
@@ -12,7 +12,7 @@
       <p class="w-full flex-row-between">
         <button
           class="btn btn-sm btn-blue w-2/3"
-          @click="pluginList.map((item) => sendEvent('window-open', item.name))"
+          @click="pluginList.forEach((item) => sendEvent('window-open', item.name))"
         >
           全部开启
         </button>
@@ -65,11 +65,8 @@ import { reactive, watch } from 'vue'
 import { sendEvent } from '#/ipc'
 import { pluginList } from '#/plugin'
 import pkg from 'root/package.json'
-import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
-
-const { get } = storage()
 
 const state = reactive({
   open: true,
@@ -84,8 +81,8 @@ const setting = [
 ]
 
 const config = reactive({
-  open: get('open', []),
-  auto: get('auto', false),
+  open: [],
+  auto: false,
 })
 
 watch(

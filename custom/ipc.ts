@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-08 18:18:06
+ * @LastEditTime: 2022-09-22 20:20:40
  * @Description: icp 事件发送
  */
 import { ipcRenderer } from 'electron'
@@ -23,9 +23,8 @@ export const setValue = (key: string, value: Object): void => {
 
 // 读取数据
 export const getValue = (key: string, define: Object): Object => {
-  return callEvent('get-value', key, define)
+  return callEvent('get-value', key, JSON.stringify(define))
 }
-
 
 // 发送通知
 export const sendNotice = (message: string) => {

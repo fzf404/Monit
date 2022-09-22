@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-20 12:02:42
+ * @LastEditTime: 2022-09-22 20:50:18
  * @Description: setting 组件
 -->
 <template>
@@ -66,13 +66,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue'
-
 import { openURL } from '#/ipc'
 import { useStore } from '@/store'
 import { storage } from '~/storage'
 
 import HelpSVG from '@/assets/setting/help.svg'
+import { watch } from 'vue'
 
 // 初始化 props
 interface Props {
@@ -118,19 +117,24 @@ const emit = defineEmits(['save'])
 // 初始化 store
 const store = useStore()
 // 初始化 storage
-const { set } = storage()
+const { set, get } = storage()
 
 // 初始化设置
-onMounted(() => {
-  store.setting.has = true
-})
+store.setting.has = true
 
 // 保存数据
-watchEffect(() => {
-  for (const key in props.config) {
-    set(key, props.config[key])
-  }
-})
+for (const key in props.config) {
+  // 设置初始值
+  props.config[key] = get(key, props.config[key])
+  // 监听修改
+  watch(
+    () => props.config[key],
+    (val) => {
+      set(key, val)
+    },
+    { deep: true }
+  )
+}
 
 // 保存
 const onSave = () => {
@@ -148,7 +152,7 @@ input[type='checkbox'] {
 
 /* 去除箭头 */
 input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 input[type='number'],

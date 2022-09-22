@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 18:59:40
+ * @LastEditTime: 2022-09-22 21:17:42
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -40,9 +40,12 @@
     <section class="flex-row-center relative col-span-3 row-span-2 pt-4">
       <span class="absolute -top-2 left-0 text-intro text-xs">{{ state.control.current }}</span>
       <span class="absolute -top-2 right-0 text-intro text-xs">{{ state.control.duration }}</span>
-      <p class="absolute rounded-full top-3 left-0 h-1 bg-theme" :style="{ width: state.control.process + '%' }"></p>
       <p
-        class="absolute rounded-full w-full top-3 h-1 opacity-25 bg-theme"
+        class="absolute rounded-full top-3 left-0 h-1 bg-theme clickable"
+        :style="{ width: state.control.process + '%' }"
+      ></p>
+      <p
+        class="absolute rounded-full w-full top-3 h-1 opacity-25 bg-theme clickable"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
@@ -80,7 +83,6 @@
 import { onMounted, reactive, watch } from 'vue'
 
 import axios from '~/request'
-import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
 
@@ -90,11 +92,8 @@ import PauseSVG from '@/assets/music/pause.svg'
 import PlaySVG from '@/assets/music/play.svg'
 import PrevSVG from '@/assets/music/prev.svg'
 
-// 初始化 storage
-const { get } = storage()
-
 // 初始化 axios
-let request = axios(get('url', 'https://qlapi.sylu.edu.cn/cloudmusic'))
+let request = axios('https://qlapi.sylu.edu.cn/cloudmusic')
 
 // Audio 实例
 const audio = new Audio()
@@ -102,7 +101,7 @@ const audio = new Audio()
 // 状态信息
 const state = reactive({
   play: false, // 播放状态
-  current: '0', // 当前歌曲索引
+  current: 0, // 当前歌曲索引
   // 播放列表
   playList: [
     {
@@ -122,8 +121,8 @@ const state = reactive({
 })
 
 const config = reactive({
-  url: get('url', 'https://qlapi.sylu.edu.cn/cloudmusic'), // 请求地址
-  id: get('id', ''), // 歌单ID
+  url: '', // 请求地址
+  id: '', // 歌单ID
 })
 
 const setting = [
@@ -180,6 +179,7 @@ const getPlayList = async () => {
   })
 
   state.current = 0
+  audio.url = state.playList[0].url
 }
 
 // 获取音乐信息

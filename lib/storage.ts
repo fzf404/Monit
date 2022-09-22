@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 19:03:47
+ * @LastEditTime: 2022-09-22 21:14:49
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -33,8 +33,8 @@ export const store = new Store({
  * @return {*}
  */
 export const cset = (node: string, key: string, value: Object): void => {
+  // console.log(node + '.' + key, value)
   store.set(node + '.' + key, value) // 存储值
-  console.log(node + '.' + key, value)
 }
 
 /**
@@ -45,6 +45,7 @@ export const cset = (node: string, key: string, value: Object): void => {
  * @return {*}
  */
 export const cget = (node: string, key: string, define: Object): Object => {
+  console.log(node + '.' + key, define)
   return store.get(node + '.' + key) ?? define // 读取值
 }
 
@@ -63,4 +64,8 @@ export const storage = (): { set: Function; get: Function } => {
       return getValue(key, define)
     },
   }
+}
+
+export const set = (key: string, value: Object) => {
+  setValue(key, value)
 }

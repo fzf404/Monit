@@ -2,12 +2,12 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:12:17
+ * @LastEditTime: 2022-09-22 21:06:40
  * @Description: juejin 信息监控
 -->
 <template>
   <!-- 设置 -->
-  <Setting :setting="setting" :config="config" @save="onSave" />
+  <Setting :setting="setting" :config="config" @save="initJuejinData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-7 grid-rows-6 p-3 pb-4">
     <!-- 关注者 -->
@@ -180,8 +180,8 @@ export default {
     return {
       // 配置数据
       config: {
-        notice: get('notice', false), // 开启提醒
-        user: get('user', ''), // 用户名
+        notice: false, // 开启提醒
+        user: '', // 用户名
       },
       // 设置菜单
       setting: [
@@ -307,11 +307,6 @@ export default {
     },
   },
   methods: {
-    // 设置更改
-    onSave() {
-      // 初始化数据
-      this.initJuejinData()
-    },
     //  初始化数据函数
     async initJuejinData() {
       await this.getJuejinData()

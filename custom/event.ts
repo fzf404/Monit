@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:29:17
+ * @LastEditTime: 2022-09-22 20:42:18
  * @Description: event 处理
  */
 
@@ -28,7 +28,7 @@ export const appEvent = () => {
   // 关闭窗口
   ipcMain.on('window-close', function (event, name) {
     if (name) {
-      // 关闭窗口
+      // 根据窗口名关闭窗口
       BrowserWindow.getAllWindows().forEach((win) => {
         if (win.title === name) {
           win.close()
@@ -90,7 +90,7 @@ export const appEvent = () => {
   ipcMain.on('get-value', function (event, key, define) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
-    event.returnValue = cget(name, key, define)
+    event.returnValue = cget(name, key, JSON.parse(define))
   })
 }
 
