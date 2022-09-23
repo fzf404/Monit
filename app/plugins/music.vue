@@ -2,12 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 21:17:42
+ * @LastEditTime: 2022-09-23 20:00:14
  * @Description: music 网易云音乐播放
 -->
 <template>
   <!-- 设置 -->
   <Setting :setting="setting" :config="config" @save="getPlayList" />
+  <Image show="true" remark="请使用网易云音乐扫码登陆" :image="state.qrcode" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-5 grid-rows-5 gap-x-3 gap-y-1 p-3">
     <!-- head image -->
@@ -45,7 +46,7 @@
         :style="{ width: state.control.process + '%' }"
       ></p>
       <p
-        class="absolute rounded-full w-full top-3 h-1 opacity-25 bg-theme clickable"
+        class="absolute rounded-full w-full top-3 h-1 opacity-40 bg-theme clickable"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
@@ -53,26 +54,8 @@
         "
       ></p>
       <PrevSVG class="w-10" @click="prevMusic" />
-      <PauseSVG
-        class="w-10"
-        v-if="state.play"
-        @click="
-          () => {
-            audio.pause()
-            state.play = false
-          }
-        "
-      />
-      <PlaySVG
-        class="w-10"
-        v-else
-        @click="
-          () => {
-            audio.play()
-            state.play = true
-          }
-        "
-      />
+      <PauseSVG class="w-10" v-if="state.play" @click="pauseMusic" />
+      <PlaySVG class="w-10" v-else @click="playMusic" />
       <NextSVG class="w-10" @click="nextMusic" />
     </section>
   </article>
@@ -84,6 +67,7 @@ import { onMounted, reactive, watch } from 'vue'
 
 import axios from '~/request'
 
+import Image from '@/components/image.vue'
 import Setting from '@/components/setting.vue'
 
 import MusicSVG from '@/assets/music/music.svg'
@@ -102,6 +86,17 @@ const audio = new Audio()
 const state = reactive({
   play: false, // 播放状态
   current: 0, // 当前歌曲索引
+  // 登陆
+  login:{
+    show: false
+    qrcode: null,
+  },
+  // 音乐控制器
+  control: {
+    current: null,
+    duration: null,
+    process: null,
+  },
   // 播放列表
   playList: [
     {
@@ -112,17 +107,11 @@ const state = reactive({
       image: null,
     },
   ],
-  // 音乐控制器
-  control: {
-    current: null,
-    duration: null,
-    process: null,
-  },
 })
 
 const config = reactive({
-  url: '', // 请求地址
-  id: '', // 歌单ID
+  url: 'https://qlapi.sylu.edu.cn/cloudmusic', // 请求地址
+  id: '7479151947', // 歌单ID
 })
 
 const setting = [
@@ -159,16 +148,19 @@ watch(
   () => state.current,
   (val) => {
     audio.src = state.playList[val].url
-    audio.play()
-    state.play = true
+    playMusic()
   }
 )
 
 // 读取歌单信息
 const getPlayList = async () => {
   const data = await request.get('/playlist/track/all?id=' + config.id)
+  if (!data) {
+    alert('获取歌单失败！')
+    return
+  }
   // 解析歌曲信息
-  state.playList = data.songs.map((item) => {
+  state.playList = await data.songs.map((item) => {
     return {
       id: item.id,
       url: 'https://music.163.com/song/media/outer/url?id=' + item.id,
@@ -179,39 +171,59 @@ const getPlayList = async () => {
   })
 
   state.current = 0
-  audio.url = state.playList[0].url
+  audio.src = state.playList[0].url
 }
 
 // 获取音乐信息
 const getMusicTime = () => {
-  // 总时长
-  let durationMinutes = Math.floor(audio.duration / 60)
-  let durationSeconds = Math.floor(audio.duration - durationMinutes * 60)
   // 当前时长
   let currentMinutes = Math.floor(audio.currentTime / 60)
   let currentSeconds = Math.floor(audio.currentTime - currentMinutes * 60)
+
   // 播放进度
   let progress = (audio.currentTime / audio.duration) * 100
-
-  if (durationSeconds < 10) {
-    durationSeconds = '0' + durationSeconds
-  }
 
   if (currentSeconds < 10) {
     currentSeconds = '0' + currentSeconds
   }
 
+  state.control.current = currentMinutes + ':' + currentSeconds
+  state.control.process = progress
+}
+
+// 获取音乐长度
+const getMusicDuration = () => {
+  // 总时长
+  let durationMinutes = Math.floor(audio.duration / 60)
+  let durationSeconds = Math.floor(audio.duration - durationMinutes * 60)
+
+  if (durationSeconds < 10) {
+    durationSeconds = '0' + durationSeconds
+  }
+
   state.control = {
-    current: currentMinutes + ':' + currentSeconds,
+    current: '0:00',
     duration: durationMinutes + ':' + durationSeconds,
-    process: progress,
+    process: 0,
   }
 }
 
-const setMusicTime = (event) => {
-  let progress = event.offsetX / event.target.offsetWidth
-  audio.currentTime = progress * audio.duration
+const playMusic = () => {
+  audio
+    .play()
+    .then(() => {
+      state.play = true
+    })
+    .catch(() => {
+      alert('网络错误或需要会员！')
+    })
 }
+
+const pauseMusic = () => {
+  audio.pause()
+  state.play = false
+}
+
 // 上一首
 const prevMusic = () => {
   if (state.current === 0) {
@@ -230,9 +242,9 @@ const nextMusic = () => {
   }
 }
 
-// 监听 audio 修改
+// 监听 audio 事件
+audio.addEventListener('durationchange', getMusicDuration)
 audio.addEventListener('timeupdate', getMusicTime)
-
 audio.addEventListener('ended', nextMusic)
 
 onMounted(async () => {

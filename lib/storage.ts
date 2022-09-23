@@ -2,10 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 21:23:30
+ * @LastEditTime: 2022-09-23 19:49:09
  * @Description: 存储配置
  */
 import Store from 'electron-store'
+import { reactive, watch } from 'vue'
 
 import { getValue, setValue } from '#/ipc'
 
@@ -63,5 +64,24 @@ export const storage = (): { set: Function; get: Function } => {
     get: (key: string, define: Object) => {
       return getValue(key, define)
     },
+  }
+}
+
+export const storage1 = <T extends string>(data: Record<T, Object>, handle?: Record<T, Function>) => {
+  for (const key in data) {
+    data[key] = getValue(key, data[key])
+  }
+
+  const record = reactive(data)
+
+  // 增加修改监听
+  if (handle) {
+    for (const key in handle) {
+      watch(
+        () => record[key],
+        () => handle[key](),
+        { deep: true }
+      )
+    }
   }
 }

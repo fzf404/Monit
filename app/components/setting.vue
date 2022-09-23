@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 20:50:18
+ * @LastEditTime: 2022-09-23 19:44:11
  * @Description: setting 组件
 -->
 <template>
@@ -66,12 +66,13 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue'
+
 import { openURL } from '#/ipc'
 import { useStore } from '@/store'
 import { storage } from '~/storage'
 
 import HelpSVG from '@/assets/setting/help.svg'
-import { watch } from 'vue'
 
 // 初始化 props
 interface Props {

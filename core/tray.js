@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 20:41:17
+ * @LastEditTime: 2022-09-22 10:48:11
  * @Description: tary 托盘
  */
 
@@ -124,7 +124,7 @@ const initMenu = () => {
     { type: 'separator' },
 
     {
-      label: '关于',
+      label: '教程',
       click: () => {
         shell.openExternal('https://monit.fzf404.art')
       },

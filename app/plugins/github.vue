@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 18:13:00
+ * @LastEditTime: 2022-09-22 22:21:36
  * @Description: github 信息监控
 -->
 <template>
@@ -137,8 +137,8 @@ export default {
     return {
       // 配置数据
       config: {
-        notice: get('notice', false), // 开启提醒
-        user: get('user', ''), // 用户名
+        notice: false, // 开启提醒
+        user: 'fzf404', // 用户名
       },
       // 设置菜单
       setting: [

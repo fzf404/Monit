@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 21:06:40
+ * @LastEditTime: 2022-09-22 22:22:30
  * @Description: juejin 信息监控
 -->
 <template>
@@ -141,13 +141,12 @@
 
 <script>
 import { openURL, sendNotice } from '#/ipc'
-
-import Setting from '@/components/setting.vue'
-import Layout from '@/layouts/layout.vue'
-
 import { useStore } from '@/store'
 import axios from '~/request'
 import { storage } from '~/storage'
+
+import Setting from '@/components/setting.vue'
+import Layout from '@/layouts/layout.vue'
 
 import ArticleSVG from '@/assets/juejin/article.svg'
 import FollowerSVG from '@/assets/juejin/follower.svg'
@@ -181,7 +180,7 @@ export default {
       // 配置数据
       config: {
         notice: false, // 开启提醒
-        user: '', // 用户名
+        user: '1847636498321853', // 用户ID
       },
       // 设置菜单
       setting: [
@@ -196,8 +195,8 @@ export default {
           type: 'text',
         },
       ],
-      // 用户名
-      name: '',
+
+      name: '', // 用户名
 
       // 状态数据
       follower: get('follower', 0), // 关注 数
