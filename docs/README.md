@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:53:35
+ * @LastEditTime: 2022-09-22 10:27:21
  * @Description: Monit 说明文档
 -->
 
@@ -42,9 +42,9 @@
 | todo     | 待办事项管理      | VueC + Pug + Draggable       | [fzf404](https://github.com/fzf404)   | ✅   |
 | camera   | 相机监控          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
 | juejin   | 掘金信息监控      | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
-| image    | 图像展示          | VueO + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
+| image    | 图像展示          | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
+| music    | 网易云音乐播放    | VueC + Audio                 | [fzf404](https://github.com/fzf404)   | ✅   |
 | live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe |                                       | ⛔️  |
-| music    | 网易云音乐播放    |                              |                                       | ⛔️  |
 | bilibili | bilibili 信息监控 |                              |                                       | ⛔️  |
 | weather  | 天气信息监控      |                              |                                       | ⛔️  |
 

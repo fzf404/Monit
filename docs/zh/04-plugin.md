@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:31:07
+ * @LastEditTime: 2022-09-22 20:41:50
  * @Description: Monit 插件开发
 -->
 
@@ -85,15 +85,12 @@ import { storage } from '~/storage'
 
 export default {
   setup() {
-    // 初始化 storage
-    const { get } = storage()
-
     // 配置项
     const config = reactive({
       // 读取 count 值
-      count: get('count', 0), // 数值
+      count: 0, // 数值
       // 读取 setp 值
-      step: get('step', 1), // 步长
+      step: 1, // 步长
     })
 
     // 设置信息
