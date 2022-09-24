@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:55:08
+ * @LastEditTime: 2022-09-24 23:39:11
  * @Description: camera 工具
  */
 
@@ -50,6 +50,7 @@ export const recordVideo = (record: HTMLAnchorElement, device: string): void => 
       video: {
         deviceId: device,
       },
+      // TODO 检测麦克风存在
       audio: true,
     })
     .then((stream) => {

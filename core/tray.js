@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 10:48:11
+ * @LastEditTime: 2022-09-24 23:02:50
  * @Description: tary 托盘
  */
 
@@ -120,15 +120,15 @@ const initMenu = () => {
         app.setLoginItemSettings({ openAtLogin: true })
       },
     },
-    // 分割线
-    { type: 'separator' },
-
+    // 打开官网
     {
-      label: '教程',
+      label: '打开官网',
       click: () => {
         shell.openExternal('https://monit.fzf404.art')
       },
     },
+    // 分割线
+    { type: 'separator' },
     // 重启应用
     {
       label: '重启',
