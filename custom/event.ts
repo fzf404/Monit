@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 20:42:18
+ * @LastEditTime: 2022-09-24 19:48:50
  * @Description: event 处理
  */
 
@@ -64,6 +64,17 @@ export const appEvent = () => {
       // 发送通知
       new Notification({ title: `Monit - ${name}`, body: message }).show()
     }
+  })
+
+  // 发送弹窗
+  ipcMain.on('window-alert', function (event, message) {
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    const name = win.title
+    dialog.showMessageBox({
+      type: 'warning',
+      title: 'Monit - ' + name,
+      message: message,
+    })
   })
 
   // 打开本地图像
