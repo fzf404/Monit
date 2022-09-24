@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 20:41:32
+ * @LastEditTime: 2022-09-24 23:13:30
  * @Description: camera 相机监控
 -->
 <template>
   <!-- 设置-->
-  <Setting :setting="setting" :config="config" />
+  <Setting :setting="setting" :config="store" />
   <!-- 页面内容 -->
   <article>
     <!-- 加载 -->
@@ -20,14 +20,14 @@
     <!-- 主屏幕 -->
     <section class="relative w-full h-full overflow-hidden rounded-lg">
       <!-- 绘制 -->
-      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: config.mirror }" />
+      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }" />
       <!-- 预览 -->
-      <video ref="video" class="absolute w-full h-full" :class="{ mirror: config.mirror }" autoplay />
+      <video ref="video" class="absolute w-full h-full" :class="{ mirror: store.mirror }" autoplay />
       <!-- 记录器 -->
       <a ref="record" class="hidden" />
     </section>
     <!-- 相机控制器 -->
-    <section v-show="config.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
+    <section v-show="store.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
       <!-- 拍照 -->
       <button class="btn btn-md btn-purple">
         <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
@@ -40,7 +40,7 @@
             class="w-6"
             @click="
               () => {
-                recordVideo(record, config.camera)
+                recordVideo(record, store.camera)
                 state.recording = true
               }
             "
@@ -64,13 +64,15 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
+import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
 
+import { sendAlert } from '#/ipc'
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
@@ -87,13 +89,36 @@ const state = reactive({
   recording: false, // 录像状态
 })
 
-// 配置
-const config = reactive({
-  mirror: true, // 镜像
-  control: true, // 控制器
-  holistic: true, // 角色跟踪
-  camera: null, // 设备ID
-})
+// 存储数据
+const store = storage(
+  {
+    mirror: true, // 镜像
+    control: true, // 控制器
+    holistic: true, // 角色跟踪
+    camera: null, // 设备ID
+  },
+  {
+    // 角色跟踪修改
+    holistic: () => {
+      window.location.reload()
+    },
+    // 相机修改
+    camera: async (val) => {
+      // 已开启角色追踪
+      if (store.holistic) {
+        // 重新加载窗口
+        window.location.reload()
+      } else {
+        // 切换摄像头
+        video.value.srcObject = await navigator.mediaDevices.getUserMedia({
+          video: {
+            deviceId: val,
+          },
+        })
+      }
+    },
+  }
+)
 
 // 设置
 const setting = [
@@ -117,9 +142,10 @@ const setting = [
 onMounted(async () => {
   // 获取设备列表
   const devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => device.kind === 'videoinput')
+
   // 判断设备存在
   if (devices.length === 0) {
-    alert('相机不存在！')
+    sendAlert('相机不存在！')
   }
 
   // 增加设置
@@ -134,44 +160,19 @@ onMounted(async () => {
   })
 
   // 初始化相机
-  config.camera = config.camera || devices[0].deviceId
+  store.camera = store.camera || devices[0].deviceId
   video.value.srcObject = await navigator.mediaDevices.getUserMedia({
     video: {
-      deviceId: config.camera,
+      deviceId: store.camera,
     },
   })
 
   // 是否开启角色追踪
-  if (config.holistic) {
+  if (store.holistic) {
     await initHolistic(canvas.value, video.value)
   }
 
   // 隐藏加载框
   state.loading = false
 })
-
-watch(
-  () => config.holistic,
-  () => {
-    window.location.reload()
-  }
-)
-
-watch(
-  () => config.camera,
-  async (val) => {
-    // 已开启角色追踪
-    if (config.holistic) {
-      // 重新加载窗口
-      window.location.reload()
-    } else {
-      // 切换摄像头
-      video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-        video: {
-          deviceId: val,
-        },
-      })
-    }
-  }
-)
 </script>

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 17:21:09
+ * @LastEditTime: 2022-09-24 21:53:41
  * @Description: bilibili 信息监控
 -->
 <template>
@@ -16,5 +16,5 @@
 
 <!-- TODO 插件 bilibili -->
 <script setup>
-// import Setting from '@/plugins/bilibili.vue'
+// import Setting from '@/components/setting.vue'
 </script>

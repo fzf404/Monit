@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-23 19:44:11
+ * @LastEditTime: 2022-09-24 22:19:30
  * @Description: setting 组件
 -->
 <template>
@@ -66,15 +66,12 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
-
 import { openURL } from '#/ipc'
 import { useStore } from '@/store'
-import { storage } from '~/storage'
 
 import HelpSVG from '@/assets/setting/help.svg'
 
-// 初始化 props
+// props 接口
 interface Props {
   // 尺寸
   size?: 'small'
@@ -112,30 +109,15 @@ interface Props {
   )[]
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const emit = defineEmits(['save'])
 
 // 初始化 store
 const store = useStore()
-// 初始化 storage
-const { set, get } = storage()
 
 // 初始化设置
 store.setting.has = true
-
-// 保存数据
-for (const key in props.config) {
-  // 设置初始值
-  props.config[key] = get(key, props.config[key])
-  // 监听修改
-  watch(
-    () => props.config[key],
-    (val) => {
-      set(key, val)
-    },
-    { deep: true }
-  )
-}
 
 // 保存
 const onSave = () => {

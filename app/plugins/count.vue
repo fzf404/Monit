@@ -2,48 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 20:41:42
+ * @LastEditTime: 2022-09-24 23:14:26
  * @Description: count 计数器
 -->
 <template>
   <!-- 设置 -->
-  <Setting size="small" :setting="setting" :config="config" />
-  <!-- 页面内容 -->
-  <article>
-    <!-- 主体 -->
-    <section class="h-full flex-col-center space-y-2">
-      <h1 class="text-intro">计数器</h1>
-      <p class="text-5xl">{{ config.count }}</p>
-      <!-- 增加 & 减少 -->
-      <p class="space-x-4 pt-2">
-        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
-          <AddSVG class="w-5" />
-        </button>
-      </p>
-    </section>
-  </article>
-</template>
-
-<script>
-import AddSVG from '@/assets/count/add.svg'
-import SubSVG from '@/assets/count/sub.svg'
-import Setting from '@/components/setting.vue'
-
-import { reactive } from 'vue'
-
-export default {
-  setup() {
-    // 配置项
-    const config = reactive({
-      // 读取 count 值
-      count: 0, // 数值
-      // 读取 setp 值
-      step: 1, // 步长
-    })
-
-    // 设置信息
-    const setting = [
+  <Setting
+    size="small"
+    :setting="[
       {
         id: 'count',
         label: '数值',
@@ -60,9 +26,41 @@ export default {
           len: 3,
         },
       },
-    ]
+    ]"
+    :config="store"
+  />
+  <!-- 页面内容 -->
+  <article>
+    <!-- 主体 -->
+    <section class="w-full h-full flex-col-center space-y-2">
+      <h1 class="text-intro">计数器</h1>
+      <p class="text-5xl">{{ store.count }}</p>
+      <!-- 增加 & 减少 -->
+      <p class="space-x-4 pt-2">
+        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
+          <AddSVG class="w-5" />
+        </button>
+      </p>
+    </section>
+  </article>
+</template>
 
-    return { setting, config }
+<script>
+import AddSVG from '@/assets/count/add.svg'
+import SubSVG from '@/assets/count/sub.svg'
+import Setting from '@/components/setting.vue'
+
+import { storage } from '~/storage'
+
+export default {
+  setup() {
+    // 存储数据
+    const store = storage({
+      count: 0, // 数值
+      step: 1, // 步长
+    })
+    return { store }
   },
   components: {
     AddSVG,
@@ -72,11 +70,11 @@ export default {
   methods: {
     increase() {
       // 浮点数运算精度
-      this.config.count = Number((this.config.count + this.config.step).toFixed(2))
+      this.store.count = Number((this.store.count + this.store.step).toFixed(2))
     },
     reduce() {
       // 浮点数运算精度
-      this.config.count = Number((this.config.count - this.config.step).toFixed(2))
+      this.store.count = Number((this.store.count - this.store.step).toFixed(2))
     },
   },
 }

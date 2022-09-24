@@ -1,12 +1,12 @@
+import { reactive, watch } from 'vue'
 /*
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-23 19:49:09
+ * @LastEditTime: 2022-09-23 22:48:06
  * @Description: 存储配置
  */
 import Store from 'electron-store'
-import { reactive, watch } from 'vue'
 
 import { getValue, setValue } from '#/ipc'
 
@@ -51,37 +51,34 @@ export const cget = (node: string, key: string, define: Object): Object => {
 }
 
 /**
- * @description:  storage 构造器
- * @return {*}
+ * @description: 响应式 storage
+ * @param {*} K 原始参数 key 值
+ * @return {*} 目标响应式参数
  */
-export const storage = (): { set: Function; get: Function } => {
-  return {
-    // 保存值
-    set: (key: string, value: Object) => {
-      setValue(key, value)
-    },
-    // 读取值
-    get: (key: string, define: Object) => {
-      return getValue(key, define)
-    },
-  }
-}
 
-export const storage1 = <T extends string>(data: Record<T, Object>, handle?: Record<T, Function>) => {
-  for (const key in data) {
-    data[key] = getValue(key, data[key])
-  }
+type Source = Record<string, Object>
 
-  const record = reactive(data)
-
-  // 增加修改监听
-  if (handle) {
-    for (const key in handle) {
-      watch(
-        () => record[key],
-        () => handle[key](),
-        { deep: true }
-      )
-    }
+export const storage = <K extends keyof Source>(source: Source, callback?: Record<K, Function>): Source => {
+  // 包装为响应式数据
+  const target = reactive(source)
+  // 遍历响应式数据
+  for (const key in target) {
+    // 读取默认值
+    target[key] = getValue(key, target[key])
+    // 监听值修改
+    watch(
+      () => target[key],
+      async (val) => {
+        // 保存值
+        setValue(key, val)
+        // 运行处理函数
+        if (callback && key in callback) {
+          await callback[key as K](val)
+        }
+      },
+      { deep: true }
+    )
   }
+  // 返回响应式数据
+  return target
 }
