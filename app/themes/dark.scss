@@ -2,26 +2,26 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 12:22:58
+ * @LastEditTime: 2022-09-24 21:46:46
  * @Description: dark 黑夜主题
  */
 
 /**
  * 基底
- */
+*/
 #app {
-  @apply bg-black bg-opacity-50 text-white;
+  @apply bg-black bg-opacity-50 text-gray-200;
 }
 
 /**
  * 文字
  */
-.text-dark {
-  @apply text-gray-700;
-}
-
 .text-gray {
   @apply text-gray-400;
+}
+
+.text-dark {
+  @apply text-gray-700;
 }
 
 .text-theme {

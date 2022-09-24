@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 12:54:33
+ * @LastEditTime: 2022-09-24 21:46:05
  * @Description: light 明亮主题
  */
 
@@ -10,18 +10,18 @@
  * 基底
  */
 #app {
-  @apply bg-gray-300 bg-opacity-50 text-gray-200;
+  @apply bg-gray-300 bg-opacity-50 text-gray-100;
 }
 
 /**
  * 文字
  */
-.text-dark {
-  @apply text-gray-500;
+.text-gray {
+  @apply text-gray-200;
 }
 
-.text-gray {
-  @apply text-gray-300;
+.text-dark {
+  @apply text-gray-500;
 }
 
 .text-theme {
