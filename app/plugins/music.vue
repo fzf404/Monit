@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:37:29
+ * @LastEditTime: 2022-09-26 13:39:42
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -186,6 +186,7 @@ const getPlayList = async () => {
       image: item.al.picUrl,
     }
   })
+  store.music = music
   // 设置当前歌曲索引
   store.current = 0
   // 设置音乐链接
