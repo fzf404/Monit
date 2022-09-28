@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 21:32:18
+ * @LastEditTime: 2022-09-28 17:30:19
  * @Description: 基础主题
  */
 
@@ -248,5 +248,5 @@ select,
  * 模态框
  */
 .modal {
-  @apply rounded-lg;
+  @apply absolute w-full h-full rounded-lg;
 }
