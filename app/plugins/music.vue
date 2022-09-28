@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 11:53:41
+ * @LastEditTime: 2022-09-28 23:01:00
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -33,7 +33,10 @@
     :config="store"
     @save="getPlayList"
   />
+  <!-- 图像展示 -->
   <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆" :image="state.login.qrcode" />
+  <!-- 加载中 -->
+  <Loading :show="state.loading" :remark="['音乐加载中...']" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-5 grid-rows-5 gap-x-3 gap-y-1 p-3">
     <!-- 封面图 -->
@@ -46,6 +49,7 @@
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
+      <!-- TODO 自动滚动 -->
       <h1 class="text-md w-full whitespace-nowrap overflow-x-auto">{{ store.music[store.current].title }}</h1>
       <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
     </section>
@@ -53,7 +57,7 @@
     <section class="flex-col-left col-span-2 row-span-5 overflow-x-auto overflow-y-scroll scrollable space-y-2 mt-3">
       <p
         v-for="(item, index) in store.music"
-        class="flex-row-center space-x-px clickable"
+        class="flex-row-center space-x-1 clickable"
         @click="store.current = index"
       >
         <MusicSVG class="h-4 btn-svg text-theme" />
@@ -90,7 +94,6 @@
   </article>
 </template>
 
-<!-- TODO 插件 music -->
 <script setup>
 import { onMounted, reactive } from 'vue'
 import { storage } from '~/storage'
@@ -98,6 +101,7 @@ import { storage } from '~/storage'
 import axios from '~/request'
 
 import Image from '@/components/image.vue'
+import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
 import { sendAlert } from '#/ipc'
@@ -111,6 +115,25 @@ import PrevSVG from '@/assets/music/prev.svg'
 let request = null
 // Audio 实例
 const audio = new Audio()
+
+// 状态信息
+const state = reactive({
+  // 播放状态
+  play: false,
+  // 加载中
+  loading: false,
+  // 登陆
+  login: {
+    show: false,
+    qrcode: 'https://monit.fzf404.art/icon.png',
+  },
+  // 音乐控制器
+  control: {
+    current: null,
+    duration: null,
+    process: null,
+  },
+})
 
 // 存储数据
 const store = storage(
@@ -147,24 +170,7 @@ const store = storage(
 // 初始化 axios
 request = axios(store.url)
 
-// 状态信息
-const state = reactive({
-  // 播放状态
-  play: false,
-  // 登陆
-  login: {
-    show: false,
-    qrcode: null,
-  },
-  // 音乐控制器
-  control: {
-    current: null,
-    duration: null,
-    process: null,
-  },
-})
-
-// 登录
+// TODO 登录
 const login = async () => {
   sendAlert('正在开发中...')
 }
@@ -186,9 +192,14 @@ const getPlayList = async () => {
       image: item.al.picUrl,
     }
   })
+  if (store.current > store.music.length - 1) {
+    // 设置当前歌曲索引
+    store.current = 0
+  }
+  // 停止播放
+  pauseMusic()
+  // 设置歌单信息
   store.music = music
-  // 设置当前歌曲索引
-  store.current = 0
   // 设置音乐链接
   audio.src = store.music[store.current].url
 }
@@ -229,12 +240,16 @@ const getMusicDuration = () => {
 
 // 播放音乐
 const playMusic = () => {
+  state.loading = true // 音乐加载中
   audio
     .play()
     .then(() => {
       state.play = true
+      state.loading = false // 音乐加载完成
     })
     .catch(() => {
+      state.play = false
+      state.loading = false // 音乐加载完成
       sendAlert('网络错误或需要会员！')
     })
 }

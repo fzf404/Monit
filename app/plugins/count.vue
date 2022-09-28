@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:14:26
+ * @LastEditTime: 2022-09-28 22:26:34
  * @Description: count 计数器
 -->
 <template>
@@ -57,7 +57,7 @@ export default {
   setup() {
     // 存储数据
     const store = storage({
-      count: 0, // 数值
+      count: 3.14, // 数值
       step: 1, // 步长
     })
     return { store }

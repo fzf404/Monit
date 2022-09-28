@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 15:02:05
+ * @LastEditTime: 2022-09-28 19:12:48
  * @Description: config 插件设置
 -->
 <template>
@@ -20,7 +20,7 @@
   />
   <!-- 页面内容 -->
   <article class="flex flex-col justify-between pt-8 p-3">
-    <section class="overflow-hidden overflow-y-scroll space-y-2">
+    <section class="overflow-hidden overflow-y-scroll scrollable space-y-2">
       <!-- 插件操作 -->
       <p class="w-full flex-row-between">
         <button
@@ -86,6 +86,7 @@ import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'
 
+// 状态信息
 const state = reactive({
   open: true,
 })

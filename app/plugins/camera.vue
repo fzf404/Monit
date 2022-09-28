@@ -2,21 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:13:30
+ * @LastEditTime: 2022-09-28 17:56:24
  * @Description: camera 相机监控
 -->
 <template>
   <!-- 设置-->
   <Setting :setting="setting" :config="store" />
+  <!-- 加载中 -->
+  <Loading :show="state.loading" :remark="['正在加载中...', '首次启动会从 CDN 加载模型文件', '可能需要 30s 以上']" />
   <!-- 页面内容 -->
   <article>
-    <!-- 加载 -->
-    <section v-show="state.loading" class="absolute w-full h-full z-30 modal flex-col-center space-y-2">
-      <LoadSVG class="w-16 load-rotating" />
-      <p class="text-intro">正在加载中...</p>
-      <p class="text-intro">首次启动会从 CDN 加载模型文件</p>
-      <p class="text-intro">可能需要 30s 以上</p>
-    </section>
     <!-- 主屏幕 -->
     <section class="relative w-full h-full overflow-hidden rounded-lg">
       <!-- 绘制 -->
@@ -70,13 +65,13 @@ import { recordVideo, stopVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
+import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
 import { sendAlert } from '#/ipc'
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
-import LoadSVG from '@/assets/layout/load.svg'
 
 // HTMLElement Refs
 const video = ref(null)
