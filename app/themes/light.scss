@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 18:01:48
+ * @LastEditTime: 2022-09-29 18:13:30
  * @Description: light 明亮主题
  */
 
@@ -17,7 +17,7 @@
  * 文字
  */
 .text-gray {
-  @apply text-gray-200;
+  @apply text-gray-300;
 }
 
 .text-dark {
@@ -25,7 +25,7 @@
 }
 
 .text-theme {
-  @apply text-teal-400;
+  @apply text-sky-400;
 }
 
 /**
@@ -33,7 +33,7 @@
  */
 
 .bg-theme {
-  @apply bg-cyan-400;
+  @apply bg-blue-400;
 }
 
 /**
@@ -48,7 +48,7 @@
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-cyan-400 bg-gray-200;
+    @apply ring-opacity-50 ring-blue-400 bg-gray-200;
 
     // 设置内容
     li {
@@ -59,27 +59,27 @@
       }
 
       button {
-        @apply btn-teal;
+        @apply btn-sky;
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-cyan-500 focus:text-cyan-600;
+        @apply shadow-inner bg-gray-200 text-blue-500 focus:text-blue-600;
       }
 
       input[type='checkbox'] {
-        @apply accent-[#00a3bf];
+        @apply accent-blue-500;
       }
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-cyan-500 focus:text-cyan-600;
+        @apply shadow-inner bg-gray-200 text-blue-500 focus:text-blue-600;
       }
     }
 
     // 设置操作
     ol {
       button {
-        @apply btn-cyan;
+        @apply btn-blue;
       }
     }
   }

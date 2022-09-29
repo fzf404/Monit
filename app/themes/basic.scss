@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 17:58:39
+ * @LastEditTime: 2022-09-29 18:13:41
  * @Description: 基础主题
  */
 
@@ -177,6 +177,10 @@ select,
 
 .btn-cyan {
   @apply bg-cyan-500 hover:bg-cyan-600;
+}
+
+.btn-sky {
+  @apply bg-sky-500 hover:bg-sky-600;
 }
 
 .btn-blue {
