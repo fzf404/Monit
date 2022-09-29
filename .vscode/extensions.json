@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "chunsen.bracket-select",
+    "obkoro1.korofileheader",
+    "bradlc.vscode-tailwindcss",
+    "gruntfuggly.todo-tree",
+    "vue.volar",
+    "Vue.vscode-typescript-vue-plugin"
+  ]
+}

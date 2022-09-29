@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-11 16:02:40
+ * @LastEditTime: 2022-09-17 20:03:54
  * @Description: axios 封装
  */
 
@@ -17,7 +17,9 @@ const request = (url: string) => {
   const service = axios.create({
     baseURL: url, // 基本路径
     timeout: 30000, // 超时时间
+    withCredentials: true, // 携带 Cookie
   })
+
   // 响应拦截
   service.interceptors.response.use(
     (res) => {

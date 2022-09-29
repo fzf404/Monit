@@ -2,28 +2,44 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 21:17:12
+ * @LastEditTime: 2022-09-24 19:48:50
  * @Description: event 处理
  */
 
-import { BrowserWindow, ipcMain, Notification, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electron'
 
 import { createWindow } from 'core/window'
 import { cget, cset } from '~/storage'
 
 // 应用事件
 export const appEvent = () => {
+  // 开机自启
+  ipcMain.on('auto-open', function (event, state) {
+    app.setLoginItemSettings({
+      openAtLogin: state,
+    })
+  })
+
   // 开启窗口
-  ipcMain.on('window-start', function (event, name) {
+  ipcMain.on('window-open', function (event, name) {
     createWindow(name)
   })
 
   // 关闭窗口
-  ipcMain.on('window-close', function (event) {
-    // 从事件中获得窗口
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    // 关闭窗口
-    win.close()
+  ipcMain.on('window-close', function (event, name) {
+    if (name) {
+      // 根据窗口名关闭窗口
+      BrowserWindow.getAllWindows().forEach((win) => {
+        if (win.title === name) {
+          win.close()
+        }
+      })
+    } else {
+      // 从事件中获得窗口
+      const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+      // 关闭窗口
+      win.close()
+    }
   })
 
   // 最小化窗口
@@ -50,6 +66,25 @@ export const appEvent = () => {
     }
   })
 
+  // 发送弹窗
+  ipcMain.on('window-alert', function (event, message) {
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    const name = win.title
+    dialog.showMessageBox({
+      type: 'warning',
+      title: 'Monit - ' + name,
+      message: message,
+    })
+  })
+
+  // 打开本地图像
+  ipcMain.on('open-image', function (event) {
+    event.returnValue = dialog.showOpenDialogSync({
+      properties: ['openFile'],
+      filters: [{ name: '图像', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'] }],
+    })
+  })
+
   // 打开网址
   ipcMain.on('open-url', function (event, url) {
     shell.openExternal(url)
@@ -66,7 +101,7 @@ export const appEvent = () => {
   ipcMain.on('get-value', function (event, key, define) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
-    event.returnValue = cget(name, key, define)
+    event.returnValue = cget(name, key, JSON.parse(define))
   })
 }
 

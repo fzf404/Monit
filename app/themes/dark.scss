@@ -2,33 +2,45 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:52:06
+ * @LastEditTime: 2022-09-28 18:01:38
  * @Description: dark 黑夜主题
  */
 
 /**
  * 基底
- */
+*/
 #app {
-  @apply bg-black bg-opacity-50 text-white;
+  @apply bg-black bg-opacity-50 text-gray-200;
 }
 
 /**
  * 文字
  */
-.text-primary {
+.text-gray {
+  @apply text-gray-400;
+}
+
+.text-dark {
   @apply text-gray-700;
 }
 
-.text-gray {
-  @apply text-gray-400;
+.text-theme {
+  @apply text-pink-400;
+}
+
+/**
+ * 底色
+ */
+
+.bg-theme {
+  @apply bg-purple-400;
 }
 
 /**
  * 模态框
  */
 .modal {
-  @apply bg-black bg-opacity-40;
+  @apply bg-black bg-opacity-50;
 }
 
 /*
@@ -48,6 +60,10 @@
 
       select {
         @apply bg-gray-800 text-purple-500 focus:text-purple-400;
+      }
+
+      button {
+        @apply bg-indigo-500 hover:bg-indigo-400;
       }
 
       input[type='checkbox'] {

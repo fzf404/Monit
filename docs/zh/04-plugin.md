@@ -1,10 +1,36 @@
 <!--
  * @Author: fzf404
- * @Date: 2022-07-15 22:03:19
+ * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 22:26:34
- * @Description: count 计数器
+ * @LastEditTime: 2022-09-29 18:16:36
+ * @Description: Monit 插件开发
 -->
+
+来写一个计数器吧！
+
+## 🚀 计数器
+
+### 1. 引入 svg 图像
+
+> 推荐使用 svg 作为图像，可以去 [xicons](https://www.xicons.org/) 寻找
+
+```vue
+<template>
+  <!-- 指定 svg 颜色-->
+  <XxxSVG class="h-4 btn-svg text-green-400" />
+</template>
+
+<script setup>
+// 引入 svg
+import XxxSVG from '@/assets/xx/xxx.svg'
+</script>
+```
+
+### 2. 编写插件页面
+
+> `app/plugins/count.vue`
+
+```vue
 <template>
   <!-- 设置 -->
   <Setting
@@ -79,3 +105,15 @@ export default {
   },
 }
 </script>
+```
+
+### 3. 增加插件配置
+
+> `coustom/plugin.ts`
+
+```typescript
+export const plugin: pluginList[] = [
+  // ...添加如下行
+  { name: 'count', size: [2, 2], description: '计数器', debug: true },
+]
+```

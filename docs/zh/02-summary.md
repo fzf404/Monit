@@ -2,19 +2,19 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-15 23:02:48
+ * @LastEditTime: 2022-09-29 13:22:28
  * @Description: Monit 开发指南
 -->
 
 Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自由使用项目中的代码。
 
-基于 Electron + Vue 开发，渲染进程使用 JS + Vue，主进程使用 JS 调用 Electron API。
+基于 Electron + Vue 开发，渲染进程使用 JS / TS + Vue，主进程使用 JS / TS 调用 Electron API。
 
-- 如果您了解 Vue，并不了解 Electron，使用本项目即可快速开发出自己的桌面小组件。
+- 如果您了解 Vue，并不了解 Electron，使用本项目即可快速开发出自己的桌面小组件
 
-- 如果您初学 Vue，对其他技术一无所知，可以通过本项目继续了解 Vue 及 `package.json` 里包含的所有库的基本使用。
+- 如果您初学 Vue，对其他技术一无所知，可以通过本项目继续了解 Vue 及 `package.json` 里包含的所有库的基本使用
 
-- 如果您对 Vue 和 NodeJS 一无所知，请先去了解相关技术后再来查看本项目，在失望的离开之前别忘了留下一个 star。
+- 如果您对 Vue 和 NodeJS 一无所知，请先去了解相关技术后再来查看本项目，在失望的离开之前别忘了留下一个 star
 
 ## ✨ 使用技术
 
@@ -32,7 +32,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
   - 功能类 CSS 语法糖
   - [官方文档](https://www.tailwindcss.cn/docs)
   - 可选功能，可只使用 css 进行插件开发
-- TypeScript 4
+- TypeScript
   - JavaScript 类型系统
   - [官方文档](https://www.tslang.cn/docs/home.html)
   - 支持类型定义
@@ -41,7 +41,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 
 - Electron Builder
   - 主进程打包工具
-- Webpack 5
+- Webpack
   - 渲染进程打包工具
 - Axios
   - 网络请求工具
@@ -107,22 +107,17 @@ Monit
 
 ## 🍻 API 说明
 
-1. Plugin 配置：`app/custom/plugin.ts`
-2. Layout 配置：`app/layouts/layout.vue`
-3. Theme 配置：`app/themes/basic.scss`
-4. Pinia 封装：`app/store.ts`
-5. Axios 封装：`lib/request.ts`
-6. Storage 封装：`lib/storage.ts`
+1. Layout 配置：`app/layouts/layout.vue`
+2. Theme 配置：`app/themes/basic.scss`
+3. Pinia 封装：`app/store.ts`
+4. Plugin 配置：`custom/plugin.ts`
+5. Event 监听/发送：`custom/{event.ts, ipc.ts}`
+   - 窗口操作
+   - 发送通知
+   - 打开网址
+6. Axios 封装：`lib/request.ts`
+7. Storage 封装：`lib/storage.ts`
    - 文件位置
      - Mac：`/Users/[user]/Library/Application Support/monit/config.json`
      - Windows：`C:\Users\[user]\AppData\Roaming\monit\config.json`
      - Linux：`/home/[user]/.config/monit/config.json`
-7. 事件监听/发送：`custom/{event.ts, ipc.ts}`
-   - 窗口操作
-   - 发送通知
-   - 打开网址
-
-## 🏆 贡献代码
-
-1. 请将代码提交到 beta 分支
-2. 执行 commit 操作时使用 husky 自动进行代码格式化

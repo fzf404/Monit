@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 15:21:36
+ * @LastEditTime: 2022-09-29 18:24:03
  * @Description: Monit 主题开发
 -->
 
@@ -21,25 +21,37 @@
  * 基底
  */
 #app {
-  @apply bg-indigo-800 bg-opacity-50 text-white;
+  @apply bg-indigo-700 bg-opacity-50 text-gray-200;
 }
 
 /**
  * 文字
  */
-.text-primary {
-  @apply text-indigo-500;
-}
-
 .text-gray {
   @apply text-amber-300;
+}
+
+.text-dark {
+  @apply text-indigo-600;
+}
+
+.text-theme {
+  @apply text-red-400;
+}
+
+/**
+ * 底色
+ */
+
+.bg-theme {
+  @apply bg-orange-400;
 }
 
 /**
  * 模态框
  */
 .modal {
-  @apply bg-indigo-800 bg-opacity-40;
+  @apply bg-indigo-800 bg-opacity-50;
 }
 
 /**
@@ -59,6 +71,10 @@
 
       select {
         @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+      }
+
+      button {
+        @apply bg-blue-500 hover:bg-blue-600;
       }
 
       input[type='checkbox'] {
@@ -171,16 +187,4 @@ import DarkSVG from '@/assets/layout/dark.svg'
 import PunkSVG from '@/assets/layout/punk.svg'
 import LightSVG from '@/assets/layout/light.svg'
 </script>
-```
-
-### 5. 启动 & 打包
-
-```bash
-# 调试应用
-pnpm serve
-# 在托盘中启动 count 插件
-
-# 构建应用
-pnpm build
-# 构建成功后即可在 dist_electron 找到安装包
 ```

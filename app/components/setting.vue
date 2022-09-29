@@ -2,101 +2,140 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-08-14 23:23:56
+ * @LastEditTime: 2022-09-29 18:00:29
  * @Description: setting 组件
 -->
 <template>
   <!-- 设置模态框 -->
-  <aside class="setting" :class="{ 'setting-sm': size === 'small' }" v-show="store.setting.show">
+  <aside class="modal setting z-50 flex justify-center items-center rounded-lg" v-show="store.setting.show">
     <!-- 设置框 -->
-    <ul>
+    <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4 px-3': size === 'wide' }">
       <!-- 设置列表 -->
-      <li v-for="item in setting">
+      <li class="h-8 px-2 flex justify-between items-center rounded" v-for="item in setting">
         <!-- 设置标签 -->
-        <label :for="item.id">{{ item.label }}</label>
+        <label :for="item.id" class="flex space-x-0.5 text-xs">
+          <span>
+            {{ item.label }}
+          </span>
+          <HelpSVG
+            v-show="item.help"
+            class="relative w-3 self-center btn-svg text-gray"
+            @click="openURL(item.help as string)"
+          />
+        </label>
+
         <!-- 选择框 -->
-        <select v-if="item.type === 'select'" v-model.lazy="config[item.id]">
+        <select
+          v-if="item.type === 'select'"
+          :id="item.id"
+          class="w-3/5 px-2 py-1 outline-none border-none rounded text-xs"
+          v-model.lazy="config[item.id]"
+        >
           <option v-for="option in item.options" :value="option.value">
             {{ option.label }}
           </option>
         </select>
-        <!-- 输入框 -->
+
+        <!-- 选择框 -->
+        <button v-else-if="item.type === 'button'" class="btn btn-xs w-1/3" :id="item.id" @click="item.options.click">
+          {{ item.options.text }}
+        </button>
+
+        <!-- 数字输入框 -->
         <input
-          v-else
+          v-else-if="item.type === 'number'"
           :id="item.id"
-          :type="item.type"
+          type="number"
           v-model.lazy="config[item.id]"
           @keyup.enter="onSave"
           @input="
             (event) => {
               // number 最大长度
-              if (item.type === 'number' && (event.target as HTMLInputElement).value.length > item.options.len)
+              if ((event.target as HTMLInputElement).value.length > item.options.len)
                 (event.target as HTMLInputElement).value = (event.target as HTMLInputElement).value.slice(0, item.options.len)
             }
           "
         />
+
+        <!-- 文本输入框 -->
+        <input
+          v-else-if="item.type === 'text'"
+          :id="item.id"
+          type="text"
+          v-model.lazy="config[item.id]"
+          @keyup.enter="onSave"
+        />
+
+        <!-- 文本输入框 -->
+        <input
+          v-else-if="item.type === 'checkbox'"
+          :id="item.id"
+          type="checkbox"
+          v-model.lazy="(config[item.id] as boolean)"
+          @keyup.enter="onSave"
+        />
       </li>
       <!-- 保存 -->
-      <ol>
-        <button @click="onSave">保存</button>
+      <ol class="flex justify-end items-center">
+        <button @click="onSave" class="btn btn-sm">保存</button>
       </ol>
     </ul>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue'
-
+import { openURL } from '#/ipc'
 import { useStore } from '@/store'
-import { storage } from '~/storage'
 
-// 初始化 props
+import HelpSVG from '@/assets/setting/help.svg'
+
+// props 接口
 interface Props {
   // 尺寸
-  size?: 'small'
+  size?: 'wide'
   // 配置
-  config: Record<string, any>
+  config: Record<string, Object>
   // 信息
   setting: (
     | {
         id: string
         label: string
         type: 'text' | 'checkbox'
+        help?: string
       }
     | {
         id: string
         label: string
         type: 'number'
+        help?: string
         options: { len: number }
       }
     | {
         id: string
         label: string
         type: 'select'
+        help?: string
         options: { label: string; value: string }[]
+      }
+    | {
+        id: string
+        label: string
+        type: 'button'
+        help?: string
+        options: { text: string; click: () => void }
       }
   )[]
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const emit = defineEmits(['save'])
 
 // 初始化 store
 const store = useStore()
-// 初始化 storage
-const { set } = storage()
 
 // 初始化设置
-onMounted(() => {
-  store.setting.has = true
-})
-
-// 保存数据
-watchEffect(() => {
-  for (const key in props.config) {
-    set(key, props.config[key])
-  }
-})
+store.setting.has = true
 
 // 保存
 const onSave = () => {
@@ -106,3 +145,19 @@ const onSave = () => {
   emit('save')
 }
 </script>
+
+<style scoped>
+input[type='checkbox'] {
+  @apply w-4 h-4 outline-none;
+}
+
+/* 去除箭头 */
+input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+input[type='number'],
+input[type='text'] {
+  @apply w-3/5 px-2 py-1 outline-none border-none rounded text-right text-xs;
+}
+</style>

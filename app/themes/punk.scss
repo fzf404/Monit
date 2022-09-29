@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 15:18:50
+ * @LastEditTime: 2022-09-28 18:07:06
  * @Description: punk 赛博主题
  */
 
@@ -10,25 +10,37 @@
  * 基底
  */
 #app {
-  @apply bg-indigo-800 bg-opacity-50 text-white;
+  @apply bg-indigo-700 bg-opacity-50 text-gray-200;
 }
 
 /**
  * 文字
  */
-.text-primary {
+.text-gray {
+  @apply text-amber-300;
+}
+
+.text-dark {
   @apply text-indigo-600;
 }
 
-.text-gray {
-  @apply text-amber-300;
+.text-theme {
+  @apply text-red-400;
+}
+
+/**
+ * 底色
+ */
+
+.bg-theme {
+  @apply bg-orange-400;
 }
 
 /**
  * 模态框
  */
 .modal {
-  @apply bg-indigo-800 bg-opacity-40;
+  @apply bg-indigo-800 bg-opacity-50;
 }
 
 /**
@@ -48,6 +60,10 @@
 
       select {
         @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+      }
+
+      button {
+        @apply bg-blue-500 hover:bg-blue-600;
       }
 
       input[type='checkbox'] {

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-07-22 00:55:08
+ * @LastEditTime: 2022-09-24 23:39:11
  * @Description: camera 工具
  */
 
@@ -25,7 +25,7 @@ export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, re
   // 绘制画布
   ctx.drawImage(video, 0, 0)
 
-  // 保存图片
+  // 保存图像
   record.href = canvas.toDataURL('image/jpeg')
   // 设置下载文件名
   record.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
@@ -50,6 +50,7 @@ export const recordVideo = (record: HTMLAnchorElement, device: string): void => 
       video: {
         deviceId: device,
       },
+      // TODO 检测麦克风存在
       audio: true,
     })
     .then((stream) => {

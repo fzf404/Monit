@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-09 20:55:03
+ * @LastEditTime: 2022-09-28 22:47:41
  * @Description: main 入口
  */
 
@@ -31,8 +31,7 @@ app.on('ready', async () => {
   // 自动打开窗口
   autoWindow()
 
-  // 自动检查更新
-  // TODO 更新通知
+  // TODO 自动检查更新
   if (!isDebug)
     autoUpdater.checkForUpdatesAndNotify({
       title: 'Monit - update',
@@ -46,7 +45,7 @@ app.on('ready', () => {
     try {
       installExtension(VUEJS_DEVTOOLS)
     } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
+      console.error('Vue Devtools 安装失败：', e.toString())
     }
   }
 })
@@ -58,19 +57,5 @@ app.on('activate', () => {
   }
 })
 
-// 调试模式下退出
-if (isDebug) {
-  if (process.platform === 'win32') {
-    process.on('message', (data) => {
-      if (data === 'graceful-exit') {
-        app.quit()
-      }
-    })
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
-  }
-}
-
-export { isDebug }
+// 阻止托盘退出
+app.on('window-all-closed', () => {})

@@ -18,6 +18,6 @@
       "core": ["core/*"]
     }
   },
-  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts"],
+  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts", "custom.d.ts"],
   "exclude": ["node_modules"]
 }

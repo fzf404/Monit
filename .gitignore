@@ -2,13 +2,11 @@
 .DS_Store
 
 # depend
+.husky
 node_modules
 
 # log
 pnpm-debug.log*
-
-# ide
-.vscode
 
 # build
 dist

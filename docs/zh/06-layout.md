@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 16:07:41
+ * @LastEditTime: 2022-09-29 18:24:46
  * @Description: Monit 布局开发
 -->
 
-写一个 Windows 系统的主题吧
+写一个 Windows 系统的布局吧！
 
 ## ☣️ Wine 布局
 
@@ -87,7 +87,7 @@ const store = useStore()
 
 ### 2. 修改默认布局指向
 
-> `app/layouts/wine.vue`
+> `app/layouts/maco.vue`
 
 ```vue
 <!-- 布局 -->
