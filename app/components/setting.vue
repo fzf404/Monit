@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 17:39:04
+ * @LastEditTime: 2022-09-29 18:00:29
  * @Description: setting 组件
 -->
 <template>
   <!-- 设置模态框 -->
   <aside class="modal setting z-50 flex justify-center items-center rounded-lg" v-show="store.setting.show">
     <!-- 设置框 -->
-    <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4': size === 'small' }">
+    <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4 px-3': size === 'wide' }">
       <!-- 设置列表 -->
       <li class="h-8 px-2 flex justify-between items-center rounded" v-for="item in setting">
         <!-- 设置标签 -->
@@ -19,7 +19,7 @@
           </span>
           <HelpSVG
             v-show="item.help"
-            class="relative w-3 self-center btn-svg text-gray hover:"
+            class="relative w-3 self-center btn-svg text-gray"
             @click="openURL(item.help as string)"
           />
         </label>
@@ -45,7 +45,7 @@
         <input
           v-else-if="item.type === 'number'"
           :id="item.id"
-          :type="item.type"
+          type="number"
           v-model.lazy="config[item.id]"
           @keyup.enter="onSave"
           @input="
@@ -58,7 +58,22 @@
         />
 
         <!-- 文本输入框 -->
-        <input v-else :id="item.id" :type="item.type" v-model.lazy="config[item.id]" @keyup.enter="onSave" />
+        <input
+          v-else-if="item.type === 'text'"
+          :id="item.id"
+          type="text"
+          v-model.lazy="config[item.id]"
+          @keyup.enter="onSave"
+        />
+
+        <!-- 文本输入框 -->
+        <input
+          v-else-if="item.type === 'checkbox'"
+          :id="item.id"
+          type="checkbox"
+          v-model.lazy="(config[item.id] as boolean)"
+          @keyup.enter="onSave"
+        />
       </li>
       <!-- 保存 -->
       <ol class="flex justify-end items-center">
@@ -77,7 +92,7 @@ import HelpSVG from '@/assets/setting/help.svg'
 // props 接口
 interface Props {
   // 尺寸
-  size?: 'small'
+  size?: 'wide'
   // 配置
   config: Record<string, Object>
   // 信息

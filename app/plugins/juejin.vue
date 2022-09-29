@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:39:09
+ * @LastEditTime: 2022-09-29 18:07:35
  * @Description: juejin 信息监控
 -->
 <template>
@@ -19,6 +19,7 @@
         id: 'user',
         label: '用户ID',
         type: 'text',
+        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控',
       },
     ]"
     :config="store"
@@ -32,7 +33,7 @@
       <p class="flex-row-center-bottom">
         <!-- 关注者图标 -->
         <FollowerSVG
-          class="mr-1 mb-1 stroke-current text-violet-500"
+          class="mr-1 mb-1 text-violet-500"
           :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }"
         />
         <!-- 关注者 number -->
@@ -58,10 +59,7 @@
       <h1 class="text-intro">掘力值</h1>
       <p class="flex-row-center-bottom">
         <!-- 掘力值图标 -->
-        <PowerSVG
-          class="mr-1 mb-1 stroke-current text-blue-400"
-          :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }"
-        />
+        <PowerSVG class="mr-1 mb-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
         <!-- 掘力值 number -->
         <span :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
           {{ store.power >= 1000 ? `${(store.power / 1000).toFixed(2)}k` : store.power }}
@@ -85,10 +83,7 @@
       <h1 class="text-intro">获赞数</h1>
       <p class="flex-row-center-bottom">
         <!-- 点赞图标 -->
-        <LikeSVG
-          class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
-          :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }"
-        />
+        <LikeSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
         <!-- 点赞数 number -->
         <span :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
           {{ store.like >= 1000 ? `${(store.like / 1000).toFixed(2)}k` : store.like }}
@@ -113,7 +108,7 @@
       <p class="flex-row-center-bottom">
         <!-- 阅读数图标 -->
         <ViewSVG
-          class="mr-1 mb-1 stroke-current text-red-400"
+          class="mr-1 mb-1 -current text-red-400"
           :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }"
         />
         <!-- 阅读数 -->
@@ -152,7 +147,7 @@
         @click="openArticle(item.id)"
       >
         <!-- 文章图标 -->
-        <ArticleSVG class="h-4 mt-3 stroke-current text-blue-400" />
+        <ArticleSVG class="h-4 mt-3 text-blue-400" />
         <!-- 文章名 -->
         <span class="whitespace-nowrap text-intro">
           {{ item.title }}

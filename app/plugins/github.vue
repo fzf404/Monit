@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:39:05
+ * @LastEditTime: 2022-09-29 18:06:52
  * @Description: github 信息监控
 -->
 <template>
@@ -31,7 +31,7 @@
       <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
-          class="mr-1 mb-1 stroke-current text-blue-400"
+          class="mr-1 mb-1 text-blue-400"
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }"
         />
         <!-- follower number -->
@@ -56,7 +56,7 @@
     <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll scrollable mt-1">
       <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
         <!-- repo svg -->
-        <RepoSVG class="h-4 mt-1 stroke-current text-green-400" />
+        <RepoSVG class="h-4 mt-1 text-green-400" />
         <span class="text-sm">
           {{ item.star }}
         </span>
@@ -68,10 +68,7 @@
       <h1 class="text-intro">star</h1>
       <p class="flex-row-center-bottom">
         <!-- star svg -->
-        <StarSVG
-          class="mr-0.5 mb-1.5 stroke-current text-yellow-400"
-          :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }"
-        />
+        <StarSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
         <!-- star number -->
         <span :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
@@ -95,7 +92,7 @@
       <h1 class="text-intro">fork</h1>
       <p class="flex-row-center-bottom">
         <!-- fork svg -->
-        <ForkSVG class="mb-1 stroke-current text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
+        <ForkSVG class="mb-1 text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
         <!-- fork number -->
         <span :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{ fork }}</span>
         <!-- fork change -->
@@ -116,7 +113,7 @@
 </template>
 
 <script>
-import { getValue, openURL, sendAlert, sendNotice } from '#/ipc'
+import { openURL, sendAlert, sendNotice } from '#/ipc'
 import { useStore } from '@/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
@@ -159,11 +156,11 @@ export default {
   data() {
     // 状态数据
     return {
-      follower: getValue('follower', 0), // 当前follower数
-      star: getValue('star', 0), // 当前star数
-      fork: getValue('fork', 0), // 当前fork数
+      follower: this.store.follower, // 当前 follower 数
+      star: this.store.star, // 当前 star 数
+      fork: this.store.fork, // 当前 fork 数
 
-      repo: getValue('repo', []), // 当前repo信息
+      repo: this.store.repo, // 当前 repo 信息
     }
   },
   created() {

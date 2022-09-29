@@ -8,7 +8,7 @@
 <template>
   <!-- 设置 -->
   <Setting
-    size="small"
+    size="wide"
     :setting="[
       {
         id: 'count',

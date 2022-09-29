@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 17:30:19
+ * @LastEditTime: 2022-09-29 17:58:39
  * @Description: 基础主题
  */
 
@@ -156,7 +156,7 @@ select,
 
 // svg 按钮
 .btn-svg {
-  @apply inline clickable stroke-current;
+  @apply inline clickable;
 }
 
 .btn-red {

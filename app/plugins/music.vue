@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 23:01:00
+ * @LastEditTime: 2022-09-29 17:52:48
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -13,7 +13,7 @@
         id: 'url',
         label: '请求地址',
         type: 'text',
-        help: 'https://monit.fzf404.art',
+        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
       },
       {
         id: 'id',
@@ -43,7 +43,7 @@
     <section class="flex-col-center col-span-1 row-span-3 mt-4">
       <img
         :src="store.music[store.current].image"
-        class="w-5/6 rounded-full ring-4 ring-white"
+        class="w-14 h-14 rounded-full ring-4 ring-white"
         :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }"
       />
     </section>

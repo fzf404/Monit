@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 21:51:38
+ * @LastEditTime: 2022-09-29 18:10:30
  * @Description: todo 代办事项管理
 -->
 
@@ -14,12 +14,12 @@ main
         li.flex.items-center
           input.mr-2.accent-purple-500(v-model="element.checked" type="checkbox")
           input.mr-2.w-full.bg-transparent.outline-none.text-sm(:class="element.checked?'line-through text-gray':'text-gray-200'" v-model="element.title" type="text")
-          DeleteSVG.w-6.btn-svg.clickable.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
+          DeleteSVG.w-6.btn-svg.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )
           MoveSVG.w-7.btn-svg.text-purple-400.handle(class="hover:text-purple-500")
     footer.flex.items-center.border-t-2.border-indigo-500.pt-2
       input.mr-2.accent-purple-500( type="checkbox")
       input.mr-2.w-full.bg-transparent.outline-none.text-sm( v-model="todo" @keyup.enter="add" type="text")
-      AddSVG.w-5.mr-2.stroke-current.clickable.text-cyan-400(class="hover:text-cyan-500" @click="add")
+      AddSVG.w-5.mr-2.btn-svg.text-cyan-400(class="hover:text-cyan-500" @click="add")
 </template>
 
 <script setup>
