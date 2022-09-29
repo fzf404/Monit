@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:07:35
+ * @LastEditTime: 2022-09-29 18:22:00
  * @Description: juejin 信息监控
 -->
 <template>
@@ -33,7 +33,7 @@
       <p class="flex-row-center-bottom">
         <!-- 关注者图标 -->
         <FollowerSVG
-          class="mr-1 mb-1 text-violet-500"
+          class="mr-1 mb-1 text-violet-400"
           :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }"
         />
         <!-- 关注者 number -->

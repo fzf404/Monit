@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 11:23:55
+ * @LastEditTime: 2022-09-28 22:47:41
  * @Description: main 入口
  */
 
@@ -45,7 +45,7 @@ app.on('ready', () => {
     try {
       installExtension(VUEJS_DEVTOOLS)
     } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
+      console.error('Vue Devtools 安装失败：', e.toString())
     }
   }
 })

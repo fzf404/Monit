@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-22 10:27:21
+ * @LastEditTime: 2022-09-28 20:19:07
  * @Description: Monit 说明文档
 -->
 
@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
-  <a href="https://monit.fzf404.art"> 开发文档 </a> ｜
+  <a href="https://monit.fzf404.art"> 软件官网 </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a> ｜
   <a href="https://hub.fastgit.xyz/fzf404/Monit/releases"> 国内镜像 </a>
 </p>
@@ -31,7 +31,7 @@
 
 > VueC 指 Composition API，VueO 指 Options API
 >
-> 更多请查看：[开发文档](https://monit.fzf404.art)
+> 更多请查看：[使用指南](https://monit.fzf404.art/#/zh/01-guide)
 
 | 插件名   | 功能              | 技术                         | 贡献                                  | 状态 |
 | -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |
@@ -51,8 +51,8 @@
 ## 🎁 安装
 
 > 使用 Github Action 自动打包，无需担心安全问题
-
-前往 [Release](https://github.com/fzf404/Monit/releases) / [国内镜像](https://hub.fastgit.xyz/fzf404/Monit/releases) 寻找操作系统对应的安装包
+>
+> 前往 [Release](https://github.com/fzf404/Monit/releases) / [国内镜像](https://hub.fastgit.xyz/fzf404/Monit/releases) 寻找操作系统对应的安装包
 
 - Windows
 
