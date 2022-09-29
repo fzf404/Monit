@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-08-15_22-51-29.webp" alt="bashow" style="zoom:50%;" />
+  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-09-29_18-36-06.webp" alt="show" style="zoom:50%;" />
 </p>
 
 ## ✨ 功能
