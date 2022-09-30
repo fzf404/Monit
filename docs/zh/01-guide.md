@@ -54,11 +54,13 @@
 
 > 播放网易云歌单、切换歌曲、循环播放
 
-本插件依赖 [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)，由本人部署的免费版本。
+本插件依赖 [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)，由 [qlstudio](https://ql.sylu.edu.cn/) 部署的免费版本。
 
-如发现默认提供的 API 地址不可用，请寻找其他人提供的免费版本，或自行部署。
+如不可用，请自行部署，或尝试此地址：`https://api-music.imsyy.top`
 
-打开网页版[网易云音乐](https://music.163.com/)，登录后进入任意歌单。
+---
+
+打开网页版 [网易云音乐](https://music.163.com/)，登录后进入任意歌单。
 
 地址栏 `https://music.163.com/#/playlist?id=` 后面的数字即为 `歌单ID`。
 
