@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:22:00
+ * @LastEditTime: 2022-10-02 19:29:45
  * @Description: juejin 信息监控
 -->
 <template>
@@ -294,7 +294,13 @@ export default {
   methods: {
     //  初始化数据函数
     async initJuejinData() {
-      await this.getJuejinData()
+      const data = await this.getJuejinData()
+
+      console.log('data', data)
+      // 验证用户存在
+      if (data.user_id === '0') {
+        return sendAlert('用户ID错误！')
+      }
 
       this.store.follower = this.follower
       this.store.like = this.like
@@ -306,9 +312,10 @@ export default {
     async getJuejinData() {
       // 获取用户信息
       const { data } = await request.get(`user_api/v1/user/get?user_id=${this.store.user}`)
+
       // 验证用户存在
       if (data.user_id === '0') {
-        return sendAlert('用户ID错误！')
+        return data
       }
 
       // 设置信息
@@ -331,6 +338,8 @@ export default {
       })
 
       this.article = info
+
+      return data
     },
     // 更新关注数
     updateFollower() {
