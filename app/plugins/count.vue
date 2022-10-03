@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 22:26:34
+ * @LastEditTime: 2022-10-02 22:22:01
  * @Description: count 计数器
 -->
 <template>
@@ -30,19 +30,15 @@
     :config="store"
   />
   <!-- 页面内容 -->
-  <article>
-    <!-- 主体 -->
-    <section class="w-full h-full flex-col-center space-y-2">
-      <h1 class="text-intro">计数器</h1>
-      <p class="text-5xl">{{ store.count }}</p>
-      <!-- 增加 & 减少 -->
-      <p class="space-x-4 pt-2">
-        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
-          <AddSVG class="w-5" />
-        </button>
-      </p>
-    </section>
+  <article class="flex-col-center space-y-2">
+    <h1 class="text-intro">计数器</h1>
+    <p class="text-5xl">{{ store.count }}</p>
+    <p class="space-x-4 pt-2">
+      <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+      <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
+        <AddSVG class="w-5" />
+      </button>
+    </p>
   </article>
 </template>
 

@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:31:13
+ * @LastEditTime: 2022-10-03 14:30:26
  * @Description: 布局切换
 -->
 <template>
   <component :is="layout[store.layout]" :state="store"></component>
-  <router-view> </router-view>
+  <router-view></router-view>
 </template>
 
 <script setup>

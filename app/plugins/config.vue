@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 19:12:48
+ * @LastEditTime: 2022-10-03 15:01:10
  * @Description: config 插件设置
 -->
 <template>
@@ -19,10 +19,10 @@
     :config="store"
   />
   <!-- 页面内容 -->
-  <article class="flex flex-col justify-between pt-8 p-3">
-    <section class="overflow-hidden overflow-y-scroll scrollable space-y-2">
+  <article class="flex-col-between pt-8 p-3">
+    <section class="scrollable space-y-2">
       <!-- 插件操作 -->
-      <p class="w-full flex-row-between">
+      <p class="flex-row-between w-full">
         <button
           class="btn btn-sm btn-blue w-2/3"
           @click="pluginList.forEach((item) => sendEvent('window-open', item.name))"
@@ -71,7 +71,7 @@
         <button v-else class="btn btn-sm btn-red" @click="store.open.push(item.name)">自启关</button>
       </p>
       <!-- Moint 版本 -->
-      <p class="flex-col-center-end text-intro">Monit {{ pkg.version }}</p>
+      <p class="flex-col-center-bottom text-intro">Monit {{ pkg.version }}</p>
     </section>
   </article>
 </template>

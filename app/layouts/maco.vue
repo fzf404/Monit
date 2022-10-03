@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 20:47:46
+ * @LastEditTime: 2022-10-03 14:30:45
  * @Description: maco 布局
 -->
 <template>
   <nav>
-    <ul class="absolute left-2 z-40 space-x-1">
+    <ul class="absolute z-40 left-2 space-x-1">
       <!-- 关闭 -->
       <CloseSVG
         class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 hover:bg-red-500 text-dark"

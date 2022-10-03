@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 19:30:26
+ * @LastEditTime: 2022-10-02 22:36:45
  * @Description: github 信息监控
 -->
 <template>
@@ -53,7 +53,7 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll scrollable mt-1">
+    <section class="flex-scroll col-span-5 row-span-5 mt-1">
       <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 mt-1 text-green-400" />

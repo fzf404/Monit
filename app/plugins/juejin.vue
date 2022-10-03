@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 19:29:45
+ * @LastEditTime: 2022-10-02 22:51:57
  * @Description: juejin 信息监控
 -->
 <template>
@@ -55,7 +55,7 @@
       </p>
     </section>
     <!-- 掘力值 -->
-    <section class="flex-col-center col-start-2 col-end-5 row-start-3 scrollable">
+    <section class="flex-col-center col-start-2 col-end-5 row-start-3">
       <h1 class="text-intro">掘力值</h1>
       <p class="flex-row-center-bottom">
         <!-- 掘力值图标 -->
@@ -107,10 +107,7 @@
       <h1 class="text-intro">阅读数</h1>
       <p class="flex-row-center-bottom">
         <!-- 阅读数图标 -->
-        <ViewSVG
-          class="mr-1 mb-1 -current text-red-400"
-          :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }"
-        />
+        <ViewSVG class="mr-1 mb-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
         <!-- 阅读数 -->
         <span :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
           store.view >= 10000 ? `${(store.view / 1000).toFixed(2)}k` : store.view
@@ -130,7 +127,7 @@
       </p>
     </section>
     <!-- 用户名 -->
-    <section class="flex-col-center-end col-start-1 col-end-5 row-start-6">
+    <section class="flex-col-center-bottom col-start-1 col-end-5 row-start-6">
       <p class="flex-row-center-bottom">
         <!-- 掘金图标 -->
         <JuejinSVG class="h-5 pr-1" />
@@ -140,7 +137,7 @@
       </p>
     </section>
     <!-- 文章 -->
-    <section class="flex-col-left col-start-5 col-end-8 row-start-1 row-end-7 overflow-y-scroll mt-1">
+    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-1">
       <p
         v-for="item in articleChange"
         class="flex-row-center space-x-1 space-y-3 clickable"
@@ -159,7 +156,6 @@
 
 <script>
 import { openURL, sendAlert, sendNotice } from '#/ipc'
-
 import { useStore } from '@/store'
 import axios from '~/request'
 import { storage } from '~/storage'
@@ -209,7 +205,6 @@ export default {
       name: '', // 当前用户名
 
       follower: this.store.follower, // 当前关注数
-
       like: this.store.like, // 当前点赞数
       view: this.store.view, // 当前阅读数
       power: this.store.power, // 当前掘力值
