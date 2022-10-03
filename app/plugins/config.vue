@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:19:28
+ * @LastEditTime: 2022-10-03 19:47:42
  * @Description: config 插件设置
 -->
 <template>
@@ -14,6 +14,28 @@
         id: 'auto',
         label: '开机自启',
         type: 'checkbox',
+      },
+      {
+        id: 'reload',
+        label: '重启应用',
+        type: 'button',
+        options: {
+          text: '〇',
+          click: () => {
+            sendEvent('app-reload')
+          },
+        },
+      },
+      {
+        id: 'reload',
+        label: '重置应用',
+        type: 'button',
+        options: {
+          text: '✕',
+          click: () => {
+            sendEvent('app-reset')
+          },
+        },
       },
     ]"
     :config="store"
@@ -81,8 +103,9 @@ import { reactive } from 'vue'
 
 import { sendEvent } from '#/ipc'
 import { pluginList } from '#/plugin'
-import pkg from 'root/package.json'
 import { storage } from '~/storage'
+
+import pkg from 'root/package.json'
 
 import Setting from '@/components/setting.vue'
 
@@ -100,7 +123,7 @@ const store = storage(
   // 自启修改
   {
     auto: (val) => {
-      sendEvent('auto-launch', val)
+      sendEvent('app-auto', val)
     },
   }
 )
