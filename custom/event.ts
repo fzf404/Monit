@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 19:38:55
+ * @LastEditTime: 2022-10-03 20:48:54
  * @Description: event 处理
  */
 
@@ -27,6 +27,8 @@ export const initIPC = () => {
   // 重置应用
   ipcMain.on('app-reset', function (event) {
     store.clear()
+    app.relaunch()
+    app.quit()
   })
 
   // 开机自启
