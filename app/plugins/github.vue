@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 22:36:45
+ * @LastEditTime: 2022-10-03 15:15:38
  * @Description: github 信息监控
 -->
 <template>
@@ -289,20 +289,26 @@ export default {
     },
     // 更新 star
     updateStar() {
-      // 查找 star 变化的仓库
-      getArrDiffKey(this.store.repo, this.repo, 'repo', 'star').forEach((item) => {
-        openURL(`https://github.com/${this.store.user}/${item.repo}/stargazers`)
-      })
+      if (this.store.notice) {
+        // 查找 star 变化的仓库
+        getArrDiffKey(this.store.repo, this.repo, 'repo', 'star').forEach((item) => {
+          openURL(`https://github.com/${this.store.user}/${item.repo}/stargazers`)
+        })
+      }
+
       // 存储新数据
       this.store.star = this.star
       this.store.repo = this.repo
     },
     // 更新 fork
     updateFork() {
-      // 查找 star 变化的仓库
-      getArrDiffKey(this.store.repo, this.repo, 'repo', 'fork').forEach((item) => {
-        openURL(`https://github.com/${this.store.user}/${item.repo}/network/members`)
-      })
+      if (this.store.notice) {
+        // 查找 star 变化的仓库
+        getArrDiffKey(this.store.repo, this.repo, 'repo', 'fork').forEach((item) => {
+          openURL(`https://github.com/${this.store.user}/${item.repo}/network/members`)
+        })
+      }
+
       // 存储新数据
       this.store.fork = this.fork
       this.store.repo = this.repo
