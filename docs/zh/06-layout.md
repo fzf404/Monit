@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:24:46
+ * @LastEditTime: 2022-10-03 14:02:17
  * @Description: Monit 布局开发
 -->
 
@@ -18,7 +18,7 @@
 
 ```vue
 <template>
-  <nav class="layout">
+  <nav>
     <!-- 状态控制器 -->
     <ul class="absolute left-2 z-40">
       <!-- 设置 -->

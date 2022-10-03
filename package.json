@@ -5,7 +5,6 @@
   "version": "0.7.0",
   "description": "桌面小组件",
   "scripts": {
-    "prepare": "husky install",
     "serve": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
     "release": "vue-cli-service electron:build --publish always"

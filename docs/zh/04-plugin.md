@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:16:36
+ * @LastEditTime: 2022-10-02 22:23:35
  * @Description: Monit 插件开发
 -->
 
@@ -13,22 +13,6 @@
 ### 1. 引入 svg 图像
 
 > 推荐使用 svg 作为图像，可以去 [xicons](https://www.xicons.org/) 寻找
-
-```vue
-<template>
-  <!-- 指定 svg 颜色-->
-  <XxxSVG class="h-4 btn-svg text-green-400" />
-</template>
-
-<script setup>
-// 引入 svg
-import XxxSVG from '@/assets/xx/xxx.svg'
-</script>
-```
-
-### 2. 编写插件页面
-
-> `app/plugins/count.vue`
 
 ```vue
 <template>
@@ -56,19 +40,15 @@ import XxxSVG from '@/assets/xx/xxx.svg'
     :config="store"
   />
   <!-- 页面内容 -->
-  <article>
-    <!-- 主体 -->
-    <section class="w-full h-full flex-col-center space-y-2">
-      <h1 class="text-intro">计数器</h1>
-      <p class="text-5xl">{{ store.count }}</p>
-      <!-- 增加 & 减少 -->
-      <p class="space-x-4 pt-2">
-        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
-          <AddSVG class="w-5" />
-        </button>
-      </p>
-    </section>
+  <article class="flex-col-center space-y-2">
+    <h1 class="text-intro">计数器</h1>
+    <p class="text-5xl">{{ store.count }}</p>
+    <p class="space-x-4 pt-2">
+      <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+      <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
+        <AddSVG class="w-5" />
+      </button>
+    </p>
   </article>
 </template>
 
