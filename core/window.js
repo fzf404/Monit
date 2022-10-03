@@ -2,23 +2,22 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-19 21:16:55
+ * @LastEditTime: 2022-10-03 18:34:03
  * @Description: window 管理
  */
 
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { winEvent } from '#/event'
 import { pluginList } from '#/plugin'
 import { cget } from '~/storage'
+import { initWinEvent } from './utils'
 
 // 窗口网格大小
 const BasicMesh = 100
 
 // 创建窗口
 export const createWindow = (name) => {
-  
   // 判断插件存在
   const plugin = pluginList.find((item) => item.name === name)
   if (!plugin) {
@@ -80,11 +79,11 @@ export const createWindow = (name) => {
   }
 
   // 监听事件
-  winEvent(win, name)
+  initWinEvent(win, name)
 }
 
 // 开机自启窗口
-export const autoWindow = () => {
+export const initWindow = () => {
   const openPlugins = cget('config', 'open', [])
   // 是否存在自启插件
   if (openPlugins.length) {

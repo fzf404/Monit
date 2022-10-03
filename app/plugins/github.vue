@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:06:52
+ * @LastEditTime: 2022-10-03 15:15:38
  * @Description: github 信息监控
 -->
 <template>
@@ -53,7 +53,7 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-col-left col-span-5 row-span-5 overflow-x-auto overflow-y-scroll scrollable mt-1">
+    <section class="flex-scroll col-span-5 row-span-5 mt-1">
       <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 mt-1 text-green-400" />
@@ -232,7 +232,12 @@ export default {
   methods: {
     // 初始化数据
     async initGithubData() {
-      await this.getGithubData()
+      const data = await this.getGithubData()
+
+      // 验证用户存在
+      if (data === undefined) {
+        return sendAlert('用户不存在！')
+      }
 
       this.store.follower = this.follower
       this.store.star = this.star
@@ -241,39 +246,40 @@ export default {
     },
     // 请求数据
     async getGithubData() {
-      return await request.get(`/users/${this.store.user}`).then(async (data) => {
-        // 验证用户存在
-        if (data === undefined) {
-          sendAlert('用户不存在！')
-          return
-        }
+      // 获取用户信息
+      const data = await request.get(`/users/${this.store.user}`)
 
-        // 设置 follower 信息
-        this.follower = data.followers
+      // 验证用户存在
+      if (data === undefined) {
+        return data
+      }
 
-        // 统计 stat fork repo 数据
-        let fork = 0,
-          star = 0,
-          repo = [],
-          pages = Math.ceil(data.public_repos / 100)
+      // 设置 follower 信息
+      this.follower = data.followers
 
-        // 遍历 repo 信息
-        while (pages--) {
-          await request.get(`/users/${this.store.user}/repos?page=${pages + 1}&per_page=100`).then((data) => {
-            // 遍历数据
-            data.forEach((item) => {
-              star += item.stargazers_count
-              fork += item.forks_count
-              repo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
-            })
-          })
-        }
+      // 统计 stat fork repo 数据
+      let fork = 0,
+        star = 0,
+        repo = [],
+        pages = Math.ceil(data.public_repos / 100)
 
-        // 设置数据
-        this.star = star
-        this.fork = fork
-        this.repo = repo
-      })
+      // 遍历 repo 信息
+      while (pages--) {
+        // 读取 repo 信息
+        const each = await request.get(`/users/${this.store.user}/repos?page=${pages + 1}&per_page=100`)
+        each.forEach((item) => {
+          star += item.stargazers_count
+          fork += item.forks_count
+          repo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
+        })
+      }
+
+      // 设置数据
+      this.star = star
+      this.fork = fork
+      this.repo = repo
+
+      return data
     },
 
     // 更新 follower
@@ -283,20 +289,26 @@ export default {
     },
     // 更新 star
     updateStar() {
-      // 查找 star 变化的仓库
-      getArrDiffKey(this.store.repo, this.repo, 'repo', 'star').forEach((item) => {
-        openURL(`https://github.com/${this.store.user}/${item.repo}/stargazers`)
-      })
+      if (this.store.notice) {
+        // 查找 star 变化的仓库
+        getArrDiffKey(this.store.repo, this.repo, 'repo', 'star').forEach((item) => {
+          openURL(`https://github.com/${this.store.user}/${item.repo}/stargazers`)
+        })
+      }
+
       // 存储新数据
       this.store.star = this.star
       this.store.repo = this.repo
     },
     // 更新 fork
     updateFork() {
-      // 查找 star 变化的仓库
-      getArrDiffKey(this.store.repo, this.repo, 'repo', 'fork').forEach((item) => {
-        openURL(`https://github.com/${this.store.user}/${item.repo}/network/members`)
-      })
+      if (this.store.notice) {
+        // 查找 star 变化的仓库
+        getArrDiffKey(this.store.repo, this.repo, 'repo', 'fork').forEach((item) => {
+          openURL(`https://github.com/${this.store.user}/${item.repo}/network/members`)
+        })
+      }
+
       // 存储新数据
       this.store.fork = this.fork
       this.store.repo = this.repo

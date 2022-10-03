@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 17:56:24
+ * @LastEditTime: 2022-10-02 21:32:25
  * @Description: camera 相机监控
 -->
 <template>
@@ -16,9 +16,9 @@
     <section class="relative w-full h-full overflow-hidden rounded-lg">
       <!-- 绘制 -->
       <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }" />
-      <!-- 预览 -->
+      <!-- 视频 -->
       <video ref="video" class="absolute w-full h-full" :class="{ mirror: store.mirror }" autoplay />
-      <!-- 记录器 -->
+      <!-- 记录 -->
       <a ref="record" class="hidden" />
     </section>
     <!-- 相机控制器 -->
@@ -73,7 +73,7 @@ import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
 
-// HTMLElement Refs
+// 标签引用
 const video = ref(null)
 const canvas = ref(null)
 const record = ref(null)

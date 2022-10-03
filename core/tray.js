@@ -2,16 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:14:55
+ * @LastEditTime: 2022-10-03 18:32:40
  * @Description: tary 托盘
  */
 
 import { app, Menu, shell, Tray } from 'electron'
 
 import { pluginList } from '#/plugin'
-import pkg from 'root/package.json'
-import { cget, cset } from '~/storage'
+import { cget, cset, store } from '~/storage'
 import { createWindow } from './window'
+
+import pkg from 'root/package.json'
 
 // 托盘全局变量
 let TrayMenu
@@ -52,7 +53,6 @@ const initMenu = () => {
         }),
       ],
     },
-
     // 插件自启菜单
     {
       label: '插件自启',
@@ -94,7 +94,7 @@ const initMenu = () => {
         // 分割线
         { type: 'separator' },
         {
-          label: '全部关闭自启',
+          label: '全部关闭',
           click: () => {
             cset('config', 'open', [])
             initMenu()
@@ -102,22 +102,21 @@ const initMenu = () => {
         },
       ],
     },
-
     // 分割线
     { type: 'separator' },
-    // 插件设置
-    {
-      label: '插件设置',
-      checked: app.getLoginItemSettings().openAtLogin,
-      click: () => {
-        createWindow('config')
-      },
-    },
+
     // 开机自启
     {
       label: '开机自启',
       click: () => {
         app.setLoginItemSettings({ openAtLogin: true })
+      },
+    },
+    // 插件设置
+    {
+      label: '插件设置',
+      click: () => {
+        createWindow('config')
       },
     },
     // 打开官网
@@ -129,12 +128,20 @@ const initMenu = () => {
     },
     // 分割线
     { type: 'separator' },
-    // 重启应用
+    // 重置应用
+    {
+      label: '重置应用',
+      click: () => {
+        store.clear()
+        app.relaunch()
+        app.quit()
+      },
+    },
     {
       label: '重启',
       click: () => {
         app.relaunch()
-        app.exit()
+        app.quit()
       },
     },
     // 退出应用

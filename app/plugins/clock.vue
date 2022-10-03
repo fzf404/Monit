@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 22:48:08
+ * @LastEditTime: 2022-10-02 21:35:17
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -185,7 +185,7 @@ onMounted(startClock)
 <style scoped>
 /* 底板 */
 .flip {
-  @apply inline-block relative w-12 h-20 rounded-lg border-2 bg-gray-300 border-gray-400  text-gray-500 font-mono text-6xl text-center;
+  @apply relative inline-block w-12 h-20 rounded-lg border-2 bg-gray-300 border-gray-400  text-gray-500 font-mono text-6xl text-center;
   line-height: 5rem;
 }
 /* 上下页 */

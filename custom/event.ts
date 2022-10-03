@@ -2,61 +2,70 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 19:48:50
+ * @LastEditTime: 2022-10-03 20:48:54
  * @Description: event 处理
  */
 
 import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electron'
 
 import { createWindow } from 'core/window'
-import { cget, cset } from '~/storage'
+import { cget, cset, store } from '~/storage'
 
 // 应用事件
-export const appEvent = () => {
+export const initIPC = () => {
+  // 退出应用
+  ipcMain.on('app-quit', function (event) {
+    app.quit()
+  })
+
+  // 重启应用
+  ipcMain.on('app-reload', function (event) {
+    app.relaunch()
+    app.quit()
+  })
+
+  // 重置应用
+  ipcMain.on('app-reset', function (event) {
+    store.clear()
+    app.relaunch()
+    app.quit()
+  })
+
   // 开机自启
-  ipcMain.on('auto-open', function (event, state) {
+  ipcMain.on('app-auto', function (event, state: boolean) {
     app.setLoginItemSettings({
       openAtLogin: state,
     })
   })
 
   // 开启窗口
-  ipcMain.on('window-open', function (event, name) {
+  ipcMain.on('win-open', function (event, name: string) {
     createWindow(name)
   })
 
   // 关闭窗口
-  ipcMain.on('window-close', function (event, name) {
-    if (name) {
-      // 根据窗口名关闭窗口
-      BrowserWindow.getAllWindows().forEach((win) => {
-        if (win.title === name) {
-          win.close()
-        }
-      })
-    } else {
-      // 从事件中获得窗口
-      const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-      // 关闭窗口
-      win.close()
-    }
+  ipcMain.on('win-close', function (event) {
+    // 从事件中获得窗口
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    // 关闭窗口
+    win.close()
   })
 
   // 最小化窗口
-  ipcMain.on('window-mini', function (event) {
+  ipcMain.on('win-mini', function (event) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     win.minimize()
   })
 
   // 置顶窗口
-  ipcMain.on('window-top', function (event, state) {
+  ipcMain.on('win-top', function (event, state: boolean) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     // 设置置顶
     win.setAlwaysOnTop(state)
   })
 
   // 发送通知
-  ipcMain.on('window-notice', function (event, message) {
+  ipcMain.on('win-notice', function (event, message: string) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     // 通知开启状态
@@ -67,7 +76,7 @@ export const appEvent = () => {
   })
 
   // 发送弹窗
-  ipcMain.on('window-alert', function (event, message) {
+  ipcMain.on('win-alert', function (event, message: string) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     dialog.showMessageBox({
@@ -86,31 +95,21 @@ export const appEvent = () => {
   })
 
   // 打开网址
-  ipcMain.on('open-url', function (event, url) {
+  ipcMain.on('open-url', function (event, url: string) {
     shell.openExternal(url)
   })
 
   // 保存值
-  ipcMain.on('set-value', function (event, key, value) {
+  ipcMain.on('set-value', function (event, key: string, value: string) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     cset(name, key, JSON.parse(value))
   })
 
   // 读取值
-  ipcMain.on('get-value', function (event, key, define) {
+  ipcMain.on('get-value', function (event, key: string, define: string) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
     event.returnValue = cget(name, key, JSON.parse(define))
-  })
-}
-
-// 窗口事件
-export const winEvent = (win: BrowserWindow, name: string) => {
-  // 记录移动事件
-  win.on('move', function () {
-    const [x, y] = win.getPosition()
-    cset(name, 'x', x)
-    cset(name, 'y', y)
   })
 }

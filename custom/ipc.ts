@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 19:49:34
+ * @LastEditTime: 2022-10-03 19:37:45
  * @Description: icp 事件发送
  */
 import { ipcRenderer } from 'electron'
@@ -11,6 +11,7 @@ import { ipcRenderer } from 'electron'
 export const sendEvent = (event: string, ...options: any) => {
   ipcRenderer.send(event, ...options)
 }
+
 // 调用事件
 export const callEvent = (event: string, ...options: any): any => {
   return ipcRenderer.sendSync(event, ...options)
@@ -28,12 +29,12 @@ export const getValue = (key: string, define: Object): Object => {
 
 // 发送通知
 export const sendNotice = (message: string) => {
-  sendEvent('window-notice', message)
+  sendEvent('win-notice', message)
 }
 
 // 发送弹窗
 export const sendAlert = (message: string) => {
-  sendEvent('window-alert', message)
+  sendEvent('win-alert', message)
 }
 
 // 打开网址

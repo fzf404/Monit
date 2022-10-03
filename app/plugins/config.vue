@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 19:12:48
+ * @LastEditTime: 2022-10-03 19:47:42
  * @Description: config 插件设置
 -->
 <template>
@@ -15,27 +15,49 @@
         label: '开机自启',
         type: 'checkbox',
       },
+      {
+        id: 'reload',
+        label: '重启应用',
+        type: 'button',
+        options: {
+          text: '〇',
+          click: () => {
+            sendEvent('app-reload')
+          },
+        },
+      },
+      {
+        id: 'reload',
+        label: '重置应用',
+        type: 'button',
+        options: {
+          text: '✕',
+          click: () => {
+            sendEvent('app-reset')
+          },
+        },
+      },
     ]"
     :config="store"
   />
   <!-- 页面内容 -->
-  <article class="flex flex-col justify-between pt-8 p-3">
-    <section class="overflow-hidden overflow-y-scroll scrollable space-y-2">
+  <article class="flex-col-between pt-8 p-3">
+    <section class="scrollable space-y-2">
       <!-- 插件操作 -->
-      <p class="w-full flex-row-between">
+      <p class="flex-row-between w-full">
         <button
           class="btn btn-sm btn-blue w-2/3"
-          @click="pluginList.forEach((item) => sendEvent('window-open', item.name))"
+          @click="pluginList.forEach((item) => sendEvent('win-open', item.name))"
         >
           全部开启
         </button>
         <button
-          v-if="state.open"
+          v-if="state.auto"
           class="btn btn-sm btn-yellow"
           @click="
             () => {
               store.open = pluginList.map((item) => item.name)
-              state.open = false
+              state.auto = false
             }
           "
         >
@@ -47,7 +69,7 @@
           @click="
             () => {
               store.open = []
-              state.open = true
+              state.auto = true
             }
           "
         >
@@ -57,7 +79,7 @@
       <!-- 全部插件列表 -->
       <p v-for="item in pluginList" class="w-full flex-row-between">
         <!-- 插件启动 -->
-        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('window-open', item.name)">
+        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
           {{ item.name + ' - ' + item.description }}
         </button>
         <!-- 插件自启 -->
@@ -71,7 +93,7 @@
         <button v-else class="btn btn-sm btn-red" @click="store.open.push(item.name)">自启关</button>
       </p>
       <!-- Moint 版本 -->
-      <p class="flex-col-center-end text-intro">Monit {{ pkg.version }}</p>
+      <p class="flex-col-center-bottom text-intro">Monit {{ pkg.version }}</p>
     </section>
   </article>
 </template>
@@ -81,14 +103,15 @@ import { reactive } from 'vue'
 
 import { sendEvent } from '#/ipc'
 import { pluginList } from '#/plugin'
-import pkg from 'root/package.json'
 import { storage } from '~/storage'
+
+import pkg from 'root/package.json'
 
 import Setting from '@/components/setting.vue'
 
 // 状态信息
 const state = reactive({
-  open: true,
+  auto: true,
 })
 
 // 存储数据
@@ -100,7 +123,7 @@ const store = storage(
   // 自启修改
   {
     auto: (val) => {
-      sendEvent('auto-open', val)
+      sendEvent('app-auto', val)
     },
   }
 )

@@ -1,4 +1,12 @@
-推荐使用 vscode 作为代码编辑器，并安装工作区推荐插件。
+<!--
+ * @Author: fzf404
+ * @Date: 2022-09-23 20:37:31
+ * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditTime: 2022-10-03 20:34:40
+ * @Description: 开发文档
+-->
+
+推荐使用 `vscode` 作为代码编辑器，并安装工作区推荐插件。
 
 应用共分为 `渲染进程` 和 `主进程` 两部分。
 
@@ -41,10 +49,9 @@ pnpm build
 
 请将代码提交到 `beta` 分支。
 
-执行 `commit` 操作时使用 `husky` 自动进行代码格式化。
+执行 `commit` 操作时自动使用 `husky` 自动进行代码格式化。
 
 `Visual Studio Code` 中安装 `Todo Tree` 插件后，可以在 `待办事项` 标签页查看项目的 `TODO` 事项。
-
 
 ## 🎇 渲染进程
 
@@ -129,7 +136,7 @@ const store = storage({
 
 接下来就可以设置标题的文字了。
 
-可以在 `components/setting.vue` 中查看 `setting` 组件的代码。
+可以在 `app/components/setting.vue` 中查看 `setting` 组件的代码。
 
 #### 5. 发送通知
 
@@ -190,6 +197,14 @@ const onSave = () => {
 可以在 `coustom/ipc.ts` 中查看 `sendAlert` 和 `sendNotice` 的代码。
 
 可以在 `coustom/event.ts` 中查看`sendAlert` 和 `sendNotice` 的事件代码。
+
+#### 6. 更多
+
+> 更多开发请查看其他插件的源码
+>
+> 程序员成长的标志就是能看懂别人的代码
+
+建议阅读顺序：`welcome` -> `image` -> `count` -> `config` -> `todo` -> `github` -> `juejin` -> `clock` -> `camera` -> `music`
 
 ### 💡 主题开发
 

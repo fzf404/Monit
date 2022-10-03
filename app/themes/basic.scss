@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:13:41
+ * @LastEditTime: 2022-10-03 15:04:12
  * @Description: 基础主题
  */
 
@@ -15,8 +15,6 @@ body {
   user-select: none;
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
-  // 禁止用户拖动
-  -webkit-user-drag: none;
 
   // 禁止滚动
   overflow: hidden;
@@ -27,18 +25,23 @@ body {
   }
 }
 
-// 窗口圆角
-#app {
-  @apply font-sans rounded-lg;
+// 主题样式
+nav {
+  @apply relative;
+}
+
+aside {
+  @apply absolute;
+}
+
+// 插件样式
+article {
+  @apply relative h-screen;
 }
 
 img {
+  // 禁止用户拖动
   -webkit-user-drag: none;
-}
-
-// 文档页
-article {
-  @apply h-screen;
 }
 
 // 允许点击
@@ -53,9 +56,9 @@ select,
   cursor: pointer;
 }
 
-.scrollable {
-  // 禁止拖拽移动窗口 响应点击事件
-  -webkit-app-region: no-drag;
+// 窗口圆角
+#app {
+  @apply relative rounded-lg font-sans;
 }
 
 /**
@@ -77,6 +80,22 @@ select,
  * 布局
  */
 
+// 可滚动
+.scroll {
+  // 响应点击事件
+  -webkit-app-region: no-drag;
+}
+
+// 模态框
+.modal {
+  @apply absolute w-full h-full rounded-lg;
+}
+
+// 可滚动
+.scrollable {
+  @apply scroll overflow-x-hidden overflow-y-scroll;
+}
+
 // flex 竖向靠左
 .flex-col-left {
   @apply flex flex-col justify-start items-start;
@@ -88,7 +107,7 @@ select,
 }
 
 .flex-col-between {
-  @apply flex flex-col justify-between items-center;
+  @apply flex flex-col justify-between items-stretch;
 }
 
 // flex 竖向靠左剧中
@@ -97,7 +116,7 @@ select,
 }
 
 // flex 竖向靠下剧中
-.flex-col-center-end {
+.flex-col-center-bottom {
   @apply flex flex-col justify-end items-center;
 }
 
@@ -111,16 +130,26 @@ select,
   @apply flex flex-row flex-nowrap justify-between items-center;
 }
 
+// flex 横向居中靠右
+.flex-row-center-right {
+  @apply flex flex-row flex-nowrap justify-end items-center;
+}
+
 // flex 横向居中靠下
 .flex-row-center-bottom {
-  @apply flex flex-row flex-nowrap items-end;
+  @apply flex flex-row flex-nowrap justify-center items-end;
+}
+
+// flex 滚动
+.flex-scroll {
+  @apply flex-col-left scroll overflow-x-auto overflow-y-scroll;
 }
 
 /**
  * 文字
  */
 .text-intro {
-  @apply font-mono text-gray  text-sm;
+  @apply font-mono text-gray text-sm;
 }
 
 /**
@@ -246,11 +275,4 @@ select,
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
-}
-
-/**
- * 模态框
- */
-.modal {
-  @apply absolute w-full h-full rounded-lg;
 }

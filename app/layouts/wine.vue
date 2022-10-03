@@ -41,9 +41,9 @@
         @click="state.top = !state.top"
       />
       <!-- 最小化 -->
-      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('window-mini')" />
+      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('win-mini')" />
       <!-- 关闭 -->
-      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('window-close')" />
+      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('win-close')" />
     </ul>
   </nav>
 </template>

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 17:52:48
+ * @LastEditTime: 2022-10-03 18:57:32
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -49,12 +49,12 @@
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
-      <!-- TODO 自动滚动 -->
+      <!-- TODO 歌名自动滚动 -->
       <h1 class="text-md w-full whitespace-nowrap overflow-x-auto">{{ store.music[store.current].title }}</h1>
       <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
-    <section class="flex-col-left col-span-2 row-span-5 overflow-x-auto overflow-y-scroll scrollable space-y-2 mt-3">
+    <section class="flex-scroll col-span-2 row-span-5 space-y-2 mt-3">
       <p
         v-for="(item, index) in store.music"
         class="flex-row-center space-x-1 clickable"
@@ -86,9 +86,13 @@
           }
         "
       ></p>
+      <!-- 上一首 -->
       <PrevSVG class="w-10 btn-svg" @click="prevMusic" />
+      <!-- 暂停 -->
       <PauseSVG class="w-10 btn-svg" v-if="state.play" @click="pauseMusic" />
+      <!-- 播放 -->
       <PlaySVG class="w-10 btn-svg" v-else @click="playMusic" />
+      <!-- 下一首 -->
       <NextSVG class="w-10 btn-svg" @click="nextMusic" />
     </section>
   </article>
@@ -96,15 +100,15 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import { storage } from '~/storage'
 
+import { sendAlert, sendNotice } from '#/ipc'
 import axios from '~/request'
+import { storage } from '~/storage'
 
 import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-import { sendAlert } from '#/ipc'
 import MusicSVG from '@/assets/music/music.svg'
 import NextSVG from '@/assets/music/next.svg'
 import PauseSVG from '@/assets/music/pause.svg'
@@ -138,9 +142,9 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
-    url: 'https://qlapi.sylu.edu.cn/cloudmusic', // 请求地址
+    url: 'https://api-music.imsyy.top', // 请求地址
 
-    id: '7479151947', // 歌单ID
+    id: '7667645628', // 歌单ID
     current: 0, // 当前歌曲索引
 
     // 音乐列表
@@ -177,11 +181,19 @@ const login = async () => {
 
 // 读取歌单信息
 const getPlayList = async () => {
+  // 加载中
+  state.loading = true
+  // 读取歌单音乐
   const data = await request.get('/playlist/track/all?id=' + store.id)
+  // 加载完成
+  state.loading = false
+
+  // 验证数据
   if (!data) {
     sendAlert('获取歌单失败！')
     return
   }
+
   // 解析歌曲信息
   const music = await data.songs.map((item) => {
     return {
@@ -192,6 +204,7 @@ const getPlayList = async () => {
       image: item.al.picUrl,
     }
   })
+  // 判断索引越界
   if (store.current > store.music.length - 1) {
     // 设置当前歌曲索引
     store.current = 0
@@ -250,7 +263,10 @@ const playMusic = () => {
     .catch(() => {
       state.play = false
       state.loading = false // 音乐加载完成
-      sendAlert('网络错误或需要会员！')
+
+      sendNotice('网络错误或需要会员，播放下一曲！')
+
+      nextMusic() // 播放下一曲
     })
 }
 
@@ -283,7 +299,7 @@ audio.addEventListener('durationchange', getMusicDuration)
 audio.addEventListener('timeupdate', getMusicTime)
 audio.addEventListener('ended', nextMusic)
 
-onMounted(async () => {
-  await getPlayList()
+onMounted(() => {
+  getPlayList()
 })
 </script>

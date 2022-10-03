@@ -1,12 +1,13 @@
-import { reactive, watch } from 'vue'
 /*
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-23 22:48:06
+ * @LastEditTime: 2022-10-03 18:23:49
  * @Description: 存储配置
  */
 import Store from 'electron-store'
+
+import { reactive, watch } from 'vue'
 
 import { getValue, setValue } from '#/ipc'
 

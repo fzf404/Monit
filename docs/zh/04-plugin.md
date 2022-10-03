@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-29 18:16:36
- * @Description: Monit 插件开发
+ * @LastEditTime: 2022-10-03 20:38:12
+ * @Description: 插件开发
 -->
 
 来写一个计数器吧！
@@ -56,19 +56,15 @@ import XxxSVG from '@/assets/xx/xxx.svg'
     :config="store"
   />
   <!-- 页面内容 -->
-  <article>
-    <!-- 主体 -->
-    <section class="w-full h-full flex-col-center space-y-2">
-      <h1 class="text-intro">计数器</h1>
-      <p class="text-5xl">{{ store.count }}</p>
-      <!-- 增加 & 减少 -->
-      <p class="space-x-4 pt-2">
-        <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
-        <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
-          <AddSVG class="w-5" />
-        </button>
-      </p>
-    </section>
+  <article class="flex-col-center space-y-2">
+    <h1 class="text-intro">计数器</h1>
+    <p class="text-5xl">{{ store.count }}</p>
+    <p class="space-x-4 pt-2">
+      <button class="btn btn-sq btn-md bg-red-500 hover:bg-red-600" @click="reduce"><SubSVG class="w-5" /></button>
+      <button class="btn btn-sq btn-md bg-green-500 hover:bg-green-600" @click="increase">
+        <AddSVG class="w-5" />
+      </button>
+    </p>
   </article>
 </template>
 
