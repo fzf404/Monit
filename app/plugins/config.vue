@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 15:01:10
+ * @LastEditTime: 2022-10-03 18:19:28
  * @Description: config 插件设置
 -->
 <template>
@@ -25,17 +25,17 @@
       <p class="flex-row-between w-full">
         <button
           class="btn btn-sm btn-blue w-2/3"
-          @click="pluginList.forEach((item) => sendEvent('window-open', item.name))"
+          @click="pluginList.forEach((item) => sendEvent('win-open', item.name))"
         >
           全部开启
         </button>
         <button
-          v-if="state.open"
+          v-if="state.auto"
           class="btn btn-sm btn-yellow"
           @click="
             () => {
               store.open = pluginList.map((item) => item.name)
-              state.open = false
+              state.auto = false
             }
           "
         >
@@ -47,7 +47,7 @@
           @click="
             () => {
               store.open = []
-              state.open = true
+              state.auto = true
             }
           "
         >
@@ -57,7 +57,7 @@
       <!-- 全部插件列表 -->
       <p v-for="item in pluginList" class="w-full flex-row-between">
         <!-- 插件启动 -->
-        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('window-open', item.name)">
+        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
           {{ item.name + ' - ' + item.description }}
         </button>
         <!-- 插件自启 -->
@@ -88,7 +88,7 @@ import Setting from '@/components/setting.vue'
 
 // 状态信息
 const state = reactive({
-  open: true,
+  auto: true,
 })
 
 // 存储数据
@@ -100,7 +100,7 @@ const store = storage(
   // 自启修改
   {
     auto: (val) => {
-      sendEvent('auto-open', val)
+      sendEvent('auto-launch', val)
     },
   }
 )

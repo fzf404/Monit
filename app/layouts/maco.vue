@@ -11,12 +11,12 @@
       <!-- 关闭 -->
       <CloseSVG
         class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 hover:bg-red-500 text-dark"
-        @click="sendEvent('window-close')"
+        @click="sendEvent('win-close')"
       />
       <!-- 最小化 -->
       <MiniSVG
         class="w-3.5 p-0.5 btn-svg rounded-full bg-yellow-400 hover:bg-yellow-500 text-dark"
-        @click="sendEvent('window-mini')"
+        @click="sendEvent('win-mini')"
       />
       <!-- 置顶 -->
       <UpSVG

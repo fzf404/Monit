@@ -28,12 +28,12 @@ export const getValue = (key: string, define: Object): Object => {
 
 // 发送通知
 export const sendNotice = (message: string) => {
-  sendEvent('window-notice', message)
+  sendEvent('win-notice', message)
 }
 
 // 发送弹窗
 export const sendAlert = (message: string) => {
-  sendEvent('window-alert', message)
+  sendEvent('win-alert', message)
 }
 
 // 打开网址
