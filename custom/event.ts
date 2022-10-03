@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 17:51:47
+ * @LastEditTime: 2022-10-03 19:38:55
  * @Description: event 处理
  */
 
@@ -10,8 +10,6 @@ import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electr
 
 import { createWindow } from 'core/window'
 import { cget, cset, store } from '~/storage'
-
-// TODO 插件名列表
 
 // 应用事件
 export const initIPC = () => {
@@ -32,7 +30,7 @@ export const initIPC = () => {
   })
 
   // 开机自启
-  ipcMain.on('auto-launch', function (event, state: boolean) {
+  ipcMain.on('app-auto', function (event, state: boolean) {
     app.setLoginItemSettings({
       openAtLogin: state,
     })
@@ -44,20 +42,11 @@ export const initIPC = () => {
   })
 
   // 关闭窗口
-  ipcMain.on('win-close', function (event, name: string) {
-    if (name) {
-      // 根据窗口名关闭窗口
-      BrowserWindow.getAllWindows().forEach((win) => {
-        if (win.title === name) {
-          win.close()
-        }
-      })
-    } else {
-      // 从事件中获得窗口
-      const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-      // 关闭窗口
-      win.close()
-    }
+  ipcMain.on('win-close', function (event) {
+    // 从事件中获得窗口
+    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+    // 关闭窗口
+    win.close()
   })
 
   // 最小化窗口
