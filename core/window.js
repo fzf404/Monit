@@ -9,7 +9,7 @@
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { winEvent } from '#/event'
+import { initEvent } from '#/event'
 import { pluginList } from '#/plugin'
 import { cget } from '~/storage'
 
@@ -18,7 +18,6 @@ const BasicMesh = 100
 
 // 创建窗口
 export const createWindow = (name) => {
-  
   // 判断插件存在
   const plugin = pluginList.find((item) => item.name === name)
   if (!plugin) {
@@ -80,11 +79,11 @@ export const createWindow = (name) => {
   }
 
   // 监听事件
-  winEvent(win, name)
+  initEvent(win, name)
 }
 
 // 开机自启窗口
-export const autoWindow = () => {
+export const initWindow = () => {
   const openPlugins = cget('config', 'open', [])
   // 是否存在自启插件
   if (openPlugins.length) {

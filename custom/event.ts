@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 19:48:50
+ * @LastEditTime: 2022-10-02 22:17:45
  * @Description: event 处理
  */
 
@@ -12,7 +12,7 @@ import { createWindow } from 'core/window'
 import { cget, cset } from '~/storage'
 
 // 应用事件
-export const appEvent = () => {
+export const initIPC = () => {
   // 开机自启
   ipcMain.on('auto-open', function (event, state) {
     app.setLoginItemSettings({
@@ -106,7 +106,7 @@ export const appEvent = () => {
 }
 
 // 窗口事件
-export const winEvent = (win: BrowserWindow, name: string) => {
+export const initEvent = (win: BrowserWindow, name: string) => {
   // 记录移动事件
   win.on('move', function () {
     const [x, y] = win.getPosition()

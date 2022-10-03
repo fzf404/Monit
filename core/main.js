@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 22:47:41
+ * @LastEditTime: 2022-10-02 21:56:06
  * @Description: main 入口
  */
 
@@ -10,9 +10,9 @@ import { app, BrowserWindow, protocol } from 'electron'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { autoUpdater } from 'electron-updater'
 
-import { appEvent } from '#/event'
+import { initIPC } from '#/event'
 import { initTray } from './tray'
-import { autoWindow, createWindow } from './window'
+import { createWindow, initWindow } from './window'
 
 // 调试模式
 const isDebug = process.env.NODE_ENV === 'development'
@@ -22,16 +22,19 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: t
 
 // 准备就绪
 app.on('ready', async () => {
-  // 应用事件监听
-  appEvent()
-
   // 初始化系统托盘
   initTray()
 
-  // 自动打开窗口
-  autoWindow()
+  // 初始化 IPC 事件监听
+  initIPC()
 
-  // TODO 自动检查更新
+  // 初始化自启动窗口
+  initWindow()
+
+  // TODO 初始化快捷键监听
+  // initShortcut()
+
+  // TODO 检查更新
   if (!isDebug)
     autoUpdater.checkForUpdatesAndNotify({
       title: 'Monit - update',
@@ -50,7 +53,7 @@ app.on('ready', () => {
   }
 })
 
-// mac 激活窗口
+// 激活窗口
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow('welcome')
