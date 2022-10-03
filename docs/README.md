@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-28 20:19:07
- * @Description: Monit 说明文档
+ * @LastEditTime: 2022-10-03 20:16:44
+ * @Description: 应用介绍
 -->
 
 <p align="center">
@@ -47,6 +47,7 @@
 | live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe |                                       | ⛔️  |
 | bilibili | bilibili 信息监控 |                              |                                       | ⛔️  |
 | weather  | 天气信息监控      |                              |                                       | ⛔️  |
+| course   | 课程表信息        |                              |                                       | ⛔️  |
 
 ## 🎁 安装
 

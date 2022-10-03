@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 14:02:17
- * @Description: Monit 布局开发
+ * @LastEditTime: 2022-10-03 20:39:58
+ * @Description: 布局开发
 -->
 
 写一个 Windows 系统的布局吧！
@@ -18,7 +18,7 @@
 
 ```vue
 <template>
-  <nav>
+  <nav class="layout">
     <!-- 状态控制器 -->
     <ul class="absolute left-2 z-40">
       <!-- 设置 -->
@@ -53,9 +53,9 @@
         @click="state.top = !state.top"
       />
       <!-- 最小化 -->
-      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('window-mini')" />
+      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('win-mini')" />
       <!-- 关闭 -->
-      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('window-close')" />
+      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('win-close')" />
     </ul>
   </nav>
 </template>

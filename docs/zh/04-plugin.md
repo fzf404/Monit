@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 22:23:35
- * @Description: Monit 插件开发
+ * @LastEditTime: 2022-10-03 20:38:12
+ * @Description: 插件开发
 -->
 
 来写一个计数器吧！
@@ -13,6 +13,22 @@
 ### 1. 引入 svg 图像
 
 > 推荐使用 svg 作为图像，可以去 [xicons](https://www.xicons.org/) 寻找
+
+```vue
+<template>
+  <!-- 指定 svg 颜色-->
+  <XxxSVG class="h-4 btn-svg text-green-400" />
+</template>
+
+<script setup>
+// 引入 svg
+import XxxSVG from '@/assets/xx/xxx.svg'
+</script>
+```
+
+### 2. 编写插件页面
+
+> `app/plugins/count.vue`
 
 ```vue
 <template>
