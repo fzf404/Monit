@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 14:26:44
+ * @LastEditTime: 2022-10-03 19:35:20
  * @Description: setting 组件
 -->
 <template>
@@ -10,7 +10,7 @@
   <aside class="flex-col-center modal setting z-50" v-show="store.setting.show">
     <!-- 设置框 -->
     <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4 px-3': size === 'wide' }">
-      <!-- 设置列表 -->
+      <!-- 项目列表 -->
       <li class="flex-row-between h-8 px-2 rounded" v-for="item in setting">
         <!-- 标签 -->
         <label :for="item.id" class="flex space-x-0.5 text-xs">
@@ -146,7 +146,7 @@ const onSave = () => {
 </script>
 
 <style scoped>
-/* 去除箭头 */
+/* 去除数字输入框箭头 */
 input[type='number']::-webkit-inner-spin-button {
   appearance: none;
 }

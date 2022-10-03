@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 14:46:15
+ * @LastEditTime: 2022-10-03 18:57:32
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -144,7 +144,7 @@ const store = storage(
   {
     url: 'https://api-music.imsyy.top', // 请求地址
 
-    id: '2671664695', // 歌单ID
+    id: '7667645628', // 歌单ID
     current: 0, // 当前歌曲索引
 
     // 音乐列表
