@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 20:16:44
+ * @LastEditTime: 2022-10-04 10:26:18
  * @Description: 应用介绍
 -->
 
@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
-  <a href="https://monit.fzf404.art"> 软件官网 </a> ｜
+  <a href="https://monit.fzf404.art"> 使用文档 </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a> ｜
   <a href="https://hub.fastgit.xyz/fzf404/Monit/releases"> 国内镜像 </a>
 </p>
