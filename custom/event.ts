@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 20:48:54
+ * @LastEditTime: 2022-10-04 09:08:01
  * @Description: event 处理
  */
 
@@ -68,11 +68,8 @@ export const initIPC = () => {
   ipcMain.on('win-notice', function (event, message: string) {
     const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
     const name = win.title
-    // 通知开启状态
-    if (cget(name, 'notice', false)) {
-      // 发送通知
-      new Notification({ title: `Monit - ${name}`, body: message }).show()
-    }
+    // 发送通知
+    new Notification({ title: `Monit - ${name}`, body: message }).show()
   })
 
   // 发送弹窗

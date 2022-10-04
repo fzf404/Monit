@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 15:15:38
+ * @LastEditTime: 2022-10-04 09:10:33
  * @Description: github 信息监控
 -->
 <template>
@@ -186,7 +186,7 @@ export default {
       const changeNum = this.follower - this.store.follower
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('follower改变了！')
+        this.store.notice && sendNotice('follower改变了！')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -199,7 +199,7 @@ export default {
     forkChange() {
       const changeNum = this.fork - this.store.fork
       if (changeNum != 0) {
-        sendNotice('fork改变了！')
+        this.store.notice && sendNotice('fork改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -211,7 +211,7 @@ export default {
     starChange() {
       const changeNum = this.star - this.store.star
       if (changeNum != 0) {
-        sendNotice('star改变了！')
+        this.store.notice && sendNotice('star改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum

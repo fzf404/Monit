@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 22:51:57
+ * @LastEditTime: 2022-10-04 09:24:37
  * @Description: juejin 信息监控
 -->
 <template>
@@ -235,7 +235,7 @@ export default {
       const changeNum = this.follower - this.store.follower
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('关注数改变了！')
+        this.store.notice && sendNotice('关注数改变了！')
       }
       // 返回更改数
       if (changeNum >= 0) {
@@ -249,7 +249,7 @@ export default {
       const changeNum = this.like - this.store.like
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('点赞数改变了！')
+        this.store.notice && sendNotice('点赞数改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum
@@ -271,7 +271,7 @@ export default {
       const changeNum = this.power - this.store.power
       // 发送通知
       if (changeNum != 0) {
-        sendNotice('掘力值改变了！')
+        this.store.notice && sendNotice('掘力值改变了！')
       }
       if (changeNum >= 0) {
         return '+' + changeNum

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:34:03
+ * @LastEditTime: 2022-10-04 09:23:47
  * @Description: window 管理
  */
 
@@ -35,6 +35,7 @@ export const createWindow = (name) => {
   const size = plugin.size
 
   // 读取配置
+  // TODO 计算启动位置
   const x = cget(name, 'x', 20)
   const y = cget(name, 'y', 20)
   const top = cget(name, 'top', false)
