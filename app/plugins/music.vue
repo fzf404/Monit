@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:57:32
+ * @LastEditTime: 2022-10-04 09:20:57
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -253,27 +253,15 @@ const getMusicDuration = () => {
 
 // 播放音乐
 const playMusic = () => {
-  state.loading = true // 音乐加载中
-  audio
-    .play()
-    .then(() => {
-      state.play = true
-      state.loading = false // 音乐加载完成
-    })
-    .catch(() => {
-      state.play = false
-      state.loading = false // 音乐加载完成
-
-      sendNotice('网络错误或需要会员，播放下一曲！')
-
-      nextMusic() // 播放下一曲
-    })
+  audio.play().catch(() => {
+    sendNotice('网络错误或需要会员，播放下一曲！')
+    nextMusic()
+  })
 }
 
 // 暂停音乐
 const pauseMusic = () => {
   audio.pause()
-  state.play = false
 }
 
 // 上一首
@@ -295,6 +283,18 @@ const nextMusic = () => {
 }
 
 // 监听 audio 事件
+audio.addEventListener('play', () => {
+  state.play = true
+})
+audio.addEventListener('pause', () => {
+  state.play = false
+})
+audio.addEventListener('waiting', () => {
+  state.loading = true
+})
+audio.addEventListener('canplay', () => {
+  state.loading = false
+})
 audio.addEventListener('durationchange', getMusicDuration)
 audio.addEventListener('timeupdate', getMusicTime)
 audio.addEventListener('ended', nextMusic)
