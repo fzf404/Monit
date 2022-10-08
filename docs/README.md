@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-04 10:26:18
+ * @LastEditTime: 2022-10-08 23:14:04
  * @Description: 应用介绍
 -->
 
@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/2022/2022-09-29_18-36-06.webp" alt="show" style="zoom:50%;" />
+  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/v0.7.0.webp" alt="show" style="zoom:50%;" />
 </p>
 
 ## ✨ 功能
