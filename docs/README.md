@@ -1,4 +1,5 @@
 <!--
+
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
@@ -8,7 +9,7 @@
 
 <p align="center">
   <a href="https://monit.fzf404.art" target="_blank">
-    <img src="icon.png" alt="Monit" style="zoom:50%;"/>
+    <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/logo.webp" alt="Monit" style="zoom:50%;"/>
   </a>
 </p>
 

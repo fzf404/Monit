@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 22:40:42
+ * @LastEditTime: 2022-10-09 17:23:46
  * @Description: image 图像展示
 -->
 <template>
@@ -41,7 +41,7 @@ import Setting from '@/components/setting.vue'
 
 // 存储数据
 const store = storage({
-  src: 'https://monit.fzf404.art/icon.png',
+  src: 'https://cdn.jsdelivr.net/gh/fzf404/image/Monit/logo.webp',
 })
 
 // 打开本地图像
