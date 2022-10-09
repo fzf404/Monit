@@ -3,13 +3,13 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-08 23:14:04
+ * @LastEditTime: 2022-10-09 18:04:06
  * @Description: 应用介绍
 -->
 
 <p align="center">
   <a href="https://monit.fzf404.art" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/logo.webp" alt="Monit" style="zoom:50%;"/>
+    <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/logo.webp" alt="Monit" style="zoom:60%;"/>
   </a>
 </p>
 
@@ -20,12 +20,11 @@
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
   <a href="https://monit.fzf404.art"> 使用文档 </a> ｜
-  <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a> ｜
-  <a href="https://hub.fastgit.xyz/fzf404/Monit/releases"> 国内镜像 </a>
+  <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a>
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/v0.7.0.webp" alt="show" style="zoom:50%;" />
+  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/v0.7.0.webp" alt="show" style="zoom:40%;" />
 </p>
 
 ## ✨ 功能
@@ -54,7 +53,7 @@
 
 > 使用 Github Action 自动打包，无需担心安全问题
 >
-> 前往 [Release](https://github.com/fzf404/Monit/releases) / [国内镜像](https://hub.fastgit.xyz/fzf404/Monit/releases) 寻找操作系统对应的安装包
+> 前往 [Release](https://github.com/fzf404/Monit/releases) 寻找操作系统对应的安装包
 
 - Windows
 
