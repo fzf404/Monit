@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:32:40
+ * @LastEditTime: 2022-10-10 18:49:59
  * @Description: tary 托盘
  */
 
@@ -130,7 +130,7 @@ const initMenu = () => {
     { type: 'separator' },
     // 重置应用
     {
-      label: '重置应用',
+      label: '重置',
       click: () => {
         store.clear()
         app.relaunch()
