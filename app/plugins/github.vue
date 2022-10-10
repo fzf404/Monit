@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-04 09:10:33
+ * @LastEditTime: 2022-10-10 09:28:57
  * @Description: github 信息监控
 -->
 <template>
@@ -54,7 +54,7 @@
     </section>
     <!-- repo -->
     <section class="flex-scroll col-span-5 row-span-5 mt-1">
-      <p v-for="item in repoChange" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
+      <p v-for="item in store.repo" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 mt-1 text-green-400" />
         <span class="text-sm">
@@ -219,15 +219,6 @@ export default {
         return changeNum
       }
     },
-    // repo 数据更改
-    repoChange() {
-      let repo = this.repo
-      // 排序
-      repo.sort((a, b) => {
-        return b.star - a.star
-      })
-      return repo
-    },
   },
   methods: {
     // 初始化数据
@@ -273,6 +264,11 @@ export default {
           repo.push({ repo: item.name, star: item.stargazers_count, fork: item.forks_count })
         })
       }
+
+      // 排序
+      repo.sort((a, b) => {
+        return b.star - a.star
+      })
 
       // 设置数据
       this.star = star
