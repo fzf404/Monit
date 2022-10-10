@@ -3,7 +3,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-09 18:04:06
+ * @LastEditTime: 2022-10-10 18:46:17
  * @Description: 应用介绍
 -->
 
@@ -19,8 +19,8 @@
 
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
-  <a href="https://monit.fzf404.art"> 使用文档 </a> ｜
-  <a href="https://github.com/fzf404/Monit/releases"> 软件下载 </a>
+  <a href="https://monit.fzf404.art"> Home </a> ｜
+  <a href="https://github.com/fzf404/Monit/releases"> Download </a>
 </p>
 
 <p align="center">
@@ -31,7 +31,7 @@
 
 > VueC 指 Composition API，VueO 指 Options API
 >
-> 更多请查看：[使用指南](https://monit.fzf404.art/#/zh/01-guide)
+> 更多请前往：[使用指南](https://monit.fzf404.art/#/zh/01-guide) & [开发指南](https://monit.fzf404.art/#/zh/03-develop)
 
 | 插件名   | 功能              | 技术                         | 贡献                                  | 状态 |
 | -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |
