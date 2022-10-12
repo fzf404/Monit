@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-10 09:28:57
+ * @LastEditTime: 2022-10-12 17:14:19
  * @Description: github 信息监控
 -->
 <template>
@@ -281,7 +281,10 @@ export default {
     // 更新 follower
     updateFollower() {
       this.store.follower = this.follower
-      openURL(`https://github.com/${this.store.user}?tab=followers`)
+      // 开启通知则查看 follower 详细信息
+      if (this.store.notice) {
+        openURL(`https://github.com/${this.store.user}?tab=followers`)
+      }
     },
     // 更新 star
     updateStar() {
