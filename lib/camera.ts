@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-24 23:39:11
+ * @LastEditTime: 2022-10-11 21:00:17
  * @Description: camera 工具
  */
 
@@ -13,7 +13,7 @@
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
-export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, record: HTMLAnchorElement): void => {
+export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, record: HTMLAnchorElement): void => {
   // 设置画布信息
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
@@ -28,7 +28,7 @@ export const takePhoto = (canvas: HTMLCanvasElement, video: HTMLVideoElement, re
   // 保存图像
   record.href = canvas.toDataURL('image/jpeg')
   // 设置下载文件名
-  record.download = `monit-photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
+  record.download = `photo-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.jpeg`
   record.click()
 
   // 清空画布
@@ -43,35 +43,32 @@ let recorder: MediaRecorder
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
-export const recordVideo = (record: HTMLAnchorElement, device: string): void => {
+export const recordVideo = async (device: string, record: HTMLAnchorElement): Promise<MediaRecorder> => {
   // 获取相机
-  navigator.mediaDevices
-    .getUserMedia({
-      video: {
-        deviceId: device,
-      },
-      // TODO 检测麦克风存在
-      audio: true,
-    })
-    .then((stream) => {
-      // 创建记录器
-      recorder = new MediaRecorder(stream)
-      // 停止回调
-      recorder.ondataavailable = (event) => {
-        record.href = URL.createObjectURL(event.data)
-        record.download = `monit-video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
-        record.click()
-      }
-      // 销毁
-      recorder.onstop = () => {
-        stream.getTracks().forEach((track) => track.stop())
-      }
-      // 开始
-      recorder.start()
-    })
-}
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      deviceId: device,
+    },
+    // TODO 检测麦克风存在
+    audio: true,
+  })
 
-// 停止录像
-export const stopVideo = () => {
-  recorder.stop()
+  // 创建记录器
+  const recorder = new MediaRecorder(stream)
+
+  // 录制数据
+  recorder.ondataavailable = (event) => {
+    record.href = URL.createObjectURL(event.data)
+    record.download = `video-${new Date().toLocaleString().replace(/[/: ]/gi, '-')}.webm`
+    record.click()
+  }
+
+  // 销毁记录器
+  recorder.onstop = () => {
+    stream.getTracks().forEach((track) => track.stop())
+  }
+  // 开始
+  recorder.start()
+
+  return recorder
 }

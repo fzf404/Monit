@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-02 21:32:25
+ * @LastEditTime: 2022-10-11 20:59:17
  * @Description: camera 相机监控
 -->
 <template>
@@ -15,11 +15,11 @@
     <!-- 主屏幕 -->
     <section class="relative w-full h-full overflow-hidden rounded-lg">
       <!-- 绘制 -->
-      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }" />
+      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }"></canvas>
       <!-- 视频 -->
-      <video ref="video" class="absolute w-full h-full" :class="{ mirror: store.mirror }" autoplay />
+      <video ref="video" class="absolute w-full h-full" autoplay :class="{ mirror: store.mirror }"></video>
       <!-- 记录 -->
-      <a ref="record" class="hidden" />
+      <a ref="record" class="hidden"></a>
     </section>
     <!-- 相机控制器 -->
     <section v-show="store.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
@@ -34,9 +34,8 @@
           <VideoSVG
             class="w-6"
             @click="
-              () => {
-                recordVideo(record, store.camera)
-                state.recording = true
+              ;async () => {
+                state.recorder = await recordVideo(store.camera, record)
               }
             "
           />
@@ -47,8 +46,8 @@
             class="w-6"
             @click="
               () => {
-                stopVideo()
-                state.recording = false
+                state.recorder.stop()
+                state.recorder = false
               }
             "
           />
@@ -61,7 +60,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
-import { recordVideo, stopVideo, takePhoto } from '~/camera'
+import { recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
@@ -81,7 +80,7 @@ const record = ref(null)
 // 状态
 const state = reactive({
   loading: true, // 加载状态
-  recording: false, // 录像状态
+  recorder: null, // 录像状态
 })
 
 // 存储数据
