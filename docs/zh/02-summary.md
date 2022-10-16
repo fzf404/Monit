@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 20:25:32
+ * @LastEditTime: 2022-10-16 21:56:50
  * @Description: 技术概览
 -->
 
@@ -20,7 +20,7 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 
 ### 🔥 核心
 
-- Electron 18
+- Electron 20
   - 跨平台的桌面应用程序构建工具
   - [官方文档](https://www.electronjs.org/zh/docs/latest)
   - 可跨平台使用多种操作系统 API

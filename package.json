@@ -2,8 +2,8 @@
   "name": "monit",
   "private": true,
   "author": "fzf404",
-  "version": "0.7.1",
-  "description": "桌面小组件",
+  "version": "0.7.2",
+  "description": "用于展示各种信息的桌面小组件",
   "scripts": {
     "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",

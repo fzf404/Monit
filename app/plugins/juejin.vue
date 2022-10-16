@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-16 20:44:38
+ * @LastEditTime: 2022-10-16 22:06:57
  * @Description: juejin 信息监控
 -->
 <template>
@@ -132,7 +132,7 @@
         <!-- 掘金图标 -->
         <JuejinSVG class="h-5 pr-1" />
         <span class="text-intro">
-          {{ `${name.length > 9 ? name.slice(0, 7) + '..' : name}` }}
+          {{ `${store.name.length > 9 ? store.name.slice(0, 7) + '..' : store.name}` }}
         </span>
       </p>
     </section>
@@ -187,6 +187,7 @@ export default {
   setup() {
     // 存储数据
     const store = storage({
+      name: '', // 用户名
       user: '', // 用户ID
       notice: false, // 允许通知
 
@@ -202,8 +203,6 @@ export default {
   data() {
     // 状态数据
     return {
-      name: '', // 当前用户名
-
       follower: this.store.follower, // 当前关注数
       like: this.store.like, // 当前点赞数
       view: this.store.view, // 当前阅读数
@@ -307,7 +306,6 @@ export default {
       }
 
       // 设置信息
-      this.name = data.user_name
       this.follower = data.follower_count
       this.like = data.got_digg_count
       this.view = data.got_view_count
@@ -325,6 +323,8 @@ export default {
         return { title: item.article_info.title, id: item.article_id }
       })
 
+      // 设置保存信息
+      this.store.name = data.user_name
       this.store.article = info
 
       return data

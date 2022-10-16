@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-10 10:04:34
+ * @LastEditTime: 2022-10-16 21:44:39
  * @Description: window 管理
  */
 
@@ -34,35 +34,35 @@ export const createWindow = (name) => {
   // 窗口大小
   const size = plugin.size
 
-  // 读取配置
+  // 窗口位置
   const x = cget(name, 'x', undefined)
   const y = cget(name, 'y', undefined)
   const top = cget(name, 'top', false)
 
   // 创建窗口
   const win = new BrowserWindow({
-    x: x,
+    x: x, // 窗口位置
     y: y,
-    title: name,
-    width: size[0] * BasicMesh,
+    title: name, // 窗口名
+    width: size[0] * BasicMesh, // 窗口大小
     height: size[1] * BasicMesh,
     alwaysOnTop: top, // 置顶
 
     frame: false, // 隐藏边框
-    resizable: false, // 不可调整大小
-    hasShadow: false, // 阴影
-    transparent: true, // 透明
+    resizable: false, // 不可改变大小
+    hasShadow: false, // 隐藏阴影
+    transparent: true, // 窗口透明
     skipTaskbar: true, // 隐藏任务栏图标
     fullscreenable: false, // 禁止全屏
-    roundedCorners: false, // 圆角
+    roundedCorners: false, // 阻止圆角
 
     // vibrancy: 'dark', // 毛玻璃效果
-    visualEffectState: 'active', // 保持激活
+    visualEffectState: 'active', // 保持窗口激活
 
     webPreferences: {
-      nodeIntegration: true, // node 集成
-      contextIsolation: false, // 上下文隔离
-      webSecurity: false, // 跨域
+      nodeIntegration: true, // 开启 Node 集成
+      contextIsolation: false, // 关闭上下文隔离
+      webSecurity: false, // 关闭跨域安全限制
     },
   })
 
