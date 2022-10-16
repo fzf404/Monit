@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 20:34:40
+ * @LastEditTime: 2022-10-15 16:27:03
  * @Description: 开发文档
 -->
 
@@ -29,7 +29,7 @@ pnpm config set electron_mirror https://registry.npmmirror.com/-/binary/electron
 pnpm i
 
 # 5. 运行项目
-pnpm serve
+pnpm dev
 
 # 6. 打包项目
 pnpm build
