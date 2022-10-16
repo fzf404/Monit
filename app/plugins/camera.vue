@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-11 20:59:17
+ * @LastEditTime: 2022-10-16 21:38:20
  * @Description: camera 相机监控
 -->
 <template>
@@ -17,7 +17,7 @@
       <!-- 绘制 -->
       <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }"></canvas>
       <!-- 视频 -->
-      <video ref="video" class="absolute w-full h-full" autoplay :class="{ mirror: store.mirror }"></video>
+      <video ref="video" class="absolute w-full h-full" :class="{ mirror: store.mirror }" autoplay></video>
       <!-- 记录 -->
       <a ref="record" class="hidden"></a>
     </section>
@@ -25,18 +25,18 @@
     <section v-show="store.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
       <!-- 拍照 -->
       <button class="btn btn-md btn-purple">
-        <CameraSVG class="w-6" @click="takePhoto(canvas, video, record)" />
+        <CameraSVG class="w-6" @click="takePhoto(video, canvas, record)" />
       </button>
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
         <!-- 开始录像 -->
-        <button v-if="!state.recording" class="btn btn-md btn-blue">
+        <button v-if="!state.recorder" class="btn btn-md btn-blue">
           <VideoSVG
             class="w-6"
             @click="
-              ;async () => {
-                state.recorder = await recordVideo(store.camera, record)
-              }
+              recordVideo(store.device, record).then((recorder) => {
+                state.recorder = recorder
+              })
             "
           />
         </button>
@@ -47,7 +47,7 @@
             @click="
               () => {
                 state.recorder.stop()
-                state.recorder = false
+                state.recorder = null
               }
             "
           />
@@ -60,6 +60,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
+import { sendAlert } from '#/ipc'
 import { recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
@@ -67,7 +68,6 @@ import { storage } from '~/storage'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-import { sendAlert } from '#/ipc'
 import CameraSVG from '@/assets/camera/camera.svg'
 import OffSVG from '@/assets/camera/off.svg'
 import VideoSVG from '@/assets/camera/video.svg'
@@ -79,6 +79,7 @@ const record = ref(null)
 
 // 状态
 const state = reactive({
+  stream: null, // 媒体流
   loading: true, // 加载状态
   recorder: null, // 录像状态
 })
@@ -86,10 +87,10 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
+    camera: null, // 设备ID
     mirror: true, // 镜像
     control: true, // 控制器
     holistic: true, // 角色跟踪
-    camera: null, // 设备ID
   },
   {
     // 角色跟踪修改
@@ -98,7 +99,6 @@ const store = storage(
     },
     // 相机修改
     camera: async (val) => {
-      // 已开启角色追踪
       if (store.holistic) {
         // 重新加载窗口
         window.location.reload()
@@ -155,6 +155,8 @@ onMounted(async () => {
 
   // 初始化相机
   store.camera = store.camera || devices[0].deviceId
+
+  // 切换摄像头
   video.value.srcObject = await navigator.mediaDevices.getUserMedia({
     video: {
       deviceId: store.camera,

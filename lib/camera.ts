@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-11 21:00:17
+ * @LastEditTime: 2022-10-16 21:02:16
  * @Description: camera 工具
  */
 
 /**
  * @description: 拍照
- * @param {HTMLCanvasElement} canvas
  * @param {HTMLVideoElement} video
+ * @param {HTMLCanvasElement} canvas
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
@@ -35,11 +35,9 @@ export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, re
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-// 记录器
-let recorder: MediaRecorder
-
 /**
  * @description: 录像
+ * @param {string} device
  * @param {HTMLAnchorElement} record
  * @return {*}
  */
@@ -49,7 +47,6 @@ export const recordVideo = async (device: string, record: HTMLAnchorElement): Pr
     video: {
       deviceId: device,
     },
-    // TODO 检测麦克风存在
     audio: true,
   })
 
@@ -67,6 +64,7 @@ export const recordVideo = async (device: string, record: HTMLAnchorElement): Pr
   recorder.onstop = () => {
     stream.getTracks().forEach((track) => track.stop())
   }
+  
   // 开始
   recorder.start()
 
