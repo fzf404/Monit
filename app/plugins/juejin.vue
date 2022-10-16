@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-04 09:24:37
+ * @LastEditTime: 2022-10-16 20:44:38
  * @Description: juejin 信息监控
 -->
 <template>
@@ -139,7 +139,7 @@
     <!-- 文章 -->
     <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-1">
       <p
-        v-for="item in articleChange"
+        v-for="item in store.article"
         class="flex-row-center space-x-1 space-y-3 clickable"
         @click="openArticle(item.id)"
       >
@@ -279,12 +279,6 @@ export default {
         return changeNum
       }
     },
-    // article 数据更改
-    articleChange() {
-      // TODO 排序
-      const article = this.article
-      return article
-    },
   },
   methods: {
     //  初始化数据函数
@@ -301,7 +295,6 @@ export default {
       this.store.like = this.like
       this.store.view = this.view
       this.store.power = this.power
-      this.article = this.article
     },
     // 请求数据
     async getJuejinData() {
@@ -332,7 +325,7 @@ export default {
         return { title: item.article_info.title, id: item.article_id }
       })
 
-      this.article = info
+      this.store.article = info
 
       return data
     },
