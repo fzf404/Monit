@@ -8,7 +8,7 @@
     "jsx": "preserve",
     "target": "ESNext",
     "module": "ESNext",
-    "outDir": "dist_electron",
+    "outDir": "release",
     "moduleResolution": "Node",
     "paths": {
       "@/*": ["app/*"],

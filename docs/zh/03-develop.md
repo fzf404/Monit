@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-15 16:27:03
+ * @LastEditTime: 2022-10-17 20:33:56
  * @Description: 开发文档
 -->
 
-推荐使用 `vscode` 作为代码编辑器，并安装工作区推荐插件。
+推荐使用 `Visual Studio Code` 作为代码编辑器，并安装工作区推荐插件。
 
 应用共分为 `渲染进程` 和 `主进程` 两部分。
 
@@ -37,7 +37,7 @@ pnpm build
 
 ### 🖱️ 开发说明
 
-> 构建成功后可在 `dist_electron` 目录下找到安装包
+> 构建成功后可在 `release` 目录下找到安装包
 
 使用快捷键 `Ctrl + R / Cmd + R` 重新加载页面。
 
@@ -49,7 +49,7 @@ pnpm build
 
 请将代码提交到 `beta` 分支。
 
-执行 `commit` 操作时自动使用 `husky` 自动进行代码格式化。
+执行 `commit` 操作时自动进行代码格式化。
 
 `Visual Studio Code` 中安装 `Todo Tree` 插件后，可以在 `待办事项` 标签页查看项目的 `TODO` 事项。
 

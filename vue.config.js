@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-07 19:55:33
+ * @LastEditTime: 2022-10-17 20:32:40
  * @Description: vue-cli 配置
  */
 const path = require('path')
@@ -30,6 +30,8 @@ const config = {
   pluginOptions: {
     // electron 打包配置
     electronBuilder: {
+      // 输出路径
+      outputDir: 'release',
       // node 集成
       nodeIntegration: true,
       // 自定义通信协议
@@ -49,13 +51,17 @@ const config = {
       },
       // 构建选项
       builderOptions: {
-        productName: 'Monit', // 应用名
-        icon: 'public/icons/icon.png', // 图标
-        appId: 'top.fzf404.monit', // app id
-        artifactName: '${productName}-${version}-${os}-${arch}.${ext}', // 打包命名方式
+        // 应用名
+        productName: 'Monit',
+        // 图标
+        icon: 'public/icons/icon.png',
+        // 应用 ID
+        appId: 'art.fzf404.monit',
+        // 打包命名
+        artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
         // 发布地址
         publish: ['github'],
-        // 多平台打包设置
+        // 多平台配置
         win: {
           target: ['nsis', '7z'],
         },
