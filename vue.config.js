@@ -1,10 +1,3 @@
-/*
- * @Author: fzf404
- * @Date: 2022-06-18 17:15:15
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-17 20:32:40
- * @Description: vue-cli 配置
- */
 const path = require('path')
 
 function resolve(dir) {

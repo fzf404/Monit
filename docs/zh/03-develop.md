@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-17 20:33:56
+ * @LastEditTime: 2022-10-21 22:30:12
  * @Description: 开发文档
 -->
 
@@ -21,17 +21,13 @@ git clone https://github.com/fzf404/Monit.git -b beta --depth 1
 # 2. 安装 pnpm
 npm i -g pnpm
 
-# 3. 更换国内源
-pnpm config set registry https://registry.npmmirror.com
-pnpm config set electron_mirror https://registry.npmmirror.com/-/binary/electron/
-
-# 4. 安装依赖
+# 3. 安装依赖
 pnpm i
 
-# 5. 运行项目
+# 4. 运行项目
 pnpm dev
 
-# 6. 打包项目
+# 5. 打包项目
 pnpm build
 ```
 
