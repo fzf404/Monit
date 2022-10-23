@@ -1,13 +1,13 @@
 {
   "recommendations": [
-    "obkoro1.korofileheader",
     "vue.volar",
-    "vue.vscode-typescript-vue-plugin",
     "syler.sass-indented",
     "gruntfuggly.todo-tree",
     "chunsen.bracket-select",
+    "obkoro1.korofileheader",
     "bradlc.vscode-tailwindcss",
     "formulahendry.auto-close-tag",
-    "formulahendry.auto-rename-tag"
+    "formulahendry.auto-rename-tag",
+    "vue.vscode-typescript-vue-plugin"
   ]
 }
