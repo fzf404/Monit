@@ -2,16 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 19:35:20
+ * @LastEditTime: 2022-10-23 21:44:56
  * @Description: setting 组件
 -->
 <template>
-  <!-- 设置模态框 -->
-  <aside class="flex-col-center modal setting z-50" v-show="store.setting.show">
+  <aside class="flex-col-center modal setting z-40" v-show="store.setting.show">
     <!-- 设置框 -->
-    <ul class="w-3/5 px-4 py-3 pb-2 space-y-2 ring-4 rounded-lg" :class="{ 'w-3/4 px-3': size === 'wide' }">
+    <ul class="w-3/5 ring-4 rounded-lg px-4 py-3 pb-2 space-y-2" :class="{ 'w-3/4 px-3': size === 'wide' }">
       <!-- 项目列表 -->
-      <li class="flex-row-between h-8 px-2 rounded" v-for="item in setting">
+      <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
         <!-- 标签 -->
         <label :for="item.id" class="flex space-x-0.5 text-xs">
           <span>
@@ -19,24 +18,21 @@
           </span>
           <HelpSVG v-show="item.help" class="w-3 self-center btn-svg text-gray" @click="openURL(item.help as string)" />
         </label>
-
         <!-- 选择框 -->
         <select
           v-if="item.type === 'select'"
           :id="item.id"
-          class="w-3/5 px-2 py-1 outline-none border-none rounded text-xs"
+          class="w-3/5 px-2 py-1 rounded outline-none border-none text-xs"
           v-model.lazy="config[item.id]"
         >
           <option v-for="option in item.options" :value="option.value">
             {{ option.label }}
           </option>
         </select>
-
         <!-- 按钮 -->
-        <button v-else-if="item.type === 'button'" class="btn btn-xs w-1/3" :id="item.id" @click="item.options.click">
+        <button v-else-if="item.type === 'button'" class="w-1/3 btn btn-xs" :id="item.id" @click="item.options.click">
           {{ item.options.text }}
         </button>
-
         <!-- 复选框 -->
         <input
           v-else-if="item.type === 'checkbox'"
@@ -46,7 +42,6 @@
           v-model.lazy="(config[item.id] as boolean)"
           @keyup.enter="onSave"
         />
-
         <!-- 数字输入框 -->
         <input
           v-else-if="item.type === 'number'"
@@ -63,7 +58,6 @@
             }
           "
         />
-
         <!-- 文本输入框 -->
         <input
           v-else-if="item.type === 'text'"

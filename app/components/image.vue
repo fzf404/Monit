@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 19:07:20
+ * @LastEditTime: 2022-10-23 21:44:06
  * @Description: iamge 组件
 -->
 <template>
@@ -14,6 +14,6 @@
   </section>
 </template>
 
-<script setup>
-const props = defineProps(['show', 'image', 'remark'])
+<script setup lang="ts">
+defineProps(['show', 'image', 'remark'])
 </script>
