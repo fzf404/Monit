@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-10-03 16:54:16
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-10-03 18:52:11
  * @Description: utils 工具
  */

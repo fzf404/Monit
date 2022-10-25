@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-09-12 00:42:39
  * @Description: 数值分析
  */

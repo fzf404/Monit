@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-10-03 14:38:27
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-10-03 14:39:34
  * @Description: course 课程表
 -->

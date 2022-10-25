@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-10-02 21:35:17
  * @Description: clock 翻牌时钟
 -->

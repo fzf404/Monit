@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-09-18 18:26:22
  * @Description: router 配置
  */
