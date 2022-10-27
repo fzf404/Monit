@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-23 22:52:27
+ * @LastEditTime: 2022-10-27 18:22:03
  * @Description: camera 相机监控
 -->
 <template>
@@ -34,9 +34,13 @@
           <VideoSVG
             class="w-6"
             @click="
-              recordVideo(store.device, record).then((recorder) => {
-                state.recorder = recorder
-              })
+              recordVideo(store.device, record)
+                .then((recorder) => {
+                  state.recorder = recorder
+                })
+                .catch((err) => {
+                  sendAlert(err)
+                })
             "
           />
         </button>
@@ -125,11 +129,15 @@ const setting = [
 
 onMounted(async () => {
   // 获取设备列表
-  const devices = await getCameraList()
+  const devices = await getCameraList().catch((err) => {
+    sendAlert(err)
+    return
+  })
 
   // 判断设备存在
   if (devices.length === 0) {
     sendAlert('相机不存在！')
+    return
   }
 
   // 增加设置
@@ -147,7 +155,9 @@ onMounted(async () => {
   store.camera = store.camera || devices[0].deviceId
 
   // 初始化摄像头
-  await initCamera(store.camera, video.value)
+  await initCamera(store.camera, video.value).catch((err) => {
+    sendAlert(err)
+  })
 
   // 是否开启角色追踪
   if (store.holistic) {
