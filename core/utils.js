@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-10-03 16:54:16
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-03 18:52:11
+ * @LastEditTime: 2022-10-27 22:47:56
  * @Description: utils 工具
  */
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -22,11 +22,17 @@ export const initDevtools = () => {
 
 // 初始化窗口事件
 export const initWinEvent = (win, name) => {
-  // 记录移动事件
+  // 监听移动事件
   win.on('move', function () {
     const [x, y] = win.getPosition()
     cset(name, 'x', x)
     cset(name, 'y', y)
+  })
+  // 监听窗口大小改变
+  win.on('resize', function () {
+    const [width, height] = win.getSize()
+    cset(name, 'width', width)
+    cset(name, 'height', height)
   })
 }
 
