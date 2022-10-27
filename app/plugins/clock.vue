@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-02 21:35:17
+ * @LastEditTime: 2022-10-27 18:38:22
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -79,7 +79,6 @@ let old = '000000'
  * @description: 对其中一位数字进行翻牌
  * @param {*} digit 第几位数字
  * @param {*} num 修改成的数字
- * @return {*}
  */
 const changeNumber = (digit, num) => {
   // 翻转中则返回

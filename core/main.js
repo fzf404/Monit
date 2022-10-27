@@ -2,10 +2,9 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-17 21:27:52
+ * @LastEditTime: 2022-10-27 19:16:58
  * @Description: main 入口
  */
-
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initIPC } from '#/event'

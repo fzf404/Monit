@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-09-12 00:42:39
+ * @LastEditTime: 2022-10-27 18:49:56
  * @Description: 数值分析
  */
 
@@ -15,9 +15,9 @@ interface repo {
 
 /**
  * @description: 获取两个数组间的差集
- * @param {*} arr1
- * @param {*} arr2
- * @return {*}
+ * @param { Array<T> } arr1 源数组
+ * @param { Array<T> } arr2 目标数组
+ * @return { Array<T> } 数组差集
  */
 export const getArrDiff = <T>(arr1: Array<T>, arr2: Array<T>): Array<T> => {
   return arr2.filter((items) => {
@@ -29,11 +29,9 @@ export const getArrDiff = <T>(arr1: Array<T>, arr2: Array<T>): Array<T> => {
 
 /**
  * @description: 获取两个数组间的某个 key 的差集
- * @param {*} arr1
- * @param {*} arr2
- * @param {string} source
- * @param {string} target
- * @return {*}
+ * @param { Array<T> } arr1 源数组
+ * @param { Array<T> } arr2 目标数组
+ * @return { Array<T> } 数组差集
  */
 export const getArrDiffKey = <T>(arr1: Array<T>, arr2: Array<T>, source: keyof T, target: keyof T): Array<T> => {
   return arr2.filter((items) => {

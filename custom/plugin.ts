@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-09-29 18:11:51
+ * @LastEditTime: 2022-10-27 18:39:50
  * @Description: plugin 配置
  */
 interface pluginList {
@@ -14,7 +14,6 @@ interface pluginList {
 
 /**
  * @description: 插件列表
- * @return {*}
  */
 const plugin: pluginList[] = [
   { name: 'github', size: [4, 2], description: '监控' },

@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@volar/vue-language-plugin-pug": "^1.0.9",
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.2.41",

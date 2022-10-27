@@ -10,7 +10,7 @@ const config = {
     entry: './core/main.js',
   },
   chainWebpack: (config) => {
-    // 配置别名
+    // import 别名
     config.resolve.alias
       .set('@', resolve('app'))
       .set('~', resolve('lib'))
