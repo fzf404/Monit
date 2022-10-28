@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-23 21:44:56
+ * @LastEditTime: 2022-10-28 20:06:34
  * @Description: setting 组件
 -->
 <template>
-  <aside class="flex-col-center modal setting z-40" v-show="store.setting.show">
+  <aside class="flex-col-center modal setting z-30" v-show="store.setting.show">
     <!-- 设置框 -->
     <ul class="w-3/5 ring-4 rounded-lg px-4 py-3 pb-2 space-y-2" :class="{ 'w-3/4 px-3': size === 'wide' }">
       <!-- 项目列表 -->
