@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-04 09:20:57
+ * @LastEditTime: 2022-10-28 18:35:56
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -94,6 +94,10 @@
       <PlaySVG class="w-10 btn-svg" v-else @click="playMusic" />
       <!-- 下一首 -->
       <NextSVG class="w-10 btn-svg" @click="nextMusic" />
+      <!-- 随机播放 -->
+      <ShuffleSVG class="absolute w-5 right-0 text-gray btn-svg" v-if="store.random" @click="store.random = false" />
+      <!-- 循环播放 -->
+      <RepeatSVG class="absolute w-5 right-0 text-gray btn-svg" v-else @click="store.random = true" />
     </section>
   </article>
 </template>
@@ -114,6 +118,8 @@ import NextSVG from '@/assets/music/next.svg'
 import PauseSVG from '@/assets/music/pause.svg'
 import PlaySVG from '@/assets/music/play.svg'
 import PrevSVG from '@/assets/music/prev.svg'
+import RepeatSVG from '@/assets/music/repeat.svg'
+import ShuffleSVG from '@/assets/music/shuffle.svg'
 
 // Axios 实例
 let request = null
@@ -142,12 +148,10 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
-    url: 'https://api-music.imsyy.top', // 请求地址
-
+    current: 0, // 歌曲索引
+    random: false, // 随机播放
     id: '7667645628', // 歌单ID
-    current: 0, // 当前歌曲索引
-
-    // 音乐列表
+    url: 'https://api-music.imsyy.top', // 接口地址
     music: [
       {
         id: null,
@@ -266,18 +270,28 @@ const pauseMusic = () => {
 
 // 上一首
 const prevMusic = () => {
-  if (store.current === 0) {
+  if (store.random) {
+    // 随机播放
+    store.current = Math.floor(Math.random() * store.music.length)
+  } else if (store.current === 0) {
+    // 循环播放
     store.current = store.music.length - 1
   } else {
+    // 上一首
     store.current--
   }
 }
 
 // 下一首
 const nextMusic = () => {
-  if (store.current === store.music.length - 1) {
+  if (store.random) {
+    // 随机播放
+    store.current = Math.floor(Math.random() * store.music.length)
+  } else if (store.current === store.music.length - 1) {
+    // 循环播放
     store.current = 0
   } else {
+    // 下一首
     store.current++
   }
 }
