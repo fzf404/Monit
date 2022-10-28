@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-28 18:35:56
+ * @LastEditTime: 2022-10-28 23:45:12
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -135,7 +135,7 @@ const state = reactive({
   // 登陆
   login: {
     show: false,
-    qrcode: 'https://monit.fzf404.art/icon.png',
+    qrcode: '',
   },
   // 音乐控制器
   control: {
@@ -148,10 +148,11 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
-    current: 0, // 歌曲索引
-    random: false, // 随机播放
-    id: '7667645628', // 歌单ID
+    id: '7667645628', // 歌单 ID
     url: 'https://api-music.imsyy.top', // 接口地址
+    cookie: null, // 登陆 Cookie
+    random: false, // 随机播放
+    current: 0, // 歌曲索引
     music: [
       {
         id: null,
@@ -180,7 +181,31 @@ request = axios(store.url)
 
 // TODO 登录
 const login = async () => {
-  sendAlert('正在开发中...')
+  // 获取登陆密钥
+  const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
+  if (!key) {
+    sendAlert('登录密钥获取失败')
+    return
+  }
+  // 获取登陆二维码
+  state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
+  state.login.show = true
+  // 轮询登陆状态
+  const interval = setInterval(async () => {
+    const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
+    if (data.code == 803) {
+      state.login.show = false
+      store.cookie = data.cookie
+      clearInterval(interval)
+    }
+  }, 1000)
+
+  // 关闭登陆窗口
+  setTimeout(() => {
+    state.login.show = false
+  }, 30000)
+
+  // sendAlert('正在开发中...')
 }
 
 // 读取歌单信息
@@ -198,25 +223,29 @@ const getPlayList = async () => {
     return
   }
 
-  // 解析歌曲信息
-  const music = await data.songs.map((item) => {
+  // 获取歌曲链接
+  const url = (await request.get('/song/url?id=' + data.songs.map((item) => item.id).join(','))).data
+  console.log('url', url)
+  // 获取歌曲信息
+  store.music = data.songs.map((item, index) => {
     return {
       id: item.id,
-      url: 'https://music.163.com/song/media/outer/url?id=' + item.id,
+      url: url[index].url,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
-      image: item.al.picUrl,
+      image: item.al.picUrl + '?param=100y100',
     }
   })
+
   // 判断索引越界
   if (store.current > store.music.length - 1) {
     // 设置当前歌曲索引
     store.current = 0
   }
+
   // 停止播放
   pauseMusic()
-  // 设置歌单信息
-  store.music = music
+
   // 设置音乐链接
   audio.src = store.music[store.current].url
 }
