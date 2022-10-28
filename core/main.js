@@ -1,17 +1,21 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:50:52
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-27 19:16:58
  * @Description: main 入口
  */
-
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initIPC } from '#/event'
 import { initTray } from './tray'
 import { ckeckUpdate, initDevtools, initShortcut } from './utils'
 import { createWindow, initWindow } from './window'
+
+// 限制实例个数
+if (!app.requestSingleInstanceLock()) {
+  app.quit()
+}
 
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])

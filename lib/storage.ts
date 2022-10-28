@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 18:23:49
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-27 19:13:30
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -29,10 +29,9 @@ export const store = new Store({
 
 /**
  * @description: 保存值
- * @param {string} node 节点名
- * @param {string} key 键名
- * @param {Object} value 值
- * @return {*}
+ * @param { string } node 节点名
+ * @param { string } key 键名
+ * @param { Object } value 值
  */
 export const cset = (node: string, key: string, value: Object): void => {
   // console.log(node + '.' + key, value)
@@ -41,10 +40,10 @@ export const cset = (node: string, key: string, value: Object): void => {
 
 /**
  * @description: 读取值
- * @param {string} node 节点名
- * @param {string} key 键名
- * @param {Object} define 默认值
- * @return {*}
+ * @param { string } node 节点名
+ * @param { string } key 键名
+ * @param { Object } define 默认值
+ * @return { Object } 值
  */
 export const cget = (node: string, key: string, define: Object): Object => {
   // console.log(node + '.' + key, define)
@@ -53,8 +52,9 @@ export const cget = (node: string, key: string, define: Object): Object => {
 
 /**
  * @description: 响应式 storage
- * @param {*} K 原始参数 key 值
- * @return {*} 目标响应式参数
+ * @param { Record<string, Object> } source 原始参数
+ * @param { Record<K, Function> } callback 回调函数
+ * @return { Source } 响应式参数
  */
 
 type Source = Record<string, Object>

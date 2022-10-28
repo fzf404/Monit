@@ -1,11 +1,10 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-18 18:26:22
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-27 19:17:12
  * @Description: router 配置
  */
-
 import { pluginList } from '#/plugin'
 import { createRouter, createWebHashHistory } from 'vue-router'
 

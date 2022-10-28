@@ -1,14 +1,14 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-16 21:38:20
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-27 18:22:03
  * @Description: camera 相机监控
 -->
 <template>
   <!-- 设置-->
   <Setting :setting="setting" :config="store" />
-  <!-- 加载中 -->
+  <!-- 加载 -->
   <Loading :show="state.loading" :remark="['正在加载中...', '首次启动会从 CDN 加载模型文件', '可能需要 30s 以上']" />
   <!-- 页面内容 -->
   <article>
@@ -34,9 +34,13 @@
           <VideoSVG
             class="w-6"
             @click="
-              recordVideo(store.device, record).then((recorder) => {
-                state.recorder = recorder
-              })
+              recordVideo(store.device, record)
+                .then((recorder) => {
+                  state.recorder = recorder
+                })
+                .catch((err) => {
+                  sendAlert(err)
+                })
             "
           />
         </button>
@@ -61,7 +65,7 @@
 import { onMounted, reactive, ref } from 'vue'
 
 import { sendAlert } from '#/ipc'
-import { recordVideo, takePhoto } from '~/camera'
+import { getCameraList, initCamera, recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
 
@@ -98,18 +102,8 @@ const store = storage(
       window.location.reload()
     },
     // 相机修改
-    camera: async (val) => {
-      if (store.holistic) {
-        // 重新加载窗口
-        window.location.reload()
-      } else {
-        // 切换摄像头
-        video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-          video: {
-            deviceId: val,
-          },
-        })
-      }
+    camera: (val) => {
+      store.holistic ? window.location.reload() : initCamera(val, video.value)
     },
   }
 )
@@ -135,11 +129,15 @@ const setting = [
 
 onMounted(async () => {
   // 获取设备列表
-  const devices = (await navigator.mediaDevices.enumerateDevices()).filter((device) => device.kind === 'videoinput')
+  const devices = await getCameraList().catch((err) => {
+    sendAlert(err)
+    return
+  })
 
   // 判断设备存在
   if (devices.length === 0) {
     sendAlert('相机不存在！')
+    return
   }
 
   // 增加设置
@@ -153,14 +151,12 @@ onMounted(async () => {
     })),
   })
 
-  // 初始化相机
+  // 初始化设备ID
   store.camera = store.camera || devices[0].deviceId
 
-  // 切换摄像头
-  video.value.srcObject = await navigator.mediaDevices.getUserMedia({
-    video: {
-      deviceId: store.camera,
-    },
+  // 初始化摄像头
+  await initCamera(store.camera, video.value).catch((err) => {
+    sendAlert(err)
   })
 
   // 是否开启角色追踪

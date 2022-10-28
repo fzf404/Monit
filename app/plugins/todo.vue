@@ -1,17 +1,16 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 14:42:36
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-27 23:01:43
  * @Description: todo 代办事项管理
 -->
-
 <template lang="pug">
 main
   article.flex-col-between.pt-8.pb-3.px-4
     draggable.scrollable(class="space-y-1" tag="ul" handle=".handle" item-key="id" :list="store.todos" :animation="200")
       template(#item="{element,index}")
-        li.flex-row-between
+        li.h-5.flex-row-between
           input.mr-2.accent-purple-500(v-model="element.checked" type="checkbox")
           input.mr-2.w-full.bg-transparent.outline-none.text-sm(:class="element.checked ? 'line-through text-gray' : 'text-gray-200'" v-model="element.title" type="text")
           DeleteSVG.w-6.btn-svg.text-rose-400(class="hover:text-rose-500" @click="remove(index)" )

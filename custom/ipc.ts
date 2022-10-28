@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-10-03 19:37:45
  * @Description: icp 事件发送
  */

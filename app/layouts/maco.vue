@@ -1,26 +1,27 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-03 14:30:45
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-23 21:30:55
  * @Description: maco 布局
 -->
 <template>
   <nav>
+    <!-- 窗口控制器 -->
     <ul class="absolute z-40 left-2 space-x-1">
       <!-- 关闭 -->
       <CloseSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-red-400 hover:bg-red-500 text-dark"
+        class="w-3.5 p-0.5 rounded-full btn-svg bg-red-400 hover:bg-red-500 text-dark"
         @click="sendEvent('win-close')"
       />
       <!-- 最小化 -->
       <MiniSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-yellow-400 hover:bg-yellow-500 text-dark"
+        class="w-3.5 p-0.5 rounded-full btn-svg bg-yellow-400 hover:bg-yellow-500 text-dark"
         @click="sendEvent('win-mini')"
       />
       <!-- 置顶 -->
       <UpSVG
-        class="w-3.5 p-0.5 btn-svg rounded-full bg-green-400 hover:bg-green-500 text-dark"
+        class="w-3.5 p-0.5 rounded-full btn-svg bg-green-400 hover:bg-green-500 text-dark"
         :class="{ 'rotate-180': state.top }"
         @click="state.top = !state.top"
       />
@@ -44,7 +45,11 @@
       />
       <DarkSVG v-else class="w-4 btn-svg text-indigo-300 hover:text-indigo-400" @click="state.theme = 'dark'" />
       <!-- 设置 -->
-      <SettingSVG v-show="store.setting.has" class="w-4 btn-svg text-blue-400" @click="store.setting.show = true" />
+      <SettingSVG
+        v-show="store.setting.has"
+        class="w-4 btn-svg text-blue-400"
+        @click="store.setting.show = !store.setting.show"
+      />
     </ul>
   </nav>
 </template>
@@ -67,7 +72,7 @@ import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
 // 初始化 props
-const props = defineProps(['state'])
+defineProps(['state'])
 
 // 初始化 store
 const store = useStore()

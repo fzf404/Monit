@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-09-10 14:40:25
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-23 21:54:21
  * @Description: winer 布局
 -->
 <template>
@@ -32,7 +32,7 @@
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-400" />
     </ul>
-
+    <!-- 窗口控制器 -->
     <ul class="absolute right-2 z-40">
       <!-- 置顶 -->
       <UpSVG
@@ -66,7 +66,7 @@ import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
 // 初始化 props
-const props = defineProps(['state'])
+defineProps(['state'])
 
 // 初始化 store
 const store = useStore()

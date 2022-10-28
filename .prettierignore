@@ -1,6 +1,5 @@
 node_modules
 
-dist
-dist_electron
+release
 
 pnpm-lock.yaml

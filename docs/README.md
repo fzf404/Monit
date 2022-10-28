@@ -2,14 +2,14 @@
 
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
- * @LastEditors: fzf404 nmdfzf404@163.com
- * @LastEditTime: 2022-10-10 18:46:17
+ * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditTime: 2022-10-17 20:35:11
  * @Description: 应用介绍
 -->
 
 <p align="center">
-  <a href="https://monit.fzf404.art" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/logo.webp" alt="Monit" style="zoom:60%;"/>
+  <a href="https://monit.fzf404.art/" target="_blank">
+    <img src="https://img.fzf404.art/Monit/logo.webp" alt="Monit" style="zoom:60%;"/>
   </a>
 </p>
 
@@ -19,12 +19,12 @@
 
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
-  <a href="https://monit.fzf404.art"> Home </a> ｜
+  <a href="https://monit.fzf404.art/"> Website </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> Download </a>
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/fzf404/image/Monit/v0.7.0.webp" alt="show" style="zoom:40%;" />
+  <img src="https://img.fzf404.art/Monit/v0.7.0.webp" alt="show" style="zoom:40%;" />
 </p>
 
 ## ✨ 功能

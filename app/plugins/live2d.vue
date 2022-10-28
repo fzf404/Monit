@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
- * @LastEditors: fzf404 nmdfzf404@163.com
+ * @LastEditors: fzf404 hi@fzf404.art
  * @LastEditTime: 2022-10-02 22:53:14
  * @Description: live2d 虚拟角色追踪
 -->
