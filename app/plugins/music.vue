@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-29 19:51:21
+ * @LastEditTime: 2022-10-29 23:15:00
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -154,7 +154,7 @@ const state = reactive({
 const store = storage(
   {
     id: '7667645628', // 歌单 ID
-    url: 'https://qlapi.sylu.edu.cn/cloudmusic', // 接口地址
+    url: 'https://api-music.imsyy.top', // 接口地址
     cookie: null, // 登陆 Cookie
     random: false, // 随机播放
     current: 0, // 歌曲索引
@@ -219,30 +219,31 @@ const getPlayList = async () => {
   state.loading = true
 
   // 读取歌单音乐
-  const data = await request.get('/playlist/track/all?id=' + store.id)
-
-  // 加载完成
-  state.loading = false
+  const data = await request.get(`/playlist/track/all?cookie=${encodeURIComponent(store.cookie)}&id=${store.id}`)
 
   // 验证数据
-  if (!data) {
+  if (!data.songs.length) {
     sendAlert('获取歌单失败！')
     return
   }
 
-  // 获取歌曲链接
-  const url = (await request.get('/song/url?id=' + data.songs.map((item) => item.id).join(','))).data
+  const music = []
 
-  // 获取歌曲信息
-  store.music = data.songs.map((item, index) => {
-    return {
+  for (let item of data.songs) {
+    const url = (await request.get(`/song/url?cookie=${encodeURIComponent(store.cookie)}&id=${item.id}`)).data[0].url
+    music.push({
       id: item.id,
-      url: url[index].url,
+      url: url,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
       image: item.al.picUrl + '?param=100y100',
-    }
-  })
+    })
+  }
+
+  // 加载完成
+  state.loading = false
+  
+  store.music = music
 
   // 判断索引越界
   if (store.current > store.music.length - 1) {
@@ -251,7 +252,7 @@ const getPlayList = async () => {
   }
 
   // 停止播放
-  pauseMusic()
+  // pauseMusic()
 
   // 设置音乐链接
   audio.src = store.music[store.current].url
