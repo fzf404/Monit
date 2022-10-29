@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-28 20:06:28
+ * @LastEditTime: 2022-10-29 10:54:23
  * @Description: winer 布局
 -->
 <template>
-  <nav class="layout">
+  <nav class="z-50">
     <!-- 状态控制器 -->
-    <ul class="absolute z-40 left-2">
+    <ul class="absolute left-2">
       <!-- 设置 -->
       <SettingSVG
         v-show="store.setting.has"
@@ -33,7 +33,7 @@
       <WifiSVG v-show="!store.network" class="w-5 hover-dynamic btn-svg text-red-400" />
     </ul>
     <!-- 窗口控制器 -->
-    <ul class="absolute right-2 z-40">
+    <ul class="absolute right-2">
       <!-- 置顶 -->
       <UpSVG
         class="w-5 btn-svg hover-dynamic text-green-400"

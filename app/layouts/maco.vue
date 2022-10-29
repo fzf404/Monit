@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-23 21:30:55
+ * @LastEditTime: 2022-10-29 10:51:01
  * @Description: maco 布局
 -->
 <template>
-  <nav>
+  <nav class="z-50">
     <!-- 窗口控制器 -->
-    <ul class="absolute z-40 left-2 space-x-1">
+    <ul class="absolute left-2 space-x-1">
       <!-- 关闭 -->
       <CloseSVG
         class="w-3.5 p-0.5 rounded-full btn-svg bg-red-400 hover:bg-red-500 text-dark"
@@ -27,7 +27,7 @@
       />
     </ul>
     <!-- 状态控制器 -->
-    <ul class="absolute right-2 z-40 space-x-1">
+    <ul class="absolute right-2 space-x-1">
       <!-- 断网提示 -->
       <WifiSVG v-show="!store.network" class="w-4 btn-svg text-red-400" />
       <!-- 布局 -->

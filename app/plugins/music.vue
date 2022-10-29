@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-28 23:45:12
+ * @LastEditTime: 2022-10-29 19:51:21
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -106,6 +106,7 @@
 import { onMounted, reactive } from 'vue'
 
 import { sendAlert, sendNotice } from '#/ipc'
+import { useStore } from '@/store'
 import axios from '~/request'
 import { storage } from '~/storage'
 
@@ -123,6 +124,10 @@ import ShuffleSVG from '@/assets/music/shuffle.svg'
 
 // Axios 实例
 let request = null
+
+// 初始化 store
+const pinia = useStore()
+
 // Audio 实例
 const audio = new Audio()
 
@@ -149,7 +154,7 @@ const state = reactive({
 const store = storage(
   {
     id: '7667645628', // 歌单 ID
-    url: 'https://api-music.imsyy.top', // 接口地址
+    url: 'https://qlapi.sylu.edu.cn/cloudmusic', // 接口地址
     cookie: null, // 登陆 Cookie
     random: false, // 随机播放
     current: 0, // 歌曲索引
@@ -189,6 +194,7 @@ const login = async () => {
   }
   // 获取登陆二维码
   state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
+  pinia.setting.show = false
   state.login.show = true
   // 轮询登陆状态
   const interval = setInterval(async () => {
@@ -203,17 +209,18 @@ const login = async () => {
   // 关闭登陆窗口
   setTimeout(() => {
     state.login.show = false
+    clearInterval(interval)
   }, 30000)
-
-  // sendAlert('正在开发中...')
 }
 
 // 读取歌单信息
 const getPlayList = async () => {
   // 加载中
   state.loading = true
+
   // 读取歌单音乐
   const data = await request.get('/playlist/track/all?id=' + store.id)
+
   // 加载完成
   state.loading = false
 
@@ -225,7 +232,7 @@ const getPlayList = async () => {
 
   // 获取歌曲链接
   const url = (await request.get('/song/url?id=' + data.songs.map((item) => item.id).join(','))).data
-  console.log('url', url)
+
   // 获取歌曲信息
   store.music = data.songs.map((item, index) => {
     return {
