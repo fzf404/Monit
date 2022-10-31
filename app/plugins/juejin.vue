@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-16 22:06:57
+ * @LastEditTime: 2022-10-31 13:31:28
  * @Description: juejin 信息监控
 -->
 <template>
@@ -156,9 +156,11 @@
 
 <script>
 import { openURL, sendAlert, sendNotice } from '#/ipc'
-import { useStore } from '@/store'
+
 import axios from '~/request'
 import { storage } from '~/storage'
+
+import { main } from '@/pinia'
 
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
@@ -212,11 +214,11 @@ export default {
     }
   },
   created() {
-    // 未设置用户名
     if (this.store.user === '') {
+      // 初始化 pinia
+      const pinia = main()
       // 打开设置
-      const store = useStore()
-      store.setting.show = true
+      pinia.openSetting()
     } else {
       // 刷新数据
       this.getJuejinData()

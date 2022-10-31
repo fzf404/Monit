@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-12 17:14:19
+ * @LastEditTime: 2022-10-31 13:31:10
  * @Description: github 信息监控
 -->
 <template>
@@ -27,7 +27,7 @@
   <article class="grid grid-cols-12 grid-rows-5 p-3">
     <!-- follower -->
     <section class="flex-col-center col-span-7 row-span-3 mt-4">
-      <h1 pan class="text-intro mb-1">follower</h1>
+      <h1 class="text-intro mb-1">follower</h1>
       <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
@@ -114,10 +114,12 @@
 
 <script>
 import { openURL, sendAlert, sendNotice } from '#/ipc'
-import { useStore } from '@/store'
+
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
+
+import { main } from '@/pinia'
 
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
@@ -164,11 +166,11 @@ export default {
     }
   },
   created() {
-    // 未设置用户名
     if (this.store.user === '') {
+      // 初始化 pinia
+      const pinia = main()
       // 打开设置
-      const store = useStore()
-      store.setting.show = true
+      pinia.openSetting()
     } else {
       // 刷新数据
       this.getGithubData()
