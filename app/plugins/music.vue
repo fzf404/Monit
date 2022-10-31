@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-29 23:15:00
+ * @LastEditTime: 2022-10-31 14:30:40
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -72,14 +72,14 @@
       <span class="absolute -top-2 left-0 text-intro text-xs">{{ state.control.current }}</span>
       <!-- 未播放时间 -->
       <span class="absolute -top-2 right-0 text-intro text-xs">{{ state.control.duration }}</span>
-      <!-- 底部进度条 -->
+      <!-- 进度条 -->
       <p
         class="absolute rounded-full top-3 left-0 h-1 bg-theme clickable"
         :style="{ width: state.control.process + '%' }"
       ></p>
-      <!-- 顶部进度条 -->
+      <!-- 已播放进度条 -->
       <p
-        class="absolute rounded-full w-full top-3 h-1 opacity-40 bg-theme clickable"
+        class="absolute rounded-full top-3 w-full h-1 opacity-40 bg-theme clickable"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
@@ -106,9 +106,10 @@
 import { onMounted, reactive } from 'vue'
 
 import { sendAlert, sendNotice } from '#/ipc'
-import { useStore } from '@/store'
 import axios from '~/request'
 import { storage } from '~/storage'
+
+import { main } from '@/pinia'
 
 import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
@@ -122,13 +123,13 @@ import PrevSVG from '@/assets/music/prev.svg'
 import RepeatSVG from '@/assets/music/repeat.svg'
 import ShuffleSVG from '@/assets/music/shuffle.svg'
 
-// Axios 实例
+// 初始化 axios
 let request = null
 
-// 初始化 store
-const pinia = useStore()
+// 初始化 pinia
+const pinia = main()
 
-// Audio 实例
+// 初始化 audio
 const audio = new Audio()
 
 // 状态信息
@@ -140,7 +141,7 @@ const state = reactive({
   // 登陆
   login: {
     show: false,
-    qrcode: '',
+    qrcode: null,
   },
   // 音乐控制器
   control: {
@@ -184,7 +185,7 @@ const store = storage(
 // 初始化 axios
 request = axios(store.url)
 
-// TODO 登录
+// 登录
 const login = async () => {
   // 获取登陆密钥
   const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
@@ -192,10 +193,12 @@ const login = async () => {
     sendAlert('登录密钥获取失败')
     return
   }
+
   // 获取登陆二维码
   state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
-  pinia.setting.show = false
   state.login.show = true
+  pinia.closeSetting()
+
   // 轮询登陆状态
   const interval = setInterval(async () => {
     const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
@@ -219,18 +222,18 @@ const getPlayList = async () => {
   state.loading = true
 
   // 读取歌单音乐
-  const data = await request.get(`/playlist/track/all?cookie=${encodeURIComponent(store.cookie)}&id=${store.id}`)
+  const songs = (await request.get(`/playlist/track/all?cookie=${store.cookie}&id=${store.id}`)).songs
 
   // 验证数据
-  if (!data.songs.length) {
+  if (!songs.length) {
     sendAlert('获取歌单失败！')
     return
   }
 
   const music = []
 
-  for (let item of data.songs) {
-    const url = (await request.get(`/song/url?cookie=${encodeURIComponent(store.cookie)}&id=${item.id}`)).data[0].url
+  for (let item of songs) {
+    const url = (await request.get(`/song/url?cookie=${store.cookie}&id=${item.id}`)).data[0].url
     music.push({
       id: item.id,
       url: url,
@@ -242,7 +245,7 @@ const getPlayList = async () => {
 
   // 加载完成
   state.loading = false
-  
+
   store.music = music
 
   // 判断索引越界
