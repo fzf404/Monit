@@ -8,7 +8,6 @@
     "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
     "release": "vue-cli-service electron:build --publish always",
-    "commit": "lint-staged",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -53,11 +52,6 @@
   "engines": {
     "pnpm": ">=7",
     "node": ">=14"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,ts,md,vue,scss,json}": "prettier --write"
