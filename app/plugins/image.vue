@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-09 17:23:46
+ * @LastEditTime: 2022-11-01 11:15:41
  * @Description: image 图像展示
 -->
 <template>
@@ -29,7 +29,7 @@
   <!-- 页面内容 -->
   <article class="flex-col-center">
     <!-- TODO 图像缩放 -->
-    <img class="w-full h-full rounded-lg object-contain" :src="store.src" alt="图像" />
+    <img class="h-full w-full rounded-lg object-contain" :src="store.src" alt="图像" />
   </article>
 </template>
 

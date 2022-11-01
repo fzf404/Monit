@@ -59,18 +59,18 @@
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-indigo-400 bg-amber-200;
+    @apply bg-amber-200 ring-indigo-400 ring-opacity-50;
 
     // 设置内容
     li {
-      @apply shadow bg-amber-100;
+      @apply bg-amber-100 shadow;
 
       label {
         @apply text-indigo-700;
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-400;
       }
 
       button {
@@ -83,7 +83,7 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-600;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-600;
       }
     }
 
@@ -153,9 +153,9 @@
 ```vue
 <template>
   <!-- 主题 -->
-  <LightSVG v-if="state.theme === 'dark'" class="w-4 btn-svg text-orange-400" @click="state.theme = 'light'" />
-  <PunkSVG v-else-if="state.theme === 'light'" class="w-4 btn-svg text-yellow-400" @click="state.theme = 'punk'" />
-  <DarkSVG v-else class="w-4 btn-svg text-indigo-300" @click="state.theme = 'dark'" />
+  <LightSVG v-if="state.theme === 'dark'" class="btn-svg w-4 text-orange-400" @click="state.theme = 'light'" />
+  <PunkSVG v-else-if="state.theme === 'light'" class="btn-svg w-4 text-yellow-400" @click="state.theme = 'punk'" />
+  <DarkSVG v-else class="btn-svg w-4 text-indigo-300" @click="state.theme = 'dark'" />
 </template>
 
 <script setup>
@@ -171,15 +171,15 @@ import LightSVG from '@/assets/layout/light.svg'
 <template>
   <LightSVG
     v-if="state.theme === 'dark'"
-    class="w-5 hover-dynamic btn-svg text-orange-400"
+    class="hover-dynamic btn-svg w-5 text-orange-400"
     @click="state.theme = 'light'"
   />
   <PunkSVG
     v-else-if="state.theme === 'light'"
-    class="w-5 hover-dynamic btn-svg text-yellow-400"
+    class="hover-dynamic btn-svg w-5 text-yellow-400"
     @click="state.theme = 'punk'"
   />
-  <DarkSVG v-else class="w-5 hover-dynamic btn-svg text-indigo-300" @click="state.theme = 'dark'" />
+  <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="state.theme = 'dark'" />
 </template>
 
 <script setup>

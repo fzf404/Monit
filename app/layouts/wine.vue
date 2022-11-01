@@ -12,38 +12,38 @@
       <!-- 设置 -->
       <SettingSVG
         v-show="pinia.hasSetting"
-        class="w-5 hover-dynamic btn-svg text-blue-400"
+        class="hover-dynamic btn-svg w-5 text-blue-400"
         @click="pinia.openSetting()"
       />
       <!-- 主题 -->
       <LightSVG
         v-if="store.theme === theme.dark.class"
-        class="w-5 hover-dynamic btn-svg text-orange-400"
+        class="hover-dynamic btn-svg w-5 text-orange-400"
         @click="store.theme = theme.light.class"
       />
       <PunkSVG
         v-else-if="store.theme === theme.light.class"
-        class="w-5 hover-dynamic btn-svg text-yellow-400"
+        class="hover-dynamic btn-svg w-5 text-yellow-400"
         @click="store.theme = theme.punk.class"
       />
-      <DarkSVG v-else class="w-5 hover-dynamic btn-svg text-indigo-300" @click="store.theme = theme.dark.class" />
+      <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="store.theme = theme.dark.class" />
       <!-- 布局 -->
-      <WineSVG class="w-5 hover-dynamic btn-svg text-cyan-500" @click="store.layout = layout.maco.name" />
+      <WineSVG class="hover-dynamic btn-svg w-5 text-cyan-500" @click="store.layout = layout.maco.name" />
       <!-- 断网提示 -->
-      <WifiSVG v-show="!pinia.hasNetwork" class="w-5 hover-dynamic btn-svg text-red-400" />
+      <WifiSVG v-show="!pinia.hasNetwork" class="hover-dynamic btn-svg w-5 text-red-400" />
     </ul>
     <!-- 窗口控制器 -->
     <ul class="absolute right-2">
       <!-- 置顶 -->
       <UpSVG
-        class="w-5 btn-svg hover-dynamic text-green-400"
+        class="btn-svg hover-dynamic w-5 text-green-400"
         :class="{ 'rotate-180': store.top }"
         @click="store.top = !store.top"
       />
       <!-- 最小化 -->
-      <MiniSVG class="w-5 btn-svg hover-dynamic text-yellow-400" @click="sendEvent('win-mini')" />
+      <MiniSVG class="btn-svg hover-dynamic w-5 text-yellow-400" @click="sendEvent('win-mini')" />
       <!-- 关闭 -->
-      <CloseSVG class="w-5 btn-svg hover-dynamic text-red-400" @click="sendEvent('win-close')" />
+      <CloseSVG class="btn-svg hover-dynamic w-5 text-red-400" @click="sendEvent('win-close')" />
     </ul>
   </nav>
 </template>

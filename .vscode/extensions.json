@@ -13,6 +13,6 @@
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
     "vue.vscode-typescript-vue-plugin",
-    "meganrogge.template-string-converter",
+    "meganrogge.template-string-converter"
   ]
 }

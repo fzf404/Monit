@@ -41,7 +41,7 @@
     :config="store"
   />
   <!-- 页面内容 -->
-  <article class="flex-col-between pt-8 p-3">
+  <article class="flex-col-between p-3 pt-8">
     <section class="scrollable space-y-2">
       <!-- 插件操作 -->
       <p class="flex-row-between w-full">
@@ -77,7 +77,7 @@
         </button>
       </p>
       <!-- 全部插件列表 -->
-      <p v-for="item in pluginList" class="w-full flex-row-between">
+      <p v-for="item in pluginList" class="flex-row-between w-full">
         <!-- 插件启动 -->
         <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
           {{ item.name + ' - ' + item.description }}

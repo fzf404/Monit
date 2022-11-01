@@ -42,7 +42,7 @@
         </span>
         <!-- 关注者修改 -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
@@ -66,7 +66,7 @@
         </span>
         <!-- 掘力值修改 -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.power < power,
             'text-red-400': store.power > power,
@@ -90,7 +90,7 @@
         </span>
         <!-- 点赞数修改 -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.like < like,
             'text-red-400': store.like > like,
@@ -114,7 +114,7 @@
         }}</span>
         <!-- 阅读数修改 -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.view < view,
             'text-red-400': store.view > view,
@@ -140,13 +140,13 @@
     <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-1">
       <p
         v-for="item in store.article"
-        class="flex-row-center space-x-1 space-y-3 clickable"
+        class="flex-row-center clickable space-x-1 space-y-3"
         @click="openArticle(item.id)"
       >
         <!-- 文章图标 -->
-        <ArticleSVG class="h-4 mt-3 text-blue-400" />
+        <ArticleSVG class="mt-3 h-4 text-blue-400" />
         <!-- 文章名 -->
-        <span class="whitespace-nowrap text-intro">
+        <span class="text-intro whitespace-nowrap">
           {{ item.title }}
         </span>
       </p>

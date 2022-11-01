@@ -91,7 +91,7 @@ select,
 
 // 模态框
 .modal {
-  @apply absolute w-full h-full rounded-lg;
+  @apply absolute h-full w-full rounded-lg;
 }
 
 // 可滚动
@@ -101,46 +101,46 @@ select,
 
 // flex 竖向靠左
 .flex-col-left {
-  @apply flex flex-col justify-start items-start;
+  @apply flex flex-col items-start justify-start;
 }
 
 // flex 竖向居中
 .flex-col-center {
-  @apply flex flex-col justify-center items-center;
+  @apply flex flex-col items-center justify-center;
 }
 
 .flex-col-between {
-  @apply flex flex-col justify-between items-stretch;
+  @apply flex flex-col items-stretch justify-between;
 }
 
 // flex 竖向靠左剧中
 .flex-col-center-left {
-  @apply flex flex-col justify-center items-start;
+  @apply flex flex-col items-start justify-center;
 }
 
 // flex 竖向靠下剧中
 .flex-col-center-bottom {
-  @apply flex flex-col justify-end items-center;
+  @apply flex flex-col items-center justify-end;
 }
 
 // flex 横向居中
 .flex-row-center {
-  @apply flex flex-row flex-nowrap justify-center items-center;
+  @apply flex flex-row flex-nowrap items-center justify-center;
 }
 
 // flex 横向居中靠边
 .flex-row-between {
-  @apply flex flex-row flex-nowrap justify-between items-center;
+  @apply flex flex-row flex-nowrap items-center justify-between;
 }
 
 // flex 横向居中靠右
 .flex-row-center-right {
-  @apply flex flex-row flex-nowrap justify-end items-center;
+  @apply flex flex-row flex-nowrap items-center justify-end;
 }
 
 // flex 横向居中靠下
 .flex-row-center-bottom {
-  @apply flex flex-row flex-nowrap justify-center items-end;
+  @apply flex flex-row flex-nowrap items-end justify-center;
 }
 
 // flex 滚动
@@ -152,14 +152,14 @@ select,
  * 文字
  */
 .text-intro {
-  @apply font-mono text-gray text-sm;
+  @apply text-gray font-mono text-sm;
 }
 
 /**
  * 按钮
  */
 .btn {
-  @apply rounded clickable;
+  @apply clickable rounded;
 }
 // 中型
 .btn-md {
@@ -188,7 +188,7 @@ select,
 
 // svg 按钮
 .btn-svg {
-  @apply inline clickable;
+  @apply clickable inline;
 }
 
 .btn-red {
@@ -242,7 +242,7 @@ select,
 
 // 鼠标移入
 .hover-dynamic {
-  @apply p-0.5 rounded hover:bg-opacity-40 hover:bg-white;
+  @apply rounded p-0.5 hover:bg-white hover:bg-opacity-40;
 }
 
 // 加载旋转

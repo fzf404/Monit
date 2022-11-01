@@ -40,7 +40,7 @@
         </span>
         <!-- follower change -->
         <span
-          class="text-3xl clickable"
+          class="clickable text-3xl"
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
@@ -54,13 +54,13 @@
     </section>
     <!-- repo -->
     <section class="flex-scroll col-span-5 row-span-5 mt-1">
-      <p v-for="item in store.repo" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
+      <p v-for="item in store.repo" class="flex-row-center clickable space-x-1 space-y-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
-        <RepoSVG class="h-4 mt-1 text-green-400" />
+        <RepoSVG class="mt-1 h-4 text-green-400" />
         <span class="text-sm">
           {{ item.star }}
         </span>
-        <span class="whitespace-nowrap text-intro"> {{ item.repo }} </span>
+        <span class="text-intro whitespace-nowrap"> {{ item.repo }} </span>
       </p>
     </section>
     <!-- star -->
@@ -75,7 +75,7 @@
         </span>
         <!-- star change -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
@@ -97,7 +97,7 @@
         <span :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{ fork }}</span>
         <!-- fork change -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 14:30:40
+ * @LastEditTime: 2022-11-01 11:15:07
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -43,25 +43,25 @@
     <section class="flex-col-center col-span-1 row-span-3 mt-4">
       <img
         :src="store.music[store.current].image"
-        class="w-14 h-14 rounded-full ring-4 ring-white"
+        class="h-14 w-14 rounded-full ring-4 ring-white"
         :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }"
       />
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
       <!-- TODO 歌名自动滚动 -->
-      <h1 class="text-md w-full whitespace-nowrap overflow-x-auto">{{ store.music[store.current].title }}</h1>
+      <h1 class="text-md w-full overflow-x-auto whitespace-nowrap">{{ store.music[store.current].title }}</h1>
       <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
-    <section class="flex-scroll col-span-2 row-span-5 space-y-2 mt-3">
+    <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
-        class="flex-row-center space-x-1 clickable"
+        class="flex-row-center clickable space-x-1"
         @click="store.current = index"
       >
-        <MusicSVG class="h-4 btn-svg text-theme" />
-        <span class="whitespace-nowrap text-gray text-xs">
+        <MusicSVG class="btn-svg text-theme h-4" />
+        <span class="text-gray whitespace-nowrap text-xs">
           {{ item.title }}
         </span>
       </p>
@@ -69,17 +69,17 @@
     <!-- 音乐控制 -->
     <section class="flex-row-center relative col-span-3 row-span-2 pt-4">
       <!-- 已播放时间 -->
-      <span class="absolute -top-2 left-0 text-intro text-xs">{{ state.control.current }}</span>
+      <span class="text-intro absolute -top-2 left-0 text-xs">{{ state.control.current }}</span>
       <!-- 未播放时间 -->
-      <span class="absolute -top-2 right-0 text-intro text-xs">{{ state.control.duration }}</span>
+      <span class="text-intro absolute -top-2 right-0 text-xs">{{ state.control.duration }}</span>
       <!-- 进度条 -->
       <p
-        class="absolute rounded-full top-3 left-0 h-1 bg-theme clickable"
+        class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
         :style="{ width: state.control.process + '%' }"
       ></p>
       <!-- 已播放进度条 -->
       <p
-        class="absolute rounded-full top-3 w-full h-1 opacity-40 bg-theme clickable"
+        class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
@@ -87,17 +87,17 @@
         "
       ></p>
       <!-- 上一首 -->
-      <PrevSVG class="w-10 btn-svg" @click="prevMusic" />
+      <PrevSVG class="btn-svg w-10" @click="prevMusic" />
       <!-- 暂停 -->
-      <PauseSVG class="w-10 btn-svg" v-if="state.play" @click="pauseMusic" />
+      <PauseSVG class="btn-svg w-10" v-if="state.play" @click="pauseMusic" />
       <!-- 播放 -->
-      <PlaySVG class="w-10 btn-svg" v-else @click="playMusic" />
+      <PlaySVG class="btn-svg w-10" v-else @click="playMusic" />
       <!-- 下一首 -->
-      <NextSVG class="w-10 btn-svg" @click="nextMusic" />
+      <NextSVG class="btn-svg w-10" @click="nextMusic" />
       <!-- 随机播放 -->
-      <ShuffleSVG class="absolute w-5 right-0 text-gray btn-svg" v-if="store.random" @click="store.random = false" />
+      <ShuffleSVG class="text-gray btn-svg absolute right-0 w-5" v-if="store.random" @click="store.random = false" />
       <!-- 循环播放 -->
-      <RepeatSVG class="absolute w-5 right-0 text-gray btn-svg" v-else @click="store.random = true" />
+      <RepeatSVG class="text-gray btn-svg absolute right-0 w-5" v-else @click="store.random = true" />
     </section>
   </article>
 </template>

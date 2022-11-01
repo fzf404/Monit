@@ -184,14 +184,14 @@ onMounted(startClock)
 <style scoped>
 /* 底板 */
 .flip {
-  @apply relative inline-block w-12 h-20 rounded-lg border-2 bg-gray-300 border-gray-400  text-gray-500 font-mono text-6xl text-center;
+  @apply relative inline-block h-20 w-12 rounded-lg border-2 border-gray-400 bg-gray-300  text-center font-mono text-6xl text-gray-500;
   line-height: 5rem;
 }
 /* 上下页 */
 .flip .digital:before,
 .flip .digital:after {
   content: '';
-  @apply absolute left-0 right-0 bg-gray-200 overflow-hidden;
+  @apply absolute left-0 right-0 overflow-hidden bg-gray-200;
 }
 
 /* 上页 */

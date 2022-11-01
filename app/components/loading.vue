@@ -8,7 +8,7 @@
 <template>
   <section v-show="show" class="flex-col-center modal z-30 space-y-2">
     <!-- 加载动画 -->
-    <LoadSVG class="w-16 load-rotating" />
+    <LoadSVG class="load-rotating w-16" />
     <!-- 备注 -->
     <p class="text-intro" v-for="item in remark">{{ item }}</p>
   </section>

@@ -8,7 +8,7 @@
 <template>
   <aside class="flex-col-center modal setting z-40" v-show="pinia.showSetting">
     <!-- 设置框 -->
-    <ul class="w-3/5 ring-4 rounded-lg px-4 py-3 pb-2 space-y-2" :class="{ 'w-3/4 px-3': size === 'wide' }">
+    <ul class="w-3/5 space-y-2 rounded-lg px-4 py-3 pb-2 ring-4" :class="{ 'w-3/4 px-3': size === 'wide' }">
       <!-- 项目列表 -->
       <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
         <!-- 标签 -->
@@ -16,13 +16,13 @@
           <span>
             {{ item.label }}
           </span>
-          <HelpSVG v-show="item.help" class="w-3 self-center btn-svg text-gray" @click="openURL(item.help as string)" />
+          <HelpSVG v-show="item.help" class="btn-svg text-gray w-3 self-center" @click="openURL(item.help as string)" />
         </label>
         <!-- 选择框 -->
         <select
           v-if="item.type === 'select'"
           :id="item.id"
-          class="w-3/5 px-2 py-1 rounded outline-none border-none text-xs"
+          class="w-3/5 rounded border-none px-2 py-1 text-xs outline-none"
           v-model.lazy="config[item.id]"
         >
           <option v-for="option in item.options" :value="option.value">
@@ -30,7 +30,7 @@
           </option>
         </select>
         <!-- 按钮 -->
-        <button v-else-if="item.type === 'button'" class="w-1/3 btn btn-xs" :id="item.id" @click="item.options.click">
+        <button v-else-if="item.type === 'button'" class="btn btn-xs w-1/3" :id="item.id" @click="item.options.click">
           {{ item.options.text }}
         </button>
         <!-- 复选框 -->
@@ -38,7 +38,7 @@
           v-else-if="item.type === 'checkbox'"
           :id="item.id"
           type="checkbox"
-          class="w-4 h-4 outline-none"
+          class="h-4 w-4 outline-none"
           v-model.lazy="(config[item.id] as boolean)"
           @keyup.enter="onSave"
         />
@@ -47,7 +47,7 @@
           v-else-if="item.type === 'number'"
           :id="item.id"
           type="number"
-          class="w-3/5 px-2 py-1 rounded outline-none border-none text-right text-xs"
+          class="w-3/5 rounded border-none px-2 py-1 text-right text-xs outline-none"
           v-model.lazy="config[item.id]"
           @keyup.enter="onSave"
           @input="
@@ -63,7 +63,7 @@
           v-else-if="item.type === 'text'"
           :id="item.id"
           type="text"
-          class="w-3/5 px-2 py-1 rounded outline-none border-none text-right text-xs"
+          class="w-3/5 rounded border-none px-2 py-1 text-right text-xs outline-none"
           v-model.lazy="config[item.id]"
           @keyup.enter="onSave"
         />

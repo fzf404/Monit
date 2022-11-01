@@ -17,7 +17,7 @@
 ```vue
 <template>
   <!-- 指定 svg 颜色-->
-  <XxxSVG class="h-4 btn-svg text-green-400" />
+  <XxxSVG class="btn-svg h-4 text-green-400" />
 </template>
 
 <script setup>

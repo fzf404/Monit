@@ -8,7 +8,7 @@
     "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
     "release": "vue-cli-service electron:build --publish always",
-    "format": "lint-staged",
+    "commit": "lint-staged",
     "prepare": "husky install"
   },
   "dependencies": {

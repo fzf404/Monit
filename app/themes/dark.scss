@@ -48,7 +48,7 @@
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-purple-500 bg-gray-800;
+    @apply bg-gray-800 ring-purple-500 ring-opacity-50;
 
     // 设置内容
     li {
