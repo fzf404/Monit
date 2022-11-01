@@ -6,13 +6,13 @@
     "gruntfuggly.todo-tree",
     "chunsen.bracket-select",
     "obkoro1.korofileheader",
-    "hollowtree.vue-snippets",
     "pranaygp.vscode-css-peek",
     "bradlc.vscode-tailwindcss",
+    "sdras.vue-vscode-snippets",
     "aaron-bond.better-comments",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
     "vue.vscode-typescript-vue-plugin",
-    "meganrogge.template-string-converter"
+    "meganrogge.template-string-converter",
   ]
 }
