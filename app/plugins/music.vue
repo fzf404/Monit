@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-01 11:15:07
+ * @LastEditTime: 2022-11-07 22:08:39
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -86,6 +86,10 @@
           }
         "
       ></p>
+      <!-- 循环播放 -->
+      <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.random" @click="store.random = false" />
+      <!-- 随机播放 -->
+      <ShuffleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.random = true" />
       <!-- 上一首 -->
       <PrevSVG class="btn-svg w-10" @click="prevMusic" />
       <!-- 暂停 -->
@@ -94,10 +98,8 @@
       <PlaySVG class="btn-svg w-10" v-else @click="playMusic" />
       <!-- 下一首 -->
       <NextSVG class="btn-svg w-10" @click="nextMusic" />
-      <!-- 随机播放 -->
-      <ShuffleSVG class="text-gray btn-svg absolute right-0 w-5" v-if="store.random" @click="store.random = false" />
-      <!-- 循环播放 -->
-      <RepeatSVG class="text-gray btn-svg absolute right-0 w-5" v-else @click="store.random = true" />
+      <!-- 下载音乐 -->
+      <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="downloadMusic" />
     </section>
   </article>
 </template>
@@ -115,6 +117,7 @@ import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
+import DownloadSVG from '@/assets/music/download.svg'
 import MusicSVG from '@/assets/music/music.svg'
 import NextSVG from '@/assets/music/next.svg'
 import PauseSVG from '@/assets/music/pause.svg'
@@ -334,6 +337,14 @@ const nextMusic = () => {
     // 下一首
     store.current++
   }
+}
+
+const downloadMusic = () => {
+  const a = document.createElement('a')
+  a.href = store.music[store.current].url
+  a.download = store.music[store.current].title + '.mp3'
+  a.click()
+  a.remove()
 }
 
 // 监听 audio 事件
