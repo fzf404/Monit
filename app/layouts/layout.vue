@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 14:13:15
+ * @LastEditTime: 2022-11-05 00:57:07
  * @Description: 布局切换
 -->
 <template>
@@ -54,12 +54,12 @@ const store = storage(
       sendEvent('win-top', val)
     },
     theme: (val) => {
-      document.body.classList = [store.theme]
+      document.body.setAttribute('class', val)
     },
   }
 )
 
 onMounted(() => {
-  document.body.classList = [store.theme]
+  document.body.setAttribute('class', store.theme)
 })
 </script>
