@@ -62,6 +62,7 @@ const config = {
           target: 'AppImage',
         },
         mac: {
+          icon: 'public/icons/mac.png',
           target: {
             target: 'dmg',
             arch: ['x64', 'arm64'],
