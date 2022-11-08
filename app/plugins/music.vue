@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-07 22:08:39
+ * @LastEditTime: 2022-11-08 22:57:50
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -193,26 +193,26 @@ const login = async () => {
   // 获取登陆密钥
   const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
   if (!key) {
-    sendAlert('登录密钥获取失败')
-    return
+    return sendAlert('登录密钥获取失败')
   }
 
   // 获取登陆二维码
   state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
-  state.login.show = true
+  state.login.show = true // 展示登录二维码
   pinia.closeSetting()
 
   // 轮询登陆状态
   const interval = setInterval(async () => {
     const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
     if (data.code == 803) {
-      state.login.show = false
-      store.cookie = data.cookie
-      clearInterval(interval)
+      store.cookie = data.cookie // 设置 cookie
+      state.login.show = false // 隐藏登录二维码
+      clearInterval(interval) // 撤销轮询
+      getPlayList() // 获取歌单
     }
   }, 1000)
 
-  // 关闭登陆窗口
+  // 超时时间 30s
   setTimeout(() => {
     state.login.show = false
     clearInterval(interval)
