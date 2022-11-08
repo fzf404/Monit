@@ -3,7 +3,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-17 20:35:11
+ * @LastEditTime: 2022-11-08 20:42:57
  * @Description: 应用介绍
 -->
 
@@ -13,9 +13,7 @@
   </a>
 </p>
 
-<p align="center">
- 用于展示各种信息的桌面小组件
-</p>
+<p align="center">用于展示各种信息的桌面小组件</p>
 
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
@@ -73,4 +71,4 @@
 
 ## ⭐ 标星
 
-![Star History Chart](https://api.star-history.com/svg?repos=fzf404/Monit&type=Date)
+![Star](https://api.star-history.com/svg?repos=fzf404/Monit&type=Date)
