@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-21 22:30:12
+ * @LastEditTime: 2022-11-09 22:10:18
  * @Description: 开发文档
 -->
 
@@ -53,7 +53,7 @@ pnpm build
 
 > 渲染进程使用 vue3 进行开发
 
-### ♿ 插件开发
+### 🎡 插件开发
 
 > 首先需要在 `app/plugins` 目录下新建插件
 
@@ -104,15 +104,17 @@ const store = storage({
 </script>
 ```
 
+使用此方式定义的变量会在存储至本地文件，当插件重启时会读取本地文件中的数据。
+
 可以在 `lib/storage.ts` 中查看响应式存储的代码。
 
-#### 4. 接入设置
+#### 4. 开启设置
 
 > 修改 `app/plugins/demo.vue` 文件
 
 ```vue
 <template>
-  <Setting size="wide" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :config="store" />
+  <Setting size="wide" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :store="store" />
   <article class="flex-col-center">
     <h1 class="text-lg">{{ store.title }}</h1>
   </article>
@@ -150,7 +152,7 @@ const store = storage({
       },
       { id: 'title', label: '标题', type: 'text' },
     ]"
-    :config="store"
+    :store="store"
     :onSave="onSave"
   />
   <article class="flex-col-center">
@@ -198,20 +200,18 @@ const onSave = () => {
 
 > 更多开发请查看其他插件的源码
 >
-> 程序员成长的标志就是能看懂别人的代码
+> 程序员成长的标志就是能读懂别人的代码
 
-建议阅读顺序：`welcome` -> `image` -> `count` -> `config` -> `todo` -> `github` -> `juejin` -> `clock` -> `camera` -> `music`
+建议阅读顺序：`welcome` -> `image` -> `count` -> `config` -> `todo` -> `juejin` -> `github` -> `clock` -> `camera` -> `music`
 
 ### 💡 主题开发
 
-待补充...
+> 请参考 [主题开发](https://monit.fzf404.art/#/zh/06-theme)
 
 ### ⛰️ 布局开发
 
-待补充...
+> 请参考 [布局开发](https://monit.fzf404.art/#/zh/07-layout)
 
-## ⛪ 主进程
+## 🧰 主进程
 
-> 可以在 `coustom/event.ts` 及 `coustom/ipc.ts` 中注册事件
-
-待补充...
+待续...

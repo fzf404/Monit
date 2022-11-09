@@ -2,37 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-28 18:35:56
+ * @LastEditTime: 2022-11-09 19:57:16
  * @Description: music 网易云音乐播放
 -->
 <template>
   <!-- 设置 -->
-  <Setting
-    :setting="[
-      {
-        id: 'url',
-        label: '请求地址',
-        type: 'text',
-        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
-      },
-      {
-        id: 'id',
-        label: '歌单ID',
-        type: 'text',
-      },
-      {
-        id: 'login',
-        label: '登陆账号',
-        type: 'button',
-        options: {
-          text: '登 陆',
-          click: login,
-        },
-      },
-    ]"
-    :config="store"
-    @save="getPlayList"
-  />
+  <Setting :store="store" :setting="setting" @save="getPlayList" />
   <!-- 图像展示 -->
   <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆" :image="state.login.qrcode" />
   <!-- 加载中 -->
@@ -43,25 +18,27 @@
     <section class="flex-col-center col-span-1 row-span-3 mt-4">
       <img
         :src="store.music[store.current].image"
-        class="w-14 h-14 rounded-full ring-4 ring-white"
+        class="h-14 w-14 rounded-full ring-4 ring-white"
         :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }"
       />
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
       <!-- TODO 歌名自动滚动 -->
-      <h1 class="text-md w-full whitespace-nowrap overflow-x-auto">{{ store.music[store.current].title }}</h1>
+      <h1 class="text-light text-md w-full overflow-x-auto whitespace-nowrap">
+        {{ store.music[store.current].title }}
+      </h1>
       <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
-    <section class="flex-scroll col-span-2 row-span-5 space-y-2 mt-3">
+    <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
-        class="flex-row-center space-x-1 clickable"
+        class="flex-row-center clickable space-x-1"
         @click="store.current = index"
       >
-        <MusicSVG class="h-4 btn-svg text-theme" />
-        <span class="whitespace-nowrap text-gray text-xs">
+        <MusicSVG class="btn-svg text-theme h-4" />
+        <span class="text-gray whitespace-nowrap text-xs">
           {{ item.title }}
         </span>
       </p>
@@ -69,35 +46,39 @@
     <!-- 音乐控制 -->
     <section class="flex-row-center relative col-span-3 row-span-2 pt-4">
       <!-- 已播放时间 -->
-      <span class="absolute -top-2 left-0 text-intro text-xs">{{ state.control.current }}</span>
+      <span class="text-intro absolute -top-2 left-0 text-xs">{{ state.control.current }}</span>
       <!-- 未播放时间 -->
-      <span class="absolute -top-2 right-0 text-intro text-xs">{{ state.control.duration }}</span>
-      <!-- 底部进度条 -->
+      <span class="text-intro absolute -top-2 right-0 text-xs">{{ state.control.duration }}</span>
+      <!-- 进度条 -->
       <p
-        class="absolute rounded-full top-3 left-0 h-1 bg-theme clickable"
+        class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
         :style="{ width: state.control.process + '%' }"
       ></p>
-      <!-- 顶部进度条 -->
+      <!-- 已播放进度条 -->
       <p
-        class="absolute rounded-full w-full top-3 h-1 opacity-40 bg-theme clickable"
+        class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
           }
         "
       ></p>
-      <!-- 上一首 -->
-      <PrevSVG class="w-10 btn-svg" @click="prevMusic" />
-      <!-- 暂停 -->
-      <PauseSVG class="w-10 btn-svg" v-if="state.play" @click="pauseMusic" />
-      <!-- 播放 -->
-      <PlaySVG class="w-10 btn-svg" v-else @click="playMusic" />
-      <!-- 下一首 -->
-      <NextSVG class="w-10 btn-svg" @click="nextMusic" />
-      <!-- 随机播放 -->
-      <ShuffleSVG class="absolute w-5 right-0 text-gray btn-svg" v-if="store.random" @click="store.random = false" />
       <!-- 循环播放 -->
-      <RepeatSVG class="absolute w-5 right-0 text-gray btn-svg" v-else @click="store.random = true" />
+      <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
+      <!-- 随机播放 -->
+      <ShuffleSVG class="text-gray btn-svg absolute left-0 w-5" v-else-if="store.mode === 1" @click="store.mode = 2" />
+      <!-- 单曲循环 -->
+      <SingleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.mode = 0" />
+      <!-- 上一首 -->
+      <PrevSVG class="text-light btn-svg w-10" @click="prevMusic" />
+      <!-- 暂停 -->
+      <PauseSVG class="text-light btn-svg w-10" v-if="state.play" @click="pauseMusic" />
+      <!-- 播放 -->
+      <PlaySVG class="text-light btn-svg w-10" v-else @click="playMusic" />
+      <!-- 下一首 -->
+      <NextSVG class="text-light btn-svg w-10" @click="nextMusic" />
+      <!-- 下载音乐 -->
+      <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="downloadMusic" />
     </section>
   </article>
 </template>
@@ -105,14 +86,17 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 
-import { sendAlert, sendNotice } from '#/ipc'
+import { sendAlert } from '#/ipc'
 import axios from '~/request'
 import { storage } from '~/storage'
+
+import { main } from '@/pinia'
 
 import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
+import DownloadSVG from '@/assets/music/download.svg'
 import MusicSVG from '@/assets/music/music.svg'
 import NextSVG from '@/assets/music/next.svg'
 import PauseSVG from '@/assets/music/pause.svg'
@@ -120,10 +104,15 @@ import PlaySVG from '@/assets/music/play.svg'
 import PrevSVG from '@/assets/music/prev.svg'
 import RepeatSVG from '@/assets/music/repeat.svg'
 import ShuffleSVG from '@/assets/music/shuffle.svg'
+import SingleSVG from '@/assets/music/single.svg'
 
-// Axios 实例
+// 初始化 axios
 let request = null
-// Audio 实例
+
+// 初始化 pinia
+const pinia = main()
+
+// 初始化 audio
 const audio = new Audio()
 
 // 状态信息
@@ -135,7 +124,7 @@ const state = reactive({
   // 登陆
   login: {
     show: false,
-    qrcode: 'https://monit.fzf404.art/icon.png',
+    qrcode: null,
   },
   // 音乐控制器
   control: {
@@ -148,10 +137,11 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
-    current: 0, // 歌曲索引
-    random: false, // 随机播放
-    id: '7667645628', // 歌单ID
+    id: '7667645628', // 歌单 ID
     url: 'https://api-music.imsyy.top', // 接口地址
+    mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
+    cookie: null, // 登陆 Cookie
+    current: 0, // 歌曲索引
     music: [
       {
         id: null,
@@ -178,45 +168,99 @@ const store = storage(
 // 初始化 axios
 request = axios(store.url)
 
-// TODO 登录
+// 登录
 const login = async () => {
-  sendAlert('正在开发中...')
+  // 获取登陆密钥
+  const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
+  if (!key) {
+    return sendAlert('登录密钥获取失败')
+  }
+
+  // 获取登陆二维码
+  state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
+  state.login.show = true // 展示登录二维码
+  pinia.closeSetting()
+
+  // 轮询登陆状态
+  const interval = setInterval(async () => {
+    const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
+    if (data.code == 803) {
+      store.cookie = data.cookie // 设置 cookie
+      state.login.show = false // 隐藏登录二维码
+      clearInterval(interval) // 撤销轮询
+      getPlayList() // 获取歌单
+    }
+  }, 1000)
+
+  // 超时时间 30s
+  setTimeout(() => {
+    state.login.show = false
+    clearInterval(interval)
+  }, 30000)
 }
+
+// 设置项
+const setting = reactive([
+  {
+    id: 'url',
+    label: '请求地址',
+    type: 'text',
+    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
+  },
+  {
+    id: 'id',
+    label: '歌单ID',
+    type: 'text',
+  },
+  {
+    label: '登陆账号',
+    type: 'button',
+    options: {
+      text: '登 陆',
+      click: login,
+    },
+  },
+])
 
 // 读取歌单信息
 const getPlayList = async () => {
   // 加载中
   state.loading = true
+
   // 读取歌单音乐
-  const data = await request.get('/playlist/track/all?id=' + store.id)
-  // 加载完成
-  state.loading = false
+  const songs = (await request.get(`/playlist/track/all?cookie=${store.cookie}&id=${store.id}`)).songs
 
   // 验证数据
-  if (!data) {
+  if (!songs.length) {
     sendAlert('获取歌单失败！')
     return
   }
 
-  // 解析歌曲信息
-  const music = await data.songs.map((item) => {
-    return {
+  const music = []
+
+  // 遍历歌曲
+  for (let item of songs) {
+    const url = (await request.get(`/song/url?cookie=${store.cookie}&id=${item.id}`)).data[0].url
+    music.push({
       id: item.id,
-      url: 'https://music.163.com/song/media/outer/url?id=' + item.id,
+      url: url,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
-      image: item.al.picUrl,
-    }
-  })
+      image: item.al.picUrl + '?param=100y100',
+    })
+  }
+
+  // 加载完成
+  state.loading = false
+  // 存储音乐
+  store.music = music
+
   // 判断索引越界
   if (store.current > store.music.length - 1) {
     // 设置当前歌曲索引
     store.current = 0
   }
-  // 停止播放
-  pauseMusic()
-  // 设置歌单信息
-  store.music = music
+
   // 设置音乐链接
   audio.src = store.music[store.current].url
 }
@@ -258,8 +302,8 @@ const getMusicDuration = () => {
 // 播放音乐
 const playMusic = () => {
   audio.play().catch(() => {
-    sendNotice('网络错误或需要会员，播放下一曲！')
-    nextMusic()
+    sendAlert('歌曲加载失败！')
+    state.loading = false
   })
 }
 
@@ -270,30 +314,36 @@ const pauseMusic = () => {
 
 // 上一首
 const prevMusic = () => {
-  if (store.random) {
-    // 随机播放
-    store.current = Math.floor(Math.random() * store.music.length)
-  } else if (store.current === 0) {
-    // 循环播放
-    store.current = store.music.length - 1
-  } else {
-    // 上一首
-    store.current--
+  switch (store.mode) {
+    case 0: // 循环播放
+      return (store.current = store.current === 0 ? store.music.length - 1 : store.current - 1)
+    case 1: // 随机播放
+      return (store.current = Math.floor(Math.random() * store.music.length))
+    case 2: // 单曲循环
+      audio.currentTime = 0
+      return playMusic()
   }
 }
 
 // 下一首
 const nextMusic = () => {
-  if (store.random) {
-    // 随机播放
-    store.current = Math.floor(Math.random() * store.music.length)
-  } else if (store.current === store.music.length - 1) {
-    // 循环播放
-    store.current = 0
-  } else {
-    // 下一首
-    store.current++
+  switch (store.mode) {
+    case 0: // 循环播放
+      return (store.current = store.current === store.music.length - 1 ? 0 : store.current + 1)
+    case 1: // 随机播放
+      return (store.current = Math.floor(Math.random() * store.music.length))
+    case 2: // 单曲循环
+      audio.currentTime = 0
+      return playMusic()
   }
+}
+
+const downloadMusic = () => {
+  const a = document.createElement('a')
+  a.href = store.music[store.current].url
+  a.download = store.music[store.current].title + '.mp3'
+  a.click()
+  a.remove()
 }
 
 // 监听 audio 事件

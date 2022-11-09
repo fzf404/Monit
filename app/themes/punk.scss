@@ -2,64 +2,73 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-09-28 18:07:06
+ * @LastEditTime: 2022-11-09 20:54:24
  * @Description: punk 赛博主题
  */
 
-/**
+/*
  * 基底
  */
 #app {
-  @apply bg-indigo-700 bg-opacity-50 text-gray-200;
+  @apply bg-indigo-700 bg-opacity-50;
 }
 
-/**
+/*
  * 文字
  */
+
+.text-light {
+  @apply text-gray-200;
+}
+
 .text-gray {
   @apply text-amber-300;
 }
 
-.text-dark {
+.text-deep {
   @apply text-indigo-600;
 }
+
+/*
+ * 主题
+ */
 
 .text-theme {
   @apply text-red-400;
 }
 
-/**
- * 底色
- */
-
 .bg-theme {
   @apply bg-orange-400;
 }
 
-/**
+.border-theme {
+  @apply border-orange-400;
+}
+
+/*
  * 模态框
  */
 .modal {
   @apply bg-indigo-800 bg-opacity-50;
 }
 
-/**
+/*
  * 设置
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-indigo-400 bg-amber-200;
+    @apply bg-amber-200 ring-indigo-400 ring-opacity-50;
 
     // 设置内容
     li {
-      @apply shadow bg-amber-100;
+      @apply bg-amber-100 shadow;
 
       label {
         @apply text-indigo-700;
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-400;
       }
 
       button {
@@ -72,7 +81,7 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-600;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-600;
       }
     }
 

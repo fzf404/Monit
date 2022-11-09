@@ -2,30 +2,37 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 18:22:03
+ * @LastEditTime: 2022-11-09 22:01:52
  * @Description: camera 相机监控
 -->
 <template>
   <!-- 设置-->
-  <Setting :setting="setting" :config="store" />
+  <Setting :store="store" :setting="setting" />
   <!-- 加载 -->
   <Loading :show="state.loading" :remark="['正在加载中...', '首次启动会从 CDN 加载模型文件', '可能需要 30s 以上']" />
   <!-- 页面内容 -->
   <article>
     <!-- 主屏幕 -->
-    <section class="relative w-full h-full overflow-hidden rounded-lg">
+    <section class="relative h-full w-full overflow-hidden rounded-lg">
       <!-- 绘制 -->
-      <canvas ref="canvas" class="absolute w-full h-full z-10" :class="{ mirror: store.mirror }"></canvas>
+      <canvas ref="canvas" class="absolute z-10 h-full w-full" :class="{ mirror: store.mirror }"></canvas>
       <!-- 视频 -->
-      <video ref="video" class="absolute w-full h-full" :class="{ mirror: store.mirror }" autoplay></video>
+      <video ref="video" class="absolute h-full w-full" :class="{ mirror: store.mirror }" autoplay></video>
       <!-- 记录 -->
       <a ref="record" class="hidden"></a>
     </section>
     <!-- 相机控制器 -->
-    <section v-show="store.control" class="absolute z-20 left-0 right-0 bottom-4 space-x-4 text-center">
+    <section v-show="store.control" class="absolute left-0 right-0 bottom-4 z-20 space-x-4 text-center">
       <!-- 拍照 -->
       <button class="btn btn-md btn-purple">
-        <CameraSVG class="w-6" @click="takePhoto(video, canvas, record)" />
+        <CameraSVG
+          class="w-6"
+          @click="
+            takePhoto(video, canvas, record).catch((err) => {
+              sendAlert('拍摄失败：', err.message)
+            })
+          "
+        />
       </button>
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
@@ -39,7 +46,7 @@
                   state.recorder = recorder
                 })
                 .catch((err) => {
-                  sendAlert(err)
+                  sendAlert('录制失败：', err.message)
                 })
             "
           />
@@ -130,14 +137,12 @@ const setting = [
 onMounted(async () => {
   // 获取设备列表
   const devices = await getCameraList().catch((err) => {
-    sendAlert(err)
-    return
+    return sendAlert('媒体列表获取失败：', err.message)
   })
 
   // 判断设备存在
   if (devices.length === 0) {
-    sendAlert('相机不存在！')
-    return
+    return sendAlert('相机不存在！')
   }
 
   // 增加设置
@@ -161,10 +166,16 @@ onMounted(async () => {
 
   // 是否开启角色追踪
   if (store.holistic) {
-    await initHolistic(canvas.value, video.value)
+    setTimeout(() => {
+      initHolistic(canvas.value, video.value)
+        .then(() => {
+          state.loading = false
+        })
+        .catch((err) => sendAlert('角色跟踪初始化失败：', err.message))
+    }, 3000)
+  } else {
+    // 隐藏加载框
+    state.loading = false
   }
-
-  // 隐藏加载框
-  state.loading = false
 })
 </script>

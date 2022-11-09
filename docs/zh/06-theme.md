@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-03 20:39:18
+ * @LastEditTime: 2022-11-09 22:13:33
  * @Description: 主题开发
 -->
 
@@ -17,60 +17,69 @@
 > `app/themes/punk.scss`
 
 ```scss
-/**
+/*
  * 基底
  */
 #app {
-  @apply bg-indigo-700 bg-opacity-50 text-gray-200;
+  @apply bg-indigo-700 bg-opacity-50;
 }
 
-/**
+/*
  * 文字
  */
+
+.text-light {
+  @apply text-gray-200;
+}
+
 .text-gray {
   @apply text-amber-300;
 }
 
-.text-dark {
+.text-deep {
   @apply text-indigo-600;
 }
+
+/*
+ * 主题
+ */
 
 .text-theme {
   @apply text-red-400;
 }
 
-/**
- * 底色
- */
-
 .bg-theme {
   @apply bg-orange-400;
 }
 
-/**
+.border-theme {
+  @apply border-orange-400;
+}
+
+/*
  * 模态框
  */
 .modal {
   @apply bg-indigo-800 bg-opacity-50;
 }
 
-/**
+/*
  * 设置
  */
 .setting {
   ul {
-    @apply ring-opacity-50 ring-indigo-400 bg-amber-200;
+    @apply bg-amber-200 ring-indigo-400 ring-opacity-50;
 
     // 设置内容
     li {
-      @apply shadow bg-amber-100;
+      @apply bg-amber-100 shadow;
 
       label {
         @apply text-indigo-700;
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-400;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-400;
       }
 
       button {
@@ -83,7 +92,7 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-indigo-500 focus:text-indigo-600;
+        @apply bg-gray-200 text-indigo-500 shadow-inner focus:text-indigo-600;
       }
     }
 
@@ -153,9 +162,17 @@
 ```vue
 <template>
   <!-- 主题 -->
-  <LightSVG v-if="state.theme === 'dark'" class="w-4 btn-svg text-orange-400" @click="state.theme = 'light'" />
-  <PunkSVG v-else-if="state.theme === 'light'" class="w-4 btn-svg text-yellow-400" @click="state.theme = 'punk'" />
-  <DarkSVG v-else class="w-4 btn-svg text-indigo-300" @click="state.theme = 'dark'" />
+  <LightSVG
+    v-if="store.theme === theme.dark.class"
+    class="btn-svg w-4 text-orange-400 hover:text-orange-500"
+    @click="store.theme = theme.light.class"
+  />
+  <PunkSVG
+    v-else-if="store.theme === theme.light.class"
+    class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
+    @click="store.theme = theme.punk.class"
+  />
+  <DarkSVG v-else class="btn-svg w-4 text-indigo-300 hover:text-indigo-400" @click="store.theme = theme.dark.class" />
 </template>
 
 <script setup>
@@ -170,16 +187,16 @@ import LightSVG from '@/assets/layout/light.svg'
 ```vue
 <template>
   <LightSVG
-    v-if="state.theme === 'dark'"
-    class="w-5 hover-dynamic btn-svg text-orange-400"
-    @click="state.theme = 'light'"
+    v-if="store.theme === theme.dark.class"
+    class="hover-dynamic btn-svg w-5 text-orange-400"
+    @click="store.theme = theme.light.class"
   />
   <PunkSVG
-    v-else-if="state.theme === 'light'"
-    class="w-5 hover-dynamic btn-svg text-yellow-400"
-    @click="state.theme = 'punk'"
+    v-else-if="store.theme === theme.light.class"
+    class="hover-dynamic btn-svg w-5 text-yellow-400"
+    @click="store.theme = theme.punk.class"
   />
-  <DarkSVG v-else class="w-5 hover-dynamic btn-svg text-indigo-300" @click="state.theme = 'dark'" />
+  <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="store.theme = theme.dark.class" />
 </template>
 
 <script setup>

@@ -2,32 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-12 17:14:19
+ * @LastEditTime: 2022-11-09 19:46:50
  * @Description: github 信息监控
 -->
 <template>
   <!-- 设置 -->
-  <Setting
-    :setting="[
-      {
-        id: 'notice',
-        label: '消息通知',
-        type: 'checkbox',
-      },
-      {
-        id: 'user',
-        label: '用户名',
-        type: 'text',
-      },
-    ]"
-    :config="store"
-    @save="initGithubData"
-  />
+  <Setting :store="store" :setting="setting" @save="initGithubData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-12 grid-rows-5 p-3">
     <!-- follower -->
     <section class="flex-col-center col-span-7 row-span-3 mt-4">
-      <h1 pan class="text-intro mb-1">follower</h1>
+      <h1 class="text-intro mb-1">follower</h1>
       <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
@@ -35,12 +20,12 @@
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }"
         />
         <!-- follower number -->
-        <span :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
+        <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
         <!-- follower change -->
         <span
-          class="text-3xl clickable"
+          class="clickable text-3xl"
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
@@ -54,13 +39,13 @@
     </section>
     <!-- repo -->
     <section class="flex-scroll col-span-5 row-span-5 mt-1">
-      <p v-for="item in store.repo" class="flex-row-center space-x-1 space-y-1 clickable" @click="openRepo(item.repo)">
+      <p v-for="item in store.repo" class="flex-row-center clickable space-x-1 space-y-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
-        <RepoSVG class="h-4 mt-1 text-green-400" />
-        <span class="text-sm">
+        <RepoSVG class="mt-1 h-4 text-green-400" />
+        <span class="text-light text-sm">
           {{ item.star }}
         </span>
-        <span class="whitespace-nowrap text-intro"> {{ item.repo }} </span>
+        <span class="text-intro whitespace-nowrap"> {{ item.repo }} </span>
       </p>
     </section>
     <!-- star -->
@@ -70,12 +55,12 @@
         <!-- star svg -->
         <StarSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
         <!-- star number -->
-        <span :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
+        <span class="text-light" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
         </span>
         <!-- star change -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
@@ -94,10 +79,12 @@
         <!-- fork svg -->
         <ForkSVG class="mb-1 text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
         <!-- fork number -->
-        <span :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{ fork }}</span>
+        <span class="text-light" :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{
+          fork
+        }}</span>
         <!-- fork change -->
         <span
-          class="text-xl clickable"
+          class="clickable text-xl"
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,
@@ -113,11 +100,14 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
+
 import { openURL, sendAlert, sendNotice } from '#/ipc'
-import { useStore } from '@/store'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
+
+import { main } from '@/pinia'
 
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
@@ -151,7 +141,20 @@ export default {
 
       repo: [], // repo 列表
     })
-    return { store }
+    // 设置项
+    const setting = reactive([
+      {
+        id: 'notice',
+        label: '消息通知',
+        type: 'checkbox',
+      },
+      {
+        id: 'user',
+        label: '用户名',
+        type: 'text',
+      },
+    ])
+    return { store, setting }
   },
   data() {
     // 状态数据
@@ -164,11 +167,11 @@ export default {
     }
   },
   created() {
-    // 未设置用户名
     if (this.store.user === '') {
+      // 初始化 pinia
+      const pinia = main()
       // 打开设置
-      const store = useStore()
-      store.setting.show = true
+      pinia.openSetting()
     } else {
       // 刷新数据
       this.getGithubData()

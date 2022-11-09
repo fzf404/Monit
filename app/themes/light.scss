@@ -2,57 +2,68 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-09-29 18:13:30
+ * @LastEditTime: 2022-11-09 20:54:38
  * @Description: light 明亮主题
  */
 
-/**
+/*
  * 基底
  */
 #app {
-  @apply bg-gray-300 bg-opacity-50 text-gray-100;
+  @apply bg-gray-300 bg-opacity-50;
 }
 
-/**
+/*
  * 文字
  */
+
+.text-light {
+  @apply text-gray-100;
+}
+
 .text-gray {
   @apply text-gray-300;
 }
 
-.text-dark {
+.text-deep {
   @apply text-gray-500;
 }
+
+/*
+ * 背景
+ */
 
 .text-theme {
   @apply text-sky-400;
 }
 
-/**
- * 底色
- */
-
 .bg-theme {
   @apply bg-blue-400;
 }
 
-/**
+.border-theme {
+  @apply border-blue-400;
+}
+
+/*
  * 模态框
  */
+
 .modal {
   @apply bg-gray-500 bg-opacity-50;
 }
 
-/**
+/*
  * 设置
  */
+
 .setting {
   ul {
-    @apply ring-opacity-50 ring-blue-400 bg-gray-200;
+    @apply bg-gray-200 ring-blue-400  ring-opacity-50;
 
     // 设置内容
     li {
-      @apply shadow bg-white;
+      @apply bg-white shadow;
 
       label {
         @apply text-gray-500;
@@ -63,7 +74,7 @@
       }
 
       select {
-        @apply shadow-inner bg-gray-200 text-blue-500 focus:text-blue-600;
+        @apply bg-gray-200 text-blue-500 shadow-inner focus:text-blue-600;
       }
 
       input[type='checkbox'] {
@@ -72,7 +83,7 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply shadow-inner bg-gray-200 text-blue-500 focus:text-blue-600;
+        @apply bg-gray-200 text-blue-500 shadow-inner focus:text-blue-600;
       }
     }
 

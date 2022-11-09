@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 18:38:22
+ * @LastEditTime: 2022-11-09 20:51:12
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -19,7 +19,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-4xl">:</span>
+      <span class="text-gray text-4xl">:</span>
       <!-- 分 -->
       <div class="flip down">
         <div class="digital front n-0"></div>
@@ -29,7 +29,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-4xl">:</span>
+      <span class="text-gray text-4xl">:</span>
       <!-- 秒 -->
       <div class="flip down">
         <div class="digital front n-0"></div>
@@ -51,7 +51,7 @@
         <button v-if="!timing" class="btn btn-md btn-purple" @click="startTiming">
           <TimerSVG class="w-6" />
         </button>
-        <button v-else class="btn btn-md bg-red-500 hover:bg-red-600" @click="stop">
+        <button v-else class="btn btn-md btn-red" @click="stop">
           <OffSVG class="w-6" />
         </button>
       </transition>
@@ -184,14 +184,14 @@ onMounted(startClock)
 <style scoped>
 /* 底板 */
 .flip {
-  @apply relative inline-block w-12 h-20 rounded-lg border-2 bg-gray-300 border-gray-400  text-gray-500 font-mono text-6xl text-center;
+  @apply relative inline-block h-20 w-12 rounded-lg border-2 border-gray-400 bg-gray-300  text-center font-mono text-6xl text-gray-500;
   line-height: 5rem;
 }
 /* 上下页 */
 .flip .digital:before,
 .flip .digital:after {
   content: '';
-  @apply absolute left-0 right-0 bg-gray-200 overflow-hidden;
+  @apply absolute left-0 right-0 overflow-hidden bg-gray-200;
 }
 
 /* 上页 */

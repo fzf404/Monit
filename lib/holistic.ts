@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 18:44:06
+ * @LastEditTime: 2022-11-09 21:58:48
  * @Description: 角色跟踪
  */
 
@@ -142,11 +142,18 @@ export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoEl
     drawResults(canvas, video, result)
   })
 
-  // 发送视频流
-  const sendVideo = async () => {
-    await holistic.send({ image: video })
-    return requestAnimationFrame(sendVideo)
-  }
-
-  return sendVideo()
+  return new Promise((resolve, reject) => {
+    // 发送视频流
+    const sendVideo = () => {
+      holistic
+        .send({ image: video })
+        .then(() => {
+          return resolve(requestAnimationFrame(sendVideo))
+        })
+        .catch((err) => {
+          return reject(err)
+        })
+    }
+    return sendVideo()
+  })
 }

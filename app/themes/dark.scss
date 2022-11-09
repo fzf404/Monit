@@ -2,43 +2,53 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-09-28 18:01:38
+ * @LastEditTime: 2022-11-09 20:54:48
  * @Description: dark 黑夜主题
  */
 
-/**
+/*
  * 基底
-*/
+ */
+
 #app {
-  @apply bg-black bg-opacity-50 text-gray-200;
+  @apply bg-black bg-opacity-50;
 }
 
-/**
- * 文字
+/*
+ * 颜色
  */
+
+.text-light {
+  @apply text-gray-200;
+}
+
 .text-gray {
   @apply text-gray-400;
 }
 
-.text-dark {
+.text-deep {
   @apply text-gray-700;
 }
+
+/*
+ * 背景
+ */
 
 .text-theme {
   @apply text-pink-400;
 }
 
-/**
- * 底色
- */
-
 .bg-theme {
   @apply bg-purple-400;
 }
 
-/**
+.border-theme {
+  @apply border-purple-400;
+}
+/*
  * 模态框
  */
+
 .modal {
   @apply bg-black bg-opacity-50;
 }
@@ -46,9 +56,10 @@
 /*
  * 设置
  */
+
 .setting {
   ul {
-    @apply ring-opacity-50 ring-purple-500 bg-gray-800;
+    @apply bg-gray-800 ring-purple-500 ring-opacity-50;
 
     // 设置内容
     li {
@@ -59,11 +70,11 @@
       }
 
       select {
-        @apply bg-gray-800 text-purple-500 focus:text-purple-400;
+        @apply bg-gray-800 text-purple-500 focus:text-purple-600;
       }
 
       button {
-        @apply bg-indigo-500 hover:bg-indigo-400;
+        @apply bg-indigo-500 hover:bg-indigo-600;
       }
 
       input[type='checkbox'] {
@@ -72,14 +83,14 @@
 
       input[type='number'],
       input[type='text'] {
-        @apply bg-gray-800 text-purple-500 focus:text-purple-400;
+        @apply bg-gray-800 text-purple-500 focus:text-purple-600;
       }
     }
 
     // 设置操作
     ol {
       button {
-        @apply bg-purple-500 hover:bg-purple-400;
+        @apply btn-purple;
       }
     }
   }
