@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 14:14:48
+ * @LastEditTime: 2022-11-09 16:53:11
  * @Description: winer 布局
 -->
 <template>
@@ -13,7 +13,7 @@
       <SettingSVG
         v-show="pinia.hasSetting"
         class="hover-dynamic btn-svg w-5 text-blue-400"
-        @click="pinia.openSetting()"
+        @click="pinia.toggleSetting()"
       />
       <!-- 主题 -->
       <LightSVG

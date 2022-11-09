@@ -2,44 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-03 19:47:42
+ * @LastEditTime: 2022-11-09 18:31:20
  * @Description: config 插件设置
 -->
 <template>
   <!-- 设置-->
-  <Setting
-    size="wide"
-    :setting="[
-      {
-        id: 'auto',
-        label: '开机自启',
-        type: 'checkbox',
-      },
-      {
-        id: 'reload',
-        label: '重启应用',
-        type: 'button',
-        options: {
-          text: '〇',
-          click: () => {
-            sendEvent('app-reload')
-          },
-        },
-      },
-      {
-        id: 'reload',
-        label: '重置应用',
-        type: 'button',
-        options: {
-          text: '✕',
-          click: () => {
-            sendEvent('app-reset')
-          },
-        },
-      },
-    ]"
-    :config="store"
-  />
+  <Setting size="wide" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-between p-3 pt-8">
     <section class="scrollable space-y-2">
@@ -101,11 +69,11 @@
 <script setup>
 import { reactive } from 'vue'
 
+import pkg from 'root/package.json'
+
 import { sendEvent } from '#/ipc'
 import { pluginList } from '#/plugin'
 import { storage } from '~/storage'
-
-import pkg from 'root/package.json'
 
 import Setting from '@/components/setting.vue'
 
@@ -127,4 +95,35 @@ const store = storage(
     },
   }
 )
+
+// 设置项
+const setting = reactive([
+  {
+    id: 'auto',
+    label: '开机自启',
+    type: 'checkbox',
+  },
+  {
+    id: 'restart',
+    label: '重启应用',
+    type: 'button',
+    options: {
+      text: '〇',
+      click: () => {
+        sendEvent('app-restart')
+      },
+    },
+  },
+  {
+    id: 'reset',
+    label: '重置应用',
+    type: 'button',
+    options: {
+      text: '✕',
+      click: () => {
+        sendEvent('app-reset')
+      },
+    },
+  },
+])
 </script>

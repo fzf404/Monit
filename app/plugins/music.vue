@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 18:32:32
+ * @LastEditTime: 2022-11-09 19:57:16
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -25,7 +25,9 @@
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
       <!-- TODO 歌名自动滚动 -->
-      <h1 class="text-md w-full overflow-x-auto whitespace-nowrap">{{ store.music[store.current].title }}</h1>
+      <h1 class="text-light text-md w-full overflow-x-auto whitespace-nowrap">
+        {{ store.music[store.current].title }}
+      </h1>
       <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
@@ -68,13 +70,13 @@
       <!-- 单曲循环 -->
       <SingleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.mode = 0" />
       <!-- 上一首 -->
-      <PrevSVG class="btn-svg w-10" @click="prevMusic" />
+      <PrevSVG class="text-light btn-svg w-10" @click="prevMusic" />
       <!-- 暂停 -->
-      <PauseSVG class="btn-svg w-10" v-if="state.play" @click="pauseMusic" />
+      <PauseSVG class="text-light btn-svg w-10" v-if="state.play" @click="pauseMusic" />
       <!-- 播放 -->
-      <PlaySVG class="btn-svg w-10" v-else @click="playMusic" />
+      <PlaySVG class="text-light btn-svg w-10" v-else @click="playMusic" />
       <!-- 下一首 -->
-      <NextSVG class="btn-svg w-10" @click="nextMusic" />
+      <NextSVG class="text-light btn-svg w-10" @click="nextMusic" />
       <!-- 下载音乐 -->
       <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="downloadMusic" />
     </section>

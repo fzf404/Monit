@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 14:11:24
+ * @LastEditTime: 2022-11-09 17:10:47
  * @Description: maco 布局
 -->
 <template>
@@ -11,17 +11,17 @@
     <ul class="absolute left-2 space-x-1">
       <!-- 关闭 -->
       <CloseSVG
-        class="btn-svg text-dark w-3.5 rounded-full bg-red-400 p-0.5 hover:bg-red-500"
+        class="btn-svg text-deep w-3.5 rounded-full bg-red-400 p-0.5 hover:bg-red-500"
         @click="sendEvent('win-close')"
       />
       <!-- 最小化 -->
       <MiniSVG
-        class="btn-svg text-dark w-3.5 rounded-full bg-yellow-400 p-0.5 hover:bg-yellow-500"
+        class="btn-svg text-deep w-3.5 rounded-full bg-yellow-400 p-0.5 hover:bg-yellow-500"
         @click="sendEvent('win-mini')"
       />
       <!-- 置顶 -->
       <UpSVG
-        class="btn-svg text-dark w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
+        class="btn-svg text-deep w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
         :class="{ 'rotate-180': store.top }"
         @click="store.top = !store.top"
       />
@@ -40,7 +40,7 @@
       />
       <PunkSVG
         v-else-if="store.theme === theme.light.class"
-        class="btn-svg w-4 text-yellow-300 hover:text-yellow-400"
+        class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
         @click="store.theme = theme.punk.class"
       />
       <DarkSVG
@@ -49,7 +49,11 @@
         @click="store.theme = theme.dark.class"
       />
       <!-- 设置 -->
-      <SettingSVG v-show="pinia.hasSetting" class="btn-svg w-4 text-blue-400" @click="pinia.toggleSetting()" />
+      <SettingSVG
+        v-show="pinia.hasSetting"
+        class="btn-svg w-4 text-blue-400 hover:text-blue-500"
+        @click="pinia.toggleSetting()"
+      />
     </ul>
   </nav>
 </template>

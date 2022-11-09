@@ -2,27 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 13:31:10
+ * @LastEditTime: 2022-11-09 19:46:50
  * @Description: github 信息监控
 -->
 <template>
   <!-- 设置 -->
-  <Setting
-    :setting="[
-      {
-        id: 'notice',
-        label: '消息通知',
-        type: 'checkbox',
-      },
-      {
-        id: 'user',
-        label: '用户名',
-        type: 'text',
-      },
-    ]"
-    :config="store"
-    @save="initGithubData"
-  />
+  <Setting :store="store" :setting="setting" @save="initGithubData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-12 grid-rows-5 p-3">
     <!-- follower -->
@@ -35,7 +20,7 @@
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }"
         />
         <!-- follower number -->
-        <span :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
+        <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
         <!-- follower change -->
@@ -57,7 +42,7 @@
       <p v-for="item in store.repo" class="flex-row-center clickable space-x-1 space-y-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="mt-1 h-4 text-green-400" />
-        <span class="text-sm">
+        <span class="text-light text-sm">
           {{ item.star }}
         </span>
         <span class="text-intro whitespace-nowrap"> {{ item.repo }} </span>
@@ -70,7 +55,7 @@
         <!-- star svg -->
         <StarSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
         <!-- star number -->
-        <span :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
+        <span class="text-light" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
         </span>
         <!-- star change -->
@@ -94,7 +79,9 @@
         <!-- fork svg -->
         <ForkSVG class="mb-1 text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
         <!-- fork number -->
-        <span :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{ fork }}</span>
+        <span class="text-light" :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{
+          fork
+        }}</span>
         <!-- fork change -->
         <span
           class="clickable text-xl"
@@ -113,8 +100,9 @@
 </template>
 
 <script>
-import { openURL, sendAlert, sendNotice } from '#/ipc'
+import { reactive } from 'vue'
 
+import { openURL, sendAlert, sendNotice } from '#/ipc'
 import axios from '~/request'
 import { getArrDiffKey } from '~/statistic'
 import { storage } from '~/storage'
@@ -153,7 +141,20 @@ export default {
 
       repo: [], // repo 列表
     })
-    return { store }
+    // 设置项
+    const setting = reactive([
+      {
+        id: 'notice',
+        label: '消息通知',
+        type: 'checkbox',
+      },
+      {
+        id: 'user',
+        label: '用户名',
+        type: 'text',
+      },
+    ])
+    return { store, setting }
   },
   data() {
     // 状态数据

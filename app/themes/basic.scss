@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-16 22:01:09
+ * @LastEditTime: 2022-11-09 20:38:45
  * @Description: 基础主题
  */
 @tailwind base;
@@ -10,8 +10,13 @@
 @tailwind utilities;
 
 /**
- * 全局样式
- */
+* 全局样式
+*/
+
+* {
+  @apply transition;
+}
+
 html,
 body {
   // 禁用文字选择
@@ -159,7 +164,7 @@ select,
  * 按钮
  */
 .btn {
-  @apply clickable rounded;
+  @apply text-light clickable rounded;
 }
 // 中型
 .btn-md {

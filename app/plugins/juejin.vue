@@ -2,29 +2,12 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 13:31:28
+ * @LastEditTime: 2022-11-09 21:24:48
  * @Description: juejin 信息监控
 -->
 <template>
   <!-- 设置 -->
-  <Setting
-    :show="true"
-    :setting="[
-      {
-        id: 'notice',
-        label: '消息通知',
-        type: 'checkbox',
-      },
-      {
-        id: 'user',
-        label: '用户ID',
-        type: 'text',
-        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控',
-      },
-    ]"
-    :config="store"
-    @save="initJuejinData"
-  />
+  <Setting :show="true" :store="store" :setting="setting" @save="initJuejinData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-7 grid-rows-6 p-3 pb-4">
     <!-- 关注者 -->
@@ -37,7 +20,7 @@
           :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }"
         />
         <!-- 关注者 number -->
-        <span :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
+        <span class="text-light" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
         <!-- 关注者修改 -->
@@ -61,7 +44,7 @@
         <!-- 掘力值图标 -->
         <PowerSVG class="mr-1 mb-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
         <!-- 掘力值 number -->
-        <span :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
+        <span class="text-light" :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
           {{ store.power >= 1000 ? `${(store.power / 1000).toFixed(2)}k` : store.power }}
         </span>
         <!-- 掘力值修改 -->
@@ -85,7 +68,7 @@
         <!-- 点赞图标 -->
         <LikeSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
         <!-- 点赞数 number -->
-        <span :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
+        <span class="text-light" :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
           {{ store.like >= 1000 ? `${(store.like / 1000).toFixed(2)}k` : store.like }}
         </span>
         <!-- 点赞数修改 -->
@@ -109,7 +92,7 @@
         <!-- 阅读数图标 -->
         <ViewSVG class="mr-1 mb-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
         <!-- 阅读数 -->
-        <span :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
+        <span class="text-light" :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
           store.view >= 10000 ? `${(store.view / 1000).toFixed(2)}k` : store.view
         }}</span>
         <!-- 阅读数修改 -->
@@ -155,10 +138,11 @@
 </template>
 
 <script>
-import { openURL, sendAlert, sendNotice } from '#/ipc'
+import { reactive } from 'vue'
 
 import axios from '~/request'
 import { storage } from '~/storage'
+import { openURL, sendAlert, sendNotice } from '#/ipc'
 
 import { main } from '@/pinia'
 
@@ -200,7 +184,23 @@ export default {
 
       article: [], // 文章列表
     })
-    return { store }
+
+    // 设置值
+    const setting = reactive([
+      {
+        id: 'notice',
+        label: '消息通知',
+        type: 'checkbox',
+      },
+      {
+        id: 'user',
+        label: '用户ID',
+        type: 'text',
+        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控',
+      },
+    ])
+
+    return { store, setting }
   },
   data() {
     // 状态数据
@@ -286,7 +286,6 @@ export default {
     async initJuejinData() {
       const data = await this.getJuejinData()
 
-      console.log('data', data)
       // 验证用户存在
       if (data.user_id === '0') {
         return sendAlert('用户ID错误！')

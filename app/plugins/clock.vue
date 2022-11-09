@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 18:38:22
+ * @LastEditTime: 2022-11-09 20:51:12
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -19,7 +19,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-4xl">:</span>
+      <span class="text-gray text-4xl">:</span>
       <!-- 分 -->
       <div class="flip down">
         <div class="digital front n-0"></div>
@@ -29,7 +29,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-4xl">:</span>
+      <span class="text-gray text-4xl">:</span>
       <!-- 秒 -->
       <div class="flip down">
         <div class="digital front n-0"></div>
@@ -51,7 +51,7 @@
         <button v-if="!timing" class="btn btn-md btn-purple" @click="startTiming">
           <TimerSVG class="w-6" />
         </button>
-        <button v-else class="btn btn-md bg-red-500 hover:bg-red-600" @click="stop">
+        <button v-else class="btn btn-md btn-red" @click="stop">
           <OffSVG class="w-6" />
         </button>
       </transition>

@@ -2,30 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-01 11:15:41
+ * @LastEditTime: 2022-11-09 18:31:42
  * @Description: image 图像展示
 -->
 <template>
   <!-- 设置-->
-  <Setting
-    :setting="[
-      {
-        id: 'src',
-        label: '图像链接',
-        type: 'text',
-      },
-      {
-        id: 'local',
-        label: '本地图像',
-        type: 'button',
-        options: {
-          text: '浏 览',
-          click: openLocalImage,
-        },
-      },
-    ]"
-    :config="store"
-  />
+  <Setting :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-center">
     <!-- TODO 图像缩放 -->
@@ -34,6 +16,8 @@
 </template>
 
 <script setup>
+import { reactive } from 'vue'
+
 import { callEvent } from '#/ipc'
 import { storage } from '~/storage'
 
@@ -51,4 +35,21 @@ const openLocalImage = () => {
     store.src = 'file://' + local
   }
 }
+
+// 设置项
+const setting = reactive([
+  {
+    id: 'src',
+    label: '图像链接',
+    type: 'text',
+  },
+  {
+    label: '本地图像',
+    type: 'button',
+    options: {
+      text: '浏 览',
+      click: openLocalImage,
+    },
+  },
+])
 </script>

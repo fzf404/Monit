@@ -2,12 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-05 00:57:07
+ * @LastEditTime: 2022-11-09 19:18:19
  * @Description: 布局切换
 -->
 <template>
   <!-- 布局 -->
-  <component :is="layout[store.layout].component" :layout="layout" :theme="theme" :store="store"></component>
+  <transition name="fade" mode="out-in">
+    <component :is="layout[store.layout].component" :layout="layout" :theme="theme" :store="store"></component>
+  </transition>
   <router-view></router-view>
 </template>
 
