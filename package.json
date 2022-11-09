@@ -17,7 +17,7 @@
     "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0",
     "pinia": "^2.0.23",
-    "vue": "^3.2.41",
+    "vue": "^3.2.43",
     "vue-router": "^4.1.6",
     "vuedraggable": "^4.1.0"
   },
@@ -30,7 +30,7 @@
     "electron": "^20.3.4",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "node-sass": "^7.0.3",
     "postcss": "^8.4.18",
