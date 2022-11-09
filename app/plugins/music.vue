@@ -2,37 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-08 22:57:50
+ * @LastEditTime: 2022-11-09 18:32:32
  * @Description: music 网易云音乐播放
 -->
 <template>
   <!-- 设置 -->
-  <Setting
-    :setting="[
-      {
-        id: 'url',
-        label: '请求地址',
-        type: 'text',
-        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
-      },
-      {
-        id: 'id',
-        label: '歌单ID',
-        type: 'text',
-      },
-      {
-        id: 'login',
-        label: '登陆账号',
-        type: 'button',
-        options: {
-          text: '登 陆',
-          click: login,
-        },
-      },
-    ]"
-    :config="store"
-    @save="getPlayList"
-  />
+  <Setting :store="store" :setting="setting" @save="getPlayList" />
   <!-- 图像展示 -->
   <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆" :image="state.login.qrcode" />
   <!-- 加载中 -->
@@ -87,9 +62,11 @@
         "
       ></p>
       <!-- 循环播放 -->
-      <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.random" @click="store.random = false" />
+      <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
       <!-- 随机播放 -->
-      <ShuffleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.random = true" />
+      <ShuffleSVG class="text-gray btn-svg absolute left-0 w-5" v-else-if="store.mode === 1" @click="store.mode = 2" />
+      <!-- 单曲循环 -->
+      <SingleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.mode = 0" />
       <!-- 上一首 -->
       <PrevSVG class="btn-svg w-10" @click="prevMusic" />
       <!-- 暂停 -->
@@ -107,7 +84,7 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 
-import { sendAlert, sendNotice } from '#/ipc'
+import { sendAlert } from '#/ipc'
 import axios from '~/request'
 import { storage } from '~/storage'
 
@@ -125,6 +102,7 @@ import PlaySVG from '@/assets/music/play.svg'
 import PrevSVG from '@/assets/music/prev.svg'
 import RepeatSVG from '@/assets/music/repeat.svg'
 import ShuffleSVG from '@/assets/music/shuffle.svg'
+import SingleSVG from '@/assets/music/single.svg'
 
 // 初始化 axios
 let request = null
@@ -159,8 +137,8 @@ const store = storage(
   {
     id: '7667645628', // 歌单 ID
     url: 'https://api-music.imsyy.top', // 接口地址
+    mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
     cookie: null, // 登陆 Cookie
-    random: false, // 随机播放
     current: 0, // 歌曲索引
     music: [
       {
@@ -219,6 +197,29 @@ const login = async () => {
   }, 30000)
 }
 
+// 设置项
+const setting = reactive([
+  {
+    id: 'url',
+    label: '请求地址',
+    type: 'text',
+    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
+  },
+  {
+    id: 'id',
+    label: '歌单ID',
+    type: 'text',
+  },
+  {
+    label: '登陆账号',
+    type: 'button',
+    options: {
+      text: '登 陆',
+      click: login,
+    },
+  },
+])
+
 // 读取歌单信息
 const getPlayList = async () => {
   // 加载中
@@ -235,6 +236,7 @@ const getPlayList = async () => {
 
   const music = []
 
+  // 遍历歌曲
   for (let item of songs) {
     const url = (await request.get(`/song/url?cookie=${store.cookie}&id=${item.id}`)).data[0].url
     music.push({
@@ -248,7 +250,7 @@ const getPlayList = async () => {
 
   // 加载完成
   state.loading = false
-
+  // 存储音乐
   store.music = music
 
   // 判断索引越界
@@ -256,9 +258,6 @@ const getPlayList = async () => {
     // 设置当前歌曲索引
     store.current = 0
   }
-
-  // 停止播放
-  // pauseMusic()
 
   // 设置音乐链接
   audio.src = store.music[store.current].url
@@ -301,8 +300,8 @@ const getMusicDuration = () => {
 // 播放音乐
 const playMusic = () => {
   audio.play().catch(() => {
-    sendNotice('网络错误或需要会员，播放下一曲！')
-    nextMusic()
+    sendAlert('歌曲加载失败！')
+    state.loading = false
   })
 }
 
@@ -313,29 +312,27 @@ const pauseMusic = () => {
 
 // 上一首
 const prevMusic = () => {
-  if (store.random) {
-    // 随机播放
-    store.current = Math.floor(Math.random() * store.music.length)
-  } else if (store.current === 0) {
-    // 循环播放
-    store.current = store.music.length - 1
-  } else {
-    // 上一首
-    store.current--
+  switch (store.mode) {
+    case 0: // 循环播放
+      return (store.current = store.current === 0 ? store.music.length - 1 : store.current - 1)
+    case 1: // 随机播放
+      return (store.current = Math.floor(Math.random() * store.music.length))
+    case 2: // 单曲循环
+      audio.currentTime = 0
+      return playMusic()
   }
 }
 
 // 下一首
 const nextMusic = () => {
-  if (store.random) {
-    // 随机播放
-    store.current = Math.floor(Math.random() * store.music.length)
-  } else if (store.current === store.music.length - 1) {
-    // 循环播放
-    store.current = 0
-  } else {
-    // 下一首
-    store.current++
+  switch (store.mode) {
+    case 0: // 循环播放
+      return (store.current = store.current === store.music.length - 1 ? 0 : store.current + 1)
+    case 1: // 随机播放
+      return (store.current = Math.floor(Math.random() * store.music.length))
+    case 2: // 单曲循环
+      audio.currentTime = 0
+      return playMusic()
   }
 }
 
