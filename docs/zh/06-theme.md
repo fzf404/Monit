@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-03 20:39:18
+ * @LastEditTime: 2022-11-09 22:13:33
  * @Description: 主题开发
 -->
 
@@ -17,44 +17,53 @@
 > `app/themes/punk.scss`
 
 ```scss
-/**
+/*
  * 基底
  */
 #app {
-  @apply bg-indigo-700 bg-opacity-50 text-gray-200;
+  @apply bg-indigo-700 bg-opacity-50;
 }
 
-/**
+/*
  * 文字
  */
+
+.text-light {
+  @apply text-gray-200;
+}
+
 .text-gray {
   @apply text-amber-300;
 }
 
-.text-dark {
+.text-deep {
   @apply text-indigo-600;
 }
+
+/*
+ * 主题
+ */
 
 .text-theme {
   @apply text-red-400;
 }
 
-/**
- * 底色
- */
-
 .bg-theme {
   @apply bg-orange-400;
 }
 
-/**
+.border-theme {
+  @apply border-orange-400;
+}
+
+/*
  * 模态框
  */
 .modal {
   @apply bg-indigo-800 bg-opacity-50;
 }
 
-/**
+/*
  * 设置
  */
 .setting {
@@ -153,9 +162,17 @@
 ```vue
 <template>
   <!-- 主题 -->
-  <LightSVG v-if="state.theme === 'dark'" class="btn-svg w-4 text-orange-400" @click="state.theme = 'light'" />
-  <PunkSVG v-else-if="state.theme === 'light'" class="btn-svg w-4 text-yellow-400" @click="state.theme = 'punk'" />
-  <DarkSVG v-else class="btn-svg w-4 text-indigo-300" @click="state.theme = 'dark'" />
+  <LightSVG
+    v-if="store.theme === theme.dark.class"
+    class="btn-svg w-4 text-orange-400 hover:text-orange-500"
+    @click="store.theme = theme.light.class"
+  />
+  <PunkSVG
+    v-else-if="store.theme === theme.light.class"
+    class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
+    @click="store.theme = theme.punk.class"
+  />
+  <DarkSVG v-else class="btn-svg w-4 text-indigo-300 hover:text-indigo-400" @click="store.theme = theme.dark.class" />
 </template>
 
 <script setup>
@@ -170,16 +187,16 @@ import LightSVG from '@/assets/layout/light.svg'
 ```vue
 <template>
   <LightSVG
-    v-if="state.theme === 'dark'"
+    v-if="store.theme === theme.dark.class"
     class="hover-dynamic btn-svg w-5 text-orange-400"
-    @click="state.theme = 'light'"
+    @click="store.theme = theme.light.class"
   />
   <PunkSVG
-    v-else-if="state.theme === 'light'"
+    v-else-if="store.theme === theme.light.class"
     class="hover-dynamic btn-svg w-5 text-yellow-400"
-    @click="state.theme = 'punk'"
+    @click="store.theme = theme.punk.class"
   />
-  <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="state.theme = 'dark'" />
+  <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="store.theme = theme.dark.class" />
 </template>
 
 <script setup>

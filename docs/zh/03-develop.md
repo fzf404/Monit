@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-08 21:36:35
+ * @LastEditTime: 2022-11-09 22:10:18
  * @Description: 开发文档
 -->
 
@@ -53,7 +53,7 @@ pnpm build
 
 > 渲染进程使用 vue3 进行开发
 
-### ♿ 插件开发
+### 🎡 插件开发
 
 > 首先需要在 `app/plugins` 目录下新建插件
 
@@ -114,7 +114,7 @@ const store = storage({
 
 ```vue
 <template>
-  <Setting size="wide" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :config="store" />
+  <Setting size="wide" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :store="store" />
   <article class="flex-col-center">
     <h1 class="text-lg">{{ store.title }}</h1>
   </article>
@@ -152,7 +152,7 @@ const store = storage({
       },
       { id: 'title', label: '标题', type: 'text' },
     ]"
-    :config="store"
+    :store="store"
     :onSave="onSave"
   />
   <article class="flex-col-center">
@@ -212,4 +212,6 @@ const onSave = () => {
 
 > 请参考 [布局开发](https://monit.fzf404.art/#/zh/07-layout)
 
-## ⛪ 主进程
+## 🧰 主进程
+
+待续...
