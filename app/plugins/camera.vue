@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-10 13:36:40
+ * @LastEditTime: 2022-11-10 17:01:23
  * @Description: camera 相机监控
 -->
 <template>
@@ -29,7 +29,7 @@
           class="w-6"
           @click="
             takePhoto(video, canvas, record).catch((err) => {
-              sendAlert('拍摄失败：', err.message)
+              sendAlert('拍摄失败：' + err.message)
             })
           "
         />
@@ -46,7 +46,7 @@
                   state.recorder = recorder
                 })
                 .catch((err) => {
-                  sendAlert('录制失败：', err.message)
+                  sendAlert('录制失败：' + err.message)
                 })
             "
           />
@@ -137,7 +137,7 @@ const setting = [
 onMounted(async () => {
   // 获取设备列表
   const devices = await getCameraList().catch((err) => {
-    return sendAlert('媒体列表获取失败：', err.message)
+    return sendAlert('媒体列表获取失败：' + err.message)
   })
 
   // 判断设备存在
@@ -161,7 +161,7 @@ onMounted(async () => {
 
   // 初始化相机
   await initCamera(store.camera, video.value).catch((err) => {
-    sendAlert('相机初始化失败：', err.message)
+    sendAlert('相机初始化失败：' + err.message)
   })
 
   // 是否开启角色追踪
@@ -171,7 +171,7 @@ onMounted(async () => {
         .then(() => {
           state.loading = false
         })
-        .catch((err) => sendAlert('角色跟踪初始化失败：', err.message))
+        .catch((err) => sendAlert('角色跟踪初始化失败：' + err.message))
     }, 3000)
   } else {
     // 隐藏加载框

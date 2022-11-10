@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-10 13:35:54
+ * @LastEditTime: 2022-11-10 17:02:41
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -228,13 +228,10 @@ const getPlayList = async () => {
   state.loading = true
 
   // 读取歌单音乐
-  const songs = (await request.get(`/playlist/track/all?cookie=${store.cookie}&id=${store.id}`)).songs
-
-  // 验证数据
-  if (!songs.length) {
-    sendAlert('获取歌单失败！')
-    return
-  }
+  const { songs } = await request.get(`/playlist/track/all?cookie=${store.cookie}&id=${store.id}`).catch((err) => {
+    state.loading = false
+    return sendAlert('获取歌单失败：' + err.message)
+  })
 
   const music = []
 
@@ -302,7 +299,7 @@ const getMusicDuration = () => {
 // 播放音乐
 const playMusic = () => {
   audio.play().catch((err) => {
-    sendAlert('歌曲加载失败：', err.message)
+    sendAlert('歌曲加载失败：' + err.message)
     state.play = false
     state.loading = false
   })

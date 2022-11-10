@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-31 13:15:35
+ * @LastEditTime: 2022-11-10 16:58:13
  * @Description: axios 封装
  */
 
@@ -28,11 +28,13 @@ const request = (url: string) => {
       // 响应成功
       pinia.online()
       // 返回数据
-      return res.data
+      return Promise.resolve(res.data)
     },
     (err) => {
       // 响应失败
       pinia.offline()
+      // 返回错误
+      return Promise.reject(err)
     }
   )
   return service
