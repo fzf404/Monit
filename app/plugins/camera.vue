@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 22:01:52
+ * @LastEditTime: 2022-11-10 13:36:40
  * @Description: camera 相机监控
 -->
 <template>
@@ -142,7 +142,7 @@ onMounted(async () => {
 
   // 判断设备存在
   if (devices.length === 0) {
-    return sendAlert('相机不存在！')
+    return sendAlert('媒体设备不存在！')
   }
 
   // 增加设置
@@ -159,9 +159,9 @@ onMounted(async () => {
   // 初始化设备ID
   store.camera = store.camera || devices[0].deviceId
 
-  // 初始化摄像头
+  // 初始化相机
   await initCamera(store.camera, video.value).catch((err) => {
-    sendAlert(err)
+    sendAlert('相机初始化失败：', err.message)
   })
 
   // 是否开启角色追踪

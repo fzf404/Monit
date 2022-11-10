@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-08 21:10:04
+ * @LastEditTime: 2022-11-10 13:36:57
  * @Description: 技术概览
 -->
 
@@ -99,7 +99,7 @@ Monit
 ├── docs # 官网
 │   └── ... # 插件文档
 ├── lib # 库文件
-│   ├── camera.ts # 摄像头控制
+│   ├── camera.ts # 相机控制
 │   ├── hoslistic.ts # MediaPipe 封装
 │   ├── request.ts # 请求封装
 │   ├── statistic.ts # 统计封装
