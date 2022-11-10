@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 19:57:16
+ * @LastEditTime: 2022-11-10 13:35:54
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -301,8 +301,9 @@ const getMusicDuration = () => {
 
 // 播放音乐
 const playMusic = () => {
-  audio.play().catch(() => {
-    sendAlert('歌曲加载失败！')
+  audio.play().catch((err) => {
+    sendAlert('歌曲加载失败：', err.message)
+    state.play = false
     state.loading = false
   })
 }
