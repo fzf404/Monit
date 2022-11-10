@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-23 21:44:06
+ * @LastEditTime: 2022-11-10 14:30:10
  * @Description: iamge 组件
 -->
 <template>
@@ -10,7 +10,7 @@
     <!-- 图像 -->
     <img class="h-2/3" :src="image" alt="图像" />
     <!-- 备注 -->
-    <p class="bg-theme w-full text-center text-lg">{{ remark }}</p>
+    <p class="bg-theme text-light w-full text-center text-lg">{{ remark }}</p>
   </section>
 </template>
 
