@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:54:48
+ * @LastEditTime: 2022-11-15 19:32:46
  * @Description: dark 黑夜主题
  */
 
@@ -74,7 +74,7 @@
       }
 
       button {
-        @apply bg-indigo-500 hover:bg-indigo-600;
+        @apply btn-indigo;
       }
 
       input[type='checkbox'] {

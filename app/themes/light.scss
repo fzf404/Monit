@@ -2,13 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:54:38
+ * @LastEditTime: 2022-11-15 19:34:53
  * @Description: light 明亮主题
  */
 
 /*
  * 基底
  */
+
 #app {
   @apply bg-gray-300 bg-opacity-50;
 }
@@ -59,7 +60,7 @@
 
 .setting {
   ul {
-    @apply bg-gray-200 ring-blue-400  ring-opacity-50;
+    @apply bg-gray-200 ring-blue-400 ring-opacity-50;
 
     // 设置内容
     li {

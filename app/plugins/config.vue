@@ -21,7 +21,7 @@
         </button>
         <button
           v-if="state.auto"
-          class="btn btn-sm btn-yellow"
+          class="btn btn-sm btn-amber"
           @click="
             () => {
               store.open = pluginList.map((item) => item.name)
