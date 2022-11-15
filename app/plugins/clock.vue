@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:51:12
+ * @LastEditTime: 2022-11-16 13:37:32
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -211,8 +211,8 @@ onMounted(startClock)
 }
 
 .flip.down .back:after {
+  transform: rotateX(180deg);
   transform-origin: 50% 0%;
-  transform: perspective(160px) rotateX(180deg);
   @apply z-20;
 }
 
@@ -223,8 +223,8 @@ onMounted(startClock)
 
 .flip.down.go .front:before {
   transform-origin: 50% 100%;
-  animation: frontFlipDown 0.6s ease-in-out both;
   backface-visibility: hidden;
+  animation: frontFlipDown 0.6s ease-in-out both;
   @apply shadow-xl;
 }
 
@@ -238,8 +238,8 @@ onMounted(startClock)
 }
 
 .flip.up .back:before {
+  transform: rotateX(-180deg);
   transform-origin: 50% 100%;
-  transform: perspective(160px) rotateX(-180deg);
   @apply z-20;
 }
 
@@ -251,8 +251,8 @@ onMounted(startClock)
 /* 翻页动画 */
 .flip.up.go .front:after {
   transform-origin: 50% 0;
-  animation: frontFlipUp 0.6s ease-in-out both;
   backface-visibility: hidden;
+  animation: frontFlipUp 0.6s ease-in-out both;
   @apply shadow-xl;
 }
 

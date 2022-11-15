@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-15 19:44:15
+ * @LastEditTime: 2022-11-16 11:39:34
  * @Description: 基础主题
  */
 
@@ -271,6 +271,6 @@ select,
 }
 .list-enter-from,
 .list-leave-to {
-  opacity: 0;
   transform: translateX(30px);
+  opacity: 0;
 }
