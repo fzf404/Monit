@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:38:45
+ * @LastEditTime: 2022-11-15 18:41:14
  * @Description: 基础主题
  */
 @tailwind base;
@@ -150,7 +150,11 @@ select,
 
 // flex 滚动
 .flex-scroll {
-  @apply flex-col-left scroll overflow-x-auto overflow-y-scroll;
+  @apply flex-col-left scroll snap-y overflow-x-auto overflow-y-scroll;
+
+  > * {
+    @apply snap-center;
+  }
 }
 
 /**
