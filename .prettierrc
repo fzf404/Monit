@@ -4,5 +4,5 @@
   "singleQuote": true,
   "semi": false,
   "printWidth": 120,
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-css-order"]
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-css-order", "@prettier/plugin-pug"]
 }
