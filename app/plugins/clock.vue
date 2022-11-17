@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-16 13:37:32
+ * @LastEditors: XINYUAN CHEN 2766799927@qq.com
+ * @LastEditTime: 2022-11-17 22:24:42
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -42,6 +42,10 @@
     </section>
     <!-- 控制器 -->
     <section class="space-x-4">
+      <!-- 番茄中模式 -->
+      <button class="btn btn-md btn-blue" @click="startClock">
+        <ClockSVG class="w-6" />
+      </button>
       <!-- 时钟模式 -->
       <button class="btn btn-md btn-blue" @click="startClock">
         <ClockSVG class="w-6" />
@@ -104,7 +108,17 @@ const changeNumber = (digit, num) => {
     fliping[digit] = false
   }, 600)
 }
-
+// 更新时间
+const changeClock = (time) => {
+  // 遍历得到的时间字符串
+  for (let i = 0, len = time.length; i < len; i++) {
+    // 判断数字是否修改
+    if (time[i] !== old[i]) {
+      // 修改翻牌器数字
+      changeNumber(i, time[i])
+    }
+  }
+}
 // 开启时钟
 const startClock = () => {
   // 停止 setInterval()
@@ -114,13 +128,7 @@ const startClock = () => {
   interval = setInterval(() => {
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
-    for (let i = 0, len = time.length; i < len; i++) {
-      // 判断数字是否修改
-      if (time[i] !== old[i]) {
-        // 修改翻牌器数字
-        changeNumber(i, time[i])
-      }
-    }
+    changeClock(time)
     old = time
   }, 1000)
 }
@@ -158,15 +166,7 @@ const startTiming = () => {
 
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
-
-    // 遍历时间字符串
-    for (let i = 0, len = timeStr.length; i < len; i++) {
-      // 判断数字是否修改
-      if (timeStr[i] !== old[i]) {
-        // 修改翻牌器数字
-        changeNumber(i, timeStr[i])
-      }
-    }
+    changeClock(timeStr)
     old = timeStr
   }, 1000)
 }
