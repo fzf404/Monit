@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-19 14:48:57
+ * @LastEditTime: 2022-11-19 15:14:44
  * @Description: 基础主题
  */
 
@@ -69,6 +69,7 @@ select,
 /*
  * 主题
  */
+
 .dark {
   @import 'dark.scss';
 }
@@ -157,13 +158,15 @@ select,
 /*
  * 文字
  */
+
 .text-intro {
   @apply text-gray font-mono text-sm;
 }
 
-/**
+/*
  * 按钮
  */
+
 .btn {
   @apply text-light clickable rounded;
 }
