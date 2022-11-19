@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-16 11:39:34
+ * @LastEditTime: 2022-11-19 14:48:57
  * @Description: 基础主题
  */
 
@@ -20,6 +20,9 @@
 
 html,
 body {
+  // 允许拖拽移动窗口
+  -webkit-app-region: drag;
+
   // 隐藏滚动条
   ::-webkit-scrollbar {
     display: none;
