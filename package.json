@@ -1,14 +1,17 @@
 {
   "name": "monit",
-  "private": true,
-  "author": "fzf404",
   "version": "0.7.2",
+  "private": true,
   "description": "用于展示各种信息的桌面小组件",
+  "author": "fzf404",
   "scripts": {
-    "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
-    "release": "vue-cli-service electron:build --publish always",
-    "prepare": "husky install"
+    "dev": "vue-cli-service electron:serve",
+    "prepare": "husky install",
+    "release": "vue-cli-service electron:build --publish always"
+  },
+  "lint-staged": {
+    "*.{js,ts,md,vue,scss,json}": "prettier --write"
   },
   "dependencies": {
     "@mediapipe/drawing_utils": "^0.3.1620248257",
@@ -49,10 +52,7 @@
     "webpack": "^5.75.0"
   },
   "engines": {
-    "pnpm": ">=7",
-    "node": ">=14"
-  },
-  "lint-staged": {
-    "*.{js,ts,md,vue,scss,json}": "prettier --write"
+    "node": ">=14",
+    "pnpm": ">=7"
   }
 }
