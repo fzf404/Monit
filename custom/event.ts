@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 17:00:47
+ * @LastEditTime: 2022-12-10 18:21:32
  * @Description: event 处理
  */
 
@@ -11,80 +11,96 @@ import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electr
 import { createWindow } from 'core/window'
 import { cget, cset, store } from '~/storage'
 
+// 退出应用
+const quitApp = () => {
+  app.quit()
+}
+
+// 重启应用
+const restartApp = () => {
+  app.relaunch()
+  quitApp()
+}
+
+// 重置应用
+const resetApp = () => {
+  store.clear()
+  quitApp()
+}
+
+// 获取窗口
+const getWindow = (event: Electron.IpcMainEvent): BrowserWindow => {
+  return BrowserWindow.fromWebContents(event.sender) as any as BrowserWindow
+}
+
+const getWindowTitle = (event: Electron.IpcMainEvent): string => {
+  return getWindow(event).getTitle()
+}
+
 // 应用事件
 export const initIPC = () => {
   // 退出应用
-  ipcMain.on('app-quit', function (event) {
-    app.quit()
+  ipcMain.on('app-quit', () => {
+    quitApp()
   })
 
   // 重启应用
-  ipcMain.on('app-restart', function (event) {
-    app.relaunch()
-    app.quit()
+  ipcMain.on('app-restart', () => {
+    restartApp()
   })
 
   // 重置应用
-  ipcMain.on('app-reset', function (event) {
-    store.clear()
-    app.relaunch()
-    app.quit()
+  ipcMain.on('app-reset', () => {
+    resetApp()
   })
 
   // 开机自启
-  ipcMain.on('app-auto', function (event, state: boolean) {
+  ipcMain.on('app-auto', (event, state: boolean) => {
     app.setLoginItemSettings({
       openAtLogin: state,
     })
   })
 
   // 开启窗口
-  ipcMain.on('win-open', function (event, name: string) {
+  ipcMain.on('win-open', (event, name: string) => {
     createWindow(name)
   })
 
   // 关闭窗口
-  ipcMain.on('win-close', function (event) {
-    // 从事件中获得窗口
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    // 关闭窗口
+  ipcMain.on('win-close', (event) => {
+    const win = getWindow(event)
     win.close()
   })
 
   // 最小化窗口
-  ipcMain.on('win-mini', function (event) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
+  ipcMain.on('win-mini', (event) => {
+    const win = getWindow(event)
     win.minimize()
   })
 
   // 置顶窗口
-  ipcMain.on('win-top', function (event, state: boolean) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    // 设置置顶
+  ipcMain.on('win-top', (event, state: boolean) => {
+    const win = getWindow(event)
     win.setAlwaysOnTop(state)
   })
 
   // 发送通知
-  ipcMain.on('win-notice', function (event, message: string) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    const name = win.title
+  ipcMain.on('win-notice', (event, message: string) => {
     // 发送通知
-    new Notification({ title: `Monit - ${name}`, body: message }).show()
+    new Notification({ title: `Monit - ${getWindowTitle(event)}`, body: message }).show()
   })
 
   // 发送弹窗
-  ipcMain.on('win-alert', function (event, message: string) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    const name = win.title
+  ipcMain.on('win-alert', (event, message: string) => {
     dialog.showMessageBox({
       type: 'warning',
-      title: 'Monit - ' + name,
+      title: `Monit - ${getWindowTitle(event)}`,
       message: message,
     })
   })
 
   // 打开本地图像
-  ipcMain.on('open-image', function (event) {
+  ipcMain.on('open-image', (event) => {
     event.returnValue = dialog.showOpenDialogSync({
       properties: ['openFile'],
       filters: [{ name: '图像', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'] }],
@@ -92,21 +108,17 @@ export const initIPC = () => {
   })
 
   // 打开网址
-  ipcMain.on('open-url', function (event, url: string) {
+  ipcMain.on('open-url', (event, url: string) => {
     shell.openExternal(url)
   })
 
   // 保存值
-  ipcMain.on('set-value', function (event, key: string, value: string) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    const name = win.title
-    cset(name, key, JSON.parse(value))
+  ipcMain.on('set-value', (event, key: string, value: string) => {
+    cset(getWindowTitle(event), key, JSON.parse(value))
   })
 
   // 读取值
   ipcMain.on('get-value', function (event, key: string, define: string) {
-    const win = BrowserWindow.fromWebContents(event.sender) as BrowserWindow
-    const name = win.title
-    event.returnValue = cget(name, key, JSON.parse(define))
+    event.returnValue = cget(getWindowTitle(event), key, JSON.parse(define))
   })
 }

@@ -11,6 +11,6 @@ import { createApp } from 'vue'
 import App from './app'
 import router from './router'
 
-import '@/themes/basic.scss'
+import '@/themes/base.scss'
 
 createApp(App).use(router).use(createPinia()).mount('#app')

@@ -108,7 +108,7 @@
 
 ### 2. 编辑样式切换
 
-> `app/theme/basic.scss`
+> `app/theme/base.scss`
 
 ```scss
 /**

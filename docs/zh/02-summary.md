@@ -81,7 +81,7 @@ Monit
 │   ├── plugins # 插件
 │   │   └── ... # 全部插件
 │   └── themes # 主题
-│   │   ├── basic.scss # 全局基础样式
+│   │   ├── base.scss # 全局基础样式
 │   │   ├── dark.scss # 黑夜风格主题
 │   │   ├── punk.scss # 赛博风格主题
 │   │   └── light.scss # 白日风格主题
@@ -116,7 +116,7 @@ Monit
 
 1. Component 组件：`app/components/setting.vue`
 2. Layout 组件：`app/layouts/layout.vue`
-3. Theme 样式：`app/themes/basic.scss`
+3. Theme 样式：`app/themes/base.scss`
 4. Router 封装：`app/router.js`
 5. Pinia 封装：`app/pinia.js`
 6. Plugin 配置：`custom/plugin.ts`
