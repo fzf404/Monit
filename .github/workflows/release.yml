@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'
 
 jobs:
-  release:
+  build:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -15,19 +15,25 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Node
-        uses: actions/setup-node@v2
+      - name: Pnpm       
+        uses: pnpm/action-setup@v2
         with:
+          version: 7
+          
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          cache: pnpm
           node-version: 16
 
       - name: Setup
         run: |
-          yarn
+          pnpm install
 
-      - name: Build
+      - name: Release
         run: |
-          yarn release
+          pnpm release
         env:
           GH_TOKEN: ${{ secrets.token }}
