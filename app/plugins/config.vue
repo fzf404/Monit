@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
- * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2022-11-09 18:31:20
  * @Description: config 插件设置
 -->

@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "private": true,
   "description": "用于展示各种信息的桌面小组件",
+  "license": "MIT",
   "author": "fzf404",
   "scripts": {
     "build": "vue-cli-service electron:build",

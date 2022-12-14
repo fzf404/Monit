@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2022-12-10 18:25:55
  * @Description: plugin 配置
  */
