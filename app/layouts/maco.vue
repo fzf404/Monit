@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 20:00:35
+ * @LastEditTime: 2022-12-19 18:02:24
  * @Description: maco 布局
 -->
 <template>
@@ -22,7 +22,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg text-deep w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
-        :class="{ 'rotate-180': store.top }"
+        :class="{ 'rotate-180': !store.top }"
         @click="store.top = !store.top"
       />
     </ul>
