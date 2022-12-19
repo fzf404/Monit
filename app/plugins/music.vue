@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 14:51:38
+ * @LastEditTime: 2022-12-19 17:43:17
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -175,31 +175,36 @@ request = axios(store.url)
 // 登录
 const login = async () => {
   // 获取登陆密钥
-  const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
-  if (!key) {
+  const { unikey } = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data
+  if (!unikey) {
     return sendAlert('登录密钥获取失败！')
   }
 
   // 获取登陆二维码
-  state.login.qrcode = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${key}`)).data.qrimg
+  state.login.qrcode = (
+    await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${unikey}`)
+  ).data.qrimg
   state.login.show = true // 展示登录二维码
   pinia.closeSetting()
 
   // 轮询登陆状态
   const callback = setInterval(async () => {
-    const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
+    const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${unikey}`)
     if (data.code == 803) {
+      clearInterval(callback) // 撤销轮询
       store.cookie = data.cookie // 设置 cookie
       state.login.show = false // 隐藏登录二维码
-      clearInterval(interval) // 撤销轮询
-      getPlayList() // 获取歌单
+      state.login.show = false // 隐藏登录二维码
+      await getUser() // 获取用户信息
+      pinia.showSetting() // 展示设置
     }
   }, 1000)
 
   // 超时时间 60s
   setTimeout(() => {
-    state.login.show = false
     clearInterval(callback)
+    state.login.show = false
+    pinia.showSetting() // 展示设置
   }, 60000)
 }
 
@@ -212,11 +217,6 @@ const setting = reactive([
     help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
   },
   {
-    id: 'id',
-    label: '歌单ID',
-    type: 'text',
-  },
-  {
     label: '登陆账号',
     type: 'button',
     options: {
@@ -226,6 +226,27 @@ const setting = reactive([
   },
 ])
 
+// 登陆状态验证
+const getUser = async () => {
+  const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
+  // 验证登陆
+  if (account === null) {
+    return login()
+  }
+  if (account.status === 0) {
+    const { playlist } = await request.get(`/user/playlist?uid=${account.id}&cookie=${store.cookie}`)
+    setting.push({
+      id: 'id',
+      label: '歌单',
+      type: 'select',
+      options: playlist.map((item) => ({
+        label: item.name,
+        value: item.id,
+      })),
+    })
+  }
+}
+
 // 读取歌单信息
 const getPlayList = async () => {
   // 加载中
@@ -233,12 +254,10 @@ const getPlayList = async () => {
 
   // 读取歌单音乐
   const { songs } = await request.get(`/playlist/track/all?cookie=${store.cookie}&id=${store.id}`).catch((err) => {
-    state.loading = false
     return sendAlert('获取歌单失败：' + err.message)
   })
-
+  // 音乐列表
   const music = []
-
   // 遍历歌曲
   for (let item of songs) {
     music.push({
@@ -248,11 +267,11 @@ const getPlayList = async () => {
       image: item.al.picUrl + '?param=100y100',
     })
   }
+  // 存储音乐
+  store.music = music
 
   // 加载完成
   state.loading = false
-  // 存储音乐
-  store.music = music
 
   // 判断索引越界
   if (store.current > store.music.length - 1) {
@@ -263,7 +282,8 @@ const getPlayList = async () => {
 
 // 获得歌曲 URL
 const getURL = async (id) => {
-  return (await request.get(`/song/url/v1?cookie=${store.cookie}&id=${id}&level=standard`)).data[0].url
+  const { url } = (await request.get(`/song/url/v1?cookie=${store.cookie}&id=${id}&level=standard`)).data[0]
+  return url
 }
 
 // 获取音乐时间信息
@@ -306,7 +326,7 @@ const playMusic = async () => {
   state.loading = true
   // 获取音乐 URL
   const url = await getURL(store.music[store.current].id)
-  // 验证URL 存在
+  // 验证 URL 存在
   if (url) {
     // 设置音乐 URL
     audio.src = url
@@ -377,7 +397,8 @@ audio.addEventListener('durationchange', getMusicDuration)
 audio.addEventListener('timeupdate', getMusicTime)
 audio.addEventListener('ended', nextMusic)
 
-onMounted(() => {
-  getPlayList()
+onMounted(async () => {
+  await getUser()
+  await getPlayList()
 })
 </script>
