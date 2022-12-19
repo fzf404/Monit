@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 17:43:17
+ * @LastEditTime: 2022-12-19 22:57:19
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -196,7 +196,7 @@ const login = async () => {
       state.login.show = false // 隐藏登录二维码
       state.login.show = false // 隐藏登录二维码
       await getUser() // 获取用户信息
-      pinia.showSetting() // 展示设置
+      pinia.openSetting() // 展示设置
     }
   }, 1000)
 
@@ -204,7 +204,7 @@ const login = async () => {
   setTimeout(() => {
     clearInterval(callback)
     state.login.show = false
-    pinia.showSetting() // 展示设置
+    pinia.openSetting() // 展示设置
   }, 60000)
 }
 
