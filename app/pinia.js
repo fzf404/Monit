@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2022-07-21 00:41:12
- * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2022-10-31 13:41:11
  * @Description: store 状态管理
  */

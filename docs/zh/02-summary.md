@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-08 21:10:04
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-19 21:51:54
  * @Description: 技术概览
 -->
 
@@ -23,19 +23,15 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 - Electron 20
   - 跨平台的桌面应用程序构建工具
   - [官方文档](https://www.electronjs.org/zh/docs/latest)
-  - 可跨平台使用多种操作系统 API
 - Vue 3
   - JavaScript 前端框架
   - [官方文档](https://staging-cn.vuejs.org/)
-  - 可使用 setup 语法开发
 - Tailwindcss 3
   - 功能类 CSS 语法糖
   - [官方文档](https://www.tailwindcss.cn/docs)
-  - 可选功能，可只使用 css 进行插件开发
 - TypeScript
   - JavaScript 类型系统
   - [官方文档](https://www.tslang.cn/docs/home.html)
-  - 支持类型定义
 
 ### 🔧 工具
 
@@ -81,7 +77,7 @@ Monit
 │   ├── plugins # 插件
 │   │   └── ... # 全部插件
 │   └── themes # 主题
-│   │   ├── basic.scss # 全局基础样式
+│   │   ├── base.scss # 全局基础样式
 │   │   ├── dark.scss # 黑夜风格主题
 │   │   ├── punk.scss # 赛博风格主题
 │   │   └── light.scss # 白日风格主题
@@ -99,7 +95,7 @@ Monit
 ├── docs # 官网
 │   └── ... # 插件文档
 ├── lib # 库文件
-│   ├── camera.ts # 摄像头控制
+│   ├── camera.ts # 相机控制
 │   ├── hoslistic.ts # MediaPipe 封装
 │   ├── request.ts # 请求封装
 │   ├── statistic.ts # 统计封装
@@ -116,7 +112,7 @@ Monit
 
 1. Component 组件：`app/components/setting.vue`
 2. Layout 组件：`app/layouts/layout.vue`
-3. Theme 样式：`app/themes/basic.scss`
+3. Theme 样式：`app/themes/base.scss`
 4. Router 封装：`app/router.js`
 5. Pinia 封装：`app/pinia.js`
 6. Plugin 配置：`custom/plugin.ts`

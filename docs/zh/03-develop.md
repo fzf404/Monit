@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
- * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2022-11-09 22:10:18
  * @Description: 开发文档
 -->
@@ -69,7 +69,7 @@ pnpm build
 </template>
 ```
 
-可以在 `app/theme/basic.scss` 中找到 `flex-col-center` 的样式定义。
+可以在 `app/theme/base.scss` 中找到 `flex-col-center` 的样式定义。
 
 可以在 [tailwindcss](https://tailwindcss.com/) 文档中找到 `text-lg` 的样式定义。
 

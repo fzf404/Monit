@@ -1,17 +1,18 @@
 /*
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:38:45
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-10 18:32:06
  * @Description: 基础主题
  */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/**
-* 全局样式
-*/
+/*
+ * 全局样式
+ */
 
 * {
   @apply transition;
@@ -19,18 +20,15 @@
 
 html,
 body {
-  // 禁用文字选择
-  user-select: none;
   // 允许拖拽移动窗口
   -webkit-app-region: drag;
-
-  // 禁止滚动
-  overflow: hidden;
 
   // 隐藏滚动条
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @apply select-none overflow-hidden;
 }
 
 // 主题样式
@@ -60,8 +58,7 @@ select,
   // 禁止拖拽移动窗口 响应点击事件
   -webkit-app-region: no-drag;
 
-  // 更改鼠标样式
-  cursor: pointer;
+  @apply cursor-pointer;
 }
 
 // 窗口圆角
@@ -69,9 +66,10 @@ select,
   @apply relative rounded-lg font-sans;
 }
 
-/**
+/*
  * 主题
  */
+
 .dark {
   @import 'dark.scss';
 }
@@ -84,7 +82,7 @@ select,
   @import 'punk.scss';
 }
 
-/**
+/*
  * 布局
  */
 
@@ -150,19 +148,25 @@ select,
 
 // flex 滚动
 .flex-scroll {
-  @apply flex-col-left scroll overflow-x-auto overflow-y-scroll;
+  @apply flex-col-left scroll snap-y overflow-x-auto overflow-y-scroll;
+
+  > * {
+    @apply snap-center;
+  }
 }
 
-/**
+/*
  * 文字
  */
+
 .text-intro {
   @apply text-gray font-mono text-sm;
 }
 
-/**
+/*
  * 按钮
  */
+
 .btn {
   @apply text-light clickable rounded;
 }
@@ -200,20 +204,12 @@ select,
   @apply bg-red-500 hover:bg-red-600;
 }
 
-.btn-yellow {
+.btn-amber {
   @apply bg-amber-500 hover:bg-amber-600;
 }
 
 .btn-green {
   @apply bg-green-500 hover:bg-green-600;
-}
-
-.btn-teal {
-  @apply bg-teal-500 hover:bg-teal-600;
-}
-
-.btn-cyan {
-  @apply bg-cyan-500 hover:bg-cyan-600;
 }
 
 .btn-sky {
@@ -224,6 +220,10 @@ select,
   @apply bg-blue-500 hover:bg-blue-600;
 }
 
+.btn-indigo {
+  @apply bg-indigo-500 hover:bg-indigo-600;
+}
+
 .btn-purple {
   @apply bg-purple-500 hover:bg-purple-600;
 }
@@ -232,11 +232,7 @@ select,
   @apply bg-pink-500 hover:bg-pink-600;
 }
 
-.btn-gray {
-  @apply bg-gray-500 hover:bg-gray-600;
-}
-
-/**
+/*
  * 动画
  */
 
@@ -281,6 +277,6 @@ select,
 }
 .list-enter-from,
 .list-leave-to {
-  opacity: 0;
   transform: translateX(30px);
+  opacity: 0;
 }

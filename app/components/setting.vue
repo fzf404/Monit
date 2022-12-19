@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 19:05:31
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-10 18:59:22
  * @Description: setting 组件
 -->
 <template>
@@ -28,7 +28,7 @@
             v-if="item.type === 'select'"
             :id="item.id"
             class="w-3/5 rounded border-none px-2 py-1 text-xs outline-none"
-            v-model.lazy="store[item.id]"
+            v-model="store[item.id]"
           >
             <option v-for="option in item.options" :value="option.value">
               {{ option.label }}
@@ -44,7 +44,7 @@
             :id="item.id"
             type="checkbox"
             class="h-4 w-4 outline-none"
-            v-model.lazy="(store[item.id] as boolean)"
+            v-model="(store[item.id] as boolean)"
             @keyup.enter="onSave"
           />
           <!-- 数字输入框 -->

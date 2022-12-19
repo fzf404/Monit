@@ -1,7 +1,7 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
- * @LastEditors: fzf404 hi@fzf404.art
+ * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2022-11-09 22:13:33
  * @Description: 主题开发
 -->
@@ -108,7 +108,7 @@
 
 ### 2. 编辑样式切换
 
-> `app/theme/basic.scss`
+> `app/theme/base.scss`
 
 ```scss
 /**

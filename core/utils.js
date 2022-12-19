@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-10-03 16:54:16
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-03 18:52:11
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-11-10 13:36:12
  * @Description: utils 工具
  */
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -15,8 +15,8 @@ const isDebug = process.env.NODE_ENV === 'development'
 export const initDevtools = () => {
   try {
     installExtension(VUEJS_DEVTOOLS)
-  } catch (e) {
-    console.error('Vue Devtools 安装失败：', e.toString())
+  } catch (err) {
+    console.error('Vue Devtools 安装失败：', err.message)
   }
 }
 

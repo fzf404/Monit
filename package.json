@@ -1,57 +1,59 @@
 {
   "name": "monit",
-  "private": true,
-  "author": "fzf404",
   "version": "0.7.2",
+  "private": true,
   "description": "用于展示各种信息的桌面小组件",
+  "license": "MIT",
+  "author": "fzf404",
   "scripts": {
-    "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
-    "release": "vue-cli-service electron:build --publish always",
-    "prepare": "husky install"
+    "dev": "vue-cli-service electron:serve",
+    "prepare": "husky install",
+    "release": "vue-cli-service electron:build --publish always"
+  },
+  "lint-staged": {
+    "*.{js,ts,md,vue,scss,json}": "prettier --write"
   },
   "dependencies": {
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/holistic": "^0.5.1635989137",
-    "axios": "^0.27.2",
+    "axios": "^1.2.1",
     "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0",
-    "pinia": "^2.0.23",
-    "vue": "^3.2.43",
+    "pinia": "^2.0.28",
+    "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^2.3.0",
-    "@volar/vue-language-plugin-pug": "^1.0.9",
+    "@volar/vue-language-plugin-pug": "^1.0.14",
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "~5.0.8",
     "autoprefixer": "^10.4.13",
-    "electron": "^20.3.4",
+    "electron": "^21.3.3",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "husky": "^8.0.2",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.1.0",
     "node-sass": "^7.0.3",
-    "postcss": "^8.4.18",
-    "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.13",
+    "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
+    "prettier-plugin-css-order": "^1.3.0",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
-    "sass-loader": "^13.1.0",
+    "sass-loader": "^13.2.0",
     "svg-vue3-loader": "^1.0.2",
-    "tailwindcss": "^3.2.2",
-    "ts-loader": "^9.4.1",
-    "typescript": "^4.8.4",
+    "tailwindcss": "^3.2.4",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
     "vue-cli-plugin-electron-builder": "3.0.0-alpha.4",
     "vue-cli-plugin-tailwind": "~3.0.0",
-    "webpack": "^5.74.0"
+    "webpack": "^5.75.0"
   },
   "engines": {
-    "pnpm": ">=7",
-    "node": ">=14"
-  },
-  "lint-staged": {
-    "*.{js,ts,md,vue,scss,json}": "prettier --write"
+    "node": ">=14",
+    "pnpm": ">=7"
   }
 }

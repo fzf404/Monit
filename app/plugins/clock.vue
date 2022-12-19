@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 20:51:12
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-19 13:33:42
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -69,8 +69,8 @@ import TimerSVG from '@/assets/clock/timer.svg'
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]
 
-// setInterval() 回调
-let interval = null
+// 停止回调
+let callback = null
 
 // 上次翻牌数字
 let old = '000000'
@@ -100,27 +100,30 @@ const changeNumber = (digit, num) => {
   setTimeout(() => {
     flip.classList.remove('go')
     front.setAttribute('class', `digital front n-${num}`)
-    // 翻转结束
     fliping[digit] = false
   }, 600)
 }
-
+// 更新时间
+const changeClock = (time) => {
+  // 遍历得到的时间字符串
+  for (let i = 0, len = time.length; i < len; i++) {
+    // 判断数字是否修改
+    if (time[i] !== old[i]) {
+      // 修改翻牌器数字
+      changeNumber(i, time[i])
+    }
+  }
+}
 // 开启时钟
 const startClock = () => {
-  // 停止 setInterval()
-  interval && clearInterval(interval)
+  // 停止回调
+  callback && clearInterval(callback)
 
   // 每秒获取最新时间
-  interval = setInterval(() => {
+  callback = setInterval(() => {
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
-    for (let i = 0, len = time.length; i < len; i++) {
-      // 判断数字是否修改
-      if (time[i] !== old[i]) {
-        // 修改翻牌器数字
-        changeNumber(i, time[i])
-      }
-    }
+    changeClock(time)
     old = time
   }, 1000)
 }
@@ -138,8 +141,8 @@ const timing = ref(false)
 
 // 开启计时
 const startTiming = () => {
-  // 停止 setInterval()
-  interval && clearInterval(interval)
+  // 停止回调
+  callback && clearInterval(callback)
 
   // 开启计时
   timing.value = true
@@ -147,7 +150,7 @@ const startTiming = () => {
   const start = new Date().getTime()
 
   // 每秒更新计时
-  interval = setInterval(() => {
+  callback = setInterval(() => {
     const diff = new Date().getTime() - start
 
     const hour = diff % (24 * 3600 * 1000)
@@ -158,15 +161,7 @@ const startTiming = () => {
 
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
-
-    // 遍历时间字符串
-    for (let i = 0, len = timeStr.length; i < len; i++) {
-      // 判断数字是否修改
-      if (timeStr[i] !== old[i]) {
-        // 修改翻牌器数字
-        changeNumber(i, timeStr[i])
-      }
-    }
+    changeClock(timeStr)
     old = timeStr
   }, 1000)
 }
@@ -174,7 +169,7 @@ const startTiming = () => {
 // 停止计时
 const stop = () => {
   timing.value = false
-  interval && clearInterval(interval)
+  callback && clearInterval(callback)
 }
 
 // 挂载后执行
@@ -211,8 +206,8 @@ onMounted(startClock)
 }
 
 .flip.down .back:after {
+  transform: rotateX(180deg);
   transform-origin: 50% 0%;
-  transform: perspective(160px) rotateX(180deg);
   @apply z-20;
 }
 
@@ -223,8 +218,8 @@ onMounted(startClock)
 
 .flip.down.go .front:before {
   transform-origin: 50% 100%;
-  animation: frontFlipDown 0.6s ease-in-out both;
   backface-visibility: hidden;
+  animation: frontFlipDown 0.6s ease-in-out both;
   @apply shadow-xl;
 }
 
@@ -238,8 +233,8 @@ onMounted(startClock)
 }
 
 .flip.up .back:before {
+  transform: rotateX(-180deg);
   transform-origin: 50% 100%;
-  transform: perspective(160px) rotateX(-180deg);
   @apply z-20;
 }
 
@@ -251,8 +246,8 @@ onMounted(startClock)
 /* 翻页动画 */
 .flip.up.go .front:after {
   transform-origin: 50% 0;
-  animation: frontFlipUp 0.6s ease-in-out both;
   backface-visibility: hidden;
+  animation: frontFlipUp 0.6s ease-in-out both;
   @apply shadow-xl;
 }
 

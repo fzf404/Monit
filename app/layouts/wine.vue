@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 16:53:11
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-19 18:02:37
  * @Description: winer 布局
 -->
 <template>
@@ -16,19 +16,19 @@
         @click="pinia.toggleSetting()"
       />
       <!-- 主题 -->
-      <LightSVG
+      <DarkSVG
         v-if="store.theme === theme.dark.class"
-        class="hover-dynamic btn-svg w-5 text-orange-400"
-        @click="store.theme = theme.light.class"
-      />
-      <PunkSVG
-        v-else-if="store.theme === theme.light.class"
-        class="hover-dynamic btn-svg w-5 text-yellow-400"
+        class="hover-dynamic btn-svg w-5 text-indigo-300"
         @click="store.theme = theme.punk.class"
       />
-      <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="store.theme = theme.dark.class" />
+      <PunkSVG
+        v-else-if="store.theme === theme.punk.class"
+        class="hover-dynamic btn-svg w-5 text-yellow-400"
+        @click="store.theme = theme.light.class"
+      />
+      <LightSVG v-else class="hover-dynamic btn-svg w-5 text-orange-400" @click="store.theme = theme.dark.class" />
       <!-- 布局 -->
-      <WineSVG class="hover-dynamic btn-svg w-5 text-cyan-500" @click="store.layout = layout.maco.name" />
+      <WineSVG class="hover-dynamic btn-svg w-5 text-teal-500" @click="store.layout = layout.maco.name" />
       <!-- 断网提示 -->
       <WifiSVG v-show="!pinia.hasNetwork" class="hover-dynamic btn-svg w-5 text-red-400" />
     </ul>
@@ -37,7 +37,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg hover-dynamic w-5 text-green-400"
-        :class="{ 'rotate-180': store.top }"
+        :class="{ 'rotate-180': !store.top }"
         @click="store.top = !store.top"
       />
       <!-- 最小化 -->

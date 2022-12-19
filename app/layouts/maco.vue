@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-11-09 17:10:47
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-19 18:02:24
  * @Description: maco 布局
 -->
 <template>
@@ -22,7 +22,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg text-deep w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
-        :class="{ 'rotate-180': store.top }"
+        :class="{ 'rotate-180': !store.top }"
         @click="store.top = !store.top"
       />
     </ul>
@@ -31,21 +31,21 @@
       <!-- 断网提示 -->
       <WifiSVG v-show="!pinia.hasNetwork" class="btn-svg w-4 text-red-400" />
       <!-- 布局 -->
-      <MacoSVG class="btn-svg w-4 text-cyan-500 hover:text-cyan-600" @click="store.layout = layout.wine.name" />
+      <MacoSVG class="btn-svg w-4 text-teal-400 hover:text-teal-600" @click="store.layout = layout.wine.name" />
       <!-- 主题 -->
-      <LightSVG
+      <DarkSVG
         v-if="store.theme === theme.dark.class"
-        class="btn-svg w-4 text-orange-400 hover:text-orange-500"
-        @click="store.theme = theme.light.class"
-      />
-      <PunkSVG
-        v-else-if="store.theme === theme.light.class"
-        class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
+        class="btn-svg w-4 text-indigo-400 hover:text-indigo-500"
         @click="store.theme = theme.punk.class"
       />
-      <DarkSVG
+      <PunkSVG
+        v-else-if="store.theme === theme.punk.class"
+        class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
+        @click="store.theme = theme.light.class"
+      />
+      <LightSVG
         v-else
-        class="btn-svg w-4 text-indigo-300 hover:text-indigo-400"
+        class="btn-svg w-4 text-orange-400 hover:text-orange-500"
         @click="store.theme = theme.dark.class"
       />
       <!-- 设置 -->

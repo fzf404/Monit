@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 18:39:50
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-10 18:25:55
  * @Description: plugin 配置
  */
 interface pluginList {
@@ -33,10 +33,4 @@ const plugin: pluginList[] = [
 ]
 
 // 生产模式不开启 debug 插件
-export const pluginList = plugin.filter(({ debug }) => {
-  if (process.env.NODE_ENV === 'development') {
-    return true
-  } else {
-    return !debug
-  }
-})
+export const pluginList = plugin.filter(({ debug }) => process.env.NODE_ENV === 'development' || !debug)

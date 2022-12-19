@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
- * @LastEditors: fzf404 hi@fzf404.art
- * @LastEditTime: 2022-10-27 19:13:30
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-10 17:53:57
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -34,7 +34,6 @@ export const store = new Store({
  * @param { Object } value 值
  */
 export const cset = (node: string, key: string, value: Object): void => {
-  // console.log(node + '.' + key, value)
   store.set(node + '.' + key, value) // 存储值
 }
 
@@ -46,7 +45,6 @@ export const cset = (node: string, key: string, value: Object): void => {
  * @return { Object } 值
  */
 export const cget = (node: string, key: string, define: Object): Object => {
-  // console.log(node + '.' + key, define)
   return store.get(node + '.' + key) ?? define // 读取值
 }
 
@@ -73,7 +71,7 @@ export const storage = <K extends keyof Source>(source: Source, callback?: Recor
         // 保存值
         setValue(key, val)
         // 运行处理函数
-        if (callback && key in callback) {
+        if (callback?.[key as K]) {
           await callback[key as K](val)
         }
       },
