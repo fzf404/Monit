@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^2.3.0",
-    "@volar/vue-language-plugin-pug": "^1.0.12",
+    "@volar/vue-language-plugin-pug": "^1.0.14",
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "~5.0.8",
     "autoprefixer": "^10.4.13",
@@ -37,7 +37,7 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "node-sass": "^7.0.3",
-    "postcss": "^8.4.19",
+    "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-plugin-css-order": "^1.3.0",
     "prettier-plugin-tailwindcss": "^0.2.1",
