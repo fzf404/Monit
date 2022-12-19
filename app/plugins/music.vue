@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 17:02:41
+ * @LastEditTime: 2022-12-19 14:51:38
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -117,6 +117,9 @@ const pinia = main()
 // 初始化 audio
 const audio = new Audio()
 
+// 设置音量
+audio.volume = 0.6
+
 // 状态信息
 const state = reactive({
   // 播放状态
@@ -160,8 +163,7 @@ const store = storage(
       request = axios(val)
     },
     // 歌曲索引修改
-    current: (val) => {
-      audio.src = store.music[val].url
+    current: () => {
       playMusic()
     },
   }
@@ -175,7 +177,7 @@ const login = async () => {
   // 获取登陆密钥
   const key = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data.unikey
   if (!key) {
-    return sendAlert('登录密钥获取失败')
+    return sendAlert('登录密钥获取失败！')
   }
 
   // 获取登陆二维码
@@ -184,7 +186,7 @@ const login = async () => {
   pinia.closeSetting()
 
   // 轮询登陆状态
-  const interval = setInterval(async () => {
+  const callback = setInterval(async () => {
     const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${key}`)
     if (data.code == 803) {
       store.cookie = data.cookie // 设置 cookie
@@ -194,11 +196,11 @@ const login = async () => {
     }
   }, 1000)
 
-  // 超时时间 30s
+  // 超时时间 60s
   setTimeout(() => {
     state.login.show = false
-    clearInterval(interval)
-  }, 30000)
+    clearInterval(callback)
+  }, 60000)
 }
 
 // 设置项
@@ -239,10 +241,8 @@ const getPlayList = async () => {
 
   // 遍历歌曲
   for (let item of songs) {
-    const url = (await request.get(`/song/url?cookie=${store.cookie}&id=${item.id}`)).data[0].url
     music.push({
       id: item.id,
-      url: url,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
       image: item.al.picUrl + '?param=100y100',
@@ -259,9 +259,11 @@ const getPlayList = async () => {
     // 设置当前歌曲索引
     store.current = 0
   }
+}
 
-  // 设置音乐链接
-  audio.src = store.music[store.current].url
+// 获得歌曲 URL
+const getURL = async (id) => {
+  return (await request.get(`/song/url/v1?cookie=${store.cookie}&id=${id}&level=standard`)).data[0].url
 }
 
 // 获取音乐时间信息
@@ -299,12 +301,24 @@ const getMusicDuration = () => {
 }
 
 // 播放音乐
-const playMusic = () => {
-  audio.play().catch((err) => {
-    sendAlert('歌曲加载失败：' + err.message)
-    state.play = false
-    state.loading = false
-  })
+const playMusic = async () => {
+  // 加载中
+  state.loading = true
+  // 获取音乐 URL
+  const url = await getURL(store.music[store.current].id)
+  // 验证URL 存在
+  if (url) {
+    // 设置音乐 URL
+    audio.src = url
+    // 播放音乐
+    audio.play().catch((err) => {
+      sendAlert('歌曲加载失败：' + err.message)
+      state.play = false
+      state.loading = false
+    })
+  } else {
+    nextMusic()
+  }
 }
 
 // 暂停音乐
