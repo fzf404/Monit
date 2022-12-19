@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 18:31:20
- * @Description: config 插件设置
+ * @LastEditTime: 2022-12-19 21:12:54
+ * @Description: config 应用配置
 -->
 <template>
-  <!-- 设置-->
+  <!-- 配置 -->
   <Setting size="wide" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-between p-3 pt-8">
@@ -96,7 +96,7 @@ const store = storage(
   }
 )
 
-// 设置项
+// 配置项
 const setting = reactive([
   {
     id: 'auto',

@@ -3,7 +3,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 13:24:48
+ * @LastEditTime: 2022-12-19 21:43:30
  * @Description: 应用介绍
 -->
 
@@ -18,6 +18,7 @@
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
   <a href="https://monit.fzf404.art/"> Website </a> ｜
+  <a href="https://cloud.fzf404.art/main/Release"> Mirror </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> Download </a>
 </p>
 
@@ -38,7 +39,7 @@
 | github   | github 信息监控   | VueO + Axios + Grid          | [fzf404](https://github.com/fzf404)   | ✅   |
 | clock    | 时钟翻牌器        | VueC + Scss + Keyframes      | [fzf404](https://github.com/fzf404)   | ✅   |
 | todo     | 待办事项管理      | VueC + Pug + Draggable       | [fzf404](https://github.com/fzf404)   | ✅   |
-| camera   | 相机监控          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
+| camera   | 相机助手          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
 | juejin   | 掘金信息监控      | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
 | image    | 图像展示          | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
 | music    | 网易云音乐播放    | VueC + Audio                 | [fzf404](https://github.com/fzf404)   | ✅   |
@@ -51,7 +52,7 @@
 
 > 使用 Github Action 自动打包，无需担心安全问题
 >
-> 前往 [Release](https://github.com/fzf404/Monit/releases) 寻找操作系统对应的安装包
+> 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/main/Release) 寻找操作系统对应的安装包
 
 - Windows
 

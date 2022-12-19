@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 13:36:57
+ * @LastEditTime: 2022-12-19 21:51:54
  * @Description: 技术概览
 -->
 
@@ -23,19 +23,15 @@ Monit 是一个开源的桌面小组件，使用 MIT 协议开源，您可以自
 - Electron 20
   - 跨平台的桌面应用程序构建工具
   - [官方文档](https://www.electronjs.org/zh/docs/latest)
-  - 可跨平台使用多种操作系统 API
 - Vue 3
   - JavaScript 前端框架
   - [官方文档](https://staging-cn.vuejs.org/)
-  - 可使用 setup 语法开发
 - Tailwindcss 3
   - 功能类 CSS 语法糖
   - [官方文档](https://www.tailwindcss.cn/docs)
-  - 可选功能，可只使用 css 进行插件开发
 - TypeScript
   - JavaScript 类型系统
   - [官方文档](https://www.tslang.cn/docs/home.html)
-  - 支持类型定义
 
 ### 🔧 工具
 
