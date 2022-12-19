@@ -54,9 +54,11 @@
         class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
         :style="{ width: state.control.process + '%' }"
       ></p>
-      <!-- 已播放进度条 -->
+      <!-- 底部进度条 -->
+      <p class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"></p>
+      <!-- 播放进度调整 -->
       <p
-        class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"
+        class="clickable absolute top-2 h-3 w-full rounded-full opacity-40"
         @click="
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
