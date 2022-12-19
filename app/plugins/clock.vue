@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-19 14:45:54
+ * @LastEditTime: 2022-12-19 13:33:42
  * @Description: clock 翻牌时钟
 -->
 <template>
@@ -69,8 +69,8 @@ import TimerSVG from '@/assets/clock/timer.svg'
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]
 
-// setInterval() 回调
-let interval = null
+// 停止回调
+let callback = null
 
 // 上次翻牌数字
 let old = '000000'
@@ -100,7 +100,6 @@ const changeNumber = (digit, num) => {
   setTimeout(() => {
     flip.classList.remove('go')
     front.setAttribute('class', `digital front n-${num}`)
-    // 翻转结束
     fliping[digit] = false
   }, 600)
 }
@@ -117,11 +116,11 @@ const changeClock = (time) => {
 }
 // 开启时钟
 const startClock = () => {
-  // 停止 setInterval()
-  interval && clearInterval(interval)
+  // 停止回调
+  callback && clearInterval(callback)
 
   // 每秒获取最新时间
-  interval = setInterval(() => {
+  callback = setInterval(() => {
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
     changeClock(time)
@@ -142,8 +141,8 @@ const timing = ref(false)
 
 // 开启计时
 const startTiming = () => {
-  // 停止 setInterval()
-  interval && clearInterval(interval)
+  // 停止回调
+  callback && clearInterval(callback)
 
   // 开启计时
   timing.value = true
@@ -151,7 +150,7 @@ const startTiming = () => {
   const start = new Date().getTime()
 
   // 每秒更新计时
-  interval = setInterval(() => {
+  callback = setInterval(() => {
     const diff = new Date().getTime() - start
 
     const hour = diff % (24 * 3600 * 1000)
@@ -170,7 +169,7 @@ const startTiming = () => {
 // 停止计时
 const stop = () => {
   timing.value = false
-  interval && clearInterval(interval)
+  callback && clearInterval(callback)
 }
 
 // 挂载后执行
