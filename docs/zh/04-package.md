@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 22:10:08
+ * @LastEditTime: 2022-12-19 23:39:25
  * @Description: 功能封装
 -->
 
 Monit 封装了一些常用的功能，方便开发者使用。
 
-## 🎃 功能组件
+## 🎃 页面组件
 
 > 可以在插件中引入的集成组件
 
@@ -128,6 +128,6 @@ const save = () => {
 </script>
 ```
 
-## 功能封装
+## 💄 样式定义
 
 待续...

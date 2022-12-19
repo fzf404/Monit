@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 22:15:12
+ * @LastEditTime: 2022-12-19 23:36:55
  * @Description: 布局开发
 -->
 
@@ -28,19 +28,19 @@
         @click="pinia.toggleSetting()"
       />
       <!-- 主题 -->
-      <LightSVG
+      <DarkSVG
         v-if="store.theme === theme.dark.class"
-        class="hover-dynamic btn-svg w-5 text-orange-400"
-        @click="store.theme = theme.light.class"
-      />
-      <PunkSVG
-        v-else-if="store.theme === theme.light.class"
-        class="hover-dynamic btn-svg w-5 text-yellow-400"
+        class="hover-dynamic btn-svg w-5 text-indigo-300"
         @click="store.theme = theme.punk.class"
       />
-      <DarkSVG v-else class="hover-dynamic btn-svg w-5 text-indigo-300" @click="store.theme = theme.dark.class" />
+      <PunkSVG
+        v-else-if="store.theme === theme.punk.class"
+        class="hover-dynamic btn-svg w-5 text-yellow-400"
+        @click="store.theme = theme.light.class"
+      />
+      <LightSVG v-else class="hover-dynamic btn-svg w-5 text-orange-400" @click="store.theme = theme.dark.class" />
       <!-- 布局 -->
-      <WineSVG class="hover-dynamic btn-svg w-5 text-cyan-500" @click="store.layout = layout.maco.name" />
+      <WineSVG class="hover-dynamic btn-svg w-5 text-teal-500" @click="store.layout = layout.maco.name" />
       <!-- 断网提示 -->
       <WifiSVG v-show="!pinia.hasNetwork" class="hover-dynamic btn-svg w-5 text-red-400" />
     </ul>
@@ -49,7 +49,7 @@
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg hover-dynamic w-5 text-green-400"
-        :class="{ 'rotate-180': store.top }"
+        :class="{ 'rotate-180': !store.top }"
         @click="store.top = !store.top"
       />
       <!-- 最小化 -->
@@ -91,5 +91,5 @@ defineProps(['layout', 'theme', 'store'])
 > `app/layouts/maco.vue`
 
 ```vue
-<MacoSVG class="btn-svg w-4 text-cyan-500 hover:text-cyan-600" @click="store.layout = layout.wine.name" />
+<MacoSVG class="btn-svg w-4 text-teal-400 hover:text-teal-600" @click="store.layout = layout.wine.name" />
 ```
