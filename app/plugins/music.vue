@@ -25,10 +25,10 @@
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
       <!-- TODO 歌名自动滚动 -->
-      <h1 class="text-light text-md w-full overflow-x-auto whitespace-nowrap">
+      <h1 class="text-light text-md h-7 w-full overflow-x-auto whitespace-nowrap">
         {{ store.music[store.current].title }}
       </h1>
-      <p class="text-intro text-xs">{{ store.music[store.current].author }}</p>
+      <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
     <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
