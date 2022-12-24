@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-10-27 19:17:02
+ * @LastEditTime: 2022-12-23 12:02:26
  * @Description: tary 托盘
  */
 import { app, Menu, shell, Tray } from 'electron'
@@ -23,7 +23,12 @@ const initMenu = () => {
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
-    { label: `Monit - ${pkg.version}` },
+    {
+      label: `Monit - ${pkg.version}`,
+      click: () => {
+        shell.openExternal('https://monit.fzf404.art')
+      },
+    },
     // 分割线
     { type: 'separator' },
     // 全部插件列表
@@ -118,11 +123,11 @@ const initMenu = () => {
         createWindow('config')
       },
     },
-    // 打开官网
+    // 检查更新
     {
-      label: '前往官网',
+      label: '检查更新',
       click: () => {
-        shell.openExternal('https://monit.fzf404.art')
+        shell.openExternal('https://github.com/fzf404/Monit/releases')
       },
     },
     // 分割线
