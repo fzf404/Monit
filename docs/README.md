@@ -3,7 +3,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 21:43:30
+ * @LastEditTime: 2022-12-24 20:06:27
  * @Description: 应用介绍
 -->
 
@@ -18,7 +18,7 @@
 <p align="center">
   <a href="https://github.com/fzf404/Monit"> Github </a> ｜
   <a href="https://monit.fzf404.art/"> Website </a> ｜
-  <a href="https://cloud.fzf404.art/main/Release"> Mirror </a> ｜
+  <a href="https://cloud.fzf404.art/release/monit"> Mirror </a> ｜
   <a href="https://github.com/fzf404/Monit/releases"> Download </a>
 </p>
 
@@ -52,7 +52,7 @@
 
 > 使用 Github Action 自动打包，无需担心安全问题
 >
-> 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/main/Release) 寻找操作系统对应的安装包
+> 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/release/monit) 寻找操作系统对应的安装包
 
 - Windows
 
