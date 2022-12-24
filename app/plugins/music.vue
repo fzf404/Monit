@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 17:43:17
+ * @LastEditTime: 2022-12-23 17:42:48
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -80,7 +80,7 @@
       <!-- 下一首 -->
       <NextSVG class="text-light btn-svg w-10" @click="nextMusic" />
       <!-- 下载音乐 -->
-      <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="downloadMusic" />
+      <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="saveMusic" />
     </section>
   </article>
 </template>
@@ -108,9 +108,6 @@ import RepeatSVG from '@/assets/music/repeat.svg'
 import ShuffleSVG from '@/assets/music/shuffle.svg'
 import SingleSVG from '@/assets/music/single.svg'
 
-// 初始化 axios
-let request = null
-
 // 初始化 pinia
 const pinia = main()
 
@@ -118,15 +115,15 @@ const pinia = main()
 const audio = new Audio()
 
 // 设置音量
-audio.volume = 0.6
+audio.volume = 0.4
 
 // 状态信息
 const state = reactive({
   // 播放状态
   play: false,
-  // 加载中
+  // 加载状态
   loading: false,
-  // 登陆
+  // 登陆状态
   login: {
     show: false,
     qrcode: null,
@@ -145,7 +142,7 @@ const store = storage(
     id: '7667645628', // 歌单 ID
     url: 'https://api-music.imsyy.top', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
-    cookie: null, // 登陆 Cookie
+    cookie: null, // 登陆信息
     current: 0, // 歌曲索引
     music: [
       {
@@ -158,19 +155,22 @@ const store = storage(
     ],
   },
   {
-    // 请求地址修改
-    url: (val) => {
-      request = axios(val)
+    // 接口地址修改
+    url: () => {
+      location.reload()
     },
     // 歌曲索引修改
-    current: () => {
-      playMusic()
+    current: async () => {
+      // 加载音乐
+      await loadMusic()
+      // 播放音乐
+      await playMusic()
     },
   }
 )
 
 // 初始化 axios
-request = axios(store.url)
+const request = axios(store.url)
 
 // 登录
 const login = async () => {
@@ -181,30 +181,33 @@ const login = async () => {
   }
 
   // 获取登陆二维码
-  state.login.qrcode = (
-    await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${unikey}`)
-  ).data.qrimg
-  state.login.show = true // 展示登录二维码
+  const { qrimg } = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${unikey}`)).data
+  // 设置登陆二维码
+  state.login.qrcode = qrimg
+  // 展示登录二维码
+  state.login.show = true
+  // 关闭设置
   pinia.closeSetting()
 
   // 轮询登陆状态
   const callback = setInterval(async () => {
+    // 获取登陆状态
     const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${unikey}`)
+    // 登陆成功
     if (data.code == 803) {
       clearInterval(callback) // 撤销轮询
       store.cookie = data.cookie // 设置 cookie
       state.login.show = false // 隐藏登录二维码
-      state.login.show = false // 隐藏登录二维码
       await getUser() // 获取用户信息
-      pinia.showSetting() // 展示设置
+      pinia.openSetting() // 展示设置
     }
   }, 1000)
 
   // 超时时间 60s
   setTimeout(() => {
-    clearInterval(callback)
-    state.login.show = false
-    pinia.showSetting() // 展示设置
+    clearInterval(callback) // 撤销轮询
+    state.login.show = false // 隐藏登陆二维码
+    pinia.openSetting() // 展示设置
   }, 60000)
 }
 
@@ -228,13 +231,20 @@ const setting = reactive([
 
 // 登陆状态验证
 const getUser = async () => {
+  // 加载中
+  state.loading = true
+
+  // 获取账号信息
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
   // 验证登陆
   if (account === null) {
     return login()
   }
+  // 验证状态
   if (account.status === 0) {
+    // 获取歌单列表
     const { playlist } = await request.get(`/user/playlist?uid=${account.id}&cookie=${store.cookie}`)
+    // 设置歌单信息
     setting.push({
       id: 'id',
       label: '歌单',
@@ -280,12 +290,6 @@ const getPlayList = async () => {
   }
 }
 
-// 获得歌曲 URL
-const getURL = async (id) => {
-  const { url } = (await request.get(`/song/url/v1?cookie=${store.cookie}&id=${id}&level=standard`)).data[0]
-  return url
-}
-
 // 获取音乐时间信息
 const getMusicTime = () => {
   // 当前时长
@@ -320,25 +324,34 @@ const getMusicDuration = () => {
   }
 }
 
-// 播放音乐
-const playMusic = async () => {
+// 获得歌曲 URL
+const loadMusic = async () => {
   // 加载中
   state.loading = true
-  // 获取音乐 URL
-  const url = await getURL(store.music[store.current].id)
-  // 验证 URL 存在
+  // 获取 URL
+  const { url } = (
+    await request.get(`/song/url/v1?cookie=${store.cookie}&id=${store.music[store.current].id}&level=standard`)
+  ).data[0]
   if (url) {
     // 设置音乐 URL
     audio.src = url
-    // 播放音乐
-    audio.play().catch((err) => {
-      sendAlert('歌曲加载失败：' + err.message)
-      state.play = false
-      state.loading = false
-    })
   } else {
+    // 播放下一首
     nextMusic()
   }
+}
+
+// 播放音乐
+const playMusic = async () => {
+  if (!audio.src) {
+    await loadMusic()
+  }
+  // 播放音乐
+  audio.play().catch((err) => {
+    sendAlert('歌曲加载失败：' + err.message)
+    state.play = false
+    state.loading = false
+  })
 }
 
 // 暂停音乐
@@ -346,7 +359,7 @@ const pauseMusic = () => {
   audio.pause()
 }
 
-// 上一首
+// 上一首音乐
 const prevMusic = () => {
   switch (store.mode) {
     case 0: // 循环播放
@@ -359,7 +372,7 @@ const prevMusic = () => {
   }
 }
 
-// 下一首
+// 下一首音乐
 const nextMusic = () => {
   switch (store.mode) {
     case 0: // 循环播放
@@ -372,7 +385,8 @@ const nextMusic = () => {
   }
 }
 
-const downloadMusic = () => {
+// 下载音乐
+const saveMusic = () => {
   const a = document.createElement('a')
   a.href = store.music[store.current].url
   a.download = store.music[store.current].title + '.mp3'

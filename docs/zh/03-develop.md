@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 22:10:18
+ * @LastEditTime: 2022-12-19 23:33:52
  * @Description: 开发文档
 -->
 
@@ -211,7 +211,3 @@ const onSave = () => {
 ### ⛰️ 布局开发
 
 > 请参考 [布局开发](https://monit.fzf404.art/#/zh/07-layout)
-
-## 🧰 主进程
-
-待续...
