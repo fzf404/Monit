@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 19:46:50
+ * @LastEditTime: 2022-12-25 16:54:07
  * @Description: github 信息监控
 -->
 <template>
@@ -226,6 +226,12 @@ export default {
   methods: {
     // 初始化数据
     async initGithubData() {
+      // 保存消息通知
+      const notice = this.store.notice
+      // 关闭消息通知
+      this.store.notice = false
+
+      // 获取用户信息
       const data = await this.getGithubData()
 
       // 验证用户存在
@@ -233,10 +239,14 @@ export default {
         return sendAlert('用户不存在！')
       }
 
+      // 存储数据
       this.store.follower = this.follower
       this.store.star = this.star
       this.store.fork = this.fork
       this.store.repo = this.repo
+
+      // 恢复消息通知
+      this.store.notice = notice
     },
     // 请求数据
     async getGithubData() {
