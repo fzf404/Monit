@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-23 17:42:48
+ * @LastEditTime: 2022-12-25 17:01:57
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -332,6 +332,7 @@ const loadMusic = async () => {
   const { url } = (
     await request.get(`/song/url/v1?cookie=${store.cookie}&id=${store.music[store.current].id}&level=standard`)
   ).data[0]
+  // 判断 URL 存在
   if (url) {
     // 设置音乐 URL
     audio.src = url
@@ -343,6 +344,7 @@ const loadMusic = async () => {
 
 // 播放音乐
 const playMusic = async () => {
+  // 判断歌曲加载
   if (!audio.src) {
     await loadMusic()
   }

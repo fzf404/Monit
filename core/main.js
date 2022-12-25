@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-10-27 19:16:58
+ * @LastEditTime: 2022-12-25 17:02:29
  * @Description: main 入口
  */
 import { app, BrowserWindow, protocol } from 'electron'
@@ -21,7 +21,7 @@ if (!app.requestSingleInstanceLock()) {
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
 
 // 准备就绪
-app.on('ready', async () => {
+app.on('ready', () => {
   // 初始化系统托盘
   initTray()
 

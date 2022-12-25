@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 17:01:23
+ * @LastEditTime: 2022-12-25 16:49:45
  * @Description: camera 相机监控
 -->
 <template>
@@ -166,11 +166,14 @@ onMounted(async () => {
 
   // 是否开启角色追踪
   if (store.holistic) {
+    // 延迟加载 3s
     setTimeout(() => {
+      // 初始化角色追踪
       initHolistic(canvas.value, video.value)
         .then(() => {
+          // 隐藏加载框
           state.loading = false
-        })
+        }) // 捕获错误
         .catch((err) => sendAlert('角色跟踪初始化失败：' + err.message))
     }, 3000)
   } else {

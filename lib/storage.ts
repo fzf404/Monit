@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 17:53:57
+ * @LastEditTime: 2022-12-25 17:03:10
  * @Description: 存储配置
  */
 import Store from 'electron-store'
@@ -67,12 +67,12 @@ export const storage = <K extends keyof Source>(source: Source, callback?: Recor
     // 监听值修改
     watch(
       () => target[key],
-      async (val) => {
+      (val) => {
         // 保存值
         setValue(key, val)
         // 运行处理函数
         if (callback?.[key as K]) {
-          await callback[key as K](val)
+          callback[key as K](val)
         }
       },
       { deep: true }
