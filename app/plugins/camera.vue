@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
- * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 16:49:45
+ * @LastEditors: sheng qzwxsa1234@gmail.com
+ * @LastEditTime: 2022-12-26 19:04:28
  * @Description: camera 相机监控
 -->
 <template>
@@ -71,7 +71,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
-import { sendAlert } from '#/ipc'
+import { sendAlert, getMediaAccessStatus, handeMediaPermissionRequest } from '#/ipc'
 import { getCameraList, initCamera, recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
@@ -135,6 +135,17 @@ const setting = [
 ]
 
 onMounted(async () => {
+  if (process.platform === 'darwin') {
+    const mediaAccessStatus = await getMediaAccessStatus('camera')
+    if (!mediaAccessStatus) {
+      const isAllowed = await handeMediaPermissionRequest('camera')
+      if (!isAllowed) {
+        sendAlert('需要授予摄像头使用权限')
+        return
+      }
+    }
+  }
+
   // 获取设备列表
   const devices = await getCameraList().catch((err) => {
     return sendAlert('媒体列表获取失败：' + err.message)
