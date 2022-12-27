@@ -35,7 +35,7 @@
             </option>
           </select>
           <!-- 按钮 -->
-          <button v-else-if="item.type === 'button'" class="btn btn-xs w-1/3" :id="item.id" @click="item.options.click">
+          <button v-else-if="item.type === 'button'" class="btn btn-sm w-1/3" :id="item.id" @click="item.options.click">
             {{ item.options.text }}
           </button>
           <!-- 复选框 -->
@@ -75,7 +75,7 @@
         </li>
         <!-- 保存 -->
         <ol class="flex-row-center-right">
-          <button @click="onSave" class="btn btn-sm">保存</button>
+          <button @click="onSave" class="btn btn-md">保存</button>
         </ol>
       </ul>
     </aside>

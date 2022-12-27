@@ -14,7 +14,7 @@
     <p class="text-intro">右击托盘中的<FaviconSVG class="mx-1 mb-0.5 inline w-5" />图标</p>
     <p class="text-intro">打开插件设置启动插件</p>
     <!-- Github 跳转 -->
-    <button class="btn btn-sq btn-sm btn-purple text-purple-100" @click="sendEvent('win-open', 'config')">
+    <button class="btn btn-sq btn-md btn-purple text-purple-100" @click="sendEvent('win-open', 'config')">
       <SettingSVG class="w-6" />
     </button>
   </article>

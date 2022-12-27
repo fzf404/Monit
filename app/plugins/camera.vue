@@ -24,7 +24,7 @@
     <!-- 相机控制器 -->
     <section v-show="store.control" class="absolute left-0 right-0 bottom-4 z-20 space-x-4 text-center">
       <!-- 拍照 -->
-      <button class="btn btn-md btn-purple">
+      <button class="btn btn-lg btn-purple">
         <CameraSVG
           class="w-6"
           @click="
@@ -37,7 +37,7 @@
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
         <!-- 开始录像 -->
-        <button v-if="!state.recorder" class="btn btn-md btn-blue">
+        <button v-if="!state.recorder" class="btn btn-lg btn-blue">
           <VideoSVG
             class="w-6"
             @click="
@@ -52,7 +52,7 @@
           />
         </button>
         <!-- 停止录像 -->
-        <button v-else class="btn btn-md btn-red">
+        <button v-else class="btn btn-lg btn-red">
           <OffSVG
             class="w-6"
             @click="
