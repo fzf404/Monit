@@ -1,12 +1,12 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 18:21:32
+ * @LastEditors: sheng qzwxsa1234@gmail.com
+ * @LastEditTime: 2022-12-26 19:06:12
  * @Description: event 处理
  */
 
-import { app, BrowserWindow, dialog, ipcMain, Notification, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, Notification, shell, systemPreferences } from 'electron'
 
 import { createWindow } from 'core/window'
 import { cget, cset, store } from '~/storage'
@@ -120,5 +120,15 @@ export const initIPC = () => {
   // 读取值
   ipcMain.on('get-value', function (event, key: string, define: string) {
     event.returnValue = cget(getWindowTitle(event), key, JSON.parse(define))
+  })
+
+  ipcMain.handle('get-media-permission', async (event, mediaType: 'microphone' | 'camera') => {
+    const res = await systemPreferences.getMediaAccessStatus(mediaType)
+    return res === 'granted'
+  })
+
+  ipcMain.handle('request-media-permission', async (event, mediaType: 'microphone' | 'camera') => {
+    const isAllowed = await systemPreferences.askForMediaAccess(mediaType)
+    return isAllowed
   })
 }

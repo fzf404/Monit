@@ -66,6 +66,11 @@ const config = {
             target: 'dmg',
             arch: ['x64', 'arm64'],
           },
+          entitlements: 'entitlements.mac.plist',
+          extendInfo: {
+            NSMicrophoneUsageDescription: 'Please give us access to your microphone',
+            NSCameraUsageDescription: 'Please give us access to your camera',
+          },
         },
       },
     },
