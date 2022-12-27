@@ -3,13 +3,13 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-24 20:06:27
+ * @LastEditTime: 2022-12-28 02:07:36
  * @Description: 应用介绍
 -->
 
 <p align="center">
   <a href="https://monit.fzf404.art/" target="_blank">
-    <img src="https://img.fzf404.art/Monit/logo.webp" alt="Monit" style="zoom:60%;"/>
+    <img src="https://img.fzf404.art/Monit/logo.webp" alt="Monit" style="zoom:40%;"/>
   </a>
 </p>
 
@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.fzf404.art/Monit/v0.7.0.webp" alt="show" style="zoom:40%;" />
+  <img src="https://img.fzf404.art/Monit/v0.7.0.webp" alt="show" style="zoom:30%;" />
 </p>
 
 ## ✨ 功能
