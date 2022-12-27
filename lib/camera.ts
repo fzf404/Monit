@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 18:57:48
+ * @LastEditTime: 2022-12-27 16:26:20
  * @Description: camera 工具
  */
 
@@ -34,7 +34,7 @@ export const initCamera = async (deviceId: string, video: HTMLVideoElement): Pro
   if (!stream) throw new Error('stream is null')
   // 设置视频源
   video.srcObject = stream
-
+  // 返回媒体流
   return stream
 }
 

@@ -71,7 +71,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
-import { sendAlert, getMediaAccessStatus, handeMediaPermissionRequest } from '#/ipc'
+import { sendAlert, getMediaPermission, requestMediaPermission } from '#/ipc'
 import { getCameraList, initCamera, recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
@@ -135,12 +135,17 @@ const setting = [
 ]
 
 onMounted(async () => {
+  // 系统平台
   if (process.platform === 'darwin') {
-    const mediaAccessStatus = await getMediaAccessStatus('camera')
+    // 设备权限状态
+    const mediaAccessStatus = await getMediaPermission('camera')
+    // 判断权限
     if (!mediaAccessStatus) {
-      const isAllowed = await handeMediaPermissionRequest('camera')
+      // 申请权限
+      const isAllowed = await requestMediaPermission('camera')
+      // 申请状态
       if (!isAllowed) {
-        sendAlert('需要授予摄像头使用权限')
+        sendAlert('需要授予相机使用权限！')
         return
       }
     }

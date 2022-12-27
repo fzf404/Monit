@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
- * @LastEditors: sheng qzwxsa1234@gmail.com
- * @LastEditTime: 2022-12-26 19:06:12
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-27 15:54:01
  * @Description: event 处理
  */
 
@@ -33,6 +33,7 @@ const getWindow = (event: Electron.IpcMainEvent): BrowserWindow => {
   return BrowserWindow.fromWebContents(event.sender) as any as BrowserWindow
 }
 
+// 获取窗口标题
 const getWindowTitle = (event: Electron.IpcMainEvent): string => {
   return getWindow(event).getTitle()
 }
@@ -122,11 +123,13 @@ export const initIPC = () => {
     event.returnValue = cget(getWindowTitle(event), key, JSON.parse(define))
   })
 
+  // 获取设备权限
   ipcMain.handle('get-media-permission', async (event, mediaType: 'microphone' | 'camera') => {
-    const res = await systemPreferences.getMediaAccessStatus(mediaType)
+    const res = systemPreferences.getMediaAccessStatus(mediaType)
     return res === 'granted'
   })
 
+  // 请求设备权限
   ipcMain.handle('request-media-permission', async (event, mediaType: 'microphone' | 'camera') => {
     const isAllowed = await systemPreferences.askForMediaAccess(mediaType)
     return isAllowed

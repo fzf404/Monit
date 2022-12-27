@@ -1,8 +1,8 @@
 /*
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
- * @LastEditors: sheng qzwxsa1234@gmail.com
- * @LastEditTime: 2022-12-26 18:57:50
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-27 15:55:25
  * @Description: icp 事件发送
  */
 import { ipcRenderer } from 'electron'
@@ -42,10 +42,12 @@ export const openURL = (url: string) => {
   sendEvent('open-url', url)
 }
 
-export const getMediaAccessStatus = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
+// 获取设备权限
+export const getMediaPermission = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
   return ipcRenderer.invoke('get-media-permission', mediaType)
 }
 
-export const handeMediaPermissionRequest = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
+// 请求设备权限
+export const requestMediaPermission = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
   return ipcRenderer.invoke('request-media-permission', mediaType)
 }
