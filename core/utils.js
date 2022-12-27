@@ -31,14 +31,7 @@ export const initWinEvent = (win, name) => {
 }
 
 // TODO 检查更新
-export const ckeckUpdate = () => {
-  if (!isDebug) {
-    autoUpdater.checkForUpdatesAndNotify({
-      title: 'Monit - update',
-      body: '已下载新版本，将会在软件关闭后自动更新。',
-    })
-  }
-}
+export const ckeckUpdate = () => {}
 
 // TODO 初始化快捷键
 export const initShortcut = () => {}
