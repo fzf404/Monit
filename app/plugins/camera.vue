@@ -1,8 +1,8 @@
 <!--
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
- * @LastEditors: sheng qzwxsa1234@gmail.com
- * @LastEditTime: 2022-12-26 19:04:28
+ * @LastEditors: fzf404 me@fzf404.art
+ * @LastEditTime: 2022-12-27 16:21:50
  * @Description: camera 相机监控
 -->
 <template>
@@ -41,7 +41,7 @@
           <VideoSVG
             class="w-6"
             @click="
-              recordVideo(store.device, record)
+              recordVideo(store.camera, record)
                 .then((recorder) => {
                   state.recorder = recorder
                 })
