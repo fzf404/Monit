@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 16:54:07
+ * @LastEditTime: 2022-12-28 16:57:04
  * @Description: github 信息监控
 -->
 <template>
@@ -235,7 +235,7 @@ export default {
       const data = await this.getGithubData()
 
       // 验证用户存在
-      if (data === undefined) {
+      if (!data) {
         return sendAlert('用户不存在！')
       }
 
@@ -254,7 +254,7 @@ export default {
       const data = await request.get(`/users/${this.store.user}`)
 
       // 验证用户存在
-      if (data === undefined) {
+      if (!data) {
         return data
       }
 

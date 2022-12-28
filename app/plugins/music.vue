@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-27 15:42:37
+ * @LastEditTime: 2022-12-28 16:56:43
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -237,7 +237,7 @@ const getUser = async () => {
   // 获取账号信息
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
   // 验证登陆
-  if (account === null) {
+  if (!account) {
     return login()
   }
   // 验证状态

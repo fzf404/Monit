@@ -2,7 +2,7 @@
 .DS_Store
 
 # depend
-/node_modules
+node_modules
 
 # build
-/release
+release
