@@ -2,10 +2,7 @@
 .DS_Store
 
 # depend
-node_modules
-
-# log
-pnpm-debug.log*
+/node_modules
 
 # build
-release
+/release
