@@ -279,7 +279,7 @@ const getPlayList = async () => {
   })
 
   // 判断索引越界
-  if (store.current > music.length - 1) {
+  if (store.music.length != music.length) {
     // 设置当前音乐索引
     store.current = 0
   }
