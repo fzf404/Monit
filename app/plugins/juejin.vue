@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 21:24:48
+ * @LastEditTime: 2022-12-25 16:56:22
  * @Description: juejin 信息监控
 -->
 <template>
@@ -284,6 +284,12 @@ export default {
   methods: {
     //  初始化数据函数
     async initJuejinData() {
+      // 保存消息通知
+      const notice = this.store.notice
+      // 关闭消息通知
+      this.store.notice = false
+
+      // 获取用户信息
       const data = await this.getJuejinData()
 
       // 验证用户存在
@@ -291,10 +297,14 @@ export default {
         return sendAlert('用户ID错误！')
       }
 
+      // 存储数据
       this.store.follower = this.follower
       this.store.like = this.like
       this.store.view = this.view
       this.store.power = this.power
+
+      // 恢复消息通知
+      this.store.notice = notice
     },
     // 请求数据
     async getJuejinData() {

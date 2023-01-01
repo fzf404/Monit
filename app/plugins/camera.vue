@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 17:01:23
+ * @LastEditTime: 2022-12-27 16:21:50
  * @Description: camera 相机监控
 -->
 <template>
@@ -24,7 +24,7 @@
     <!-- 相机控制器 -->
     <section v-show="store.control" class="absolute left-0 right-0 bottom-4 z-20 space-x-4 text-center">
       <!-- 拍照 -->
-      <button class="btn btn-md btn-purple">
+      <button class="btn btn-lg btn-purple">
         <CameraSVG
           class="w-6"
           @click="
@@ -37,11 +37,11 @@
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
         <!-- 开始录像 -->
-        <button v-if="!state.recorder" class="btn btn-md btn-blue">
+        <button v-if="!state.recorder" class="btn btn-lg btn-blue">
           <VideoSVG
             class="w-6"
             @click="
-              recordVideo(store.device, record)
+              recordVideo(store.camera, record)
                 .then((recorder) => {
                   state.recorder = recorder
                 })
@@ -52,7 +52,7 @@
           />
         </button>
         <!-- 停止录像 -->
-        <button v-else class="btn btn-md btn-red">
+        <button v-else class="btn btn-lg btn-red">
           <OffSVG
             class="w-6"
             @click="
@@ -71,7 +71,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
-import { sendAlert } from '#/ipc'
+import { sendAlert, getMediaPermission, requestMediaPermission } from '#/ipc'
 import { getCameraList, initCamera, recordVideo, takePhoto } from '~/camera'
 import { initHolistic } from '~/holistic'
 import { storage } from '~/storage'
@@ -135,6 +135,22 @@ const setting = [
 ]
 
 onMounted(async () => {
+  // 系统平台
+  if (process.platform === 'darwin') {
+    // 设备权限状态
+    const mediaAccessStatus = await getMediaPermission('camera')
+    // 判断权限
+    if (!mediaAccessStatus) {
+      // 申请权限
+      const isAllowed = await requestMediaPermission('camera')
+      // 申请状态
+      if (!isAllowed) {
+        sendAlert('需要授予相机使用权限！')
+        return
+      }
+    }
+  }
+
   // 获取设备列表
   const devices = await getCameraList().catch((err) => {
     return sendAlert('媒体列表获取失败：' + err.message)
@@ -166,11 +182,14 @@ onMounted(async () => {
 
   // 是否开启角色追踪
   if (store.holistic) {
+    // 延迟加载 3s
     setTimeout(() => {
+      // 初始化角色追踪
       initHolistic(canvas.value, video.value)
         .then(() => {
+          // 隐藏加载框
           state.loading = false
-        })
+        }) // 捕获错误
         .catch((err) => sendAlert('角色跟踪初始化失败：' + err.message))
     }, 3000)
   } else {

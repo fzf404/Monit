@@ -14,14 +14,14 @@
       <!-- 插件操作 -->
       <p class="flex-row-between w-full">
         <button
-          class="btn btn-sm btn-blue w-2/3"
+          class="btn btn-md btn-blue w-2/3"
           @click="pluginList.forEach((item) => sendEvent('win-open', item.name))"
         >
           全部开启
         </button>
         <button
           v-if="state.auto"
-          class="btn btn-sm btn-amber"
+          class="btn btn-md btn-amber"
           @click="
             () => {
               store.open = pluginList.map((item) => item.name)
@@ -33,7 +33,7 @@
         </button>
         <button
           v-else
-          class="btn btn-sm btn-pink"
+          class="btn btn-md btn-pink"
           @click="
             () => {
               store.open = []
@@ -47,18 +47,18 @@
       <!-- 全部插件列表 -->
       <p v-for="item in pluginList" class="flex-row-between w-full">
         <!-- 插件启动 -->
-        <button class="btn btn-sm btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
+        <button class="btn btn-md btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
           {{ item.name + ' - ' + item.description }}
         </button>
         <!-- 插件自启 -->
         <button
-          class="btn btn-sm btn-green"
+          class="btn btn-md btn-green"
           v-if="store.open.includes(item.name)"
           @click="store.open.splice(store.open.indexOf(item.name), 1)"
         >
           自启开
         </button>
-        <button v-else class="btn btn-sm btn-red" @click="store.open.push(item.name)">自启关</button>
+        <button v-else class="btn btn-md btn-red" @click="store.open.push(item.name)">自启关</button>
       </p>
       <!-- Moint 版本 -->
       <p class="flex-col-center-bottom text-intro">Monit {{ pkg.version }}</p>

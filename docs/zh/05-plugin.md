@@ -39,8 +39,8 @@ import XxxSVG from '@/assets/xx/xxx.svg'
     <h1 class="text-intro">计数器</h1>
     <p class="text-light text-5xl">{{ store.count }}</p>
     <p class="space-x-4 pt-2">
-      <button class="btn btn-sq btn-md btn-red" @click="reduce"><SubSVG class="w-5" /></button>
-      <button class="btn btn-sq btn-md btn-green" @click="increase">
+      <button class="btn btn-sq btn-lg btn-red" @click="reduce"><SubSVG class="w-5" /></button>
+      <button class="btn btn-sq btn-lg btn-green" @click="increase">
         <AddSVG class="w-5" />
       </button>
     </p>

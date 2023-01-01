@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-10-03 19:37:45
+ * @LastEditTime: 2022-12-27 15:55:25
  * @Description: icp 事件发送
  */
 import { ipcRenderer } from 'electron'
@@ -40,4 +40,14 @@ export const sendAlert = (message: string) => {
 // 打开网址
 export const openURL = (url: string) => {
   sendEvent('open-url', url)
+}
+
+// 获取设备权限
+export const getMediaPermission = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
+  return ipcRenderer.invoke('get-media-permission', mediaType)
+}
+
+// 请求设备权限
+export const requestMediaPermission = (mediaType: 'microphone' | 'camera'): Promise<Boolean> => {
+  return ipcRenderer.invoke('request-media-permission', mediaType)
 }

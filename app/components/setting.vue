@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 18:59:22
+ * @LastEditTime: 2022-12-23 12:13:35
  * @Description: setting 组件
 -->
 <template>
@@ -35,7 +35,7 @@
             </option>
           </select>
           <!-- 按钮 -->
-          <button v-else-if="item.type === 'button'" class="btn btn-xs w-1/3" :id="item.id" @click="item.options.click">
+          <button v-else-if="item.type === 'button'" class="btn btn-sm w-1/3" :id="item.id" @click="item.options.click">
             {{ item.options.text }}
           </button>
           <!-- 复选框 -->
@@ -75,7 +75,7 @@
         </li>
         <!-- 保存 -->
         <ol class="flex-row-center-right">
-          <button @click="onSave" class="btn btn-sm">保存</button>
+          <button @click="onSave" class="btn btn-md">保存</button>
         </ol>
       </ul>
     </aside>

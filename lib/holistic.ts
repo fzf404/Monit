@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 21:58:48
+ * @LastEditTime: 2022-12-25 17:04:38
  * @Description: 角色跟踪
  */
 
@@ -142,6 +142,7 @@ export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoEl
     drawResults(canvas, video, result)
   })
 
+  // Holistic 启动
   return new Promise((resolve, reject) => {
     // 发送视频流
     const sendVideo = () => {

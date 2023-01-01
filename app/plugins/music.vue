@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-23 17:42:48
+ * @LastEditTime: 2022-12-28 16:56:43
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -143,7 +143,7 @@ const store = storage(
     url: 'https://api-music.imsyy.top', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
     cookie: null, // 登陆信息
-    current: 0, // 歌曲索引
+    current: 0, // 音乐索引
     music: [
       {
         id: null,
@@ -159,7 +159,7 @@ const store = storage(
     url: () => {
       location.reload()
     },
-    // 歌曲索引修改
+    // 音乐索引修改
     current: async () => {
       // 加载音乐
       await loadMusic()
@@ -237,7 +237,7 @@ const getUser = async () => {
   // 获取账号信息
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
   // 验证登陆
-  if (account === null) {
+  if (!account) {
     return login()
   }
   // 验证状态
@@ -259,6 +259,8 @@ const getUser = async () => {
 
 // 读取歌单信息
 const getPlayList = async () => {
+  // 暂停播放
+  state.play = false
   // 加载中
   state.loading = true
 
@@ -267,27 +269,26 @@ const getPlayList = async () => {
     return sendAlert('获取歌单失败：' + err.message)
   })
   // 音乐列表
-  const music = []
-  // 遍历歌曲
-  for (let item of songs) {
-    music.push({
+  const music = songs.map((item) => {
+    return {
       id: item.id,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
       image: item.al.picUrl + '?param=100y100',
-    })
+    }
+  })
+
+  // 判断索引越界
+  if (store.music.length != music.length) {
+    // 设置当前音乐索引
+    store.current = 0
   }
+
   // 存储音乐
   store.music = music
 
-  // 加载完成
-  state.loading = false
-
-  // 判断索引越界
-  if (store.current > store.music.length - 1) {
-    // 设置当前歌曲索引
-    store.current = 0
-  }
+  // 加载音乐
+  loadMusic()
 }
 
 // 获取音乐时间信息
@@ -312,11 +313,10 @@ const getMusicDuration = () => {
   // 总时长
   let durationMinutes = Math.floor(audio.duration / 60)
   let durationSeconds = Math.floor(audio.duration - durationMinutes * 60)
-
   if (durationSeconds < 10) {
     durationSeconds = '0' + durationSeconds
   }
-
+  // 控制器时长
   state.control = {
     current: '0:00',
     duration: durationMinutes + ':' + durationSeconds,
@@ -324,7 +324,7 @@ const getMusicDuration = () => {
   }
 }
 
-// 获得歌曲 URL
+// 获得音乐 URL
 const loadMusic = async () => {
   // 加载中
   state.loading = true
@@ -332,6 +332,7 @@ const loadMusic = async () => {
   const { url } = (
     await request.get(`/song/url/v1?cookie=${store.cookie}&id=${store.music[store.current].id}&level=standard`)
   ).data[0]
+  // 判断 URL 存在
   if (url) {
     // 设置音乐 URL
     audio.src = url
@@ -343,12 +344,9 @@ const loadMusic = async () => {
 
 // 播放音乐
 const playMusic = async () => {
-  if (!audio.src) {
-    await loadMusic()
-  }
   // 播放音乐
   audio.play().catch((err) => {
-    sendAlert('歌曲加载失败：' + err.message)
+    sendAlert('音乐加载失败：' + err.message)
     state.play = false
     state.loading = false
   })

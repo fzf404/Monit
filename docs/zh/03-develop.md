@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 23:33:52
+ * @LastEditTime: 2022-12-20 18:47:30
  * @Description: 开发文档
 -->
 
-推荐使用 `Visual Studio Code` 作为代码编辑器，并安装工作区推荐插件。
+推荐使用 `Visual Studio Code` 作为代码编辑器，并安装推荐插件。
 
 应用共分为 `渲染进程` 和 `主进程` 两部分。
 

@@ -43,15 +43,15 @@
     <!-- 控制器 -->
     <section class="space-x-4">
       <!-- 时钟模式 -->
-      <button class="btn btn-md btn-blue" @click="startClock">
+      <button class="btn btn-lg btn-blue" @click="startClock">
         <ClockSVG class="w-6" />
       </button>
       <!-- 计时模式 -->
       <transition name="fade" mode="out-in">
-        <button v-if="!timing" class="btn btn-md btn-purple" @click="startTiming">
+        <button v-if="!timing" class="btn btn-lg btn-purple" @click="startTiming">
           <TimerSVG class="w-6" />
         </button>
-        <button v-else class="btn btn-md btn-red" @click="stop">
+        <button v-else class="btn btn-lg btn-red" @click="stop">
           <OffSVG class="w-6" />
         </button>
       </transition>

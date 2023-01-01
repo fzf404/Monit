@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 18:32:06
+ * @LastEditTime: 2022-12-27 17:37:34
  * @Description: 基础主题
  */
 
@@ -167,31 +167,37 @@ select,
  * 按钮
  */
 
+// 基础按钮
 .btn {
   @apply text-light clickable rounded;
 }
+
+// 大型
+.btn-lg {
+  @apply px-2 py-1;
+}
 // 中型
 .btn-md {
-  @apply px-2 py-1;
+  @apply px-2 py-1 text-xs;
 }
 // 小型
 .btn-sm {
-  @apply px-2 py-1 text-xs;
-}
-// 超小型
-.btn-xs {
   @apply px-1.5 py-0.5 text-xs;
 }
 
 // 方形
 .btn-sq {
+  // 大型
+  &.btn-lg {
+    @apply p-1.5;
+  }
   // 中型
   &.btn-md {
-    @apply p-1.5;
+    @apply p-1;
   }
   // 小型
   &.btn-sm {
-    @apply p-1;
+    @apply p-0.5;
   }
 }
 
