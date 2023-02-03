@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-27 16:21:50
+ * @LastEditTime: 2023-02-03 15:58:40
  * @Description: camera 相机监控
 -->
 <template>
@@ -31,8 +31,7 @@
             takePhoto(video, canvas, record).catch((err) => {
               sendAlert('拍摄失败：' + err.message)
             })
-          "
-        />
+          " />
       </button>
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
@@ -48,8 +47,7 @@
                 .catch((err) => {
                   sendAlert('录制失败：' + err.message)
                 })
-            "
-          />
+            " />
         </button>
         <!-- 停止录像 -->
         <button v-else class="btn btn-lg btn-red">
@@ -60,8 +58,7 @@
                 state.recorder.stop()
                 state.recorder = null
               }
-            "
-          />
+            " />
         </button>
       </transition>
     </section>

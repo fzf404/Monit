@@ -15,8 +15,7 @@ main
           input.mr-2.w-full.bg-transparent.outline-none.text-sm(
             type='text',
             v-model='element.title',
-            :class='element.checked ? "line-through text-gray" : "text-gray-200"'
-          )
+            :class='element.checked ? "line-through text-gray" : "text-gray-200"')
           DeleteSVG.w-6.btn-svg.text-rose-400(class='hover:text-rose-500', @click='remove(index)')
           MoveSVG.w-7.btn-svg.text-purple-400.handle(class='hover:text-purple-500')
     footer.flex-row-between.border-t-2.border-theme.pt-2

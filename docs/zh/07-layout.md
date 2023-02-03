@@ -25,19 +25,16 @@
       <SettingSVG
         v-show="pinia.hasSetting"
         class="hover-dynamic btn-svg w-5 text-blue-400"
-        @click="pinia.toggleSetting()"
-      />
+        @click="pinia.toggleSetting()" />
       <!-- 主题 -->
       <DarkSVG
         v-if="store.theme === theme.dark.class"
         class="hover-dynamic btn-svg w-5 text-indigo-300"
-        @click="store.theme = theme.punk.class"
-      />
+        @click="store.theme = theme.punk.class" />
       <PunkSVG
         v-else-if="store.theme === theme.punk.class"
         class="hover-dynamic btn-svg w-5 text-yellow-400"
-        @click="store.theme = theme.light.class"
-      />
+        @click="store.theme = theme.light.class" />
       <LightSVG v-else class="hover-dynamic btn-svg w-5 text-orange-400" @click="store.theme = theme.dark.class" />
       <!-- 布局 -->
       <WineSVG class="hover-dynamic btn-svg w-5 text-teal-500" @click="store.layout = layout.maco.name" />
@@ -50,8 +47,7 @@
       <UpSVG
         class="btn-svg hover-dynamic w-5 text-green-400"
         :class="{ 'rotate-180': !store.top }"
-        @click="store.top = !store.top"
-      />
+        @click="store.top = !store.top" />
       <!-- 最小化 -->
       <MiniSVG class="btn-svg hover-dynamic w-5 text-yellow-400" @click="sendEvent('win-mini')" />
       <!-- 关闭 -->

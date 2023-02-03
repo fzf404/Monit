@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-23 12:13:35
+ * @LastEditTime: 2023-01-20 00:00:36
  * @Description: setting 组件
 -->
 <template>
   <transition name="fade" mode="out-in">
     <aside class="flex-col-center modal setting z-40" v-show="pinia.showSetting">
       <!-- 设置框 -->
-      <ul class="w-3/5 space-y-2 rounded-lg px-4 py-3 pb-2 ring-4" :class="{ 'w-3/4 px-3': size === 'wide' }">
+      <ul class="w-3/5 space-y-2 rounded-lg px-4 py-3 pb-2 ring-4" :class="{ 'w-3/4 px-3': size === 'thin' }">
         <!-- 项目列表 -->
         <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
           <!-- 标签 -->
@@ -20,16 +20,14 @@
             <HelpSVG
               v-show="item.help"
               class="btn-svg text-gray w-3 self-center"
-              @click="openURL(item.help as string)"
-            />
+              @click="openURL(item.help as string)" />
           </label>
           <!-- 选择框 -->
           <select
             v-if="item.type === 'select'"
             :id="item.id"
             class="w-3/5 rounded border-none px-2 py-1 text-xs outline-none"
-            v-model="store[item.id]"
-          >
+            v-model="store[item.id]">
             <option v-for="option in item.options" :value="option.value">
               {{ option.label }}
             </option>
@@ -45,8 +43,7 @@
             type="checkbox"
             class="h-4 w-4 outline-none"
             v-model="(store[item.id] as boolean)"
-            @keyup.enter="onSave"
-          />
+            @keyup.enter="onSave" />
           <!-- 数字输入框 -->
           <input
             v-else-if="item.type === 'number'"
@@ -61,8 +58,7 @@
               if ((event.target as HTMLInputElement).value.length > item.options.len)
                 (event.target as HTMLInputElement).value = (event.target as HTMLInputElement).value.slice(0, item.options.len)
             }
-          "
-          />
+          " />
           <!-- 文本输入框 -->
           <input
             v-else-if="item.type === 'text'"
@@ -70,8 +66,7 @@
             type="text"
             class="w-3/5 rounded border-none px-2 py-1 text-right text-xs outline-none"
             v-model.lazy="store[item.id]"
-            @keyup.enter="onSave"
-          />
+            @keyup.enter="onSave" />
         </li>
         <!-- 保存 -->
         <ol class="flex-row-center-right">
@@ -94,7 +89,7 @@ const pinia = main()
 // props 接口
 interface Props {
   // 尺寸
-  size?: 'wide'
+  size?: 'thin'
   // 设置值
   store: Record<string, Object>
   // 设置项

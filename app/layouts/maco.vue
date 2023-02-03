@@ -12,19 +12,16 @@
       <!-- 关闭 -->
       <CloseSVG
         class="btn-svg text-deep w-3.5 rounded-full bg-red-400 p-0.5 hover:bg-red-500"
-        @click="sendEvent('win-close')"
-      />
+        @click="sendEvent('win-close')" />
       <!-- 最小化 -->
       <MiniSVG
         class="btn-svg text-deep w-3.5 rounded-full bg-yellow-400 p-0.5 hover:bg-yellow-500"
-        @click="sendEvent('win-mini')"
-      />
+        @click="sendEvent('win-mini')" />
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg text-deep w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
         :class="{ 'rotate-180': !store.top }"
-        @click="store.top = !store.top"
-      />
+        @click="store.top = !store.top" />
     </ul>
     <!-- 状态控制器 -->
     <ul class="absolute right-2 space-x-1">
@@ -36,24 +33,20 @@
       <DarkSVG
         v-if="store.theme === theme.dark.class"
         class="btn-svg w-4 text-indigo-400 hover:text-indigo-500"
-        @click="store.theme = theme.punk.class"
-      />
+        @click="store.theme = theme.punk.class" />
       <PunkSVG
         v-else-if="store.theme === theme.punk.class"
         class="btn-svg w-4 text-yellow-400 hover:text-yellow-500"
-        @click="store.theme = theme.light.class"
-      />
+        @click="store.theme = theme.light.class" />
       <LightSVG
         v-else
         class="btn-svg w-4 text-orange-400 hover:text-orange-500"
-        @click="store.theme = theme.dark.class"
-      />
+        @click="store.theme = theme.dark.class" />
       <!-- 设置 -->
       <SettingSVG
         v-show="pinia.hasSetting"
         class="btn-svg w-4 text-blue-400 hover:text-blue-500"
-        @click="pinia.toggleSetting()"
-      />
+        @click="pinia.toggleSetting()" />
     </ul>
   </nav>
 </template>

@@ -17,8 +17,7 @@
         <!-- github svg -->
         <GihubSVG
           class="mr-1 mb-1 text-blue-400"
-          :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }"
-        />
+          :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }" />
         <!-- follower number -->
         <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
@@ -31,8 +30,7 @@
             'text-red-400': store.follower > follower,
             'text-gray': store.follower == follower,
           }"
-          @click="updateFollower"
-        >
+          @click="updateFollower">
           {{ followerChange }}
         </span>
       </p>
@@ -66,8 +64,7 @@
             'text-red-400': store.star > star,
             'text-gray': store.star == star,
           }"
-          @click="updateStar"
-        >
+          @click="updateStar">
           {{ starChange }}
         </span>
       </p>
@@ -90,8 +87,7 @@
             'text-red-400': store.fork > fork,
             'text-gray': store.fork == fork,
           }"
-          @click="updateFork"
-        >
+          @click="updateFork">
           {{ forkChange }}
         </span>
       </p>

@@ -7,7 +7,7 @@
 -->
 <template>
   <!-- 配置 -->
-  <Setting size="wide" :store="store" :setting="setting" />
+  <Setting size="thin" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-between p-3 pt-8">
     <section class="scrollable space-y-2">
@@ -15,8 +15,7 @@
       <p class="flex-row-between w-full">
         <button
           class="btn btn-md btn-blue w-2/3"
-          @click="pluginList.forEach((item) => sendEvent('win-open', item.name))"
-        >
+          @click="pluginList.forEach((item) => sendEvent('win-open', item.name))">
           全部开启
         </button>
         <button
@@ -27,8 +26,7 @@
               store.open = pluginList.map((item) => item.name)
               state.auto = false
             }
-          "
-        >
+          ">
           全自启
         </button>
         <button
@@ -39,8 +37,7 @@
               store.open = []
               state.auto = true
             }
-          "
-        >
+          ">
           关自启
         </button>
       </p>
@@ -54,8 +51,7 @@
         <button
           class="btn btn-md btn-green"
           v-if="store.open.includes(item.name)"
-          @click="store.open.splice(store.open.indexOf(item.name), 1)"
-        >
+          @click="store.open.splice(store.open.indexOf(item.name), 1)">
           自启开
         </button>
         <button v-else class="btn btn-md btn-red" @click="store.open.push(item.name)">自启关</button>

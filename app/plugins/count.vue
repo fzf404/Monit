@@ -7,7 +7,7 @@
 -->
 <template>
   <!-- 设置 -->
-  <Setting size="wide" :store="store" :setting="setting" />
+  <Setting size="thin" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-center space-y-2">
     <h1 class="text-intro">计数器</h1>

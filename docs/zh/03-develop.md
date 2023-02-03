@@ -114,7 +114,7 @@ const store = storage({
 
 ```vue
 <template>
-  <Setting size="wide" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :store="store" />
+  <Setting size="thin" :setting="[{ id: 'title', label: '标题', type: 'text' }]" :store="store" />
   <article class="flex-col-center">
     <h1 class="text-lg">{{ store.title }}</h1>
   </article>
@@ -143,7 +143,7 @@ const store = storage({
 ```vue
 <template>
   <Setting
-    size="wide"
+    size="thin"
     :setting="[
       {
         id: 'notice',
@@ -153,8 +153,7 @@ const store = storage({
       { id: 'title', label: '标题', type: 'text' },
     ]"
     :store="store"
-    :onSave="onSave"
-  />
+    :onSave="onSave" />
   <article class="flex-col-center">
     <h1 class="text-lg">{{ store.title }}</h1>
   </article>

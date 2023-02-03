@@ -17,8 +17,7 @@
         <!-- 关注者图标 -->
         <FollowerSVG
           class="mr-1 mb-1 text-violet-400"
-          :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }"
-        />
+          :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }" />
         <!-- 关注者 number -->
         <span class="text-light" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
           {{ store.follower }}
@@ -31,8 +30,7 @@
             'text-red-400': store.follower > follower,
             'text-gray': store.follower == follower,
           }"
-          @click="updateFollower"
-        >
+          @click="updateFollower">
           {{ followerChange }}
         </span>
       </p>
@@ -55,8 +53,7 @@
             'text-red-400': store.power > power,
             'text-gray': store.power == power,
           }"
-          @click="updatePower"
-        >
+          @click="updatePower">
           {{ powerChange }}
         </span>
       </p>
@@ -79,8 +76,7 @@
             'text-red-400': store.like > like,
             'text-gray': store.like == like,
           }"
-          @click="updatelike"
-        >
+          @click="updatelike">
           {{ likeChange }}
         </span>
       </p>
@@ -103,8 +99,7 @@
             'text-red-400': store.view > view,
             'text-gray': store.view == view,
           }"
-          @click="updateView"
-        >
+          @click="updateView">
           {{ viewChange }}
         </span>
       </p>
@@ -124,8 +119,7 @@
       <p
         v-for="item in store.article"
         class="flex-row-center clickable space-x-1 space-y-3"
-        @click="openArticle(item.id)"
-      >
+        @click="openArticle(item.id)">
         <!-- 文章图标 -->
         <ArticleSVG class="mt-3 h-4 text-blue-400" />
         <!-- 文章名 -->

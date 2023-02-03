@@ -19,8 +19,7 @@
       <img
         :src="store.music[store.current].image"
         class="h-14 w-14 rounded-full ring-4 ring-white"
-        :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }"
-      />
+        :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }" />
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
@@ -35,8 +34,7 @@
       <p
         v-for="(item, index) in store.music"
         class="flex-row-center clickable space-x-1"
-        @click="store.current = index"
-      >
+        @click="store.current = index">
         <MusicSVG class="btn-svg text-theme h-4" />
         <span class="text-gray whitespace-nowrap text-xs">
           {{ item.title }}
@@ -52,8 +50,7 @@
       <!-- 进度条 -->
       <p
         class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
-        :style="{ width: state.control.process + '%' }"
-      ></p>
+        :style="{ width: state.control.process + '%' }"></p>
       <!-- 底部进度条 -->
       <p class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"></p>
       <!-- 播放进度调整 -->
@@ -63,8 +60,7 @@
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
           }
-        "
-      ></p>
+        "></p>
       <!-- 循环播放 -->
       <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
       <!-- 随机播放 -->
