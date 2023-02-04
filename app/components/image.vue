@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 14:30:10
+ * @LastEditTime: 2023-02-04 13:07:13
  * @Description: iamge 组件
 -->
 <template>
@@ -15,5 +15,13 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['show', 'image', 'remark'])
+interface Props {
+  image: string
+  show?: boolean
+  remark?: string
+}
+withDefaults(defineProps<Props>(), {
+  show: true,
+  remark: '',
+})
 </script>

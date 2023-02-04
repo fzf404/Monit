@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-01-20 00:00:36
+ * @LastEditTime: 2023-02-04 13:19:05
  * @Description: setting 组件
 -->
 <template>
   <transition name="fade" mode="out-in">
     <aside class="flex-col-center modal setting z-40" v-show="pinia.showSetting">
       <!-- 设置框 -->
-      <ul class="w-3/5 space-y-2 rounded-lg px-4 py-3 pb-2 ring-4" :class="{ 'w-3/4 px-3': size === 'thin' }">
+      <ul class="w-3/5 space-y-2 rounded-lg px-4 py-3 pb-2 ring-4" :class="{ 'w-3/4 px-3': size === 'small' }">
         <!-- 项目列表 -->
         <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
           <!-- 标签 -->
@@ -89,7 +89,7 @@ const pinia = main()
 // props 接口
 interface Props {
   // 尺寸
-  size?: 'thin'
+  size?: 'small' | 'normal' | 'large'
   // 设置值
   store: Record<string, Object>
   // 设置项
@@ -124,8 +124,12 @@ interface Props {
   )[]
 }
 
-// 初始化信息
-defineProps<Props>()
+// 初始化参数
+withDefaults(defineProps<Props>(), {
+  size: 'normal',
+})
+
+// 初始化方法
 const emit = defineEmits(['save'])
 
 // 初始化设置

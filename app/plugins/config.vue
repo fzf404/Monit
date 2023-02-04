@@ -2,12 +2,12 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 21:12:54
+ * @LastEditTime: 2023-02-04 13:25:34
  * @Description: config 应用配置
 -->
 <template>
   <!-- 配置 -->
-  <Setting size="thin" :store="store" :setting="setting" />
+  <Setting size="small" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-between p-3 pt-8">
     <section class="scrollable space-y-2">
