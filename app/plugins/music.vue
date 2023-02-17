@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-28 16:56:43
+ * @LastEditTime: 2023-02-09 23:37:40
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -94,15 +94,15 @@ import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-import DownloadSVG from '@/assets/music/download.svg'
-import MusicSVG from '@/assets/music/music.svg'
-import NextSVG from '@/assets/music/next.svg'
-import PauseSVG from '@/assets/music/pause.svg'
-import PlaySVG from '@/assets/music/play.svg'
-import PrevSVG from '@/assets/music/prev.svg'
-import RepeatSVG from '@/assets/music/repeat.svg'
-import ShuffleSVG from '@/assets/music/shuffle.svg'
-import SingleSVG from '@/assets/music/single.svg'
+import DownloadSVG from '@/assets/plugin/music/download.svg'
+import MusicSVG from '@/assets/plugin/music/music.svg'
+import NextSVG from '@/assets/plugin/music/next.svg'
+import PauseSVG from '@/assets/plugin/music/pause.svg'
+import PlaySVG from '@/assets/plugin/music/play.svg'
+import PrevSVG from '@/assets/plugin/music/prev.svg'
+import RepeatSVG from '@/assets/plugin/music/repeat.svg'
+import ShuffleSVG from '@/assets/plugin/music/shuffle.svg'
+import SingleSVG from '@/assets/plugin/music/single.svg'
 
 // 初始化 pinia
 const pinia = main()
@@ -122,12 +122,12 @@ const state = reactive({
   // 登陆状态
   login: {
     show: false,
-    qrcode: null,
+    qrcode: '',
   },
   // 音乐控制器
   control: {
-    current: null,
-    duration: null,
+    current: '0:00',
+    duration: '0:00',
     process: null,
   },
 })
@@ -234,6 +234,7 @@ const getUser = async () => {
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
   // 验证登陆
   if (!account) {
+    store.cookie = ''
     return login()
   }
   // 验证状态

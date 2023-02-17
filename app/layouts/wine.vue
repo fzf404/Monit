@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 18:02:37
+ * @LastEditTime: 2023-02-10 22:24:54
  * @Description: winer 布局
 -->
 <template>
@@ -15,19 +15,22 @@
         class="hover-dynamic btn-svg w-5 text-blue-400"
         @click="pinia.toggleSetting()" />
       <!-- 主题 -->
-      <DarkSVG
-        v-if="store.theme === theme.dark.class"
-        class="hover-dynamic btn-svg w-5 text-indigo-300"
-        @click="store.theme = theme.punk.class" />
-      <PunkSVG
-        v-else-if="store.theme === theme.punk.class"
-        class="hover-dynamic btn-svg w-5 text-yellow-400"
-        @click="store.theme = theme.light.class" />
-      <LightSVG v-else class="hover-dynamic btn-svg w-5 text-orange-400" @click="store.theme = theme.dark.class" />
+      <component
+        :is="theme.icon"
+        class="hover-dynamic btn-svg w-5"
+        :class="{
+          'text-indigo-400 ': theme.name == 'dark',
+          'text-orange-400': theme.name == 'light',
+          'text-yellow-400 ': theme.name == 'punk',
+        }"
+        @click="store.theme = theme.next" />
       <!-- 布局 -->
-      <WineSVG class="hover-dynamic btn-svg w-5 text-teal-500" @click="store.layout = layout.maco.name" />
+      <component
+        :is="layout.icon"
+        class="hover-dynamic btn-svg w-5 text-green-400"
+        @click="store.layout = layout.next" />
       <!-- 断网提示 -->
-      <WifiSVG v-show="!pinia.hasNetwork" class="hover-dynamic btn-svg w-5 text-red-400" />
+      <WifiSVG v-show="pinia.hasNetwork" class="hover-dynamic btn-svg w-5 text-red-400" />
     </ul>
     <!-- 窗口控制器 -->
     <ul class="absolute right-2">
@@ -52,12 +55,6 @@ import { main } from '@/pinia'
 import CloseSVG from '@/assets/layout/close.svg'
 import MiniSVG from '@/assets/layout/mini.svg'
 import UpSVG from '@/assets/layout/up.svg'
-
-import WineSVG from '@/assets/layout/wine.svg'
-
-import DarkSVG from '@/assets/layout/dark.svg'
-import LightSVG from '@/assets/layout/light.svg'
-import PunkSVG from '@/assets/layout/punk.svg'
 
 import SettingSVG from '@/assets/layout/setting.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'

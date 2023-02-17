@@ -2,54 +2,57 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 19:18:19
+ * @LastEditTime: 2023-02-08 16:23:41
  * @Description: 布局切换
 -->
 <template>
   <!-- 布局 -->
   <transition name="fade" mode="out-in">
-    <component :is="layout[store.layout].component" :layout="layout" :theme="theme" :store="store"></component>
+    <component
+      :is="layout[store.layout].component"
+      :layout="layout[store.layout]"
+      :theme="theme[store.theme]"
+      :store="store" />
   </transition>
   <router-view></router-view>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, defineAsyncComponent } from 'vue'
 
 import { sendEvent } from '#/ipc'
 import { storage } from '~/storage'
 
-import maco from './maco.vue'
-import wine from './wine.vue'
+import { layoutList, themeList } from '#/config'
 
-const layout = {
-  maco: {
-    name: 'maco',
-    component: maco,
-  },
-  wine: {
-    name: 'wine',
-    component: wine,
-  },
-}
+// 布局处理
+const layout = layoutList.reduce((result, current, index, source) => {
+  result[current.name] = {
+    name: current.name,
+    next: source[index + 1] ? source[index + 1].name : source[0].name,
+    icon: defineAsyncComponent(() => import(`@/assets/layout/${current.name}.svg`)),
+    component: defineAsyncComponent(() => import(`./${current.name}.vue`)),
+  }
+  return result
+}, {})
 
-const theme = {
-  dark: {
-    class: 'dark',
-  },
-  light: {
-    class: 'light',
-  },
-  punk: {
-    class: 'punk',
-  },
-}
+// 主题处理
+const theme = themeList.reduce((result, current, index, source) => {
+  result[current.name] = {
+    name: current.name,
+    next: source[index + 1] ? source[index + 1].name : source[0].name,
+    icon: defineAsyncComponent(() => import(`@/assets/theme/${current.name}.svg`)),
+    component: defineAsyncComponent(() => import(`./${current.name}.vue`)),
+  }
+  return result
+}, {})
 
+// 存储数据
 const store = storage(
   {
     top: false, // 置顶
     layout: layout.maco.name, // 布局
-    theme: theme.dark.class, // 主题
+    theme: theme.dark.name, // 主题
   },
   {
     top: (val) => {
