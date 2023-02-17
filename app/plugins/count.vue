@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-04 13:25:43
+ * @LastEditTime: 2023-02-10 22:53:05
  * @Description: count 计数器
 -->
 <template>
   <!-- 设置 -->
   <Setting size="small" :store="store" :setting="setting" />
   <!-- 页面内容 -->
-  <article class="flex-col-center space-y-2">
+  <article class="flex-col-center gap-2">
     <h1 class="text-intro">计数器</h1>
     <p class="text-light text-5xl">{{ store.count }}</p>
     <p class="space-x-4 pt-2">
@@ -26,8 +26,8 @@ import { reactive } from 'vue'
 
 import { storage } from '~/storage'
 
-import AddSVG from '@/assets/count/add.svg'
-import SubSVG from '@/assets/count/sub.svg'
+import AddSVG from '@/assets/plugin/count/add.svg'
+import SubSVG from '@/assets/plugin/count/sub.svg'
 import Setting from '@/components/setting.vue'
 
 export default {

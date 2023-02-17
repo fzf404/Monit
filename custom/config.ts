@@ -2,20 +2,29 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-10 18:25:55
+ * @LastEditTime: 2023-02-08 16:23:22
  * @Description: plugin 配置
  */
-interface pluginList {
+
+interface plugin {
   name: string
   size: number[]
   description: string
   debug?: boolean
 }
 
-/**
- * @description: 插件列表
- */
-const plugin: pluginList[] = [
+interface layout {
+  name: string
+  debug?: boolean
+}
+
+interface theme {
+  name: string
+  debug?: boolean
+}
+
+// 插件列表
+const plugins: plugin[] = [
   { name: 'github', size: [4, 2], description: '监控' },
   { name: 'juejin', size: [4, 3], description: '监控' },
   { name: 'music', size: [4, 2], description: '音乐' },
@@ -26,11 +35,22 @@ const plugin: pluginList[] = [
   { name: 'welcome', size: [2, 2], description: '欢迎' },
   { name: 'count', size: [2, 2], description: '计数器' },
   { name: 'config', size: [2, 3], description: '设置' },
-  // debug 不会被打包
   { name: 'weather', size: [4, 2], description: '天气', debug: true },
-  { name: 'live2d', size: [4, 3], description: '角色跟踪', debug: true },
+  { name: 'live2d', size: [4, 3], description: '跟踪', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true },
 ]
 
-// 生产模式不开启 debug 插件
-export const pluginList = plugin.filter(({ debug }) => process.env.NODE_ENV === 'development' || !debug)
+// 布局列表
+const layouts: layout[] = [{ name: 'maco' }, { name: 'wine' }]
+
+// 主题列表
+const themes: theme[] = [{ name: 'dark' }, { name: 'light' }, { name: 'punk' }]
+
+// 调试过滤
+const debugFilter = (list: any) => {
+  return list.filter(({ debug }: any) => process.env.NODE_ENV === 'development' || !debug)
+}
+
+export const pluginList = debugFilter(plugins)
+export const layoutList = debugFilter(layouts)
+export const themeList = debugFilter(themes)

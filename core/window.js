@@ -9,7 +9,7 @@
 import { BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
-import { pluginList } from '#/plugin'
+import { pluginList } from '#/config'
 import { cget } from '~/storage'
 import { initWinEvent } from './utils'
 

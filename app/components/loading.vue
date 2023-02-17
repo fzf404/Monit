@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-09-28 17:05:18
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-04 13:15:45
+ * @LastEditTime: 2023-02-10 22:49:51
  * @Description: loading 组件
 -->
 <template>
-  <section v-show="show" class="flex-col-center modal z-30 space-y-2">
+  <section v-show="show" class="flex-col-center modal z-30 gap-2">
     <!-- 加载动画 -->
     <LoadSVG class="text-light load-rotating w-16" />
     <!-- 备注 -->

@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 16:56:22
+ * @LastEditTime: 2023-02-10 22:59:23
  * @Description: juejin 信息监控
 -->
 <template>
@@ -115,13 +115,10 @@
       </p>
     </section>
     <!-- 文章 -->
-    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-1">
-      <p
-        v-for="item in store.article"
-        class="flex-row-center clickable space-x-1 space-y-3"
-        @click="openArticle(item.id)">
+    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-4 gap-3">
+      <p v-for="item in store.article" class="flex-row-center clickable gap-2" @click="openArticle(item.id)">
         <!-- 文章图标 -->
-        <ArticleSVG class="mt-3 h-4 text-blue-400" />
+        <ArticleSVG class="h-4 text-blue-400" />
         <!-- 文章名 -->
         <span class="text-intro whitespace-nowrap">
           {{ item.title }}
@@ -143,12 +140,12 @@ import { main } from '@/pinia'
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
 
-import ArticleSVG from '@/assets/juejin/article.svg'
-import FollowerSVG from '@/assets/juejin/follower.svg'
-import JuejinSVG from '@/assets/juejin/juejin.svg'
-import LikeSVG from '@/assets/juejin/like.svg'
-import PowerSVG from '@/assets/juejin/power.svg'
-import ViewSVG from '@/assets/juejin/view.svg'
+import ArticleSVG from '@/assets/plugin/juejin/article.svg'
+import FollowerSVG from '@/assets/plugin/juejin/follower.svg'
+import JuejinSVG from '@/assets/plugin/juejin/juejin.svg'
+import LikeSVG from '@/assets/plugin/juejin/like.svg'
+import PowerSVG from '@/assets/plugin/juejin/power.svg'
+import ViewSVG from '@/assets/plugin/juejin/view.svg'
 
 // 初始化 axios
 const request = axios('https://api.juejin.cn/')

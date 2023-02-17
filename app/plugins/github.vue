@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-28 16:57:04
+ * @LastEditTime: 2023-02-10 22:59:49
  * @Description: github 信息监控
 -->
 <template>
@@ -36,10 +36,10 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-scroll col-span-5 row-span-5 mt-1">
-      <p v-for="item in store.repo" class="flex-row-center clickable space-x-1 space-y-1" @click="openRepo(item.repo)">
+    <section class="flex-scroll col-span-5 row-span-5 mt-2 gap-1">
+      <p v-for="item in store.repo" class="flex-row-center clickable gap-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
-        <RepoSVG class="mt-1 h-4 text-green-400" />
+        <RepoSVG class="h-4 text-green-400" />
         <span class="text-light text-sm">
           {{ item.star }}
         </span>
@@ -108,10 +108,10 @@ import { main } from '@/pinia'
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
 
-import ForkSVG from '@/assets/github/fork.svg'
-import GihubSVG from '@/assets/github/github.svg'
-import RepoSVG from '@/assets/github/repo.svg'
-import StarSVG from '@/assets/github/star.svg'
+import ForkSVG from '@/assets/plugin/github/fork.svg'
+import GihubSVG from '@/assets/plugin/github/github.svg'
+import RepoSVG from '@/assets/plugin/github/repo.svg'
+import StarSVG from '@/assets/plugin/github/star.svg'
 
 // 初始化 axios
 const request = axios('https://api.github.com')

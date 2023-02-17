@@ -30,9 +30,9 @@ import draggable from 'vuedraggable'
 
 import { storage } from '~/storage'
 
-import AddSVG from '@/assets/todo/add.svg'
-import DeleteSVG from '@/assets/todo/delete.svg'
-import MoveSVG from '@/assets/todo/move.svg'
+import AddSVG from '@/assets/plugin/todo/add.svg'
+import DeleteSVG from '@/assets/plugin/todo/delete.svg'
+import MoveSVG from '@/assets/plugin/todo/move.svg'
 
 // 新增 todo 信息
 const todo = ref('')

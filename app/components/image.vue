@@ -2,11 +2,11 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-04 13:07:13
+ * @LastEditTime: 2023-02-10 22:49:05
  * @Description: iamge 组件
 -->
 <template>
-  <section v-show="show" class="flex-col-center modal z-30 space-y-2">
+  <section v-show="show" class="flex-col-center modal z-30 gap-2">
     <!-- 图像 -->
     <img class="h-2/3" :src="image" alt="图像" />
     <!-- 备注 -->

@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-10-27 19:17:12
  * @Description: router 配置
  */
-import { pluginList } from '#/plugin'
+import { pluginList } from '#/config'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // 自动生成 router

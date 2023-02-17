@@ -76,9 +76,9 @@ import { storage } from '~/storage'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-import CameraSVG from '@/assets/camera/camera.svg'
-import OffSVG from '@/assets/camera/off.svg'
-import VideoSVG from '@/assets/camera/video.svg'
+import CameraSVG from '@/assets/plugin/camera/camera.svg'
+import OffSVG from '@/assets/plugin/camera/off.svg'
+import VideoSVG from '@/assets/plugin/camera/video.svg'
 
 // 标签引用
 const video = ref(null)

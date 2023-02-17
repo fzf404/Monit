@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-27 15:54:01
+ * @LastEditTime: 2023-02-08 14:10:46
  * @Description: event 处理
  */
 
@@ -25,7 +25,7 @@ const restartApp = () => {
 // 重置应用
 const resetApp = () => {
   store.clear()
-  quitApp()
+  resetApp()
 }
 
 // 获取窗口
@@ -71,6 +71,13 @@ export const initIPC = () => {
   ipcMain.on('win-close', (event) => {
     const win = getWindow(event)
     win.close()
+  })
+
+  // 重启窗口
+  ipcMain.on('win-reload', (event) => {
+    const win = getWindow(event)
+    win.close()
+    createWindow(win.title)
   })
 
   // 最小化窗口

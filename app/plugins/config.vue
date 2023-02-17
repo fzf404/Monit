@@ -68,7 +68,7 @@ import { reactive } from 'vue'
 import pkg from 'root/package.json'
 
 import { sendEvent } from '#/ipc'
-import { pluginList } from '#/plugin'
+import { pluginList } from '#/config'
 import { storage } from '~/storage'
 
 import Setting from '@/components/setting.vue'

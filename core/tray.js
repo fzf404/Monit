@@ -7,7 +7,7 @@
  */
 import { app, Menu, shell, Tray } from 'electron'
 
-import { pluginList } from '#/plugin'
+import { pluginList } from '#/config'
 import { cget, cset, store } from '~/storage'
 import { createWindow } from './window'
 
