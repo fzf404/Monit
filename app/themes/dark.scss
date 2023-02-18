@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-19 15:15:03
+ * @LastEditTime: 2023-02-10 00:01:33
  * @Description: dark 黑夜主题
  */
 
@@ -11,7 +11,7 @@
  */
 
 #app {
-  @apply bg-black bg-opacity-50;
+  @apply bg-gray-900 bg-opacity-40;
 }
 
 /*
@@ -23,20 +23,20 @@
 }
 
 .text-gray {
-  @apply text-gray-400;
+  @apply text-gray-300;
 }
 
-.text-deep {
-  @apply text-gray-700;
+.text-dark {
+  @apply text-gray-600;
+}
+
+.text-theme {
+  @apply text-pink-400;
 }
 
 /*
  * 背景
  */
-
-.text-theme {
-  @apply text-pink-400;
-}
 
 .bg-theme {
   @apply bg-purple-400;
@@ -51,7 +51,7 @@
  */
 
 .modal {
-  @apply bg-black bg-opacity-50;
+  @apply bg-gray-900 bg-opacity-40;
 }
 
 /*

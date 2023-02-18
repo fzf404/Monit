@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-15 19:34:53
+ * @LastEditTime: 2023-02-10 22:44:40
  * @Description: light 明亮主题
  */
 
@@ -11,7 +11,7 @@
  */
 
 #app {
-  @apply bg-gray-300 bg-opacity-50;
+  @apply bg-gray-300 bg-opacity-40;
 }
 
 /*
@@ -23,20 +23,20 @@
 }
 
 .text-gray {
-  @apply text-gray-300;
+  @apply text-gray-200;
 }
 
-.text-deep {
+.text-dark {
   @apply text-gray-500;
+}
+
+.text-theme {
+  @apply text-sky-400;
 }
 
 /*
  * 背景
  */
-
-.text-theme {
-  @apply text-sky-400;
-}
 
 .bg-theme {
   @apply bg-blue-400;
@@ -51,7 +51,7 @@
  */
 
 .modal {
-  @apply bg-gray-500 bg-opacity-50;
+  @apply bg-gray-300 bg-opacity-40;
 }
 
 /*

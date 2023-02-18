@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-15 19:47:42
+ * @LastEditTime: 2023-02-10 00:01:50
  * @Description: punk 赛博主题
  */
 
@@ -11,7 +11,7 @@
  */
 
 #app {
-  @apply bg-indigo-700 bg-opacity-50;
+  @apply bg-indigo-600 bg-opacity-40;
 }
 
 /*
@@ -26,17 +26,17 @@
   @apply text-amber-300;
 }
 
-.text-deep {
+.text-dark {
   @apply text-indigo-600;
+}
+
+.text-theme {
+  @apply text-red-400;
 }
 
 /*
  * 主题
  */
-
-.text-theme {
-  @apply text-red-400;
-}
 
 .bg-theme {
   @apply bg-orange-400;
@@ -51,7 +51,7 @@
  */
 
 .modal {
-  @apply bg-indigo-800 bg-opacity-50;
+  @apply bg-indigo-600 bg-opacity-40;
 }
 
 /*
