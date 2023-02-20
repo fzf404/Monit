@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-09 23:37:40
+ * @LastEditTime: 2023-02-19 14:33:48
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -30,6 +30,7 @@
       <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
+    <!-- TODO 当前播放歌曲 -->
     <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
