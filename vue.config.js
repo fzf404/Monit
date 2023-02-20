@@ -15,8 +15,8 @@ const config = {
       .set('@', resolve('app'))
       .set('~', resolve('lib'))
       .set('#', resolve('custom'))
-      .set('root', resolve('./'))
       .set('core', resolve('core'))
+      .set('root', resolve('./'))
     // svg 加载
     config.module.rule('svg').delete('type').use('svg-vue3-loader').loader('svg-vue3-loader')
   },
@@ -39,8 +39,8 @@ const config = {
           .set('@', resolve('app'))
           .set('~', resolve('lib'))
           .set('#', resolve('custom'))
-          .set('root', resolve('./'))
           .set('core', resolve('core'))
+          .set('root', resolve('./'))
       },
       // 构建选项
       builderOptions: {
