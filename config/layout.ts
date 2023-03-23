@@ -2,11 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-27 14:03:11
+ * @LastEditTime: 2023-03-15 18:14:21
  * @Description: plugin 配置
  */
-
-import { debugFilter } from './config'
+import { debugFilter } from './utils'
 
 // 布局配置
 interface layout {
@@ -15,6 +14,4 @@ interface layout {
 }
 
 // 布局列表
-const layouts: layout[] = [{ name: 'maco' }, { name: 'wine' }]
-
-export const layoutList = debugFilter(layouts)
+export const layoutList: layout[] = debugFilter([{ name: 'maco' }, { name: 'wine' }])
