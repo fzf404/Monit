@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:59:23
+ * @LastEditTime: 2023-03-15 16:21:50
  * @Description: juejin 信息监控
 -->
 <template>
@@ -28,7 +28,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower,
+            'text-gray': store.follower == follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -51,7 +51,7 @@
           :class="{
             'text-green-400': store.power < power,
             'text-red-400': store.power > power,
-            'text-gray': store.power == power,
+            'text-gray': store.power == power
           }"
           @click="updatePower">
           {{ powerChange }}
@@ -74,7 +74,7 @@
           :class="{
             'text-green-400': store.like < like,
             'text-red-400': store.like > like,
-            'text-gray': store.like == like,
+            'text-gray': store.like == like
           }"
           @click="updatelike">
           {{ likeChange }}
@@ -97,7 +97,7 @@
           :class="{
             'text-green-400': store.view < view,
             'text-red-400': store.view > view,
-            'text-gray': store.view == view,
+            'text-gray': store.view == view
           }"
           @click="updateView">
           {{ viewChange }}
@@ -131,9 +131,9 @@
 <script>
 import { reactive } from 'vue'
 
-import axios from '~/request'
-import { storage } from '~/storage'
-import { openURL, sendAlert, sendNotice } from '#/ipc'
+import axios from '~/lib/request'
+import { storage } from '~/lib/storage'
+import { openURL, sendAlert, sendNotice } from '~/server/send'
 
 import { main } from '@/pinia'
 
@@ -159,7 +159,7 @@ export default {
     FollowerSVG,
     ViewSVG,
     LikeSVG,
-    Setting,
+    Setting
   },
   setup() {
     // 存储数据
@@ -173,7 +173,7 @@ export default {
       power: 0, // 掘力值
       follower: 0, // 关注数
 
-      article: [], // 文章列表
+      article: [] // 文章列表
     })
 
     // 设置值
@@ -181,14 +181,14 @@ export default {
       {
         id: 'notice',
         label: '消息通知',
-        type: 'checkbox',
+        type: 'checkbox'
       },
       {
         id: 'user',
         label: '用户ID',
         type: 'text',
-        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控',
-      },
+        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控'
+      }
     ])
 
     return { store, setting }
@@ -201,7 +201,7 @@ export default {
       view: this.store.view, // 当前阅读数
       power: this.store.power, // 当前掘力值
 
-      article: this.store.article, // 当前文章信息
+      article: this.store.article // 当前文章信息
     }
   },
   created() {
@@ -270,7 +270,7 @@ export default {
       } else {
         return changeNum
       }
-    },
+    }
   },
   methods: {
     //  初始化数据函数
@@ -317,7 +317,7 @@ export default {
       const { data: list } = await request.post(`content_api/v1/article/query_list`, {
         cursor: '0',
         sort_type: 2,
-        user_id: this.store.user,
+        user_id: this.store.user
       })
 
       // 处理文章信息
@@ -350,7 +350,7 @@ export default {
     // 打开文章
     openArticle(id) {
       openURL(`https://juejin.cn/post/${id}`)
-    },
-  },
+    }
+  }
 }
 </script>

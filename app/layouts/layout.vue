@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-08 16:23:41
+ * @LastEditTime: 2023-03-15 18:50:41
  * @Description: 布局切换
 -->
+
 <template>
   <!-- 布局 -->
   <transition name="fade" mode="out-in">
@@ -18,12 +19,12 @@
 </template>
 
 <script setup>
-import { onMounted, defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, onMounted } from 'vue'
 
-import { sendEvent } from '#/ipc'
-import { storage } from '~/storage'
-
-import { layoutList, themeList } from '#/config'
+import { layoutList } from '~/config/layout'
+import { themeList } from '~/config/theme'
+import { storage } from '~/lib/storage'
+import { sendEvent } from '~/server/send'
 
 // 布局处理
 const layout = layoutList.reduce((result, current, index, source) => {
@@ -31,7 +32,7 @@ const layout = layoutList.reduce((result, current, index, source) => {
     name: current.name,
     next: source[index + 1] ? source[index + 1].name : source[0].name,
     icon: defineAsyncComponent(() => import(`@/assets/layout/${current.name}.svg`)),
-    component: defineAsyncComponent(() => import(`./${current.name}.vue`)),
+    component: defineAsyncComponent(() => import(`./${current.name}.vue`))
   }
   return result
 }, {})
@@ -42,7 +43,7 @@ const theme = themeList.reduce((result, current, index, source) => {
     name: current.name,
     next: source[index + 1] ? source[index + 1].name : source[0].name,
     icon: defineAsyncComponent(() => import(`@/assets/theme/${current.name}.svg`)),
-    component: defineAsyncComponent(() => import(`./${current.name}.vue`)),
+    component: defineAsyncComponent(() => import(`./${current.name}.vue`))
   }
   return result
 }, {})
@@ -52,7 +53,7 @@ const store = storage(
   {
     top: false, // 置顶
     layout: layout.maco.name, // 布局
-    theme: theme.dark.name, // 主题
+    theme: theme.dark.name // 主题
   },
   {
     top: (val) => {
@@ -60,7 +61,7 @@ const store = storage(
     },
     theme: (val) => {
       document.body.setAttribute('class', val)
-    },
+    }
   }
 )
 

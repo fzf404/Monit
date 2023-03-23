@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:49:05
+ * @LastEditTime: 2023-03-15 15:41:59
  * @Description: iamge 组件
 -->
+
 <template>
   <section v-show="show" class="flex-col-center modal z-30 gap-2">
     <!-- 图像 -->
@@ -16,12 +17,13 @@
 
 <script setup lang="ts">
 interface Props {
-  image: string
   show?: boolean
+  image?: string
   remark?: string
 }
 withDefaults(defineProps<Props>(), {
   show: true,
-  remark: '',
+  image: 'https://img.fzf404.art/Monit/qrcode.webp',
+  remark: '请扫码打开 Monit 官网！'
 })
 </script>

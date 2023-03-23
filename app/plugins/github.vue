@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:59:49
+ * @LastEditTime: 2023-03-15 16:39:34
  * @Description: github 信息监控
 -->
 <template>
@@ -28,7 +28,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower,
+            'text-gray': store.follower == follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -62,7 +62,7 @@
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
-            'text-gray': store.star == star,
+            'text-gray': store.star == star
           }"
           @click="updateStar">
           {{ starChange }}
@@ -85,7 +85,7 @@
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,
-            'text-gray': store.fork == fork,
+            'text-gray': store.fork == fork
           }"
           @click="updateFork">
           {{ forkChange }}
@@ -98,10 +98,10 @@
 <script>
 import { reactive } from 'vue'
 
-import { openURL, sendAlert, sendNotice } from '#/ipc'
-import axios from '~/request'
-import { getArrDiffKey } from '~/statistic'
-import { storage } from '~/storage'
+import axios from '~/lib/request'
+import { getArrDiffKey } from '~/lib/statistic'
+import { storage } from '~/lib/storage'
+import { openURL, sendAlert, sendNotice } from '~/server/send'
 
 import { main } from '@/pinia'
 
@@ -123,7 +123,7 @@ export default {
     StarSVG,
     ForkSVG,
     RepoSVG,
-    Setting,
+    Setting
   },
   setup() {
     // 存储数据
@@ -135,20 +135,20 @@ export default {
       fork: 0, // fork 数
       follower: 0, // follower 数
 
-      repo: [], // repo 列表
+      repo: [] // repo 列表
     })
     // 设置项
     const setting = reactive([
       {
         id: 'notice',
         label: '消息通知',
-        type: 'checkbox',
+        type: 'checkbox'
       },
       {
         id: 'user',
         label: '用户名',
-        type: 'text',
-      },
+        type: 'text'
+      }
     ])
     return { store, setting }
   },
@@ -159,7 +159,7 @@ export default {
       star: this.store.star, // 当前 star 数
       fork: this.store.fork, // 当前 fork 数
 
-      repo: this.store.repo, // 当前 repo 信息
+      repo: this.store.repo // 当前 repo 信息
     }
   },
   created() {
@@ -217,7 +217,7 @@ export default {
       } else {
         return changeNum
       }
-    },
+    }
   },
   methods: {
     // 初始化数据
@@ -325,7 +325,7 @@ export default {
     // 打开 repo
     openRepo(repo) {
       openURL(`https://github.com/${this.store.user}/${repo}`)
-    },
-  },
+    }
+  }
 }
 </script>

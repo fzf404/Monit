@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-03 15:58:40
+ * @LastEditTime: 2023-03-15 16:04:41
  * @Description: camera 相机监控
 -->
 <template>
@@ -68,17 +68,16 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
-import { sendAlert, getMediaPermission, requestMediaPermission } from '#/ipc'
-import { getCameraList, initCamera, recordVideo, takePhoto } from '~/camera'
-import { initHolistic } from '~/holistic'
-import { storage } from '~/storage'
-
-import Loading from '@/components/loading.vue'
-import Setting from '@/components/setting.vue'
+import { getCameraList, initCamera, recordVideo, takePhoto } from '~/lib/camera'
+import { initHolistic } from '~/lib/holistic'
+import { storage } from '~/lib/storage'
+import { getMediaPermission, requestMediaPermission, sendAlert } from '~/server/send'
 
 import CameraSVG from '@/assets/plugin/camera/camera.svg'
 import OffSVG from '@/assets/plugin/camera/off.svg'
 import VideoSVG from '@/assets/plugin/camera/video.svg'
+import Loading from '@/components/loading.vue'
+import Setting from '@/components/setting.vue'
 
 // 标签引用
 const video = ref(null)
@@ -89,7 +88,7 @@ const record = ref(null)
 const state = reactive({
   stream: null, // 媒体流
   loading: true, // 加载状态
-  recorder: null, // 录像状态
+  recorder: null // 录像状态
 })
 
 // 存储数据
@@ -98,7 +97,7 @@ const store = storage(
     camera: null, // 设备ID
     mirror: true, // 镜像
     control: true, // 控制器
-    holistic: true, // 角色跟踪
+    holistic: true // 角色跟踪
   },
   {
     // 角色跟踪修改
@@ -108,7 +107,7 @@ const store = storage(
     // 相机修改
     camera: (val) => {
       store.holistic ? window.location.reload() : initCamera(val, video.value)
-    },
+    }
   }
 )
 
@@ -117,18 +116,18 @@ const setting = [
   {
     id: 'mirror',
     label: '镜像',
-    type: 'checkbox',
+    type: 'checkbox'
   },
   {
     id: 'control',
     label: '控制器',
-    type: 'checkbox',
+    type: 'checkbox'
   },
   {
     id: 'holistic',
     label: '角色跟踪',
-    type: 'checkbox',
-  },
+    type: 'checkbox'
+  }
 ]
 
 onMounted(async () => {
@@ -165,8 +164,8 @@ onMounted(async () => {
     type: 'select',
     options: devices.map((device) => ({
       label: device.label.slice(0, 22),
-      value: device.deviceId,
-    })),
+      value: device.deviceId
+    }))
   })
 
   // 初始化设备ID

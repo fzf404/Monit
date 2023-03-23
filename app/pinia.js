@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-21 00:41:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-10-31 13:41:11
+ * @LastEditTime: 2023-02-27 13:22:11
  * @Description: store 状态管理
  */
 import { defineStore } from 'pinia'
@@ -13,14 +13,14 @@ export const main = defineStore('main', {
       network: true, // 网络状态
       setting: {
         has: false, // 存在设置
-        show: false, // 显示设置
-      },
+        show: false // 显示设置
+      }
     }
   },
   getters: {
     hasNetwork: (state) => state.network,
     hasSetting: (state) => state.setting.has,
-    showSetting: (state) => state.setting.show,
+    showSetting: (state) => state.setting.show
   },
   actions: {
     // 网络在线
@@ -46,6 +46,6 @@ export const main = defineStore('main', {
     // 翻转设置
     toggleSetting() {
       this.setting.show = !this.setting.show
-    },
-  },
+    }
+  }
 })

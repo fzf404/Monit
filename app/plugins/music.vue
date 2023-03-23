@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-19 14:33:48
+ * @LastEditTime: 2023-03-15 16:22:36
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -85,9 +85,9 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 
-import { sendAlert } from '#/ipc'
-import axios from '~/request'
-import { storage } from '~/storage'
+import axios from '~/lib/request'
+import { storage } from '~/lib/storage'
+import { sendAlert } from '~/server/send'
 
 import { main } from '@/pinia'
 
@@ -123,14 +123,14 @@ const state = reactive({
   // 登陆状态
   login: {
     show: false,
-    qrcode: '',
+    qrcode: ''
   },
   // 音乐控制器
   control: {
     current: '0:00',
     duration: '0:00',
-    process: null,
-  },
+    process: null
+  }
 })
 
 // 存储数据
@@ -147,9 +147,9 @@ const store = storage(
         url: null,
         title: null,
         author: null,
-        image: null,
-      },
-    ],
+        image: null
+      }
+    ]
   },
   {
     // 接口地址修改
@@ -162,7 +162,7 @@ const store = storage(
       await loadMusic()
       // 播放音乐
       await playMusic()
-    },
+    }
   }
 )
 
@@ -214,16 +214,16 @@ const setting = reactive([
     id: 'url',
     label: '请求地址',
     type: 'text',
-    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
+    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐'
   },
   {
     label: '登陆账号',
     type: 'button',
     options: {
       text: '登 陆',
-      click: login,
-    },
-  },
+      click: login
+    }
+  }
 ])
 
 // 登陆状态验证
@@ -249,8 +249,8 @@ const getUser = async () => {
       type: 'select',
       options: playlist.map((item) => ({
         label: item.name,
-        value: item.id,
-      })),
+        value: item.id
+      }))
     })
   }
 }
@@ -272,7 +272,7 @@ const getPlayList = async () => {
       id: item.id,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
-      image: item.al.picUrl + '?param=100y100',
+      image: item.al.picUrl + '?param=100y100'
     }
   })
 
@@ -318,7 +318,7 @@ const getMusicDuration = () => {
   state.control = {
     current: '0:00',
     duration: durationMinutes + ':' + durationSeconds,
-    process: 0,
+    process: 0
   }
 }
 

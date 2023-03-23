@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-04 13:25:34
+ * @LastEditTime: 2023-03-15 16:55:35
  * @Description: config 应用配置
 -->
 <template>
@@ -65,30 +65,29 @@
 <script setup>
 import { reactive } from 'vue'
 
-import pkg from 'root/package.json'
-
-import { sendEvent } from '#/ipc'
-import { pluginList } from '#/config'
-import { storage } from '~/storage'
+import pkg from '~/package.json'
+import { pluginList } from '~/config/plugin'
+import { storage } from '~/lib/storage'
+import { sendEvent } from '~/server/send'
 
 import Setting from '@/components/setting.vue'
 
 // 状态信息
 const state = reactive({
-  auto: true,
+  auto: true
 })
 
 // 存储数据
 const store = storage(
   {
     auto: false,
-    open: [],
+    open: []
   },
   // 自启修改
   {
     auto: (val) => {
-      sendEvent('app-auto', val)
-    },
+      sendEvent('app-boot', val)
+    }
   }
 )
 
@@ -97,7 +96,7 @@ const setting = reactive([
   {
     id: 'auto',
     label: '开机自启',
-    type: 'checkbox',
+    type: 'checkbox'
   },
   {
     id: 'restart',
@@ -107,8 +106,8 @@ const setting = reactive([
       text: '〇',
       click: () => {
         sendEvent('app-restart')
-      },
-    },
+      }
+    }
   },
   {
     id: 'reset',
@@ -118,8 +117,8 @@ const setting = reactive([
       text: '✕',
       click: () => {
         sendEvent('app-reset')
-      },
-    },
-  },
+      }
+    }
+  }
 ])
 </script>

@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-09-28 17:05:18
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:49:51
+ * @LastEditTime: 2023-03-15 15:41:48
  * @Description: loading 组件
 -->
+
 <template>
   <section v-show="show" class="flex-col-center modal z-30 gap-2">
     <!-- 加载动画 -->
@@ -19,12 +20,12 @@
 import LoadSVG from '@/assets/layout/load.svg'
 
 interface Props {
-  remark?: string | string[]
   show?: boolean
+  remark?: string | string[]
 }
 
 withDefaults(defineProps<Props>(), {
-  remark: '加载中...',
   show: true,
+  remark: '加载中...'
 })
 </script>

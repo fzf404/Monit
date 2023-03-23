@@ -5,6 +5,7 @@
  * @LastEditTime: 2022-11-09 18:31:42
  * @Description: image 图像展示
 -->
+
 <template>
   <!-- 设置-->
   <Setting :store="store" :setting="setting" />
@@ -18,14 +19,14 @@
 <script setup>
 import { reactive } from 'vue'
 
-import { callEvent } from '#/ipc'
-import { storage } from '~/storage'
+import { storage } from '~/lib/storage'
+import { callEvent } from '~/server/send'
 
 import Setting from '@/components/setting.vue'
 
 // 存储数据
 const store = storage({
-  src: 'https://img.fzf404.art/Monit/logo.webp',
+  src: 'https://img.fzf404.art/Monit/logo.webp'
 })
 
 // 打开本地图像
@@ -41,15 +42,15 @@ const setting = reactive([
   {
     id: 'src',
     label: '图像链接',
-    type: 'text',
+    type: 'text'
   },
   {
     label: '本地图像',
     type: 'button',
     options: {
       text: '浏 览',
-      click: openLocalImage,
-    },
-  },
+      click: openLocalImage
+    }
+  }
 ])
 </script>

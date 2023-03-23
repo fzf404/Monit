@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:25:02
+ * @LastEditTime: 2023-03-23 20:41:25
  * @Description: maco 布局
 -->
+
 <template>
   <nav class="z-50">
     <!-- 窗口控制器 -->
@@ -26,7 +27,8 @@
     <!-- 状态控制器 -->
     <ul class="absolute right-2 space-x-1">
       <!-- 断网提示 -->
-      <WifiSVG v-show="pinia.hasNetwork" class="btn-svg w-4 text-red-400 hover:text-red-500" />
+      <!-- <WifiSVG v-show="pinia.hasNetwork" class="btn-svg w-4 text-red-400 hover:text-red-500" /> -->
+      <WifiSVG v-show="!pinia.hasNetwork" class="btn-svg w-4 text-red-400 hover:text-red-500" />
       <!-- 布局 -->
       <component
         :is="layout.icon"
@@ -39,7 +41,7 @@
         :class="{
           'text-indigo-400 hover:text-indigo-500': theme.name == 'dark',
           'text-orange-400 hover:text-orange-500': theme.name == 'light',
-          'text-yellow-400 hover:text-yellow-500': theme.name == 'punk',
+          'text-yellow-400 hover:text-yellow-500': theme.name == 'punk'
         }"
         @click="store.theme = theme.next" />
       <!-- 设置 -->
@@ -52,15 +54,14 @@
 </template>
 
 <script setup>
-import { sendEvent } from '#/ipc'
+import { sendEvent } from '~/server/send'
 
 import { main } from '@/pinia'
 
 import CloseSVG from '@/assets/layout/close.svg'
 import MiniSVG from '@/assets/layout/mini.svg'
-import UpSVG from '@/assets/layout/up.svg'
-
 import SettingSVG from '@/assets/layout/setting.svg'
+import UpSVG from '@/assets/layout/up.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
 // 初始化 pinia

@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-14 23:56:17
+ * @LastEditTime: 2023-03-15 15:42:04
  * @Description: setting 组件
 -->
+
 <template>
   <transition name="fade" mode="out-in">
     <aside class="flex-col-center modal setting z-40" v-show="pinia.showSetting">
@@ -79,7 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import { openURL } from '#/ipc'
+import { openURL } from '~/server/send'
+
 import { main } from '@/pinia'
 
 import HelpSVG from '@/assets/plugin/setting/help.svg'
@@ -124,7 +126,7 @@ interface Props {
 
 // 初始化参数
 withDefaults(defineProps<Props>(), {
-  size: 'normal',
+  size: 'normal'
 })
 
 // 初始化方法
