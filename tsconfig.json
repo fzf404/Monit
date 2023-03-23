@@ -11,15 +11,12 @@
     "outDir": "release",
     "moduleResolution": "Node",
     "paths": {
-      "@/*": ["app/*"],
-      "#/*": ["custom/*"],
-      "~/*": ["lib/*"],
-      "root": ["./*"],
-      "core": ["core/*"]
+      "~/*": ["./*"],
+      "@/*": ["app/*"]
     }
   },
-  "include": ["app/**/*.vue", "custom/*.ts", "lib/*.ts", "custom.d.ts"],
   "exclude": ["node_modules"],
+  "include": ["app/**/*.vue", "config/*.ts", "lib/*.ts", "server/*.ts", "custom.d.ts"],
   "vueCompilerOptions": {
     "plugins": ["@volar/vue-language-plugin-pug"]
   }
