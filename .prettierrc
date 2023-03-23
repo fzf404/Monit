@@ -4,5 +4,6 @@
   "printWidth": 120,
   "singleQuote": true,
   "bracketSameLine": true,
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-css-order", "@prettier/plugin-pug"]
+  "trailingComma": "none",
+  "plugins": ["@prettier/plugin-pug", "prettier-plugin-css-order", "prettier-plugin-tailwindcss"]
 }
