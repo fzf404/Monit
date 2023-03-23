@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-27 16:26:20
+ * @LastEditTime: 2023-03-11 16:35:56
  * @Description: camera 工具
  */
 
@@ -27,8 +27,8 @@ export const initCamera = async (deviceId: string, video: HTMLVideoElement): Pro
   // 获取媒体流
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
-      deviceId: deviceId,
-    },
+      deviceId: deviceId
+    }
   })
   // 验证媒体流
   if (!stream) throw new Error('stream is null')
@@ -44,11 +44,7 @@ export const initCamera = async (deviceId: string, video: HTMLVideoElement): Pro
  * @param { HTMLCanvasElement } canvas 元素
  * @param { HTMLAnchorElement } record 元素
  */
-export const takePhoto = (
-  video: HTMLVideoElement,
-  canvas: HTMLCanvasElement,
-  record: HTMLAnchorElement
-): Promise<void> => {
+export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, record: HTMLAnchorElement) => {
   // 设置画布信息
   canvas.width = video.videoWidth
   canvas.height = video.videoHeight
@@ -68,7 +64,6 @@ export const takePhoto = (
 
   // 清空画布
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  return Promise.resolve()
 }
 
 /**
@@ -81,9 +76,9 @@ export const recordVideo = async (deviceId: string, record: HTMLAnchorElement): 
   // 获取相机
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
-      deviceId: deviceId,
+      deviceId: deviceId
     },
-    audio: true,
+    audio: true
   })
 
   // 验证媒体流

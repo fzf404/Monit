@@ -2,29 +2,43 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 17:03:10
+ * @LastEditTime: 2023-03-15 16:58:15
  * @Description: 存储配置
  */
+
 import Store from 'electron-store'
 
 import { reactive, watch } from 'vue'
 
-import { getValue, setValue } from '#/ipc'
+import { getValue, setValue } from '~/server/send'
 
 // 初始化 store
 export const store = new Store({
   // 版本更新初始化
   migrations: {
     '>=0.3.0': (store) => {
+      // 清空配置
       store.clear()
     },
     '>=0.7.0': (store) => {
+      // 判断配置
       if (store.has('_config')) {
+        // 复制配置
         store.set('config', store.get('_config'))
+        // 删除配置
         store.delete('_config')
       }
     },
-  },
+    '>=0.8.0': (store) => {
+      // 判断配置
+      if (store.has('config.open')) {
+        // 复制配置
+        store.set('config.boot', store.get('config.open'))
+        // 删除配置
+        store.delete('config.open')
+      }
+    }
+  }
 })
 
 /**
@@ -33,7 +47,7 @@ export const store = new Store({
  * @param { string } key 键名
  * @param { Object } value 值
  */
-export const cset = (node: string, key: string, value: Object): void => {
+export const set = (node: string, key: string, value: Object): void => {
   store.set(node + '.' + key, value) // 存储值
 }
 
@@ -44,8 +58,25 @@ export const cset = (node: string, key: string, value: Object): void => {
  * @param { Object } define 默认值
  * @return { Object } 值
  */
-export const cget = (node: string, key: string, define: Object): Object => {
-  return store.get(node + '.' + key) ?? define // 读取值
+export const get = (node: string, key: string, define: Object): Object => {
+  return store.get(node + '.' + key) ?? define // 获取值
+}
+
+/**
+ * @description: 删除值
+ * @param {string} node
+ * @return {*}
+ */
+export const remove = (node: string): void => {
+  store.delete(node)
+}
+
+/**
+ * @description: 清空值
+ * @return {*}
+ */
+export const clear = (): void => {
+  store.clear()
 }
 
 /**
