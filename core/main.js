@@ -2,15 +2,18 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 17:02:29
- * @Description: main 入口
+ * @LastEditTime: 2023-03-15 17:03:57
+ * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
 
-import { initIPC } from '#/event'
+import { initIPC } from '~/server/handle'
+
+import { initDevtools } from './devtool'
+import { initShortcut } from './shortcut'
 import { initTray } from './tray'
-import { ckeckUpdate, initDevtools, initShortcut } from './utils'
-import { createWindow, initWindow } from './window'
+import { checkUpdate } from './update'
+import { createWindow, initBootWindow } from './window'
 
 // 限制实例个数
 if (!app.requestSingleInstanceLock()) {
@@ -32,13 +35,13 @@ app.on('ready', () => {
   initDevtools()
 
   // 初始化自启动窗口
-  initWindow()
+  initBootWindow()
 
   // 初始化快捷键
   initShortcut()
 
   // 检查更新
-  ckeckUpdate()
+  checkUpdate()
 })
 
 // 激活窗口
