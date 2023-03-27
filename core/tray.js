@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 18:45:44
+ * @LastEditTime: 2023-03-27 18:09:46
  * @Description: tary 初始化
  */
 import { app, Menu, Tray } from 'electron'
@@ -10,7 +10,7 @@ import { app, Menu, Tray } from 'electron'
 import { pluginList } from '~/config/plugin'
 import { get, set } from '~/lib/storage'
 import { openURL, resetApp, restartApp } from '~/server/app'
-import { bootAllWin, createWin } from '~/server/window'
+import { bootWin, createWin } from '~/server/window'
 
 import { checkUpdate } from './update'
 
@@ -58,7 +58,7 @@ const initMenu = () => {
         // 全部自启
         {
           label: '全部自启',
-          click: () => bootAllWin(true)
+          click: () => bootWin(true)
         },
         // 分割线
         { type: 'separator' },

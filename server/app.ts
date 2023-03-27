@@ -35,12 +35,12 @@ export const bootApp = (state: boolean) => {
 }
 
 // 读取配置
-export const readValue = (name: string, key: string, define: string) => {
-  return get(name, key, JSON.parse(define))
+export const getValue = (name: string, key: string, defalut: string) => {
+  return get(name, key, JSON.parse(defalut))
 }
 
 // 保存配置
-export const saveValue = (name: string, key: string, value: string) => {
+export const setValue = (name: string, key: string, value: string) => {
   set(name, key, JSON.parse(value))
 }
 

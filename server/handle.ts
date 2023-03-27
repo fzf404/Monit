@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 22:18:15
+ * @LastEditTime: 2023-03-27 18:12:37
  * @Description: handle 处理
  */
 
 import { ipcMain } from 'electron'
 
-import { get, set } from '~/lib/storage'
-
 import { bootApp, judgeMediaAccess, openFile, openURL, quitApp, requestMediaAccess, resetApp, restartApp } from './app'
+
+import { getValue, setValue } from './app'
 
 import {
   closeWin,
@@ -93,11 +93,11 @@ export const initIPC = () => {
 
   // 保存值
   ipcMain.on('set-value', (event, key: string, value: string) => {
-    set(getWinTitle(event), key, JSON.parse(value))
+    setValue(getWinTitle(event), key, value)
   })
 
   ipcMain.on('get-value', (event, key: string, defalut: string) => {
-    event.returnValue = get(getWinTitle(event), key, JSON.parse(defalut))
+    event.returnValue = getValue(getWinTitle(event), key, defalut)
   })
 
   // 获取设备权限

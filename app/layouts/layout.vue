@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-12 10:39:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 18:50:41
+ * @LastEditTime: 2023-03-27 18:16:26
  * @Description: 布局切换
 -->
 
@@ -57,7 +57,7 @@ const store = storage(
   },
   {
     top: (val) => {
-      sendEvent('win-top', val)
+      sendEvent('win-sticky', val)
     },
     theme: (val) => {
       document.body.setAttribute('class', val)

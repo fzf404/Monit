@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 21:50:20
+ * @LastEditTime: 2023-03-27 18:07:06
  * @Description: event 处理
  */
 
@@ -24,8 +24,8 @@ export const setValue = (key: string, value: Object) => {
 }
 
 // 读取数据
-export const getValue = (key: string, define: Object): Object => {
-  return callEvent('get-value', key, JSON.stringify(define))
+export const getValue = (key: string, defalut: Object): Object => {
+  return callEvent('get-value', key, JSON.stringify(defalut))
 }
 
 // 发送通知
