@@ -55,11 +55,11 @@ export const set = (node: string, key: string, value: Object): void => {
  * @description: 读取值
  * @param { string } node 节点名
  * @param { string } key 键名
- * @param { Object } define 默认值
+ * @param { Object } defalut 默认值
  * @return { Object } 值
  */
-export const get = (node: string, key: string, define: Object): Object => {
-  return store.get(node + '.' + key) ?? define // 获取值
+export const get = (node: string, key: string, defalut: Object): Object => {
+  return store.get(node + '.' + key) ?? defalut // 获取值
 }
 
 /**
