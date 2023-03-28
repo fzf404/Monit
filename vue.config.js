@@ -25,9 +25,9 @@ const config = {
       // 自定义通信协议
       customFileProtocol: 'monit://./',
       // 主进程入口
-      mainProcessFile: 'core/main.js',
+      mainProcessFile: 'core/main.ts',
       // 渲染进程入口
-      rendererProcessFile: 'app/main.js',
+      rendererProcessFile: 'app/main.ts',
       chainWebpackMainProcess: (config) => {
         config.resolve.alias.set('~', resolve('./'))
       },
@@ -36,7 +36,7 @@ const config = {
         // 应用名
         productName: 'Monit',
         // 图标
-        icon: 'public/icons/icon.png',
+        icon: 'public/img/icon.png',
         // 应用 ID
         appId: 'monit.fzf404.art',
         // 打包命名
@@ -68,7 +68,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['config/*.ts', 'core/*.js', 'server/*.ts']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['config/*.ts', 'core/*.ts', 'event/*.ts', 'server/*.ts']
 }
 
 module.exports = { ...config }
