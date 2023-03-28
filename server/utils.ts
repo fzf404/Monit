@@ -1,12 +1,12 @@
 /*
  * @Author: fzf404
  * @Date: 2023-03-28 09:15:57
- * @LastEditTime: 2023-03-28 20:48:13
+ * @LastEditTime: 2023-03-28 21:28:41
  * @LastEditors: fzf404 me@fzf404.art
  * @Description: utils 调用
  */
 
-import { dialog, Notification, shell, systemPreferences } from 'electron'
+import { dialog, Notification, powerMonitor, shell, systemPreferences } from 'electron'
 
 import { get, set } from '~/lib/storage'
 
@@ -68,6 +68,10 @@ export const sendConfirm = (name: string, message: string, callback: Function) =
         callback()
       }
     })
+}
+
+export const judgeIdleState = () => {
+  return powerMonitor.getSystemIdleTime() > 60
 }
 
 // 判断权限
