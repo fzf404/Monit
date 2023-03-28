@@ -2,18 +2,19 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 17:03:57
+ * @LastEditTime: 2023-03-28 11:02:10
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
-
-import { initIPC } from '~/server/handle'
 
 import { initDevtools } from './devtool'
 import { initShortcut } from './shortcut'
 import { initTray } from './tray'
 import { checkUpdate } from './update'
-import { createWindow, initBootWindow } from './window'
+import { createBootWindow } from './window'
+
+import { initIPC } from '~/event/handle'
+import { createPlugin } from '~/server/plugin'
 
 // 限制实例个数
 if (!app.requestSingleInstanceLock()) {
@@ -35,7 +36,7 @@ app.on('ready', () => {
   initDevtools()
 
   // 初始化自启动窗口
-  initBootWindow()
+  createBootWindow()
 
   // 初始化快捷键
   initShortcut()
@@ -47,7 +48,7 @@ app.on('ready', () => {
 // 激活窗口
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow('welcome')
+    createPlugin('welcome')
   }
 })
 
