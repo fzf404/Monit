@@ -1,7 +1,7 @@
 /*
  * @Author: fzf404
  * @Date: 2023-03-28 09:15:57
- * @LastEditTime: 2023-03-28 15:27:41
+ * @LastEditTime: 2023-03-28 20:48:13
  * @LastEditors: fzf404 me@fzf404.art
  * @Description: utils 调用
  */
@@ -61,10 +61,10 @@ export const sendConfirm = (name: string, message: string, callback: Function) =
       title: `Monit - ${name}`,
       message: `Monit - ${name}`,
       detail: message,
-      buttons: ['确定', '取消']
+      buttons: ['取消', '确定']
     })
-    .then((res) => {
-      if (res.response === 0) {
+    .then(({ response }) => {
+      if (response === 1) {
         callback()
       }
     })
