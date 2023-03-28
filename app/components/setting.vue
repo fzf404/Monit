@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 16:00:40
+ * @LastEditTime: 2023-03-28 20:58:47
  * @Description: setting 组件
 -->
 
@@ -16,7 +16,7 @@
         <!-- 项目列表 -->
         <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
           <!-- 标签 -->
-          <label :for="item.id" class="flex gap-0.5 text-xs">
+          <label :for="item.id" class="flex gap-1 text-xs">
             <span>
               {{ item.label }}
             </span>
@@ -74,7 +74,8 @@
         <!-- 保存 -->
         <ol class="flex-row-center-right gap-2">
           <!-- TODO 重启 -->
-          <button @click="onSave" class="btn btn-md">关闭</button>
+          <button @click="sendEvent('plugin-reload')" class="btn btn-md !bg-red-400 hover:!bg-red-500">刷新</button>
+          <button @click="onSave" class="btn btn-md">保存</button>
         </ol>
       </ul>
     </aside>
@@ -82,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { openURL } from '~/event/send'
+import { openURL, sendEvent } from '~/event/send'
 
 import { main } from '@/pinia'
 

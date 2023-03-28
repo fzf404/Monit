@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 09:47:18
+ * @LastEditTime: 2023-03-28 20:49:07
  * @Description: juejin 信息监控
 -->
 <template>
@@ -285,7 +285,7 @@ export default {
 
       // 验证用户存在
       if (data.user_id === '0') {
-        return sendAlert('用户ID错误！')
+        return sendAlert('用户 ID 错误！')
       }
 
       // 存储数据
