@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 10:09:57
+ * @LastEditTime: 2023-03-28 21:11:18
  * @Description: plugin 调用
  */
 
@@ -36,7 +36,7 @@ export const getPluginSetting = (name: string) => {
 // 创建插件
 export const createPlugin = (name: string | Array<string>) => {
   // 创建单个插件
-  const createPluginFromName = (name: string) => {
+  const createPluginByName = (name: string) => {
     // 判断插件存在
     if (!pluginExist(name)) {
       return
@@ -57,10 +57,10 @@ export const createPlugin = (name: string | Array<string>) => {
   }
   // 创建插件
   if (typeof name === 'string') {
-    createPluginFromName(name)
+    createPluginByName(name)
   } else {
     for (const item of name) {
-      createPluginFromName(item)
+      createPluginByName(item)
     }
   }
 }

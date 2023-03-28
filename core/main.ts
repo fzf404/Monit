@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 11:02:10
+ * @LastEditTime: 2023-03-28 21:50:56
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initDevtools } from './devtool'
-import { initShortcut } from './shortcut'
+import { listenShortcut } from './shortcut'
 import { initTray } from './tray'
 import { checkUpdate } from './update'
 import { createBootWindow } from './window'
@@ -39,7 +39,7 @@ app.on('ready', () => {
   createBootWindow()
 
   // 初始化快捷键
-  initShortcut()
+  listenShortcut()
 
   // 检查更新
   checkUpdate()
