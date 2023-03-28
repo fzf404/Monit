@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:21:50
+ * @LastEditTime: 2023-03-28 09:47:18
  * @Description: juejin 信息监控
 -->
 <template>
@@ -133,7 +133,7 @@ import { reactive } from 'vue'
 
 import axios from '~/lib/request'
 import { storage } from '~/lib/storage'
-import { openURL, sendAlert, sendNotice } from '~/server/send'
+import { openURL, sendAlert, sendNotice } from '~/event/send'
 
 import { main } from '@/pinia'
 

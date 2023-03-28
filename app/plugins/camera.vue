@@ -68,10 +68,10 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 
+import { getMediaPermission, requestMediaPermission, sendAlert } from '~/event/send'
 import { getCameraList, initCamera, recordVideo, takePhoto } from '~/lib/camera'
 import { initHolistic } from '~/lib/holistic'
 import { storage } from '~/lib/storage'
-import { getMediaPermission, requestMediaPermission, sendAlert } from '~/server/send'
 
 import CameraSVG from '@/assets/plugin/camera/camera.svg'
 import OffSVG from '@/assets/plugin/camera/off.svg'

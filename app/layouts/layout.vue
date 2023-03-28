@@ -23,8 +23,8 @@ import { defineAsyncComponent, onMounted } from 'vue'
 
 import { layoutList } from '~/config/layout'
 import { themeList } from '~/config/theme'
+import { sendEvent } from '~/event/send'
 import { storage } from '~/lib/storage'
-import { sendEvent } from '~/server/send'
 
 // 布局处理
 const layout = layoutList.reduce((result, current, index, source) => {
@@ -57,7 +57,7 @@ const store = storage(
   },
   {
     top: (val) => {
-      sendEvent('win-sticky', val)
+      sendEvent('plugin-sticky', val)
     },
     theme: (val) => {
       document.body.setAttribute('class', val)

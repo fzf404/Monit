@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:39:34
+ * @LastEditTime: 2023-03-28 09:47:10
  * @Description: github 信息监控
 -->
 <template>
@@ -101,7 +101,7 @@ import { reactive } from 'vue'
 import axios from '~/lib/request'
 import { getArrDiffKey } from '~/lib/statistic'
 import { storage } from '~/lib/storage'
-import { openURL, sendAlert, sendNotice } from '~/server/send'
+import { openURL, sendAlert, sendNotice } from '~/event/send'
 
 import { main } from '@/pinia'
 

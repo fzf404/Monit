@@ -13,11 +13,11 @@
       <!-- 关闭 -->
       <CloseSVG
         class="btn-svg text-dark w-3.5 rounded-full bg-red-400 p-0.5 hover:bg-red-500"
-        @click="sendEvent('win-close')" />
+        @click="sendEvent('plugin-close')" />
       <!-- 最小化 -->
       <MiniSVG
         class="btn-svg text-dark w-3.5 rounded-full bg-yellow-400 p-0.5 hover:bg-yellow-500"
-        @click="sendEvent('win-mini')" />
+        @click="sendEvent('plugin-mini')" />
       <!-- 置顶 -->
       <UpSVG
         class="btn-svg text-dark w-3.5 rounded-full bg-green-400 p-0.5 hover:bg-green-500"
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { sendEvent } from '~/server/send'
+import { sendEvent } from '~/event/send'
 
 import { main } from '@/pinia'
 

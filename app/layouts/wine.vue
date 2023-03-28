@@ -41,9 +41,9 @@
         :class="{ 'rotate-180': !store.top }"
         @click="store.top = !store.top" />
       <!-- 最小化 -->
-      <MiniSVG class="btn-svg hover-dynamic w-5 text-yellow-400" @click="sendEvent('win-mini')" />
+      <MiniSVG class="btn-svg hover-dynamic w-5 text-yellow-400" @click="sendEvent('plugin-mini')" />
       <!-- 关闭 -->
-      <CloseSVG class="btn-svg hover-dynamic w-5 text-red-400" @click="sendEvent('win-close')" />
+      <CloseSVG class="btn-svg hover-dynamic w-5 text-red-400" @click="sendEvent('plugin-close')" />
     </ul>
   </nav>
 </template>
@@ -55,7 +55,7 @@ import SettingSVG from '@/assets/layout/setting.svg'
 import UpSVG from '@/assets/layout/up.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 import { main } from '@/pinia'
-import { sendEvent } from '~/server/send'
+import { sendEvent } from '~/event/send'
 
 // 初始化 pinia
 const pinia = main()

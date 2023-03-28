@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-23 20:33:07
+ * @LastEditTime: 2023-03-28 15:29:35
  * @Description: welcome 用户指引
 -->
 <template>
@@ -18,14 +18,14 @@
     </p>
     <p class="text-intro">打开插件设置启动插件</p>
     <!-- Github 跳转 -->
-    <button class="btn btn-sq btn-md btn-purple text-purple-100" @click="sendEvent('win-open', 'config')">
+    <button class="btn btn-sq btn-md btn-purple text-purple-100" @click="sendEvent('plugin-create', 'config')">
       <SettingSVG class="w-6" />
     </button>
   </article>
 </template>
 
 <script setup>
-import { sendEvent } from '~/server/send'
+import { sendEvent } from '~/event/send'
 
 import FaviconSVG from '@/assets/favicon.svg'
 import SettingSVG from '@/assets/layout/setting.svg'

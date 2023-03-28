@@ -19,8 +19,8 @@
 <script setup>
 import { reactive } from 'vue'
 
+import { callEvent } from '~/event/send'
 import { storage } from '~/lib/storage'
-import { callEvent } from '~/server/send'
 
 import Setting from '@/components/setting.vue'
 

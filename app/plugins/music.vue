@@ -85,9 +85,9 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 
+import { sendAlert } from '~/event/send'
 import axios from '~/lib/request'
 import { storage } from '~/lib/storage'
-import { sendAlert } from '~/server/send'
 
 import { main } from '@/pinia'
 
