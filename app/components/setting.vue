@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 15:42:04
+ * @LastEditTime: 2023-03-28 16:00:40
  * @Description: setting 组件
 -->
 
@@ -10,7 +10,9 @@
   <transition name="fade" mode="out-in">
     <aside class="flex-col-center modal setting z-40" v-show="pinia.showSetting">
       <!-- 设置框 -->
-      <ul class="w-3/5 space-y-2 rounded-lg p-3 ring-4" :class="{ 'w-3/4': size === 'small' }">
+      <ul
+        class="space-y-2 rounded-lg p-3 ring-4"
+        :class="{ 'w-3/4': size === 'small', 'w-3/5': size === 'normal', 'w-1/2': size === 'large' }">
         <!-- 项目列表 -->
         <li class="flex-row-between h-8 rounded px-2" v-for="item in setting">
           <!-- 标签 -->
@@ -72,7 +74,7 @@
         <!-- 保存 -->
         <ol class="flex-row-center-right gap-2">
           <!-- TODO 重启 -->
-          <button @click="onSave" class="btn btn-md">保存</button>
+          <button @click="onSave" class="btn btn-md">关闭</button>
         </ol>
       </ul>
     </aside>
@@ -80,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { openURL } from '~/server/send'
+import { openURL } from '~/event/send'
 
 import { main } from '@/pinia'
 
