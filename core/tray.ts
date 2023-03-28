@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 15:54:53
+ * @LastEditTime: 2023-03-28 21:59:41
  * @Description: tary 初始化
  */
 import { app, Menu, Tray } from 'electron'
@@ -109,11 +109,6 @@ const initMenu = () => {
     },
     // 分割线
     { type: 'separator' },
-    // 插件设置
-    {
-      label: '插件设置',
-      click: () => createPlugin('config')
-    },
     // 开机自启
     {
       label: '开机自启',
