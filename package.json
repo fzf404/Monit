@@ -1,6 +1,6 @@
 {
   "name": "monit",
-  "version": "0.7.4",
+  "version": "0.7.3",
   "private": true,
   "description": "用于展示各种信息的桌面小组件",
   "license": "MIT",

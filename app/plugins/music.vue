@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:22:36
+ * @LastEditTime: 2023-03-28 22:37:00
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -23,7 +23,6 @@
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
-      <!-- TODO 歌名自动滚动 -->
       <h1 class="text-light text-md h-7 w-full overflow-x-auto whitespace-nowrap">
         {{ store.music[store.current].title }}
       </h1>
@@ -137,7 +136,7 @@ const state = reactive({
 const store = storage(
   {
     id: '7667645628', // 歌单 ID
-    url: 'https://api-music.imsyy.top', // 接口地址
+    url: 'https://music.fzf404.vercel.app', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
     cookie: null, // 登陆信息
     current: 0, // 音乐索引
@@ -221,7 +220,7 @@ const setting = reactive([
     type: 'button',
     options: {
       text: '登 陆',
-      click: login
+      click: () => login()
     }
   }
 ])
@@ -381,10 +380,10 @@ const nextMusic = () => {
   }
 }
 
-// 下载音乐
+// TODO 下载音乐
 const saveMusic = () => {
   const a = document.createElement('a')
-  a.href = store.music[store.current].url
+  a.href = audio.src
   a.download = store.music[store.current].title + '.mp3'
   a.click()
   a.remove()

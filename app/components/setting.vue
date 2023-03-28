@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 20:58:47
+ * @LastEditTime: 2023-03-28 22:14:19
  * @Description: setting 组件
 -->
 
@@ -73,7 +73,6 @@
         </li>
         <!-- 保存 -->
         <ol class="flex-row-center-right gap-2">
-          <!-- TODO 重启 -->
           <button @click="sendEvent('plugin-reload')" class="btn btn-md !bg-red-400 hover:!bg-red-500">刷新</button>
           <button @click="onSave" class="btn btn-md">保存</button>
         </ol>

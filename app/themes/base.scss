@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-27 17:37:34
+ * @LastEditTime: 2023-03-28 22:24:14
  * @Description: 基础主题
  */
 
@@ -263,6 +263,20 @@ select,
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+// 走马灯
+.marquee {
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 

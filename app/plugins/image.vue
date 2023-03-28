@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-09 18:31:42
+ * @LastEditTime: 2023-03-28 22:14:23
  * @Description: image 图像展示
 -->
 
@@ -11,7 +11,6 @@
   <Setting :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <!-- TODO 图像缩放 -->
     <img class="h-full w-full rounded-lg object-contain" :src="store.src" alt="图像" />
   </article>
 </template>
@@ -49,7 +48,7 @@ const setting = reactive([
     type: 'button',
     options: {
       text: '浏 览',
-      click: openLocalImage
+      click: () => openLocalImage()
     }
   }
 ])
