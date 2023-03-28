@@ -2,27 +2,34 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-27 18:12:37
+ * @LastEditTime: 2023-03-28 15:36:06
  * @Description: handle 处理
  */
 
 import { ipcMain } from 'electron'
 
-import { bootApp, judgeMediaAccess, openFile, openURL, quitApp, requestMediaAccess, resetApp, restartApp } from './app'
-
-import { getValue, setValue } from './app'
+import { bootApp, quitApp, resetApp, restartApp, getVersion } from '~/server/app'
 
 import {
-  closeWin,
-  createWin,
-  getWin,
-  getWinTitle,
-  miniWin,
-  reloadWin,
+  closePlugin,
+  createPlugin,
+  getPlugin,
+  getPluginTitle,
+  miniPlugin,
+  reloadPlugin,
+  stickyPlugin
+} from '~/server/plugin'
+
+import {
+  getValue,
+  judgeMediaAccess,
+  openFile,
+  openURL,
+  requestMediaAccess,
   sendAlert,
   sendNotice,
-  stickyWin
-} from './window'
+  setValue
+} from '~/server/utils'
 
 // 应用事件
 export const initIPC = () => {
@@ -46,39 +53,43 @@ export const initIPC = () => {
     bootApp(state)
   })
 
+  ipcMain.on('app-version', (event) => {
+    event.returnValue = getVersion()
+  })
+
   // 开启窗口
-  ipcMain.on('win-create', (_, name: string) => {
-    createWin(name)
+  ipcMain.on('plugin-create', (_, name: string | Array<string>) => {
+    createPlugin(name)
   })
 
   // 关闭窗口
-  ipcMain.on('win-close', (event) => {
-    closeWin(getWin(event))
+  ipcMain.on('plugin-close', (event) => {
+    closePlugin(getPlugin(event))
   })
 
   // 重启窗口
-  ipcMain.on('win-reload', (event) => {
-    reloadWin(getWin(event))
+  ipcMain.on('plugin-reload', (event) => {
+    reloadPlugin(getPlugin(event))
   })
 
   // 最小化窗口
-  ipcMain.on('win-mini', (event) => {
-    miniWin(getWin(event))
+  ipcMain.on('plugin-mini', (event) => {
+    miniPlugin(getPlugin(event))
   })
 
   // 置顶窗口
-  ipcMain.on('win-sticky', (event, state: boolean) => {
-    stickyWin(getWin(event), state)
+  ipcMain.on('plugin-sticky', (event, state: boolean) => {
+    stickyPlugin(getPlugin(event), state)
   })
 
   // 发送通知
-  ipcMain.on('win-notice', (event, message: string) => {
-    sendNotice(getWinTitle(event), message)
+  ipcMain.on('plugin-notice', (event, message: string) => {
+    sendNotice(getPluginTitle(event), message)
   })
 
   // 发送弹窗
-  ipcMain.on('win-alert', (event, message: string) => {
-    sendAlert(getWinTitle(event), message)
+  ipcMain.on('plugin-alert', (event, message: string) => {
+    sendAlert(getPluginTitle(event), message)
   })
 
   // 打开网址
@@ -93,11 +104,11 @@ export const initIPC = () => {
 
   // 保存值
   ipcMain.on('set-value', (event, key: string, value: string) => {
-    setValue(getWinTitle(event), key, value)
+    setValue(getPluginTitle(event), key, value)
   })
 
   ipcMain.on('get-value', (event, key: string, defalut: string) => {
-    event.returnValue = getValue(getWinTitle(event), key, defalut)
+    event.returnValue = getValue(getPluginTitle(event), key, defalut)
   })
 
   // 获取设备权限
