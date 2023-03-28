@@ -2,14 +2,14 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 13:33:42
+ * @LastEditTime: 2023-02-10 22:51:32
  * @Description: clock 翻牌时钟
 -->
 <template>
   <!-- 页面内容 -->
-  <article class="flex-col-center space-y-6">
+  <article class="flex-col-center gap-6">
     <!-- 翻牌器 -->
-    <section class="flex-row-center mt-6 space-x-1.5">
+    <section class="flex-row-center mt-6 gap-1.5">
       <!-- 时 -->
       <ul class="flip down">
         <li class="digital front n-0"></li>
@@ -62,9 +62,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-import ClockSVG from '@/assets/clock/clock.svg'
-import OffSVG from '@/assets/clock/off.svg'
-import TimerSVG from '@/assets/clock/timer.svg'
+import ClockSVG from '@/assets/plugin/clock/clock.svg'
+import OffSVG from '@/assets/plugin/clock/off.svg'
+import TimerSVG from '@/assets/plugin/clock/timer.svg'
 
 // 翻牌状态
 let fliping = [false, false, false, false, false, false]

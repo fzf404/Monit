@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-11-10 16:58:13
+ * @LastEditTime: 2023-03-28 09:21:02
  * @Description: axios 封装
  */
 
@@ -17,9 +17,9 @@ const pinia = main()
 const request = (url: string) => {
   // axios 实例
   const service = axios.create({
-    baseURL: url, // 基本路径
+    baseURL: url, // 基础路径
     timeout: 30000, // 超时时间
-    withCredentials: true, // 携带 Cookie
+    withCredentials: true // 携带 Cookie
   })
 
   // 响应拦截

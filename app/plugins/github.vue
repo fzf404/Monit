@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-28 16:57:04
+ * @LastEditTime: 2023-03-28 09:47:10
  * @Description: github 信息监控
 -->
 <template>
@@ -17,8 +17,7 @@
         <!-- github svg -->
         <GihubSVG
           class="mr-1 mb-1 text-blue-400"
-          :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }"
-        />
+          :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }" />
         <!-- follower number -->
         <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
@@ -29,19 +28,18 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower,
+            'text-gray': store.follower == follower
           }"
-          @click="updateFollower"
-        >
+          @click="updateFollower">
           {{ followerChange }}
         </span>
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-scroll col-span-5 row-span-5 mt-1">
-      <p v-for="item in store.repo" class="flex-row-center clickable space-x-1 space-y-1" @click="openRepo(item.repo)">
+    <section class="flex-scroll col-span-5 row-span-5 mt-2 gap-1">
+      <p v-for="item in store.repo" class="flex-row-center clickable gap-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
-        <RepoSVG class="mt-1 h-4 text-green-400" />
+        <RepoSVG class="h-4 text-green-400" />
         <span class="text-light text-sm">
           {{ item.star }}
         </span>
@@ -64,10 +62,9 @@
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
-            'text-gray': store.star == star,
+            'text-gray': store.star == star
           }"
-          @click="updateStar"
-        >
+          @click="updateStar">
           {{ starChange }}
         </span>
       </p>
@@ -88,10 +85,9 @@
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,
-            'text-gray': store.fork == fork,
+            'text-gray': store.fork == fork
           }"
-          @click="updateFork"
-        >
+          @click="updateFork">
           {{ forkChange }}
         </span>
       </p>
@@ -102,20 +98,20 @@
 <script>
 import { reactive } from 'vue'
 
-import { openURL, sendAlert, sendNotice } from '#/ipc'
-import axios from '~/request'
-import { getArrDiffKey } from '~/statistic'
-import { storage } from '~/storage'
+import axios from '~/lib/request'
+import { getArrDiffKey } from '~/lib/statistic'
+import { storage } from '~/lib/storage'
+import { openURL, sendAlert, sendNotice } from '~/event/send'
 
 import { main } from '@/pinia'
 
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
 
-import ForkSVG from '@/assets/github/fork.svg'
-import GihubSVG from '@/assets/github/github.svg'
-import RepoSVG from '@/assets/github/repo.svg'
-import StarSVG from '@/assets/github/star.svg'
+import ForkSVG from '@/assets/plugin/github/fork.svg'
+import GihubSVG from '@/assets/plugin/github/github.svg'
+import RepoSVG from '@/assets/plugin/github/repo.svg'
+import StarSVG from '@/assets/plugin/github/star.svg'
 
 // 初始化 axios
 const request = axios('https://api.github.com')
@@ -127,7 +123,7 @@ export default {
     StarSVG,
     ForkSVG,
     RepoSVG,
-    Setting,
+    Setting
   },
   setup() {
     // 存储数据
@@ -139,20 +135,20 @@ export default {
       fork: 0, // fork 数
       follower: 0, // follower 数
 
-      repo: [], // repo 列表
+      repo: [] // repo 列表
     })
     // 设置项
     const setting = reactive([
       {
         id: 'notice',
         label: '消息通知',
-        type: 'checkbox',
+        type: 'checkbox'
       },
       {
         id: 'user',
         label: '用户名',
-        type: 'text',
-      },
+        type: 'text'
+      }
     ])
     return { store, setting }
   },
@@ -163,7 +159,7 @@ export default {
       star: this.store.star, // 当前 star 数
       fork: this.store.fork, // 当前 fork 数
 
-      repo: this.store.repo, // 当前 repo 信息
+      repo: this.store.repo // 当前 repo 信息
     }
   },
   created() {
@@ -221,7 +217,7 @@ export default {
       } else {
         return changeNum
       }
-    },
+    }
   },
   methods: {
     // 初始化数据
@@ -329,7 +325,7 @@ export default {
     // 打开 repo
     openRepo(repo) {
       openURL(`https://github.com/${this.store.user}/${repo}`)
-    },
-  },
+    }
+  }
 }
 </script>

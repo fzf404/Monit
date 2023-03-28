@@ -17,11 +17,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Pnpm       
+      - name: Pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 7
-          
+
       - name: Node
         uses: actions/setup-node@v3
         with:

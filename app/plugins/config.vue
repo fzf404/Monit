@@ -2,33 +2,29 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-19 21:12:54
+ * @LastEditTime: 2023-03-28 15:58:52
  * @Description: config 应用配置
 -->
+
 <template>
   <!-- 配置 -->
-  <Setting size="wide" :store="store" :setting="setting" />
+  <Setting size="small" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-between p-3 pt-8">
     <section class="scrollable space-y-2">
       <!-- 插件操作 -->
       <p class="flex-row-between w-full">
+        <button class="btn btn-md btn-blue w-2/3" @click="sendEvent('plugin-create', pluginNames)">全部开启</button>
         <button
-          class="btn btn-md btn-blue w-2/3"
-          @click="pluginList.forEach((item) => sendEvent('win-open', item.name))"
-        >
-          全部开启
-        </button>
-        <button
-          v-if="state.auto"
+          v-if="state.switch"
           class="btn btn-md btn-amber"
           @click="
             () => {
-              store.open = pluginList.map((item) => item.name)
-              state.auto = false
+              store.boot = pluginNames
+              store.auto = true
+              state.switch = false
             }
-          "
-        >
+          ">
           全自启
         </button>
         <button
@@ -36,32 +32,35 @@
           class="btn btn-md btn-pink"
           @click="
             () => {
-              store.open = []
-              state.auto = true
+              store.boot = []
+              state.switch = true
             }
-          "
-        >
+          ">
           关自启
         </button>
       </p>
       <!-- 全部插件列表 -->
       <p v-for="item in pluginList" class="flex-row-between w-full">
         <!-- 插件启动 -->
-        <button class="btn btn-md btn-purple w-2/3" @click="sendEvent('win-open', item.name)">
+        <button class="btn btn-md btn-purple w-2/3" @click="sendEvent('plugin-create', item.name)">
           {{ item.name + ' - ' + item.description }}
         </button>
         <!-- 插件自启 -->
         <button
           class="btn btn-md btn-green"
-          v-if="store.open.includes(item.name)"
-          @click="store.open.splice(store.open.indexOf(item.name), 1)"
-        >
+          v-if="store.boot.includes(item.name)"
+          @click="store.boot.splice(store.boot.indexOf(item.name), 1)">
           自启开
         </button>
-        <button v-else class="btn btn-md btn-red" @click="store.open.push(item.name)">自启关</button>
+        <button
+          v-else
+          class="btn btn-md btn-red"
+          @click="store.boot.push(item.name) && sendEvent('plugin-create', item.name)">
+          自启关
+        </button>
       </p>
       <!-- Moint 版本 -->
-      <p class="flex-col-center-bottom text-intro">Monit {{ pkg.version }}</p>
+      <p class="flex-col-center-bottom text-intro">Monit - {{ callEvent('app-version') }}</p>
     </section>
   </article>
 </template>
@@ -69,30 +68,30 @@
 <script setup>
 import { reactive } from 'vue'
 
-import pkg from 'root/package.json'
-
-import { sendEvent } from '#/ipc'
-import { pluginList } from '#/plugin'
-import { storage } from '~/storage'
+import { pluginList } from '~/config/plugin'
+import { callEvent, sendEvent } from '~/event/send'
+import { storage } from '~/lib/storage'
 
 import Setting from '@/components/setting.vue'
 
+const pluginNames = pluginList.map((item) => item.name)
+
 // 状态信息
 const state = reactive({
-  auto: true,
+  switch: true // 自启开关
 })
 
 // 存储数据
 const store = storage(
   {
     auto: false,
-    open: [],
+    boot: []
   },
   // 自启修改
   {
     auto: (val) => {
-      sendEvent('app-auto', val)
-    },
+      sendEvent('app-boot', val)
+    }
   }
 )
 
@@ -101,29 +100,18 @@ const setting = reactive([
   {
     id: 'auto',
     label: '开机自启',
-    type: 'checkbox',
+    type: 'checkbox'
   },
   {
     id: 'restart',
     label: '重启应用',
     type: 'button',
     options: {
-      text: '〇',
+      text: '↺',
       click: () => {
         sendEvent('app-restart')
-      },
-    },
-  },
-  {
-    id: 'reset',
-    label: '重置应用',
-    type: 'button',
-    options: {
-      text: '✕',
-      click: () => {
-        sendEvent('app-reset')
-      },
-    },
-  },
+      }
+    }
+  }
 ])
 </script>

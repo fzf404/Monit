@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 16:56:22
+ * @LastEditTime: 2023-03-28 21:51:48
  * @Description: juejin 信息监控
 -->
 <template>
@@ -17,8 +17,7 @@
         <!-- 关注者图标 -->
         <FollowerSVG
           class="mr-1 mb-1 text-violet-400"
-          :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }"
-        />
+          :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }" />
         <!-- 关注者 number -->
         <span class="text-light" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
           {{ store.follower }}
@@ -29,10 +28,9 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower,
+            'text-gray': store.follower == follower
           }"
-          @click="updateFollower"
-        >
+          @click="updateFollower">
           {{ followerChange }}
         </span>
       </p>
@@ -53,10 +51,9 @@
           :class="{
             'text-green-400': store.power < power,
             'text-red-400': store.power > power,
-            'text-gray': store.power == power,
+            'text-gray': store.power == power
           }"
-          @click="updatePower"
-        >
+          @click="updatePower">
           {{ powerChange }}
         </span>
       </p>
@@ -77,10 +74,9 @@
           :class="{
             'text-green-400': store.like < like,
             'text-red-400': store.like > like,
-            'text-gray': store.like == like,
+            'text-gray': store.like == like
           }"
-          @click="updatelike"
-        >
+          @click="updatelike">
           {{ likeChange }}
         </span>
       </p>
@@ -101,10 +97,9 @@
           :class="{
             'text-green-400': store.view < view,
             'text-red-400': store.view > view,
-            'text-gray': store.view == view,
+            'text-gray': store.view == view
           }"
-          @click="updateView"
-        >
+          @click="updateView">
           {{ viewChange }}
         </span>
       </p>
@@ -120,14 +115,10 @@
       </p>
     </section>
     <!-- 文章 -->
-    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-1">
-      <p
-        v-for="item in store.article"
-        class="flex-row-center clickable space-x-1 space-y-3"
-        @click="openArticle(item.id)"
-      >
+    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-4 gap-3">
+      <p v-for="item in store.article" class="flex-row-center clickable gap-2" @click="openArticle(item.id)">
         <!-- 文章图标 -->
-        <ArticleSVG class="mt-3 h-4 text-blue-400" />
+        <ArticleSVG class="h-4 text-blue-400" />
         <!-- 文章名 -->
         <span class="text-intro whitespace-nowrap">
           {{ item.title }}
@@ -140,21 +131,21 @@
 <script>
 import { reactive } from 'vue'
 
-import axios from '~/request'
-import { storage } from '~/storage'
-import { openURL, sendAlert, sendNotice } from '#/ipc'
+import { openURL, sendAlert, sendNotice } from '~/event/send'
+import axios from '~/lib/request'
+import { storage } from '~/lib/storage'
 
 import { main } from '@/pinia'
 
 import Setting from '@/components/setting.vue'
 import Layout from '@/layouts/layout.vue'
 
-import ArticleSVG from '@/assets/juejin/article.svg'
-import FollowerSVG from '@/assets/juejin/follower.svg'
-import JuejinSVG from '@/assets/juejin/juejin.svg'
-import LikeSVG from '@/assets/juejin/like.svg'
-import PowerSVG from '@/assets/juejin/power.svg'
-import ViewSVG from '@/assets/juejin/view.svg'
+import ArticleSVG from '@/assets/plugin/juejin/article.svg'
+import FollowerSVG from '@/assets/plugin/juejin/follower.svg'
+import JuejinSVG from '@/assets/plugin/juejin/juejin.svg'
+import LikeSVG from '@/assets/plugin/juejin/like.svg'
+import PowerSVG from '@/assets/plugin/juejin/power.svg'
+import ViewSVG from '@/assets/plugin/juejin/view.svg'
 
 // 初始化 axios
 const request = axios('https://api.juejin.cn/')
@@ -168,7 +159,7 @@ export default {
     FollowerSVG,
     ViewSVG,
     LikeSVG,
-    Setting,
+    Setting
   },
   setup() {
     // 存储数据
@@ -182,7 +173,7 @@ export default {
       power: 0, // 掘力值
       follower: 0, // 关注数
 
-      article: [], // 文章列表
+      article: [] // 文章列表
     })
 
     // 设置值
@@ -190,14 +181,14 @@ export default {
       {
         id: 'notice',
         label: '消息通知',
-        type: 'checkbox',
+        type: 'checkbox'
       },
       {
         id: 'user',
         label: '用户ID',
         type: 'text',
-        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控',
-      },
+        help: 'https://monit.fzf404.art/#/zh/01-guide?id=🏅-juejin-监控'
+      }
     ])
 
     return { store, setting }
@@ -210,7 +201,7 @@ export default {
       view: this.store.view, // 当前阅读数
       power: this.store.power, // 当前掘力值
 
-      article: this.store.article, // 当前文章信息
+      article: this.store.article // 当前文章信息
     }
   },
   created() {
@@ -279,7 +270,7 @@ export default {
       } else {
         return changeNum
       }
-    },
+    }
   },
   methods: {
     //  初始化数据函数
@@ -294,7 +285,7 @@ export default {
 
       // 验证用户存在
       if (data.user_id === '0') {
-        return sendAlert('用户ID错误！')
+        return sendAlert('用户 ID 错误！')
       }
 
       // 存储数据
@@ -326,7 +317,7 @@ export default {
       const { data: list } = await request.post(`content_api/v1/article/query_list`, {
         cursor: '0',
         sort_type: 2,
-        user_id: this.store.user,
+        user_id: this.store.user
       })
 
       // 处理文章信息
@@ -359,7 +350,7 @@ export default {
     // 打开文章
     openArticle(id) {
       openURL(`https://juejin.cn/post/${id}`)
-    },
-  },
+    }
+  }
 }
 </script>

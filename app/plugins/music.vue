@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-28 16:56:43
+ * @LastEditTime: 2023-03-15 16:22:36
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -19,8 +19,7 @@
       <img
         :src="store.music[store.current].image"
         class="h-14 w-14 rounded-full ring-4 ring-white"
-        :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }"
-      />
+        :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }" />
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
@@ -31,12 +30,12 @@
       <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ store.music[store.current].author }}</p>
     </section>
     <!-- 播放列表 -->
+    <!-- TODO 当前播放歌曲 -->
     <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
         class="flex-row-center clickable space-x-1"
-        @click="store.current = index"
-      >
+        @click="store.current = index">
         <MusicSVG class="btn-svg text-theme h-4" />
         <span class="text-gray whitespace-nowrap text-xs">
           {{ item.title }}
@@ -52,8 +51,7 @@
       <!-- 进度条 -->
       <p
         class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
-        :style="{ width: state.control.process + '%' }"
-      ></p>
+        :style="{ width: state.control.process + '%' }"></p>
       <!-- 底部进度条 -->
       <p class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"></p>
       <!-- 播放进度调整 -->
@@ -63,8 +61,7 @@
           (event) => {
             audio.currentTime = (event.offsetX / event.target.offsetWidth) * audio.duration
           }
-        "
-      ></p>
+        "></p>
       <!-- 循环播放 -->
       <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
       <!-- 随机播放 -->
@@ -88,9 +85,9 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
 
-import { sendAlert } from '#/ipc'
-import axios from '~/request'
-import { storage } from '~/storage'
+import { sendAlert } from '~/event/send'
+import axios from '~/lib/request'
+import { storage } from '~/lib/storage'
 
 import { main } from '@/pinia'
 
@@ -98,15 +95,15 @@ import Image from '@/components/image.vue'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-import DownloadSVG from '@/assets/music/download.svg'
-import MusicSVG from '@/assets/music/music.svg'
-import NextSVG from '@/assets/music/next.svg'
-import PauseSVG from '@/assets/music/pause.svg'
-import PlaySVG from '@/assets/music/play.svg'
-import PrevSVG from '@/assets/music/prev.svg'
-import RepeatSVG from '@/assets/music/repeat.svg'
-import ShuffleSVG from '@/assets/music/shuffle.svg'
-import SingleSVG from '@/assets/music/single.svg'
+import DownloadSVG from '@/assets/plugin/music/download.svg'
+import MusicSVG from '@/assets/plugin/music/music.svg'
+import NextSVG from '@/assets/plugin/music/next.svg'
+import PauseSVG from '@/assets/plugin/music/pause.svg'
+import PlaySVG from '@/assets/plugin/music/play.svg'
+import PrevSVG from '@/assets/plugin/music/prev.svg'
+import RepeatSVG from '@/assets/plugin/music/repeat.svg'
+import ShuffleSVG from '@/assets/plugin/music/shuffle.svg'
+import SingleSVG from '@/assets/plugin/music/single.svg'
 
 // 初始化 pinia
 const pinia = main()
@@ -126,14 +123,14 @@ const state = reactive({
   // 登陆状态
   login: {
     show: false,
-    qrcode: null,
+    qrcode: ''
   },
   // 音乐控制器
   control: {
-    current: null,
-    duration: null,
-    process: null,
-  },
+    current: '0:00',
+    duration: '0:00',
+    process: null
+  }
 })
 
 // 存储数据
@@ -150,9 +147,9 @@ const store = storage(
         url: null,
         title: null,
         author: null,
-        image: null,
-      },
-    ],
+        image: null
+      }
+    ]
   },
   {
     // 接口地址修改
@@ -165,7 +162,7 @@ const store = storage(
       await loadMusic()
       // 播放音乐
       await playMusic()
-    },
+    }
   }
 )
 
@@ -217,16 +214,16 @@ const setting = reactive([
     id: 'url',
     label: '请求地址',
     type: 'text',
-    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐',
+    help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐'
   },
   {
     label: '登陆账号',
     type: 'button',
     options: {
       text: '登 陆',
-      click: login,
-    },
-  },
+      click: login
+    }
+  }
 ])
 
 // 登陆状态验证
@@ -238,6 +235,7 @@ const getUser = async () => {
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
   // 验证登陆
   if (!account) {
+    store.cookie = ''
     return login()
   }
   // 验证状态
@@ -251,8 +249,8 @@ const getUser = async () => {
       type: 'select',
       options: playlist.map((item) => ({
         label: item.name,
-        value: item.id,
-      })),
+        value: item.id
+      }))
     })
   }
 }
@@ -274,7 +272,7 @@ const getPlayList = async () => {
       id: item.id,
       title: item.name,
       author: item.ar.map((item) => item.name).join('/'),
-      image: item.al.picUrl + '?param=100y100',
+      image: item.al.picUrl + '?param=100y100'
     }
   })
 
@@ -320,7 +318,7 @@ const getMusicDuration = () => {
   state.control = {
     current: '0:00',
     duration: durationMinutes + ':' + durationSeconds,
-    process: 0,
+    process: 0
   }
 }
 
