@@ -2,15 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:58:15
- * @Description: 存储配置
+ * @LastEditTime: 2023-03-28 09:49:17
+ * @Description: storage 封装
  */
 
 import Store from 'electron-store'
 
 import { reactive, watch } from 'vue'
 
-import { getValue, setValue } from '~/server/send'
+import { getValue, setValue } from '~/event/send'
 
 // 初始化 store
 export const store = new Store({
