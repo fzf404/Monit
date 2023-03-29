@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 09:47:10
+ * @LastEditTime: 2023-03-29 17:41:29
  * @Description: github 信息监控
 -->
 <template>
@@ -16,7 +16,7 @@
       <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
-          class="mr-1 mb-1 text-blue-400"
+          class="mb-1 mr-1 text-blue-400"
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }" />
         <!-- follower number -->
         <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
@@ -51,7 +51,7 @@
       <h1 class="text-intro">star</h1>
       <p class="flex-row-center-bottom">
         <!-- star svg -->
-        <StarSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
+        <StarSVG class="mb-1.5 mr-0.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
         <!-- star number -->
         <span class="text-light" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
@@ -98,10 +98,10 @@
 <script>
 import { reactive } from 'vue'
 
+import { openURL, sendAlert, sendNotice } from '~/event/send'
 import axios from '~/lib/request'
 import { getArrDiffKey } from '~/lib/statistic'
 import { storage } from '~/lib/storage'
-import { openURL, sendAlert, sendNotice } from '~/event/send'
 
 import { main } from '@/pinia'
 
@@ -114,7 +114,7 @@ import RepoSVG from '@/assets/plugin/github/repo.svg'
 import StarSVG from '@/assets/plugin/github/star.svg'
 
 // 初始化 axios
-const request = axios('https://api.github.com')
+const request = axios('https://api.github.com/')
 
 export default {
   components: {

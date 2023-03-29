@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 22:37:00
+ * @LastEditTime: 2023-03-29 20:44:13
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -49,7 +49,7 @@
       <span class="text-intro absolute -top-2 right-0 text-xs">{{ state.control.duration }}</span>
       <!-- 进度条 -->
       <p
-        class="bg-theme clickable absolute top-3 left-0 h-1 rounded-full"
+        class="bg-theme clickable absolute left-0 top-3 h-1 rounded-full"
         :style="{ width: state.control.process + '%' }"></p>
       <!-- 底部进度条 -->
       <p class="bg-theme clickable absolute top-3 h-1 w-full rounded-full opacity-40"></p>
@@ -136,7 +136,7 @@ const state = reactive({
 const store = storage(
   {
     id: '7667645628', // 歌单 ID
-    url: 'https://music.fzf404.vercel.app', // 接口地址
+    url: 'https://api.fzf404.art/music/', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
     cookie: null, // 登陆信息
     current: 0, // 音乐索引
