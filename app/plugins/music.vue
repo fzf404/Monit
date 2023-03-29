@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 20:44:13
+ * @LastEditTime: 2023-03-29 22:05:07
  * @Description: music 网易云音乐播放
 -->
 <template>
@@ -17,26 +17,27 @@
     <!-- 封面图 -->
     <section class="flex-col-center col-span-1 row-span-3 mt-4">
       <img
-        :src="store.music[store.current].image"
+        :src="state.music.image"
         class="h-14 w-14 rounded-full ring-4 ring-white"
         :class="{ 'animate-[rotating_2s_linear_infinite]': state.play }" />
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
       <h1 class="text-light text-md h-7 w-full overflow-x-auto whitespace-nowrap">
-        {{ store.music[store.current].title }}
+        {{ state.music.title }}
       </h1>
-      <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ store.music[store.current].author }}</p>
+      <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ state.music.author }}</p>
     </section>
     <!-- 播放列表 -->
-    <!-- TODO 当前播放歌曲 -->
     <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
         class="flex-row-center clickable space-x-1"
         @click="store.current = index">
-        <MusicSVG class="btn-svg text-theme h-4" />
-        <span class="text-gray whitespace-nowrap text-xs">
+        <MusicSVG class="btn-svg text-theme h-4" :id="item.id" />
+        <span
+          class="whitespace-nowrap text-xs"
+          :class="item.id === state.music.id ? 'text-light font-bold' : 'text-gray'">
           {{ item.title }}
         </span>
       </p>
@@ -128,7 +129,14 @@ const state = reactive({
   control: {
     current: '0:00',
     duration: '0:00',
-    process: null
+    process: 0
+  },
+  music: {
+    id: '',
+    url: '',
+    title: 'Monit',
+    author: 'fzf404',
+    image: 'https://img.fzf404.art/Monit/icon.webp'
   }
 })
 
@@ -138,17 +146,9 @@ const store = storage(
     id: '7667645628', // 歌单 ID
     url: 'https://api.fzf404.art/music/', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
-    cookie: null, // 登陆信息
+    cookie: '', // 登陆信息
     current: 0, // 音乐索引
-    music: [
-      {
-        id: null,
-        url: null,
-        title: null,
-        author: null,
-        image: null
-      }
-    ]
+    music: [] // 音乐列表
   },
   {
     // 接口地址修改
@@ -231,7 +231,9 @@ const getUser = async () => {
   state.loading = true
 
   // 获取账号信息
-  const { account } = await request.get(`/user/account?cookie=${store.cookie}`)
+  const { account } = await request.get(`/user/account?cookie=${store.cookie}`).catch((err) => {
+    return sendAlert('获取账号信息失败：' + err.message)
+  })
   // 验证登陆
   if (!account) {
     store.cookie = ''
@@ -288,6 +290,29 @@ const getPlayList = async () => {
   loadMusic()
 }
 
+// 获得音乐 URL
+const loadMusic = async () => {
+  // 加载中
+  state.loading = true
+  // 获取 URL
+  const { url } = (
+    await request.get(`/song/url/v1?cookie=${store.cookie}&id=${store.music[store.current].id}&level=standard`)
+  ).data[0]
+  // 判断 URL 存在
+  if (url) {
+    // 设置音乐 URL
+    audio.src = url
+    // 设置音乐信息
+    state.music.url = url
+    state.music = store.music[store.current]
+    // 滚动到当前音乐
+    document.getElementById(state.music.id).scrollIntoView({ block: 'center', behavior: 'smooth' })
+  } else {
+    // 播放下一首
+    nextMusic()
+  }
+}
+
 // 获取音乐时间信息
 const getMusicTime = () => {
   // 当前时长
@@ -318,24 +343,6 @@ const getMusicDuration = () => {
     current: '0:00',
     duration: durationMinutes + ':' + durationSeconds,
     process: 0
-  }
-}
-
-// 获得音乐 URL
-const loadMusic = async () => {
-  // 加载中
-  state.loading = true
-  // 获取 URL
-  const { url } = (
-    await request.get(`/song/url/v1?cookie=${store.cookie}&id=${store.music[store.current].id}&level=standard`)
-  ).data[0]
-  // 判断 URL 存在
-  if (url) {
-    // 设置音乐 URL
-    audio.src = url
-  } else {
-    // 播放下一首
-    nextMusic()
   }
 }
 
@@ -380,11 +387,11 @@ const nextMusic = () => {
   }
 }
 
-// TODO 下载音乐
+// 下载音乐
 const saveMusic = () => {
   const a = document.createElement('a')
-  a.href = audio.src
-  a.download = store.music[store.current].title + '.mp3'
+  a.href = state.music.url
+  a.download = state.music.title + '.mp3'
   a.click()
   a.remove()
 }
