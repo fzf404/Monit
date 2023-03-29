@@ -2,19 +2,19 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 21:50:56
+ * @LastEditTime: 2023-03-29 21:13:58
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initDevtools } from './devtool'
-import { listenShortcut } from './shortcut'
 import { initTray } from './tray'
 import { checkUpdate } from './update'
 import { createBootWindow } from './window'
 
 import { initIPC } from '~/event/handle'
 import { createPlugin } from '~/server/plugin'
+import { initShortcut } from './shortcut'
 
 // 限制实例个数
 if (!app.requestSingleInstanceLock()) {
@@ -39,7 +39,7 @@ app.on('ready', () => {
   createBootWindow()
 
   // 初始化快捷键
-  listenShortcut()
+  initShortcut()
 
   // 检查更新
   checkUpdate()

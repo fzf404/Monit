@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 21:51:48
+ * @LastEditTime: 2023-03-29 22:20:54
  * @Description: juejin 信息监控
 -->
 <template>
@@ -153,13 +153,13 @@ const request = axios('https://api.juejin.cn/')
 export default {
   components: {
     Layout,
+    Setting,
     ArticleSVG,
     JuejinSVG,
     PowerSVG,
     FollowerSVG,
     ViewSVG,
-    LikeSVG,
-    Setting
+    LikeSVG
   },
   setup() {
     // 存储数据

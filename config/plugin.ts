@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-23 20:44:10
+ * @LastEditTime: 2023-03-29 21:11:09
  * @Description: plugin 配置
  */
 
@@ -28,8 +28,9 @@ export const pluginList: plugin[] = debugFilter([
   { name: 'welcome', size: [2, 2], description: '欢迎' },
   { name: 'count', size: [2, 2], description: '计数器' },
   { name: 'config', size: [2, 3], description: '设置' },
-  { name: 'weather', size: [4, 2], description: '天气', debug: true },
+  { name: 'chatgpt', size: [4, 4], description: '对话', debug: true },
   { name: 'live2d', size: [4, 3], description: '跟踪', debug: true },
+  { name: 'weather', size: [4, 2], description: '天气', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true }
 ])
 

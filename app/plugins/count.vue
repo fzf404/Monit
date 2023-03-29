@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:03:19
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:18:35
+ * @LastEditTime: 2023-03-29 22:22:16
  * @Description: count 计数器
 -->
+
 <template>
   <!-- 设置 -->
   <Setting size="small" :store="store" :setting="setting" />
@@ -34,8 +35,8 @@ export default {
   setup() {
     // 存储数据
     const store = storage({
-      count: 3.14, // 数值
-      step: 1 // 步长
+      step: 1, // 步长
+      count: 3.14 // 数值
     })
 
     // 设置项

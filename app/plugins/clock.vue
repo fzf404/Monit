@@ -103,6 +103,7 @@ const changeNumber = (digit, num) => {
     fliping[digit] = false
   }, 600)
 }
+
 // 更新时间
 const changeClock = (time) => {
   // 遍历得到的时间字符串
@@ -114,6 +115,7 @@ const changeClock = (time) => {
     }
   }
 }
+
 // 开启时钟
 const startClock = () => {
   // 停止回调

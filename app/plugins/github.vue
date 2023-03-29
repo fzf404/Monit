@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 17:41:29
+ * @LastEditTime: 2023-03-29 22:21:54
  * @Description: github 信息监控
 -->
 <template>
@@ -119,11 +119,11 @@ const request = axios('https://api.github.com/')
 export default {
   components: {
     Layout,
+    Setting,
     GihubSVG,
     StarSVG,
     ForkSVG,
-    RepoSVG,
-    Setting
+    RepoSVG
   },
   setup() {
     // 存储数据
