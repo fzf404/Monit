@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:04:41
+ * @LastEditTime: 2023-03-29 21:20:30
  * @Description: camera 相机监控
 -->
 <template>
@@ -25,13 +25,7 @@
     <section v-show="store.control" class="absolute left-0 right-0 bottom-4 z-20 space-x-4 text-center">
       <!-- 拍照 -->
       <button class="btn btn-lg btn-purple">
-        <CameraSVG
-          class="w-6"
-          @click="
-            takePhoto(video, canvas, record).catch((err) => {
-              sendAlert('拍摄失败：' + err.message)
-            })
-          " />
+        <CameraSVG class="w-6" @click="takePhoto(video, canvas, record)" />
       </button>
       <!-- 录像 -->
       <transition name="fade" mode="out-in">
@@ -87,8 +81,8 @@ const record = ref(null)
 // 状态
 const state = reactive({
   stream: null, // 媒体流
-  loading: true, // 加载状态
-  recorder: null // 录像状态
+  recorder: null, // 录像状态
+  loading: true // 加载状态
 })
 
 // 存储数据
