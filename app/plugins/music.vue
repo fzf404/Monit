@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 13:30:28
+ * @LastEditTime: 2023-03-30 13:47:16
  * @Description: music 网易云音乐播放
 -->
 
@@ -306,8 +306,8 @@ const loadMusic = async () => {
     // 设置音乐 URL
     audio.src = url
     // 设置音乐信息
-    state.music.url = url
     state.music = store.music[store.current]
+    state.music.url = url
     // 滚动到当前音乐
     document.getElementById(state.music.id).scrollIntoView({ block: 'center', behavior: 'smooth' })
   } else {
@@ -396,7 +396,7 @@ const saveMusic = () => {
   a.href = state.music.url
   a.download = state.music.title + '.mp3'
   a.click()
-  a.remove()
+  // a.remove()
 }
 
 // 监听 audio 事件
