@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:51:32
+ * @LastEditTime: 2023-03-30 10:12:57
  * @Description: clock 翻牌时钟
 -->
+
 <template>
   <!-- 页面内容 -->
   <article class="flex-col-center gap-6">
@@ -193,13 +194,13 @@ onMounted(startClock)
 
 /* 上页 */
 .flip .digital:before {
-  @apply top-0 bottom-1/2 rounded-t-lg border-b border-gray-400;
+  @apply bottom-1/2 top-0 rounded-t-lg border-b border-gray-400;
 }
 
 /* 下页 */
 .flip .digital:after {
   line-height: 0;
-  @apply top-1/2 bottom-0 rounded-b-lg border-t border-gray-400;
+  @apply bottom-0 top-1/2 rounded-b-lg border-t border-gray-400;
 }
 
 /* 下翻 */

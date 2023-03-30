@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 15:29:35
+ * @LastEditTime: 2023-03-30 10:14:56
  * @Description: welcome 用户指引
 -->
+
 <template>
   <!-- 引导页 -->
   <article class="flex-col-center gap-3 p-4 pt-6">

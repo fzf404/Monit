@@ -1,9 +1,8 @@
 <!--
-
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-28 02:07:36
+ * @LastEditTime: 2023-03-30 10:18:32
  * @Description: 应用介绍
 -->
 
@@ -42,8 +41,9 @@
 | camera   | 相机助手          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
 | juejin   | 掘金信息监控      | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
 | image    | 图像展示          | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
-| music    | 网易云音乐播放    | VueC + Audio                 | [fzf404](https://github.com/fzf404)   | ✅   |
-| live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe |                                       | ⛔️  |
+| music    | 网易云音乐播放    | VueC + Axios +Audio          | [fzf404](https://github.com/fzf404)   | ✅   |
+| chatgpt  | 对话机器人        | VueC +Axios + OpenAI         | [fzf404](https://github.com/fzf404)   | ⛔️  |
+| live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe | [fzf404](https://github.com/fzf404)   | ⛔️  |
 | bilibili | bilibili 信息监控 |                              |                                       | ⛔️  |
 | weather  | 天气信息监控      |                              |                                       | ⛔️  |
 | course   | 课程表信息        |                              |                                       | ⛔️  |
@@ -54,15 +54,7 @@
 >
 > 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/release/monit) 寻找操作系统对应的安装包
 
-- Windows
-
-  > 全功能支持
-
-- Linux
-
-  > 开机自启功能可能会失效
-
-- Mac
+- MacOS
 
   > 由于没有 Apple 开发者账号，打开时如出现 `Monit.app 已损坏`，请执行如下指令
 

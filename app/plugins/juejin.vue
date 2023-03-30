@@ -2,9 +2,10 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 22:20:54
+ * @LastEditTime: 2023-03-30 10:14:10
  * @Description: juejin 信息监控
 -->
+
 <template>
   <!-- 设置 -->
   <Setting :show="true" :store="store" :setting="setting" @save="initJuejinData" />
@@ -16,7 +17,7 @@
       <p class="flex-row-center-bottom">
         <!-- 关注者图标 -->
         <FollowerSVG
-          class="mr-1 mb-1 text-violet-400"
+          class="mb-1 mr-1 text-violet-400"
           :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }" />
         <!-- 关注者 number -->
         <span class="text-light" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
@@ -40,7 +41,7 @@
       <h1 class="text-intro">掘力值</h1>
       <p class="flex-row-center-bottom">
         <!-- 掘力值图标 -->
-        <PowerSVG class="mr-1 mb-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
+        <PowerSVG class="mb-1 mr-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
         <!-- 掘力值 number -->
         <span class="text-light" :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
           {{ store.power >= 1000 ? `${(store.power / 1000).toFixed(2)}k` : store.power }}
@@ -63,7 +64,7 @@
       <h1 class="text-intro">获赞数</h1>
       <p class="flex-row-center-bottom">
         <!-- 点赞图标 -->
-        <LikeSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
+        <LikeSVG class="mb-1.5 mr-0.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
         <!-- 点赞数 number -->
         <span class="text-light" :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
           {{ store.like >= 1000 ? `${(store.like / 1000).toFixed(2)}k` : store.like }}
@@ -86,7 +87,7 @@
       <h1 class="text-intro">阅读数</h1>
       <p class="flex-row-center-bottom">
         <!-- 阅读数图标 -->
-        <ViewSVG class="mr-1 mb-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
+        <ViewSVG class="mb-1 mr-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
         <!-- 阅读数 -->
         <span class="text-light" :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
           store.view >= 10000 ? `${(store.view / 1000).toFixed(2)}k` : store.view

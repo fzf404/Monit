@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 21:20:30
+ * @LastEditTime: 2023-03-30 11:06:17
  * @Description: camera 相机监控
 -->
+
 <template>
   <!-- 设置-->
   <Setting :store="store" :setting="setting" />
@@ -22,7 +23,7 @@
       <a ref="record" class="hidden"></a>
     </section>
     <!-- 相机控制器 -->
-    <section v-show="store.control" class="absolute left-0 right-0 bottom-4 z-20 space-x-4 text-center">
+    <section v-show="store.control" class="absolute bottom-4 left-0 right-0 z-20 space-x-4 text-center">
       <!-- 拍照 -->
       <button class="btn btn-lg btn-purple">
         <CameraSVG class="w-6" @click="takePhoto(video, canvas, record)" />
@@ -88,7 +89,7 @@ const state = reactive({
 // 存储数据
 const store = storage(
   {
-    camera: null, // 设备ID
+    camera: '', // 设备ID
     mirror: true, // 镜像
     control: true, // 控制器
     holistic: true // 角色跟踪
@@ -128,15 +129,14 @@ onMounted(async () => {
   // 系统平台
   if (process.platform === 'darwin') {
     // 设备权限状态
-    const mediaAccessStatus = await getMediaPermission('camera')
+    const mediaAccessStatus = getMediaPermission('camera')
     // 判断权限
     if (!mediaAccessStatus) {
       // 申请权限
-      const isAllowed = await requestMediaPermission('camera')
+      const isAllowed = requestMediaPermission('camera')
       // 申请状态
       if (!isAllowed) {
-        sendAlert('需要授予相机使用权限！')
-        return
+        return sendAlert('需要授予相机使用权限！')
       }
     }
   }
