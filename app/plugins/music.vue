@@ -2,14 +2,15 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 22:05:07
+ * @LastEditTime: 2023-03-30 13:30:28
  * @Description: music 网易云音乐播放
 -->
+
 <template>
   <!-- 设置 -->
   <Setting :store="store" :setting="setting" @save="getPlayList" />
   <!-- 图像展示 -->
-  <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆" :image="state.login.qrcode" />
+  <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆！" :image="state.login.qrcode" />
   <!-- 加载中 -->
   <Loading :show="state.loading" :remark="['音乐加载中...']" />
   <!-- 页面内容 -->
@@ -34,7 +35,8 @@
         v-for="(item, index) in store.music"
         class="flex-row-center clickable space-x-1"
         @click="store.current = index">
-        <MusicSVG class="btn-svg text-theme h-4" :id="item.id" />
+        <MusicSVG class="btn-svg text-theme h-4" v-if="item.id !== state.music.id" :id="item.id" />
+        <SoundSVG class="btn-svg text-theme h-4" v-else :id="item.id" />
         <span
           class="whitespace-nowrap text-xs"
           :class="item.id === state.music.id ? 'text-light font-bold' : 'text-gray'">
@@ -104,6 +106,7 @@ import PrevSVG from '@/assets/plugin/music/prev.svg'
 import RepeatSVG from '@/assets/plugin/music/repeat.svg'
 import ShuffleSVG from '@/assets/plugin/music/shuffle.svg'
 import SingleSVG from '@/assets/plugin/music/single.svg'
+import SoundSVG from '@/assets/plugin/music/sound.svg'
 
 // 初始化 pinia
 const pinia = main()
