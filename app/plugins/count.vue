@@ -11,8 +11,8 @@
   <Setting size="small" :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-center gap-2">
-    <h1 class="text-intro">计数器</h1>
-    <p class="text-light text-5xl">{{ store.count }}</p>
+    <h1 class="font-intro">计数器</h1>
+    <p class="text-primary text-5xl">{{ store.count }}</p>
     <p class="space-x-4 pt-2">
       <button class="btn btn-sq btn-lg btn-red" @click="reduce"><SubSVG class="w-5" /></button>
       <button class="btn btn-sq btn-lg btn-green" @click="increase">

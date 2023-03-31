@@ -11,7 +11,7 @@
   <Setting />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <h1 class="text-light text-lg">Live 2D</h1>
+    <h1 class="text-primary text-lg">Live 2D</h1>
     <video ref="character"></video>
   </article>
 </template>

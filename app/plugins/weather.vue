@@ -11,7 +11,7 @@
   <Setting />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <h1 class="text-light text-lg">Weather</h1>
+    <h1 class="text-primary text-lg">Weather</h1>
   </article>
 </template>
 

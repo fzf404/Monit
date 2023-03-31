@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:12:57
+ * @LastEditTime: 2023-03-31 13:08:42
  * @Description: clock 翻牌时钟
 -->
 
@@ -20,7 +20,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-gray text-4xl">:</span>
+      <span class="text-secondary text-4xl">:</span>
       <!-- 分 -->
       <div class="flip down">
         <div class="digital front n-0"></div>
@@ -30,7 +30,7 @@
         <div class="digital front n-0"></div>
         <div class="digital back n-0"></div>
       </div>
-      <span class="text-gray text-4xl">:</span>
+      <span class="text-secondary text-4xl">:</span>
       <!-- 秒 -->
       <div class="flip down">
         <div class="digital front n-0"></div>

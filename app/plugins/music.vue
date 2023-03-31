@@ -24,13 +24,13 @@
     </section>
     <!-- 音乐信息  -->
     <section class="flex-col-center-left col-span-2 row-span-3 mt-4">
-      <h1 class="text-light text-md h-7 w-full overflow-x-auto whitespace-nowrap">
+      <h1 class="text-primary text-md h-7 w-full overflow-x-auto whitespace-nowrap">
         {{ state.music.title }}
       </h1>
-      <p class="text-intro max-h-9 w-full overflow-y-auto text-xs">{{ state.music.author }}</p>
+      <p class="font-intro max-h-9 w-full overflow-y-auto text-xs">{{ state.music.author }}</p>
     </section>
     <!-- 播放列表 -->
-    <section class="flex-scroll col-span-2 row-span-5 mt-3 space-y-2">
+    <section class="flex-col-left-scroll col-span-2 row-span-5 mt-3 space-y-2">
       <p
         v-for="(item, index) in store.music"
         class="flex-row-center clickable space-x-1"
@@ -39,7 +39,7 @@
         <SoundSVG class="btn-svg text-theme h-4" v-else :id="item.id" />
         <span
           class="whitespace-nowrap text-xs"
-          :class="item.id === state.music.id ? 'text-light font-bold' : 'text-gray'">
+          :class="item.id === state.music.id ? 'text-primary font-bold' : 'text-secondary'">
           {{ item.title }}
         </span>
       </p>
@@ -47,9 +47,9 @@
     <!-- 音乐控制 -->
     <section class="flex-row-center relative col-span-3 row-span-2 pt-4">
       <!-- 已播放时间 -->
-      <span class="text-intro absolute -top-2 left-0 text-xs">{{ state.control.current }}</span>
+      <span class="font-intro absolute -top-2 left-0 text-xs">{{ state.control.current }}</span>
       <!-- 未播放时间 -->
-      <span class="text-intro absolute -top-2 right-0 text-xs">{{ state.control.duration }}</span>
+      <span class="font-intro absolute -top-2 right-0 text-xs">{{ state.control.duration }}</span>
       <!-- 进度条 -->
       <p
         class="bg-theme clickable absolute left-0 top-3 h-1 rounded-full"
@@ -65,21 +65,24 @@
           }
         "></p>
       <!-- 循环播放 -->
-      <RepeatSVG class="text-gray btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
+      <RepeatSVG class="text-secondary btn-svg absolute left-0 w-5" v-if="store.mode === 0" @click="store.mode = 1" />
       <!-- 随机播放 -->
-      <ShuffleSVG class="text-gray btn-svg absolute left-0 w-5" v-else-if="store.mode === 1" @click="store.mode = 2" />
+      <ShuffleSVG
+        class="text-secondary btn-svg absolute left-0 w-5"
+        v-else-if="store.mode === 1"
+        @click="store.mode = 2" />
       <!-- 单曲循环 -->
-      <SingleSVG class="text-gray btn-svg absolute left-0 w-5" v-else @click="store.mode = 0" />
+      <SingleSVG class="text-secondary btn-svg absolute left-0 w-5" v-else @click="store.mode = 0" />
       <!-- 上一首 -->
-      <PrevSVG class="text-light btn-svg w-10" @click="prevMusic" />
+      <PrevSVG class="text-primary btn-svg w-10" @click="prevMusic" />
       <!-- 暂停 -->
-      <PauseSVG class="text-light btn-svg w-10" v-if="state.play" @click="pauseMusic" />
+      <PauseSVG class="text-primary btn-svg w-10" v-if="state.play" @click="pauseMusic" />
       <!-- 播放 -->
-      <PlaySVG class="text-light btn-svg w-10" v-else @click="playMusic" />
+      <PlaySVG class="text-primary btn-svg w-10" v-else @click="playMusic" />
       <!-- 下一首 -->
-      <NextSVG class="text-light btn-svg w-10" @click="nextMusic" />
+      <NextSVG class="text-primary btn-svg w-10" @click="nextMusic" />
       <!-- 下载音乐 -->
-      <DownloadSVG class="text-gray btn-svg absolute right-0 w-5" @click="saveMusic" />
+      <DownloadSVG class="text-secondary btn-svg absolute right-0 w-5" @click="saveMusic" />
     </section>
   </article>
 </template>

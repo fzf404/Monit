@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 22:44:40
+ * @LastEditTime: 2023-03-30 14:45:01
  * @Description: light 明亮主题
  */
 
@@ -18,11 +18,11 @@
  * 文字
  */
 
-.text-light {
+.text-primary {
   @apply text-gray-100;
 }
 
-.text-gray {
+.text-secondary {
   @apply text-gray-200;
 }
 
@@ -90,7 +90,7 @@
 
     // 设置操作
     ol {
-      button {
+      button:last-child {
         @apply btn-blue;
       }
     }

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 15:13:19
+ * @LastEditTime: 2023-03-31 09:56:26
  * @Description: window 初始化
  */
 
@@ -36,9 +36,9 @@ export const createWindow = (option: WindowOption) => {
     height: option.size[1] * BasicMesh,
     alwaysOnTop: option.top, // 窗口置顶
 
-    frame: false, // 隐藏边框
-    resizable: false, // 固定长宽
-    hasShadow: false, // 隐藏阴影
+    frame: false, // 展示边框
+    resizable: false, // 可变大小
+    hasShadow: false, // 展示阴影
     transparent: true, // 窗口透明
     skipTaskbar: true, // 隐藏任务栏图标
     fullscreenable: false, // 禁止全屏

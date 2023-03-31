@@ -11,7 +11,7 @@
     <!-- 图像 -->
     <img class="h-2/3" :src="image" alt="图像" />
     <!-- 备注 -->
-    <p class="bg-theme text-light w-full text-center text-lg">{{ remark }}</p>
+    <p class="bg-theme text-primary w-full text-center text-lg">{{ remark }}</p>
   </section>
 </template>
 

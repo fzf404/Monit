@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 15:36:06
+ * @LastEditTime: 2023-03-30 20:54:03
  * @Description: handle 处理
  */
 
 import { ipcMain } from 'electron'
 
-import { bootApp, quitApp, resetApp, restartApp, getVersion } from '~/server/app'
+import { bootApp, getValue, getVersion, quitApp, resetApp, restartApp, setValue } from '~/server/app'
 
 import {
   closePlugin,
@@ -21,15 +21,14 @@ import {
 } from '~/server/plugin'
 
 import {
-  getValue,
   judgeMediaAccess,
   openFile,
   openURL,
   requestMediaAccess,
   sendAlert,
-  sendNotice,
-  setValue
-} from '~/server/utils'
+  sendConfirm,
+  sendNotice
+} from '~/server/system'
 
 // 应用事件
 export const initIPC = () => {
@@ -92,6 +91,11 @@ export const initIPC = () => {
     sendAlert(getPluginTitle(event), message)
   })
 
+  // 发送确认弹窗
+  ipcMain.on('plugin-confirm', (event, message: string, callback: Function) => {
+    sendConfirm(getPluginTitle(event), message, callback)
+  })
+
   // 打开网址
   ipcMain.on('open-url', (_, url: string) => {
     openURL(url)
@@ -100,6 +104,11 @@ export const initIPC = () => {
   // 打开图像
   ipcMain.on('open-image', (event) => {
     event.returnValue = openFile('image')
+  })
+
+  // 打开文件
+  ipcMain.on('open-file', (event) => {
+    event.returnValue = openFile('all')
   })
 
   // 保存值

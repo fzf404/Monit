@@ -28,7 +28,7 @@ export const pluginList: plugin[] = debugFilter([
   { name: 'camera', size: [4, 3], description: '相机' },
   { name: 'welcome', size: [2, 2], description: '欢迎' },
   { name: 'count', size: [2, 2], description: '计数器' },
-  { name: 'chatgpt', size: [4, 4], description: '对话', debug: true },
+  { name: 'chatgpt', size: [4, 4], description: '问答', debug: true },
   { name: 'live2d', size: [4, 3], description: '跟踪', debug: true },
   { name: 'weather', size: [4, 2], description: '天气', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true }

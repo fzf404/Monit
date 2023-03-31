@@ -9,10 +9,10 @@
 <template>
   <section v-show="show" class="flex-col-center modal z-30 gap-2">
     <!-- 加载动画 -->
-    <LoadSVG class="text-light load-rotating w-16" />
+    <LoadSVG class="text-primary load-rotating w-16" />
     <!-- 备注 -->
-    <p class="text-intro" v-if="typeof remark === 'string'">{{ remark }}</p>
-    <p class="text-intro" v-else v-for="item in remark">{{ item }}</p>
+    <p class="font-intro" v-if="typeof remark === 'string'">{{ remark }}</p>
+    <p class="font-intro" v-else v-for="item in remark">{{ item }}</p>
   </section>
 </template>
 

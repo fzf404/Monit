@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:18:32
+ * @LastEditTime: 2023-03-30 21:54:55
  * @Description: 应用介绍
 -->
 
@@ -41,8 +41,8 @@
 | camera   | 相机助手          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
 | juejin   | 掘金信息监控      | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
 | image    | 图像展示          | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
-| music    | 网易云音乐播放    | VueC + Axios +Audio          | [fzf404](https://github.com/fzf404)   | ✅   |
-| chatgpt  | 对话机器人        | VueC +Axios + OpenAI         | [fzf404](https://github.com/fzf404)   | ⛔️  |
+| music    | 网易云音乐播放    | VueC + Axios + Audio         | [fzf404](https://github.com/fzf404)   | ✅   |
+| chatgpt  | 问答机器人        | VueC + Axios + OpenAI        | [fzf404](https://github.com/fzf404)   | ⛔️  |
 | live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe | [fzf404](https://github.com/fzf404)   | ⛔️  |
 | bilibili | bilibili 信息监控 |                              |                                       | ⛔️  |
 | weather  | 天气信息监控      |                              |                                       | ⛔️  |
