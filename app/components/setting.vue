@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 22:14:19
+ * @LastEditTime: 2023-03-30 14:07:37
  * @Description: setting 组件
 -->
 
@@ -22,7 +22,7 @@
             </span>
             <HelpSVG
               v-show="item.help"
-              class="btn-svg text-gray w-3 self-center"
+              class="btn-svg text-secondary w-3 self-center"
               @click="openURL(item.help as string)" />
           </label>
           <!-- 选择框 -->
@@ -73,7 +73,7 @@
         </li>
         <!-- 保存 -->
         <ol class="flex-row-center-right gap-2">
-          <button @click="sendEvent('plugin-reload')" class="btn btn-md !bg-red-400 hover:!bg-red-500">刷新</button>
+          <button @click="sendEvent('plugin-reload')" class="btn btn-md btn-red">刷新</button>
           <button @click="onSave" class="btn btn-md">保存</button>
         </ol>
       </ul>

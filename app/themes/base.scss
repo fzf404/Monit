@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-20 13:21:44
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 22:24:14
- * @Description: 基础主题
+ * @LastEditTime: 2023-03-31 09:43:52
+ * @Description: base 基础样式
  */
 
 @tailwind base;
@@ -112,16 +112,17 @@ select,
   @apply flex flex-col items-center justify-center;
 }
 
+// flex 竖向两端对齐
 .flex-col-between {
   @apply flex flex-col items-stretch justify-between;
 }
 
-// flex 竖向靠左剧中
+// flex 竖向靠左居中
 .flex-col-center-left {
   @apply flex flex-col items-start justify-center;
 }
 
-// flex 竖向靠下剧中
+// flex 竖向靠下居中
 .flex-col-center-bottom {
   @apply flex flex-col items-center justify-end;
 }
@@ -147,7 +148,7 @@ select,
 }
 
 // flex 滚动
-.flex-scroll {
+.flex-col-left-scroll {
   @apply flex-col-left scroll snap-y overflow-x-auto overflow-y-scroll;
 
   > * {
@@ -159,8 +160,8 @@ select,
  * 文字
  */
 
-.text-intro {
-  @apply text-gray font-mono text-sm;
+.font-intro {
+  @apply text-secondary font-mono text-sm;
 }
 
 /*
@@ -169,7 +170,7 @@ select,
 
 // 基础按钮
 .btn {
-  @apply text-light clickable rounded;
+  @apply text-primary clickable rounded;
 }
 
 // 大型
@@ -236,6 +237,10 @@ select,
 
 .btn-pink {
   @apply bg-pink-500 hover:bg-pink-600;
+}
+
+.btn-gray {
+  @apply bg-gray-500 hover:bg-gray-600;
 }
 
 /*

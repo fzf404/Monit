@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-02-10 00:01:33
+ * @LastEditTime: 2023-03-30 14:40:21
  * @Description: dark 黑夜主题
  */
 
@@ -18,11 +18,11 @@
  * 颜色
  */
 
-.text-light {
+.text-primary {
   @apply text-gray-200;
 }
 
-.text-gray {
+.text-secondary {
   @apply text-gray-300;
 }
 
@@ -90,7 +90,7 @@
 
     // 设置操作
     ol {
-      button {
+      button:last-child {
         @apply btn-purple;
       }
     }

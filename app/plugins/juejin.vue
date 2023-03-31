@@ -2,9 +2,10 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 21:51:48
+ * @LastEditTime: 2023-03-30 10:14:10
  * @Description: juejin 信息监控
 -->
+
 <template>
   <!-- 设置 -->
   <Setting :show="true" :store="store" :setting="setting" @save="initJuejinData" />
@@ -12,14 +13,14 @@
   <article class="grid grid-cols-7 grid-rows-6 p-3 pb-4">
     <!-- 关注者 -->
     <section class="flex-col-center col-start-1 col-end-3 row-start-2">
-      <h1 class="text-intro">关注者</h1>
+      <h1 class="font-intro">关注者</h1>
       <p class="flex-row-center-bottom">
         <!-- 关注者图标 -->
         <FollowerSVG
-          class="mr-1 mb-1 text-violet-400"
+          class="mb-1 mr-1 text-violet-400"
           :class="{ 'h-5': store.follower < 1000, 'h-4': store.follower > 999 }" />
         <!-- 关注者 number -->
-        <span class="text-light" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
+        <span class="text-primary" :class="{ 'text-2xl': store.follower < 1000, 'text-xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
         <!-- 关注者修改 -->
@@ -28,7 +29,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower
+            'text-secondary': store.follower == follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -37,12 +38,12 @@
     </section>
     <!-- 掘力值 -->
     <section class="flex-col-center col-start-2 col-end-5 row-start-3">
-      <h1 class="text-intro">掘力值</h1>
+      <h1 class="font-intro">掘力值</h1>
       <p class="flex-row-center-bottom">
         <!-- 掘力值图标 -->
-        <PowerSVG class="mr-1 mb-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
+        <PowerSVG class="mb-1 mr-1 text-blue-400" :class="{ 'h-5': store.power < 1000, 'h-4': store.power > 999 }" />
         <!-- 掘力值 number -->
-        <span class="text-light" :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
+        <span class="text-primary" :class="{ 'text-2xl': store.power < 1000, 'text-xl': store.power > 999 }">
           {{ store.power >= 1000 ? `${(store.power / 1000).toFixed(2)}k` : store.power }}
         </span>
         <!-- 掘力值修改 -->
@@ -51,7 +52,7 @@
           :class="{
             'text-green-400': store.power < power,
             'text-red-400': store.power > power,
-            'text-gray': store.power == power
+            'text-secondary': store.power == power
           }"
           @click="updatePower">
           {{ powerChange }}
@@ -60,12 +61,12 @@
     </section>
     <!-- 点赞数 -->
     <section class="flex-col-center col-start-1 col-end-3 row-start-4">
-      <h1 class="text-intro">获赞数</h1>
+      <h1 class="font-intro">获赞数</h1>
       <p class="flex-row-center-bottom">
         <!-- 点赞图标 -->
-        <LikeSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
+        <LikeSVG class="mb-1.5 mr-0.5 text-yellow-400" :class="{ 'h-5': store.like < 1000, 'h-4': store.like > 999 }" />
         <!-- 点赞数 number -->
-        <span class="text-light" :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
+        <span class="text-primary" :class="{ 'text-2xl': store.like < 1000, 'text-xl': store.like > 999 }">
           {{ store.like >= 1000 ? `${(store.like / 1000).toFixed(2)}k` : store.like }}
         </span>
         <!-- 点赞数修改 -->
@@ -74,7 +75,7 @@
           :class="{
             'text-green-400': store.like < like,
             'text-red-400': store.like > like,
-            'text-gray': store.like == like
+            'text-secondary': store.like == like
           }"
           @click="updatelike">
           {{ likeChange }}
@@ -83,12 +84,12 @@
     </section>
     <!-- 阅读数 -->
     <section class="flex-col-center col-start-2 col-end-5 row-start-5">
-      <h1 class="text-intro">阅读数</h1>
+      <h1 class="font-intro">阅读数</h1>
       <p class="flex-row-center-bottom">
         <!-- 阅读数图标 -->
-        <ViewSVG class="mr-1 mb-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
+        <ViewSVG class="mb-1 mr-1 text-red-400" :class="{ 'h-5': store.view < 1000, 'h-4': store.view > 999 }" />
         <!-- 阅读数 -->
-        <span class="text-light" :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
+        <span class="text-primary" :class="{ 'text-2xl': store.view < 1000, 'text-xl': store.view > 999 }">{{
           store.view >= 10000 ? `${(store.view / 1000).toFixed(2)}k` : store.view
         }}</span>
         <!-- 阅读数修改 -->
@@ -97,7 +98,7 @@
           :class="{
             'text-green-400': store.view < view,
             'text-red-400': store.view > view,
-            'text-gray': store.view == view
+            'text-secondary': store.view == view
           }"
           @click="updateView">
           {{ viewChange }}
@@ -109,18 +110,18 @@
       <p class="flex-row-center-bottom">
         <!-- 掘金图标 -->
         <JuejinSVG class="h-5 pr-1" />
-        <span class="text-intro">
+        <span class="font-intro">
           {{ `${store.name.length > 9 ? store.name.slice(0, 7) + '..' : store.name}` }}
         </span>
       </p>
     </section>
     <!-- 文章 -->
-    <section class="flex-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-4 gap-3">
+    <section class="flex-col-left-scroll col-start-5 col-end-8 row-start-1 row-end-7 mt-4 gap-3">
       <p v-for="item in store.article" class="flex-row-center clickable gap-2" @click="openArticle(item.id)">
         <!-- 文章图标 -->
         <ArticleSVG class="h-4 text-blue-400" />
         <!-- 文章名 -->
-        <span class="text-intro whitespace-nowrap">
+        <span class="font-intro whitespace-nowrap">
           {{ item.title }}
         </span>
       </p>
@@ -153,13 +154,13 @@ const request = axios('https://api.juejin.cn/')
 export default {
   components: {
     Layout,
+    Setting,
     ArticleSVG,
     JuejinSVG,
     PowerSVG,
     FollowerSVG,
     ViewSVG,
-    LikeSVG,
-    Setting
+    LikeSVG
   },
   setup() {
     // 存储数据

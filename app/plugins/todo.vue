@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:23:10
+ * @LastEditTime: 2023-03-30 19:26:04
  * @Description: todo 代办事项管理
 -->
 
@@ -16,12 +16,15 @@ main
           input.mr-2.w-full.bg-transparent.text-sm.outline-none(
             type='text',
             v-model='element.title',
-            :class='element.checked ? "line-through text-gray" : "text-gray-200"')
+            :class='element.checked ? "line-through text-secondary" : "text-primary"')
           DeleteSVG.btn-svg.w-6.text-rose-400(class='hover:text-rose-500', @click='remove(index)')
           MoveSVG.btn-svg.handle.w-7.text-purple-400(class='hover:text-purple-500')
     footer.flex-row-between.border-theme.border-t-2.pt-2
       input.mr-2.accent-purple-500(type='checkbox')
-      input.text-light.mr-2.w-full.bg-transparent.text-sm.outline-none(v-model='todo', @keyup.enter='add', type='text')
+      input.text-primary.mr-2.w-full.bg-transparent.text-sm.outline-none(
+        v-model='todo',
+        @keyup.enter='add',
+        type='text')
       AddSVG.btn-svg.mr-2.w-5.text-cyan-400(class='hover:text-cyan-500', @click='add')
 </template>
 

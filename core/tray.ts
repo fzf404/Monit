@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 21:59:41
+ * @LastEditTime: 2023-03-31 09:26:07
  * @Description: tary 初始化
  */
 import { app, Menu, Tray } from 'electron'
@@ -13,7 +13,7 @@ import { pluginList } from '~/config/plugin'
 import { get } from '~/lib/storage'
 import { bootApp, getVersion, quitApp, resetApp, restartApp } from '~/server/app'
 import { bootPlugin, createPlugin } from '~/server/plugin'
-import { openURL, sendConfirm } from '~/server/utils'
+import { openURL, sendConfirm } from '~/server/system'
 
 // 托盘全局变量
 let TrayMenu: Tray
@@ -109,6 +109,7 @@ const initMenu = () => {
     },
     // 分割线
     { type: 'separator' },
+    // TODO 备份配置文件
     // 开机自启
     {
       label: '开机自启',

@@ -1,24 +1,12 @@
 /*
  * @Author: fzf404
  * @Date: 2023-03-28 09:15:57
- * @LastEditTime: 2023-03-28 21:28:41
+ * @LastEditTime: 2023-03-30 21:20:22
  * @LastEditors: fzf404 me@fzf404.art
  * @Description: utils 调用
  */
 
-import { dialog, Notification, powerMonitor, shell, systemPreferences } from 'electron'
-
-import { get, set } from '~/lib/storage'
-
-// 读取配置
-export const getValue = (name: string, key: string, defalut: string) => {
-  return get(name, key, JSON.parse(defalut))
-}
-
-// 保存配置
-export const setValue = (name: string, key: string, value: string) => {
-  set(name, key, JSON.parse(value))
-}
+import { dialog, Notification, shell, systemPreferences } from 'electron'
 
 // 打开链接
 export const openURL = (url: string) => {
@@ -26,15 +14,16 @@ export const openURL = (url: string) => {
 }
 
 // 打开文件
-export const openFile = (type: 'image' | 'video' | 'audio') => {
+export const openFile = (type: 'image' | 'video' | 'audio' | 'all') => {
   const filters = [
     { name: 'image', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'] },
     { name: 'video', extensions: ['mp4', 'avi', 'mov', 'mkv', 'flv', 'wmv'] },
-    { name: 'audio', extensions: ['mp3', 'wav', 'flac', 'aac', 'ogg'] }
+    { name: 'audio', extensions: ['mp3', 'wav', 'flac', 'aac', 'ogg'] },
+    { name: 'all', extensions: ['*'] }
   ]
   return dialog.showOpenDialogSync({
     properties: ['openFile'],
-    filters: [filters[type === 'image' ? 0 : type === 'video' ? 1 : 2]]
+    filters: [filters[type === 'image' ? 0 : type === 'video' ? 1 : type === 'all' ? 2 : 3]]
   })
 }
 
@@ -53,7 +42,7 @@ export const sendAlert = (name: string, message: string) => {
   })
 }
 
-// 发送确认
+// 发送确认弹窗
 export const sendConfirm = (name: string, message: string, callback: Function) => {
   dialog
     .showMessageBox({
@@ -68,10 +57,6 @@ export const sendConfirm = (name: string, message: string, callback: Function) =
         callback()
       }
     })
-}
-
-export const judgeIdleState = () => {
-  return powerMonitor.getSystemIdleTime() > 60
 }
 
 // 判断权限

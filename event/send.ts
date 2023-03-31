@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-27 18:07:06
+ * @LastEditTime: 2023-03-30 22:25:28
  * @Description: event 处理
  */
 
@@ -36,6 +36,11 @@ export const sendNotice = (message: string) => {
 // 发送弹窗
 export const sendAlert = (message: string) => {
   sendEvent('plugin-alert', message)
+}
+
+// 发送确认弹窗
+export const sendConfirm = (message: string, callback: Function) => {
+  sendEvent('plugin-confirm', message, callback)
 }
 
 // 打开网址

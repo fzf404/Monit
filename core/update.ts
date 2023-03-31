@@ -9,7 +9,7 @@
 import fetch from 'node-fetch'
 
 import { getVersion } from '~/server/app'
-import { openURL, sendAlert, sendConfirm } from '~/server/utils'
+import { openURL, sendAlert, sendConfirm } from '~/server/system'
 
 const UpdateAPI = 'https://api.github.com/repos/fzf404/monit/releases/latest'
 const DownloadURL = 'https://github.com/fzf404/monit/releases/latest'

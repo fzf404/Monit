@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2022-12-25 17:04:38
+ * @LastEditTime: 2023-03-29 21:24:51
  * @Description: 角色跟踪
  */
 
@@ -50,7 +50,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
       lineWidth: 2,
       radius: (data: DrawingUtils.Data) => {
         return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
-      },
+      }
     })
 
     // 右手连接线
@@ -62,7 +62,7 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
       lineWidth: 2,
       radius: (data: DrawingUtils.Data) => {
         return DrawingUtils.lerp(data.from!.z!, -0.15, 0.1, 10, 1)
-      },
+      }
     })
   }
 
@@ -73,31 +73,31 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
     // 面部网格
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_TESSELATION, {
       color: '#C0C0C070',
-      lineWidth: 1,
+      lineWidth: 1
     })
 
     // 眼睛眉毛
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_RIGHT_EYE, {
-      color: 'rgb(0,217,231)',
+      color: 'rgb(0,217,231)'
     })
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_RIGHT_EYEBROW, {
-      color: 'rgb(0,217,231)',
+      color: 'rgb(0,217,231)'
     })
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_LEFT_EYE, {
-      color: 'rgb(255,138,0)',
+      color: 'rgb(255,138,0)'
     })
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_LEFT_EYEBROW, {
-      color: 'rgb(255,138,0)',
+      color: 'rgb(255,138,0)'
     })
 
     // 轮廓
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_FACE_OVAL, {
       color: '#E0E0E0',
-      lineWidth: 4,
+      lineWidth: 4
     })
     DrawingUtils.drawConnectors(ctx, results.faceLandmarks, Holistic.FACEMESH_LIPS, {
       color: '#E0E0E0',
-      lineWidth: 4,
+      lineWidth: 4
     })
   }
 
@@ -122,7 +122,7 @@ export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoEl
   const config: Holistic.HolisticConfig = {
     locateFile: (file) => {
       return `https://cdn.jsdelivr.net/npm/electron-mediapipe-holistic@1.0.2/${file}`
-    },
+    }
   }
 
   // Holistic 实例
@@ -134,7 +134,7 @@ export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoEl
     smoothLandmarks: true,
     minDetectionConfidence: 0.7,
     minTrackingConfidence: 0.7,
-    refineFaceLandmarks: true,
+    refineFaceLandmarks: true
   })
 
   // Holistic 回调

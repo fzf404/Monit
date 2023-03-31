@@ -2,9 +2,10 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 09:47:10
+ * @LastEditTime: 2023-03-30 10:13:45
  * @Description: github 信息监控
 -->
+
 <template>
   <!-- 设置 -->
   <Setting :store="store" :setting="setting" @save="initGithubData" />
@@ -12,14 +13,14 @@
   <article class="grid grid-cols-12 grid-rows-5 p-3">
     <!-- follower -->
     <section class="flex-col-center col-span-7 row-span-3 mt-4">
-      <h1 class="text-intro mb-1">follower</h1>
+      <h1 class="font-intro mb-1">follower</h1>
       <p class="flex-row-center-bottom">
         <!-- github svg -->
         <GihubSVG
-          class="mr-1 mb-1 text-blue-400"
+          class="mb-1 mr-1 text-blue-400"
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }" />
         <!-- follower number -->
-        <span class="text-light" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
+        <span class="text-primary" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
         <!-- follower change -->
@@ -28,7 +29,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-gray': store.follower == follower
+            'text-secondary': store.follower == follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -36,24 +37,24 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-scroll col-span-5 row-span-5 mt-2 gap-1">
+    <section class="flex-col-left-scroll col-span-5 row-span-5 mt-2 gap-1">
       <p v-for="item in store.repo" class="flex-row-center clickable gap-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 text-green-400" />
-        <span class="text-light text-sm">
+        <span class="text-primary text-sm">
           {{ item.star }}
         </span>
-        <span class="text-intro whitespace-nowrap"> {{ item.repo }} </span>
+        <span class="font-intro whitespace-nowrap"> {{ item.repo }} </span>
       </p>
     </section>
     <!-- star -->
     <section class="flex-col-center col-span-3 row-span-2">
-      <h1 class="text-intro">star</h1>
+      <h1 class="font-intro">star</h1>
       <p class="flex-row-center-bottom">
         <!-- star svg -->
-        <StarSVG class="mr-0.5 mb-1.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
+        <StarSVG class="mb-1.5 mr-0.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
         <!-- star number -->
-        <span class="text-light" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
+        <span class="text-primary" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
         </span>
         <!-- star change -->
@@ -62,7 +63,7 @@
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
-            'text-gray': store.star == star
+            'text-secondary': store.star == star
           }"
           @click="updateStar">
           {{ starChange }}
@@ -71,12 +72,12 @@
     </section>
     <!-- fork -->
     <section class="flex-col-center col-span-4 row-span-2">
-      <h1 class="text-intro">fork</h1>
+      <h1 class="font-intro">fork</h1>
       <p class="flex-row-center-bottom">
         <!-- fork svg -->
         <ForkSVG class="mb-1 text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
         <!-- fork number -->
-        <span class="text-light" :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{
+        <span class="text-primary" :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{
           fork
         }}</span>
         <!-- fork change -->
@@ -85,7 +86,7 @@
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,
-            'text-gray': store.fork == fork
+            'text-secondary': store.fork == fork
           }"
           @click="updateFork">
           {{ forkChange }}
@@ -98,10 +99,10 @@
 <script>
 import { reactive } from 'vue'
 
+import { openURL, sendAlert, sendNotice } from '~/event/send'
 import axios from '~/lib/request'
 import { getArrDiffKey } from '~/lib/statistic'
 import { storage } from '~/lib/storage'
-import { openURL, sendAlert, sendNotice } from '~/event/send'
 
 import { main } from '@/pinia'
 
@@ -114,16 +115,16 @@ import RepoSVG from '@/assets/plugin/github/repo.svg'
 import StarSVG from '@/assets/plugin/github/star.svg'
 
 // 初始化 axios
-const request = axios('https://api.github.com')
+const request = axios('https://api.github.com/')
 
 export default {
   components: {
     Layout,
+    Setting,
     GihubSVG,
     StarSVG,
     ForkSVG,
-    RepoSVG,
-    Setting
+    RepoSVG
   },
   setup() {
     // 存储数据

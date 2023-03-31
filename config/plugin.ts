@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-23 20:44:10
+ * @LastEditTime: 2023-03-30 10:36:46
  * @Description: plugin 配置
  */
 
@@ -18,6 +18,7 @@ interface plugin {
 
 // 插件列表
 export const pluginList: plugin[] = debugFilter([
+  { name: 'config', size: [2, 3], description: '设置' },
   { name: 'github', size: [4, 2], description: '监控' },
   { name: 'juejin', size: [4, 3], description: '监控' },
   { name: 'music', size: [4, 2], description: '音乐' },
@@ -27,9 +28,9 @@ export const pluginList: plugin[] = debugFilter([
   { name: 'camera', size: [4, 3], description: '相机' },
   { name: 'welcome', size: [2, 2], description: '欢迎' },
   { name: 'count', size: [2, 2], description: '计数器' },
-  { name: 'config', size: [2, 3], description: '设置' },
-  { name: 'weather', size: [4, 2], description: '天气', debug: true },
+  { name: 'chatgpt', size: [4, 4], description: '问答', debug: true },
   { name: 'live2d', size: [4, 3], description: '跟踪', debug: true },
+  { name: 'weather', size: [4, 2], description: '天气', debug: true },
   { name: 'bilibili', size: [2, 2], description: '监控', debug: true }
 ])
 

@@ -51,7 +51,7 @@ export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, re
 
   // 获取画布上下文
   const ctx = canvas.getContext('2d')
-  if (!ctx) throw new Error('ctx is null')
+  if (!ctx) throw new Error('canvas cotext is null')
 
   // 绘制画布
   ctx.drawImage(video, 0, 0)
