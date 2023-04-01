@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 11:34:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 14:40:21
+ * @LastEditTime: 2023-04-01 15:25:16
  * @Description: dark 黑夜主题
  */
 
@@ -32,6 +32,10 @@
 
 .text-theme {
   @apply text-pink-400;
+}
+
+.icon-theme {
+  @apply text-indigo-400 hover:text-indigo-500;
 }
 
 /*
