@@ -184,7 +184,7 @@ const store = storage(
 // 设置保存
 const onSave = () => {
   // 发送提醒
-  sendAlert(`标题已改为：${store.title}`)
+  sendAlert(`设置已保存！`)
 }
 </script>
 ```
