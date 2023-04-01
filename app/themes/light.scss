@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 14:45:01
+ * @LastEditTime: 2023-04-01 15:25:53
  * @Description: light 明亮主题
  */
 
@@ -32,6 +32,10 @@
 
 .text-theme {
   @apply text-sky-400;
+}
+
+.icon-theme {
+  @apply text-orange-400 hover:text-orange-500;
 }
 
 /*

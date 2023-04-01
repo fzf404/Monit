@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 20:54:03
+ * @LastEditTime: 2023-04-01 01:01:52
  * @Description: handle 处理
  */
 
@@ -126,8 +126,7 @@ export const initIPC = () => {
   })
 
   // 请求设备权限
-  ipcMain.on('request-media-permission', (event, mediaType: 'microphone' | 'camera') => {
-    console.log('requestMediaAccess(mediaType)', requestMediaAccess(mediaType))
-    event.returnValue = requestMediaAccess(mediaType)
+  ipcMain.on('request-media-permission', async (event, mediaType: 'microphone' | 'camera') => {
+    event.returnValue = await requestMediaAccess(mediaType)
   })
 }

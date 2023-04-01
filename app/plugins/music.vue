@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 13:47:16
+ * @LastEditTime: 2023-04-01 14:52:32
  * @Description: music 网易云音乐播放
 -->
 
@@ -10,7 +10,7 @@
   <!-- 设置 -->
   <Setting :store="store" :setting="setting" @save="getPlayList" />
   <!-- 图像展示 -->
-  <Image :show="state.login.show" remark="请使用网易云音乐扫码登陆！" :image="state.login.qrcode" />
+  <Image :show="state.login.show" remark="请使用网易云音乐扫码登录！" :image="state.login.qrcode" />
   <!-- 加载中 -->
   <Loading :show="state.loading" :remark="['音乐加载中...']" />
   <!-- 页面内容 -->
@@ -126,7 +126,7 @@ const state = reactive({
   play: false,
   // 加载状态
   loading: false,
-  // 登陆状态
+  // 登录状态
   login: {
     show: false,
     qrcode: ''
@@ -152,7 +152,7 @@ const store = storage(
     id: '7667645628', // 歌单 ID
     url: 'https://api.fzf404.art/music/', // 接口地址
     mode: 0, // 播放模式 0 循环播放 1 随机播放 2 单曲循环
-    cookie: '', // 登陆信息
+    cookie: '', // 登录信息
     current: 0, // 音乐索引
     music: [] // 音乐列表
   },
@@ -176,26 +176,26 @@ const request = axios(store.url)
 
 // 登录
 const login = async () => {
-  // 获取登陆密钥
+  // 获取登录密钥
   const { unikey } = (await request.get(`/login/qr/key?timerstamp=${Date.now()}`)).data
   if (!unikey) {
     return sendAlert('登录密钥获取失败！')
   }
 
-  // 获取登陆二维码
+  // 获取登录二维码
   const { qrimg } = (await request.get(`/login/qr/create?qrimg=true&timerstamp=${Date.now()}&key=${unikey}`)).data
-  // 设置登陆二维码
+  // 设置登录二维码
   state.login.qrcode = qrimg
   // 展示登录二维码
   state.login.show = true
   // 关闭设置
   pinia.closeSetting()
 
-  // 轮询登陆状态
+  // 轮询登录状态
   const callback = setInterval(async () => {
-    // 获取登陆状态
+    // 获取登录状态
     const data = await request.get(`/login/qr/check?timerstamp=${Date.now()}&key=${unikey}`)
-    // 登陆成功
+    // 登录成功
     if (data.code == 803) {
       clearInterval(callback) // 撤销轮询
       store.cookie = data.cookie // 设置 cookie
@@ -208,7 +208,7 @@ const login = async () => {
   // 超时时间 60s
   setTimeout(() => {
     clearInterval(callback) // 撤销轮询
-    state.login.show = false // 隐藏登陆二维码
+    state.login.show = false // 隐藏登录二维码
     pinia.openSetting() // 展示设置
   }, 60000)
 }
@@ -222,7 +222,7 @@ const setting = reactive([
     help: 'https://monit.fzf404.art/#/zh/01-guide?id=🎵-music-音乐'
   },
   {
-    label: '登陆账号',
+    label: '登录账号',
     type: 'button',
     options: {
       text: '登 陆',
@@ -231,7 +231,7 @@ const setting = reactive([
   }
 ])
 
-// 登陆状态验证
+// 登录状态验证
 const getUser = async () => {
   // 加载中
   state.loading = true
@@ -240,7 +240,7 @@ const getUser = async () => {
   const { account } = await request.get(`/user/account?cookie=${store.cookie}`).catch((err) => {
     return sendAlert('获取账号信息失败：' + err.message)
   })
-  // 验证登陆
+  // 验证登录
   if (!account) {
     store.cookie = ''
     return login()

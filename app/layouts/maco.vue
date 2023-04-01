@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-23 17:03:20
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-23 20:41:25
+ * @LastEditTime: 2023-04-01 15:26:58
  * @Description: maco 布局
 -->
 
@@ -27,7 +27,6 @@
     <!-- 状态控制器 -->
     <ul class="absolute right-2 space-x-1">
       <!-- 断网提示 -->
-      <!-- <WifiSVG v-show="pinia.hasNetwork" class="btn-svg w-4 text-red-400 hover:text-red-500" /> -->
       <WifiSVG v-show="!pinia.hasNetwork" class="btn-svg w-4 text-red-400 hover:text-red-500" />
       <!-- 布局 -->
       <component
@@ -35,15 +34,7 @@
         class="btn-svg w-4 text-green-400 hover:text-green-500"
         @click="store.layout = layout.next" />
       <!-- 主题 -->
-      <component
-        :is="theme.icon"
-        class="btn-svg w-4"
-        :class="{
-          'text-indigo-400 hover:text-indigo-500': theme.name == 'dark',
-          'text-orange-400 hover:text-orange-500': theme.name == 'light',
-          'text-yellow-400 hover:text-yellow-500': theme.name == 'punk'
-        }"
-        @click="store.theme = theme.next" />
+      <component :is="theme.icon" class="btn-svg icon-theme w-4" @click="store.theme = theme.next" />
       <!-- 设置 -->
       <SettingSVG
         v-show="pinia.hasSetting"

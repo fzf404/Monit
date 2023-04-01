@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 12:52:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 14:09:21
+ * @LastEditTime: 2023-04-01 15:26:14
  * @Description: punk 赛博主题
  */
 
@@ -32,6 +32,10 @@
 
 .text-theme {
   @apply text-red-400;
+}
+
+.icon-theme {
+  @apply text-yellow-400 hover:text-yellow-500;
 }
 
 /*

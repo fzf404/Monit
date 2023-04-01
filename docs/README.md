@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 21:54:55
+ * @LastEditTime: 2023-04-01 14:54:05
  * @Description: 应用介绍
 -->
 
@@ -27,11 +27,11 @@
 
 ## ✨ 功能
 
-> VueC 指 Composition API，VueO 指 Options API
+> 支持开机自启、更新检查、主题切换、通知发送、系统调用等功能。
 >
 > 更多请前往：[使用指南](https://monit.fzf404.art/#/zh/01-guide) & [开发指南](https://monit.fzf404.art/#/zh/03-develop)
 
-| 插件名   | 功能              | 技术                         | 贡献                                  | 状态 |
+| 插件     | 功能              | 技术                         | 贡献                                  | 状态 |
 | -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |
 | welcome  | 使用指引          | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
 | count    | 计数器            | Vue Options API              | [fzf404](https://github.com/fzf404)   | ✅   |
@@ -50,18 +50,18 @@
 
 ## 🎁 安装
 
-> 使用 Github Action 自动打包，无需担心安全问题
+> 使用 Github Action 自动打包，无需担心安全问题。
 >
-> 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/release/monit) 寻找操作系统对应的安装包
+> 前往 [Release](https://github.com/fzf404/Monit/releases) / [Mirror](https://cloud.fzf404.art/release/monit) 寻找操作系统对应的安装包。
 
 - MacOS
 
-  > 由于没有 Apple 开发者账号，打开时如出现 `Monit.app 已损坏`，请执行如下指令
+  > 由于没有 Apple 开发者账号，打开时如出现 `Monit.app 已损坏`，请执行如下指令：
 
   ```bash
   sudo xattr -rd com.apple.quarantine /Applications/Monit.app
   ```
 
-## 🌟 标星
+## ⭐ 标星
 
 ![Star](https://api.star-history.com/svg?repos=fzf404/Monit&type=Date)

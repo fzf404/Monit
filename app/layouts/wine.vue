@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-23 20:41:42
+ * @LastEditTime: 2023-04-01 15:27:15
  * @Description: winer 布局
 -->
 
@@ -16,15 +16,7 @@
         class="hover-dynamic btn-svg w-5 text-blue-400"
         @click="pinia.toggleSetting()" />
       <!-- 主题 -->
-      <component
-        :is="theme.icon"
-        class="hover-dynamic btn-svg w-5"
-        :class="{
-          'text-indigo-400 ': theme.name == 'dark',
-          'text-orange-400': theme.name == 'light',
-          'text-yellow-400 ': theme.name == 'punk'
-        }"
-        @click="store.theme = theme.next" />
+      <component :is="theme.icon" class="hover-dynamic btn-svg icon-theme w-5" @click="store.theme = theme.next" />
       <!-- 布局 -->
       <component
         :is="layout.icon"
