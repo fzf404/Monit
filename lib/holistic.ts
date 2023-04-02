@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 21:24:51
+ * @LastEditTime: 2023-04-02 23:12:58
  * @Description: 角色跟踪
  */
 
@@ -11,8 +11,8 @@ import Holistic from '@mediapipe/holistic'
 
 /**
  * @description: 绘制跟踪结果
- * @param { HTMLCanvasElement } canvas 元素
- * @param { HTMLVideoElement } video 元素
+ * @param { HTMLCanvasElement } canvas 绘制元素
+ * @param { HTMLVideoElement } video 视频元素
  * @param { Holistic } results 跟踪结果
  */
 export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, results: Holistic.Results): void => {
@@ -113,8 +113,8 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
 
 /**
  * @description: 初始化 Holistic 实例
- * @param { HTMLCanvasElement } canvas 元素
- * @param { HTMLVideoElement } video 元素
+ * @param { HTMLCanvasElement } canvas 绘制元素
+ * @param { HTMLVideoElement } video 视频元素
  * @return { Promise<number> } 实例状态
  */
 export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<number> => {

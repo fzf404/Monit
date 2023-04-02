@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:13:45
+ * @LastEditTime: 2023-04-02 23:30:03
  * @Description: github 信息监控
 -->
 
@@ -10,9 +10,9 @@
   <!-- 设置 -->
   <Setting :store="store" :setting="setting" @save="initGithubData" />
   <!-- 页面内容 -->
-  <article class="grid grid-cols-12 grid-rows-5 p-3">
+  <article class="grid grid-cols-12 grid-rows-5 p-4 pt-6">
     <!-- follower -->
-    <section class="flex-col-center col-span-7 row-span-3 mt-4">
+    <section class="flex-col-center col-span-7 row-span-3">
       <h1 class="font-intro mb-1">follower</h1>
       <p class="flex-row-center-bottom">
         <!-- github svg -->
@@ -29,7 +29,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-secondary': store.follower == follower
+            'text-secondary': store.follower === follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -37,7 +37,7 @@
       </p>
     </section>
     <!-- repo -->
-    <section class="flex-col-left-scroll col-span-5 row-span-5 mt-2 gap-1">
+    <section class="flex-col-left-scroll col-span-5 row-span-5 gap-1">
       <p v-for="item in store.repo" class="flex-row-center clickable gap-1" @click="openRepo(item.repo)">
         <!-- repo svg -->
         <RepoSVG class="h-4 text-green-400" />
@@ -63,7 +63,7 @@
           :class="{
             'text-green-400': store.star < star,
             'text-red-400': store.star > star,
-            'text-secondary': store.star == star
+            'text-secondary': store.star === star
           }"
           @click="updateStar">
           {{ starChange }}
@@ -86,7 +86,7 @@
           :class="{
             'text-green-400': store.fork < fork,
             'text-red-400': store.fork > fork,
-            'text-secondary': store.fork == fork
+            'text-secondary': store.fork === fork
           }"
           @click="updateFork">
           {{ forkChange }}

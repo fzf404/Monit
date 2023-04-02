@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-11 16:35:56
+ * @LastEditTime: 2023-04-02 23:09:01
  * @Description: camera 工具
  */
 
@@ -19,8 +19,8 @@ export const getCameraList = async (): Promise<MediaDeviceInfo[]> => {
 
 /**
  * @description: 初始化相机
- * @param { string } deviceId 设备ID
- * @param { HTMLVideoElement } video 元素
+ * @param { string } deviceId 设备 ID
+ * @param { HTMLVideoElement } video 视频元素
  ≈
  */
 export const initCamera = async (deviceId: string, video: HTMLVideoElement): Promise<MediaStream> => {
@@ -40,9 +40,9 @@ export const initCamera = async (deviceId: string, video: HTMLVideoElement): Pro
 
 /**
  * @description: 拍照
- * @param { HTMLVideoElement } video 元素
- * @param { HTMLCanvasElement } canvas 元素
- * @param { HTMLAnchorElement } record 元素
+ * @param { HTMLVideoElement } video 视频元素
+ * @param { HTMLCanvasElement } canvas 绘制元素
+ * @param { HTMLAnchorElement } record 记录元素
  */
 export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, record: HTMLAnchorElement) => {
   // 设置画布信息
@@ -68,8 +68,8 @@ export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, re
 
 /**
  * @description: 录制
- * @param {string} deviceId 设备ID
- * @param {HTMLAnchorElement} record 元素
+ * @param {string} deviceId 设备 ID
+ * @param {HTMLAnchorElement} record 记录元素
  * @return { Promise<MediaRecorder> } 录制对象
  */
 export const recordVideo = async (deviceId: string, record: HTMLAnchorElement): Promise<MediaRecorder> => {
@@ -101,5 +101,7 @@ export const recordVideo = async (deviceId: string, record: HTMLAnchorElement): 
 
   // 开始
   recorder.start()
+
+  // 返回记录器
   return recorder
 }

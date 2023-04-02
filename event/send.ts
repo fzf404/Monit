@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 22:25:28
- * @Description: event 处理
+ * @LastEditTime: 2023-04-02 23:08:36
+ * @Description: send 事件发送
  */
 
 import { ipcRenderer } from 'electron'
