@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 09:49:17
+ * @LastEditTime: 2023-04-02 23:58:28
  * @Description: storage 封装
  */
 
@@ -16,10 +16,6 @@ import { getValue, setValue } from '~/event/send'
 export const store = new Store({
   // 版本更新初始化
   migrations: {
-    '>=0.3.0': (store) => {
-      // 清空配置
-      store.clear()
-    },
     '>=0.7.0': (store) => {
       // 判断配置
       if (store.has('_config')) {

@@ -2,7 +2,7 @@
  * @Author: Ned
  * @Date: 2022-08-14 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:14:10
+ * @LastEditTime: 2023-04-02 22:09:27
  * @Description: juejin 信息监控
 -->
 
@@ -10,7 +10,7 @@
   <!-- 设置 -->
   <Setting :show="true" :store="store" :setting="setting" @save="initJuejinData" />
   <!-- 页面内容 -->
-  <article class="grid grid-cols-7 grid-rows-6 p-3 pb-4">
+  <article class="grid grid-cols-7 grid-rows-6 p-4">
     <!-- 关注者 -->
     <section class="flex-col-center col-start-1 col-end-3 row-start-2">
       <h1 class="font-intro">关注者</h1>
@@ -29,7 +29,7 @@
           :class="{
             'text-green-400': store.follower < follower,
             'text-red-400': store.follower > follower,
-            'text-secondary': store.follower == follower
+            'text-secondary': store.follower === follower
           }"
           @click="updateFollower">
           {{ followerChange }}
@@ -52,7 +52,7 @@
           :class="{
             'text-green-400': store.power < power,
             'text-red-400': store.power > power,
-            'text-secondary': store.power == power
+            'text-secondary': store.power === power
           }"
           @click="updatePower">
           {{ powerChange }}
@@ -75,7 +75,7 @@
           :class="{
             'text-green-400': store.like < like,
             'text-red-400': store.like > like,
-            'text-secondary': store.like == like
+            'text-secondary': store.like === like
           }"
           @click="updatelike">
           {{ likeChange }}
@@ -98,7 +98,7 @@
           :class="{
             'text-green-400': store.view < view,
             'text-red-400': store.view > view,
-            'text-secondary': store.view == view
+            'text-secondary': store.view === view
           }"
           @click="updateView">
           {{ viewChange }}

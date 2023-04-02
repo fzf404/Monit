@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-01 01:01:52
- * @Description: handle 处理
+ * @LastEditTime: 2023-04-02 23:06:59
+ * @Description: handle 事件处理
  */
 
 import { ipcMain } from 'electron'
