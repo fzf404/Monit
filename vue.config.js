@@ -57,8 +57,8 @@ const config = {
           },
           entitlements: 'entitlements.mac.plist',
           extendInfo: {
-            NSMicrophoneUsageDescription: '请提供您的麦克风权限！',
-            NSCameraUsageDescription: '请提供您的相机权限！'
+            NSMicrophoneUsageDescription: '请提供麦克风权限！',
+            NSCameraUsageDescription: '请提供相机权限！'
           }
         }
       }
