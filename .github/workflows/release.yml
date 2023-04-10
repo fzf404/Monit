@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'
 
 jobs:
-  build:
+  release:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -31,7 +31,7 @@ jobs:
       - name: setup
         run: pnpm install
 
-      - name: release
+      - name: publish
         run: pnpm release
         env:
           GH_TOKEN: ${{ secrets.token }}
