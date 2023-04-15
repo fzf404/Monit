@@ -2,16 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-15 20:57:36
+ * @LastEditTime: 2023-04-15 22:58:48
  * @Description: app 调用
  */
 
 import { app } from 'electron'
 
-import { clear, get, set } from '~/lib/storage'
+import { clear, get, set, store } from '~/lib/storage'
 
 // 读取配置
-export const getValue = (name: string, key: string, defalut: string) => {
+export const getValue = (name: string, key: string, defalut: string): Object => {
   return get(name, key, JSON.parse(defalut))
 }
 
@@ -37,14 +37,25 @@ export const resetApp = () => {
   restartApp()
 }
 
+// 应用自启状态
+export const bootState = (): boolean => {
+  return app.getLoginItemSettings().openAtLogin
+}
+
 // 自启应用
 export const bootApp = (state: boolean) => {
+  // 设置自启
   app.setLoginItemSettings({
     openAtLogin: state
   })
 }
 
+// 编辑配置
+export const openConfig = () => {
+  store.openInEditor()
+}
+
 // 获取版本
-export const getVersion = () => {
+export const getVersion = (): string => {
   return app.getVersion()
 }
