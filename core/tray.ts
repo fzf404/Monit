@@ -2,16 +2,16 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-31 09:26:07
+ * @LastEditTime: 2023-04-15 21:34:51
  * @Description: tary 初始化
  */
-import { app, Menu, Tray } from 'electron'
+import { Menu, Tray } from 'electron'
 
 import { checkUpdate } from './update'
 
 import { pluginList } from '~/config/plugin'
 import { get } from '~/lib/storage'
-import { bootApp, getVersion, quitApp, resetApp, restartApp } from '~/server/app'
+import { bootApp, bootState, getVersion, openConfig, quitApp, resetApp, restartApp } from '~/server/app'
 import { bootPlugin, createPlugin } from '~/server/plugin'
 import { openURL, sendConfirm } from '~/server/system'
 
@@ -37,11 +37,6 @@ const initMenu = () => {
       label: '插件列表',
       // 插件列表
       submenu: [
-        // 全部开启
-        {
-          label: '全部开启',
-          click: () => createPlugin(pluginNames)
-        },
         // 分割线
         { type: 'separator' },
         // 插件列表
@@ -57,13 +52,10 @@ const initMenu = () => {
     {
       label: '插件自启',
       submenu: [
-        // 全部自启
+        // 刷新插件自启状态
         {
-          label: '全部自启',
+          label: '刷新列表',
           click: () => {
-            // 设置自启动列表
-            bootPlugin(pluginNames, true)
-            // 重置菜单
             initMenu()
           }
         },
@@ -86,44 +78,29 @@ const initMenu = () => {
               }
             }
           }
-        }),
-        // 分割线
-        { type: 'separator' },
-        {
-          label: '全部关闭',
-          click: () => {
-            // 设置自启动列表
-            bootPlugin(pluginNames, false)
-            // 重置菜单
-            initMenu()
-          }
-        }
+        })
       ]
-    },
-    // 刷新插件状态
-    {
-      label: '刷新列表',
-      click: () => {
-        initMenu()
-      }
     },
     // 分割线
     { type: 'separator' },
-    // TODO 备份配置文件
     // 开机自启
     {
       label: '开机自启',
       type: 'checkbox',
-      checked: app.getLoginItemSettings().openAtLogin,
+      checked: bootState(),
       click: () => {
-        // 切换开机自启
-        bootApp(!app.getLoginItemSettings().openAtLogin)
+        // 开机自启切换
+        bootApp(!bootState())
       }
     },
     // 检查更新
     {
       label: '检查更新',
       click: () => checkUpdate(false)
+    },
+    {
+      label: '编辑配置',
+      click: () => openConfig()
     },
     // 分割线
     { type: 'separator' },
