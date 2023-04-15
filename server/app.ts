@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-07-15 12:45:00
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 21:20:25
+ * @LastEditTime: 2023-04-15 20:57:36
  * @Description: app 调用
  */
 
 import { app } from 'electron'
 
-import { get, set, clear } from '~/lib/storage'
+import { clear, get, set } from '~/lib/storage'
 
 // 读取配置
 export const getValue = (name: string, key: string, defalut: string) => {
@@ -34,7 +34,7 @@ export const restartApp = () => {
 // 重置应用
 export const resetApp = () => {
   clear()
-  resetApp()
+  restartApp()
 }
 
 // 自启应用

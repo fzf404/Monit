@@ -130,7 +130,7 @@ const initMenu = () => {
     // 重置应用
     {
       label: '重置',
-      click: () => sendConfirm('reset', '请确认重置应用！', () => resetApp)
+      click: () => sendConfirm('reset', '请确认重置应用！', () => resetApp())
     },
     {
       label: '重启',
