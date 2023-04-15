@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-02 23:06:59
+ * @LastEditTime: 2023-04-15 22:02:33
  * @Description: handle 事件处理
  */
 
 import { ipcMain } from 'electron'
 
-import { bootApp, getValue, getVersion, quitApp, resetApp, restartApp, setValue } from '~/server/app'
+import { bootApp, getValue, getVersion, openConfig, quitApp, resetApp, restartApp, setValue } from '~/server/app'
 
 import {
   closePlugin,
@@ -52,6 +52,7 @@ export const initIPC = () => {
     bootApp(state)
   })
 
+  // 应用版本
   ipcMain.on('app-version', (event) => {
     event.returnValue = getVersion()
   })
@@ -109,6 +110,11 @@ export const initIPC = () => {
   // 打开文件
   ipcMain.on('open-file', (event) => {
     event.returnValue = openFile('all')
+  })
+
+  // 打开配置文件
+  ipcMain.on('open-config', () => {
+    openConfig()
   })
 
   // 保存值

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-31 09:56:26
+ * @LastEditTime: 2023-04-15 21:30:54
  * @Description: window 初始化
  */
 
@@ -26,7 +26,7 @@ interface WindowOption {
 }
 
 // 创建窗口
-export const createWindow = (option: WindowOption) => {
+export const createWindow = (option: WindowOption): BrowserWindow => {
   // 创建窗口
   const win = new BrowserWindow({
     title: option.name, // 窗口名

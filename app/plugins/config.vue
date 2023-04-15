@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-31 09:52:07
+ * @LastEditTime: 2023-04-15 22:55:59
  * @Description: config 应用配置
 -->
 
@@ -101,6 +101,17 @@ const setting = reactive([
     id: 'auto',
     label: '开机自启',
     type: 'checkbox'
+  },
+  {
+    id: 'config',
+    label: '配置文件',
+    type: 'button',
+    options: {
+      text: '⇌',
+      click: () => {
+        sendEvent('open-config')
+      }
+    }
   },
   {
     id: 'restart',
