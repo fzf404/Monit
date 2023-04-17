@@ -60,7 +60,7 @@ import WifiSVG from '@/assets/layout/wifi.svg'
 import { main } from '@/pinia'
 import { sendEvent } from '~/event/send'
 
-// 初始化 pinia
+// 初始化全局状态
 const pinia = main()
 
 // 初始化 props

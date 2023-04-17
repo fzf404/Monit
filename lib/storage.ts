@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-02 23:58:28
+ * @LastEditTime: 2023-04-17 21:25:37
  * @Description: storage 封装
  */
 
@@ -12,7 +12,7 @@ import { reactive, watch } from 'vue'
 
 import { getValue, setValue } from '~/event/send'
 
-// 初始化 store
+// 初始化存储
 export const store = new Store({
   // 版本更新初始化
   migrations: {
@@ -76,7 +76,7 @@ export const clear = (): void => {
 }
 
 /**
- * @description: 响应式 storage
+ * @description: 响应式存储
  * @param { Record<string, Object> } source 原始参数
  * @param { Record<K, Function> } callback 回调函数
  * @return { Source } 响应式参数

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-28 09:21:02
+ * @LastEditTime: 2023-04-17 21:23:15
  * @Description: axios 封装
  */
 
@@ -10,12 +10,12 @@ import axios from 'axios'
 
 import { main } from '@/pinia'
 
-// 初始化 pinia
+// 初始化全局状态
 const pinia = main()
 
 // 初始化请求
 const request = (url: string) => {
-  // axios 实例
+  // 请求实例
   const service = axios.create({
     baseURL: url, // 基础路径
     timeout: 30000, // 超时时间
@@ -37,6 +37,7 @@ const request = (url: string) => {
       return Promise.reject(err)
     }
   )
+
   return service
 }
 

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-15 22:55:59
+ * @LastEditTime: 2023-04-17 21:13:34
  * @Description: config 应用配置
 -->
 
@@ -74,6 +74,7 @@ import { storage } from '~/lib/storage'
 
 import Setting from '@/components/setting.vue'
 
+// 插件列表
 const pluginNames = pluginList.map((item) => item.name)
 
 // 状态信息
@@ -87,8 +88,8 @@ const store = storage(
     auto: false,
     boot: []
   },
-  // 自启修改
   {
+    // 自启修改
     auto: (val) => {
       sendEvent('app-boot', val)
     }

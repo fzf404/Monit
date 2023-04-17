@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-15 21:34:51
+ * @LastEditTime: 2023-04-17 21:18:47
  * @Description: tary 初始化
  */
 import { Menu, Tray } from 'electron'
@@ -123,7 +123,7 @@ const initMenu = () => {
 
 // 初始化托盘
 export const initTray = () => {
-  // 托盘 Logo
+  // 托盘图标
   const trayLogo = process.platform === 'darwin' ? `${__static}/img/tray.png` : `${__static}/img/icon.png`
   // 托盘提示
   const trayTip = 'Monit'

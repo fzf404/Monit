@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-10 09:12:28
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-31 13:08:42
+ * @LastEditTime: 2023-04-17 21:02:24
  * @Description: clock 翻牌时钟
 -->
 
@@ -73,7 +73,7 @@ let fliping = [false, false, false, false, false, false]
 // 停止回调
 let callback = null
 
-// 数字记录
+// 历史数字记录
 let old = '000000'
 
 /**
@@ -82,25 +82,29 @@ let old = '000000'
  * @param {*} num 修改结果
  */
 const changeNumber = (digit, num) => {
-  // 翻转中则返回
+  // 判断翻转状态
   if (fliping[digit]) return
 
   // 设置翻牌状态
   fliping[digit] = true
 
-  // 获取 DOM
+  // 获取元素
   const flip = document.querySelectorAll('.flip')[digit]
   const front = document.querySelectorAll('.front')[digit]
   const back = document.querySelectorAll('.back')[digit]
 
-  // 更改数字 & 启动动画
+  // 更改数字
   back.setAttribute('class', `digital back n-${num}`)
+  // 开启动画
   flip.classList.add('go')
 
-  // 延时 600ms 停止动画 & 修改前面数字
+  // 延时停止动画
   setTimeout(() => {
+    // 停止动画
     flip.classList.remove('go')
+    // 修改数字
     front.setAttribute('class', `digital front n-${num}`)
+    // 设置翻牌状态
     fliping[digit] = false
   }, 600)
 }
@@ -122,11 +126,13 @@ const startClock = () => {
   // 停止回调
   callback && clearInterval(callback)
 
-  // 获取最新时间
+  // 每秒更新计时
   callback = setInterval(() => {
+    // 获取当前时间
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
     changeClock(time)
+    // 保存旧数字
     old = time
   }, 1000)
 }
@@ -154,24 +160,33 @@ const startTiming = () => {
 
   // 每秒更新计时
   callback = setInterval(() => {
+    // 获取差值
     const diff = new Date().getTime() - start
 
+    // 计算计时时间
     const hour = diff % (24 * 3600 * 1000)
     const minute = hour % (3600 * 1000)
     const second = minute % (60 * 1000)
 
+    // 拼接为列表
     const time = [Math.floor(hour / (3600 * 1000)), Math.floor(minute / (60 * 1000)), Math.floor(second / 1000)]
 
     // 转为字符串
     const timeStr = numToStr(time[0], 2) + numToStr(time[1], 2) + numToStr(time[2], 2)
+
+    // 更改时钟数字
     changeClock(timeStr)
+
+    // 保存旧数字
     old = timeStr
   }, 1000)
 }
 
 // 停止计时
 const stop = () => {
+  // 修改计时状态
   timing.value = false
+  // 停止回调函数
   callback && clearInterval(callback)
 }
 

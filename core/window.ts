@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 19:48:32
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-15 21:30:54
+ * @LastEditTime: 2023-04-17 21:19:31
  * @Description: window 初始化
  */
 
@@ -48,7 +48,7 @@ export const createWindow = (option: WindowOption): BrowserWindow => {
     visualEffectState: 'active', // 保持窗口激活
 
     webPreferences: {
-      nodeIntegration: true, // 开启 Node 集成
+      nodeIntegration: true, // 开启集成
       contextIsolation: false, // 关闭上下文隔离
       webSecurity: false // 关闭跨域安全限制
     }

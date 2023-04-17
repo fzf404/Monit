@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-31 22:52:50
+ * @LastEditTime: 2023-04-17 21:19:52
  * @Description: 使用指南
 -->
 
@@ -60,7 +60,7 @@
 
 这是一个用于监控 Juejin 信息的插件。
 
-前往自己的 [掘金主页](https://juejin.cn/)，查看浏览器地址栏， `https://juejin.cn/user/` 后面的数字，即为自己的 `用户ID`。
+前往自己的 [掘金主页](https://juejin.cn/)，查看浏览器地址栏， `https://juejin.cn/user/` 后面的数字，即为自己的 `用户编号`。
 
 其他使用方式均与 [github](#🐈-github-监控) 相同。
 

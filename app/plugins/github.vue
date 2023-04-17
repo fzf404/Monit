@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-02 23:30:03
+ * @LastEditTime: 2023-04-17 21:28:56
  * @Description: github 信息监控
 -->
 
@@ -11,19 +11,19 @@
   <Setting :store="store" :setting="setting" @save="initGithubData" />
   <!-- 页面内容 -->
   <article class="grid grid-cols-12 grid-rows-5 p-4 pt-6">
-    <!-- follower -->
+    <!-- 关注数 -->
     <section class="flex-col-center col-span-7 row-span-3">
       <h1 class="font-intro mb-1">follower</h1>
       <p class="flex-row-center-bottom">
-        <!-- github svg -->
+        <!-- 关注图标 -->
         <GihubSVG
           class="mb-1 mr-1 text-blue-400"
           :class="{ 'h-9': store.follower < 1000, 'h-8': store.follower > 999 }" />
-        <!-- follower number -->
+        <!-- 关注数量 -->
         <span class="text-primary" :class="{ 'text-5xl': store.follower < 1000, 'text-4xl': store.follower > 999 }">
           {{ store.follower }}
         </span>
-        <!-- follower change -->
+        <!-- 关注修改 -->
         <span
           class="clickable text-3xl"
           :class="{
@@ -36,10 +36,10 @@
         </span>
       </p>
     </section>
-    <!-- repo -->
+    <!-- 仓库列表 -->
     <section class="flex-col-left-scroll col-span-5 row-span-5 gap-1">
       <p v-for="item in store.repo" class="flex-row-center clickable gap-1" @click="openRepo(item.repo)">
-        <!-- repo svg -->
+        <!-- 仓库图标 -->
         <RepoSVG class="h-4 text-green-400" />
         <span class="text-primary text-sm">
           {{ item.star }}
@@ -47,17 +47,17 @@
         <span class="font-intro whitespace-nowrap"> {{ item.repo }} </span>
       </p>
     </section>
-    <!-- star -->
+    <!-- 收藏数 -->
     <section class="flex-col-center col-span-3 row-span-2">
       <h1 class="font-intro">star</h1>
       <p class="flex-row-center-bottom">
-        <!-- star svg -->
+        <!-- 收藏图标 -->
         <StarSVG class="mb-1.5 mr-0.5 text-yellow-400" :class="{ 'h-5': store.star < 1000, 'h-4': store.star > 999 }" />
-        <!-- star number -->
+        <!-- 收藏数量 -->
         <span class="text-primary" :class="{ 'text-2xl': store.star < 1000, 'text-xl': store.star > 999 }">
           {{ store.star }}
         </span>
-        <!-- star change -->
+        <!-- 收藏修改 -->
         <span
           class="clickable text-xl"
           :class="{
@@ -70,17 +70,17 @@
         </span>
       </p>
     </section>
-    <!-- fork -->
+    <!-- 复刻数 -->
     <section class="flex-col-center col-span-4 row-span-2">
       <h1 class="font-intro">fork</h1>
       <p class="flex-row-center-bottom">
-        <!-- fork svg -->
+        <!-- 复刻图标 -->
         <ForkSVG class="mb-1 text-red-400" :class="{ 'h-6': fork < 1000, 'h-5': fork > 999 }" />
-        <!-- fork number -->
+        <!-- 复刻数量 -->
         <span class="text-primary" :class="{ 'text-2xl': store.fork < 1000, 'text-xl': store.fork > 999 }">{{
           fork
         }}</span>
-        <!-- fork change -->
+        <!-- 复刻修改 -->
         <span
           class="clickable text-xl"
           :class="{
@@ -114,7 +114,7 @@ import GihubSVG from '@/assets/plugin/github/github.svg'
 import RepoSVG from '@/assets/plugin/github/repo.svg'
 import StarSVG from '@/assets/plugin/github/star.svg'
 
-// 初始化 axios
+// 初始化请求
 const request = axios('https://api.github.com/')
 
 export default {
@@ -132,11 +132,11 @@ export default {
       user: '', // 用户名
       notice: false, // 允许通知
 
-      star: 0, // star 数
-      fork: 0, // fork 数
-      follower: 0, // follower 数
+      star: 0, // 收藏数
+      fork: 0, // 复刻数
+      follower: 0, // 关注数
 
-      repo: [] // repo 列表
+      repo: [] // 仓库列表
     })
     // 设置项
     const setting = reactive([
@@ -156,16 +156,16 @@ export default {
   data() {
     // 状态数据
     return {
-      follower: this.store.follower, // 当前 follower 数
-      star: this.store.star, // 当前 star 数
-      fork: this.store.fork, // 当前 fork 数
+      follower: this.store.follower, // 当前关注数
+      star: this.store.star, // 当前收藏数
+      fork: this.store.fork, // 当前复刻数
 
-      repo: this.store.repo // 当前 repo 信息
+      repo: this.store.repo // 当前仓库信息
     }
   },
   created() {
     if (this.store.user === '') {
-      // 初始化 pinia
+      // 初始化全局状态
       const pinia = main()
       // 打开设置
       pinia.openSetting()
@@ -175,13 +175,13 @@ export default {
     }
   },
   mounted() {
-    // 每 300s 重新获取信息
+    // 每隔 300秒 重新获取信息
     setInterval(() => {
       this.getGithubData()
     }, 300000)
   },
   computed: {
-    // follow 数据更改
+    // 关注数据更改
     followerChange() {
       const changeNum = this.follower - this.store.follower
       // 发送通知
@@ -195,7 +195,7 @@ export default {
         return changeNum
       }
     },
-    // fork 数据更改
+    // 复刻数据更改
     forkChange() {
       const changeNum = this.fork - this.store.fork
       if (changeNum != 0) {
@@ -207,7 +207,7 @@ export default {
         return changeNum
       }
     },
-    // star 数据更改
+    // 收藏数据更改
     starChange() {
       const changeNum = this.star - this.store.star
       if (changeNum != 0) {
@@ -255,18 +255,18 @@ export default {
         return data
       }
 
-      // 设置 follower 信息
+      // 保存关注信息
       this.follower = data.followers
 
-      // 统计 stat fork repo 数据
+      // 统计收藏、复刻、仓库数据
       let fork = 0,
         star = 0,
         repo = [],
         pages = Math.ceil(data.public_repos / 100)
 
-      // 遍历 repo 信息
+      // 遍历仓库信息
       while (pages--) {
-        // 读取 repo 信息
+        // 读取仓库信息
         const each = await request.get(`/users/${this.store.user}/repos?page=${pages + 1}&per_page=100`)
         each.forEach((item) => {
           star += item.stargazers_count
@@ -288,18 +288,18 @@ export default {
       return data
     },
 
-    // 更新 follower
+    // 更新关注
     updateFollower() {
       this.store.follower = this.follower
-      // 开启通知前往查看 follower 详细信息
+      // 关注详细信息
       if (this.store.notice) {
         openURL(`https://github.com/${this.store.user}?tab=followers`)
       }
     },
-    // 更新 star
+    // 更新收藏
     updateStar() {
       if (this.store.notice) {
-        // 查找 star 变化的仓库
+        // 查找收藏变化的仓库
         getArrDiffKey(this.store.repo, this.repo, 'repo', 'star').forEach((item) => {
           openURL(`https://github.com/${this.store.user}/${item.repo}/stargazers`)
         })
@@ -309,10 +309,10 @@ export default {
       this.store.star = this.star
       this.store.repo = this.repo
     },
-    // 更新 fork
+    // 更新复刻
     updateFork() {
       if (this.store.notice) {
-        // 查找 star 变化的仓库
+        // 查找复刻变化的仓库
         getArrDiffKey(this.store.repo, this.repo, 'repo', 'fork').forEach((item) => {
           openURL(`https://github.com/${this.store.user}/${item.repo}/network/members`)
         })
@@ -323,7 +323,7 @@ export default {
       this.store.repo = this.repo
     },
 
-    // 打开 repo
+    // 打开仓库
     openRepo(repo) {
       openURL(`https://github.com/${this.store.user}/${repo}`)
     }

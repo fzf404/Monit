@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 11:06:17
+ * @LastEditTime: 2023-04-17 20:47:40
  * @Description: camera 相机监控
 -->
 
@@ -74,25 +74,25 @@ import VideoSVG from '@/assets/plugin/camera/video.svg'
 import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
-// 标签引用
+// 标签节点
 const video = ref(null)
 const canvas = ref(null)
 const record = ref(null)
 
-// 状态
+// 插件状态
 const state = reactive({
   stream: null, // 媒体流
   recorder: null, // 录像状态
   loading: true // 加载状态
 })
 
-// 存储数据
+// 数据存储
 const store = storage(
   {
-    camera: '', // 设备ID
-    mirror: true, // 镜像
-    control: true, // 控制器
-    holistic: true // 角色跟踪
+    camera: '', // 设备编号
+    mirror: true, // 镜像状态
+    control: true, // 控制器状态
+    holistic: true // 角色跟踪状态
   },
   {
     // 角色跟踪修改
@@ -106,7 +106,7 @@ const store = storage(
   }
 )
 
-// 设置
+// 设置项
 const setting = [
   {
     id: 'mirror',
@@ -126,15 +126,15 @@ const setting = [
 ]
 
 onMounted(async () => {
-  // 系统平台
+  // 判断系统平台
   if (process.platform === 'darwin') {
-    // 设备权限状态
+    // 获取媒体权限状态
     const mediaAccessStatus = getMediaPermission('camera')
-    // 判断权限
+    // 判断权限状态
     if (!mediaAccessStatus) {
-      // 申请权限
+      // 申请媒体权限
       const isAllowed = requestMediaPermission('camera')
-      // 申请状态
+      // 判断申请状态
       if (!isAllowed) {
         return sendAlert('需要授予相机使用权限！')
       }
@@ -154,7 +154,7 @@ onMounted(async () => {
   // 增加设备选择
   setting.push({
     id: 'camera',
-    label: '设备',
+    label: '设备编号',
     type: 'select',
     options: devices.map((device) => ({
       label: device.label.slice(0, 22),
@@ -162,7 +162,7 @@ onMounted(async () => {
     }))
   })
 
-  // 初始化设备ID
+  // 初始化设备
   store.camera = store.camera || devices[0].deviceId
 
   // 初始化相机
@@ -170,16 +170,15 @@ onMounted(async () => {
     sendAlert('相机初始化失败：' + err.message)
   })
 
-  // 是否开启角色追踪
+  // 判断角色追踪开启
   if (store.holistic) {
-    // 延迟加载 3s
+    // 延迟加载
     setTimeout(() => {
       // 初始化角色追踪
       initHolistic(canvas.value, video.value)
         .then(() => {
-          // 隐藏加载框
           state.loading = false
-        }) // 捕获错误
+        })
         .catch((err) => sendAlert('角色跟踪初始化失败：' + err.message))
     }, 3000)
   } else {
