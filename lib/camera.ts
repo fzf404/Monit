@@ -68,8 +68,8 @@ export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, re
 
 /**
  * @description: 录制
- * @param {string} deviceId 设备 ID
- * @param {HTMLAnchorElement} record 记录元素
+ * @param { string } deviceId 设备 ID
+ * @param { HTMLAnchorElement } record 记录元素
  * @return { Promise<MediaRecorder> } 录制对象
  */
 export const recordVideo = async (deviceId: string, record: HTMLAnchorElement): Promise<MediaRecorder> => {
