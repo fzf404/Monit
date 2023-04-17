@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-08-15 23:02:16
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-01 15:36:36
+ * @LastEditTime: 2023-04-17 21:21:31
  * @Description: 插件开发
 -->
 
@@ -10,18 +10,18 @@
 
 ## 🚀 计数器
 
-### 1. 引入 svg 图像
+### 1. 引入 `svg` 图像
 
-> 推荐使用 svg 作为图标，可以去 [xicons](https://www.xicons.org/) 寻找
+> 推荐使用 `svg` 作为图标，可以去 [xicons](https://www.xicons.org/) 寻找
 
 ```vue
 <template>
-  <!-- 指定 svg 颜色-->
+  <!-- 指定图标颜色-->
   <DemoSVG class="btn-svg h-4 text-green-400" />
 </template>
 
 <script setup>
-// 引入 svg
+// 引入图标
 import DemoSVG from '@/assets/plugin/demo/demo.svg'
 </script>
 ```

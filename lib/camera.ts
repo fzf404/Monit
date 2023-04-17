@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-20 10:21:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-02 23:09:01
+ * @LastEditTime: 2023-04-17 21:22:40
  * @Description: camera 工具
  */
 
@@ -99,7 +99,7 @@ export const recordVideo = async (deviceId: string, record: HTMLAnchorElement): 
     stream.getTracks().forEach((track) => track.stop())
   }
 
-  // 开始
+  // 开始记录
   recorder.start()
 
   // 返回记录器

@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:14:56
+ * @LastEditTime: 2023-04-17 20:58:36
  * @Description: welcome 用户指引
 -->
 
@@ -18,7 +18,7 @@
       <span>图标</span>
     </p>
     <p class="font-intro">打开插件设置启动插件</p>
-    <!-- Github 跳转 -->
+    <!-- 设置插件 -->
     <button class="btn btn-sq btn-md btn-purple text-purple-100" @click="sendEvent('plugin-create', 'config')">
       <SettingSVG class="w-6" />
     </button>

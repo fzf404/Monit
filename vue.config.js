@@ -68,7 +68,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
   // 热重载配置
-  config.pluginOptions.electronBuilder.mainProcessWatch = ['config/*.ts', 'core/*.ts', 'event/*.ts', 'lib/*.ts', 'server/*.ts']
+  config.pluginOptions.electronBuilder.mainProcessWatch = ['config/*.ts', 'core/*.ts', 'event/*.ts', 'server/*.ts']
 }
 
 module.exports = { ...config }

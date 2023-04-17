@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-23 21:02:45
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 14:07:37
+ * @LastEditTime: 2023-04-17 21:28:31
  * @Description: setting 组件
 -->
 
@@ -57,7 +57,7 @@
             @keyup.enter="onSave"
             @input="
             (event) => {
-              // number 最大长度
+              // 数字最大长度
               if ((event.target as HTMLInputElement).value.length > item.options.len)
                 (event.target as HTMLInputElement).value = (event.target as HTMLInputElement).value.slice(0, item.options.len)
             }
@@ -88,7 +88,6 @@ import { main } from '@/pinia'
 
 import HelpSVG from '@/assets/plugin/setting/help.svg'
 
-// props 接口
 interface Props {
   // 尺寸
   size?: 'small' | 'normal' | 'large'
@@ -134,13 +133,13 @@ withDefaults(defineProps<Props>(), {
 // 初始化方法
 const emit = defineEmits(['save'])
 
-// 初始化 pinia
+// 初始化全局状态
 const pinia = main()
 
 // 初始化设置
 pinia.initSetting()
 
-// 保存
+// 保存设置
 const onSave = () => {
   // 隐藏设置框
   pinia.closeSetting()

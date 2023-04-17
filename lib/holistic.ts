@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-07-19 17:36:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-02 23:12:58
+ * @LastEditTime: 2023-04-17 21:39:26
  * @Description: 角色跟踪
  */
 
@@ -112,23 +112,23 @@ export const drawResults = (canvas: HTMLCanvasElement, video: HTMLVideoElement, 
 }
 
 /**
- * @description: 初始化 Holistic 实例
+ * @description: 初始化角色跟踪
  * @param { HTMLCanvasElement } canvas 绘制元素
  * @param { HTMLVideoElement } video 视频元素
  * @return { Promise<number> } 实例状态
  */
 export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoElement): Promise<number> => {
-  // Holistic 配置
+  // 角色跟踪配置
   const config: Holistic.HolisticConfig = {
     locateFile: (file) => {
       return `https://cdn.jsdelivr.net/npm/electron-mediapipe-holistic@1.0.2/${file}`
     }
   }
 
-  // Holistic 实例
+  // 角色跟踪实例
   const holistic = new Holistic.Holistic(config)
 
-  // Holistic 选项
+  // 角色跟踪选项
   holistic.setOptions({
     modelComplexity: 1,
     smoothLandmarks: true,
@@ -137,12 +137,12 @@ export const initHolistic = async (canvas: HTMLCanvasElement, video: HTMLVideoEl
     refineFaceLandmarks: true
   })
 
-  // Holistic 回调
+  // 角色跟踪回调
   holistic.onResults((result: Holistic.Results) => {
     drawResults(canvas, video, result)
   })
 
-  // Holistic 启动
+  // 角色跟踪启动
   return new Promise((resolve, reject) => {
     // 发送视频流
     const sendVideo = () => {

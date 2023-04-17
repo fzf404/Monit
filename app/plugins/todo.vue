@@ -3,7 +3,7 @@
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 me@fzf404.art
  * @LastEditTime: 2023-04-17 20:41:04
- * @Description: todo 代办事项管理
+ * @Description: todo 代办管理
 -->
 
 <template lang="pug">
@@ -38,7 +38,7 @@ import AddSVG from '@/assets/plugin/todo/add.svg'
 import DeleteSVG from '@/assets/plugin/todo/delete.svg'
 import MoveSVG from '@/assets/plugin/todo/move.svg'
 
-// 代办输入
+// 代办消息
 const todo = ref('')
 
 // 数据存储
@@ -51,7 +51,7 @@ const store = storage({
   ]
 })
 
-// 代办增加
+// 增加代办
 const add = () => {
   // 判断消息为空
   if (todo.value.length === 0) return
@@ -64,7 +64,7 @@ const add = () => {
   todo.value = ''
 }
 
-// 代办删除
+// 删除代办
 const remove = (index) => {
   store.todos.splice(index, 1)
 }

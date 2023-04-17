@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-22 00:24:58
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-01 15:27:15
- * @Description: winer 布局
+ * @LastEditTime: 2023-04-17 21:14:57
+ * @Description: wine 布局
 -->
 
 <template>
@@ -49,9 +49,9 @@ import WifiSVG from '@/assets/layout/wifi.svg'
 import { main } from '@/pinia'
 import { sendEvent } from '~/event/send'
 
-// 初始化 pinia
+// 初始化全局状态
 const pinia = main()
 
-// 初始化 props
+// 初始化插件值
 defineProps(['layout', 'theme', 'store'])
 </script>

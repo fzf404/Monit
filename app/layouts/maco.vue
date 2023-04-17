@@ -55,9 +55,9 @@ import SettingSVG from '@/assets/layout/setting.svg'
 import UpSVG from '@/assets/layout/up.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
 
-// 初始化 pinia
+// 初始化全局状态
 const pinia = main()
 
-// 初始化 props
+// 初始化插件值
 defineProps(['layout', 'theme', 'store'])
 </script>

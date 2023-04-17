@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-29 21:13:58
+ * @LastEditTime: 2023-04-17 21:34:40
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
@@ -29,10 +29,10 @@ app.on('ready', () => {
   // 初始化系统托盘
   initTray()
 
-  // 初始化 IPC 事件监听
+  // 初始化事件监听
   initIPC()
 
-  // 安装 Vue Devtools
+  // 安装调试插件
   initDevtools()
 
   // 初始化自启动窗口
