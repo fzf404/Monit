@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-01 14:54:05
+ * @LastEditTime: 2023-04-17 23:36:54
  * @Description: 应用介绍
 -->
 
@@ -31,22 +31,22 @@
 >
 > 更多请前往：[使用指南](https://monit.fzf404.art/#/zh/01-guide) & [开发指南](https://monit.fzf404.art/#/zh/03-develop)
 
-| 插件     | 功能              | 技术                         | 贡献                                  | 状态 |
-| -------- | ----------------- | ---------------------------- | ------------------------------------- | ---- |
-| welcome  | 使用指引          | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
-| count    | 计数器            | Vue Options API              | [fzf404](https://github.com/fzf404)   | ✅   |
-| github   | github 信息监控   | VueO + Axios + Grid          | [fzf404](https://github.com/fzf404)   | ✅   |
-| clock    | 时钟翻牌器        | VueC + Scss + Keyframes      | [fzf404](https://github.com/fzf404)   | ✅   |
-| todo     | 待办事项管理      | VueC + Pug + Draggable       | [fzf404](https://github.com/fzf404)   | ✅   |
-| camera   | 相机助手          | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
-| juejin   | 掘金信息监控      | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
-| image    | 图像展示          | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
-| music    | 网易云音乐播放    | VueC + Axios + Audio         | [fzf404](https://github.com/fzf404)   | ✅   |
-| chatgpt  | 问答机器人        | VueC + Axios + OpenAI        | [fzf404](https://github.com/fzf404)   | ⛔️  |
-| live2d   | 虚拟角色跟踪      | VueC + Kalidokit + MediaPipe | [fzf404](https://github.com/fzf404)   | ⛔️  |
-| bilibili | bilibili 信息监控 |                              |                                       | ⛔️  |
-| weather  | 天气信息监控      |                              |                                       | ⛔️  |
-| course   | 课程表信息        |                              |                                       | ⛔️  |
+| 插件        | 功能         | 技术                         | 贡献                                  | 状态 |
+| ----------- | ------------ | ---------------------------- | ------------------------------------- | ---- |
+| 👏 welcome  | 使用指引     | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
+| 🔘 count    | 计数器       | Vue Options API              | [fzf404](https://github.com/fzf404)   | ✅   |
+| 😺 github   | 信息监控     | VueO + Axios + Grid          | [fzf404](https://github.com/fzf404)   | ✅   |
+| ⏱️ clock    | 翻牌时钟     | VueC + Scss + Keyframes      | [fzf404](https://github.com/fzf404)   | ✅   |
+| 📝 todo     | 待办事项管理 | VueC + Pug + Draggable       | [fzf404](https://github.com/fzf404)   | ✅   |
+| 📷 camera   | 相机助手     | VueC + Canvas + MediaPipe    | [fzf404](https://github.com/fzf404)   | ✅   |
+| 🏅 juejin   | 信息监控     | VueO + Axios + Grid          | [Ned](https://github.com/wangenze267) | ✅   |
+| 🏞️ image    | 图像展示     | VueC + IPC + Dialog          | [fzf404](https://github.com/fzf404)   | ✅   |
+| 🎵 music    | 网易云音乐   | VueC + Axios + Audio         | [fzf404](https://github.com/fzf404)   | ✅   |
+| 💬 chat     | 问答机器人   | VueC + Axios + OpenAI        | [fzf404](https://github.com/fzf404)   | ⛔️  |
+| 🤖 vtube    | 虚拟角色跟踪 | VueC + Kalidokit + MediaPipe | [fzf404](https://github.com/fzf404)   | ⛔️  |
+| 📺 bilibili | 信息监控     |                              |                                       | ⛔️  |
+| ⛅ weather  | 信息监控     |                              |                                       | ⛔️  |
+| 📅 course   | 课程表信息   |                              |                                       | ⛔️  |
 
 ## 🎁 安装
 

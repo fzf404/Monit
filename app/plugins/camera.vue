@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-07-15 22:55:49
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 20:47:40
- * @Description: camera 相机监控
+ * @LastEditTime: 2023-04-17 23:17:38
+ * @Description: camera 相机助手
 -->
 
 <template>
