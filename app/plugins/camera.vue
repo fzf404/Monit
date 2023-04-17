@@ -151,7 +151,7 @@ onMounted(async () => {
     return sendAlert('媒体设备不存在！')
   }
 
-  // 增加设置
+  // 增加设备选择
   setting.push({
     id: 'camera',
     label: '设备',

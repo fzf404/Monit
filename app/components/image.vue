@@ -21,6 +21,7 @@ interface Props {
   image?: string
   remark?: string
 }
+
 withDefaults(defineProps<Props>(), {
   show: true,
   image: 'https://img.fzf404.art/Monit/qrcode.webp',
