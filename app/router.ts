@@ -10,7 +10,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { pluginList } from '~/config/plugin'
 
 // 自动生成 router
-// 优化后的代码
 const routes = pluginList.map((item) => {
   return {
     name: item.name,

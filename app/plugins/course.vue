@@ -15,7 +15,7 @@
   </article>
 </template>
 
-<!-- TODO 插件 weather -->
+<!-- TODO 插件 course -->
 <script setup>
 import Setting from '@/components/setting.vue'
 </script>

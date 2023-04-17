@@ -73,13 +73,13 @@ let fliping = [false, false, false, false, false, false]
 // 停止回调
 let callback = null
 
-// 上次翻牌数字
+// 数字记录
 let old = '000000'
 
 /**
- * @description: 对其中一位数字进行翻牌
- * @param {*} digit 第几位数字
- * @param {*} num 修改成的数字
+ * @description: 数字翻牌
+ * @param {*} digit 数字位数
+ * @param {*} num 修改结果
  */
 const changeNumber = (digit, num) => {
   // 翻转中则返回
@@ -107,7 +107,7 @@ const changeNumber = (digit, num) => {
 
 // 更新时间
 const changeClock = (time) => {
-  // 遍历得到的时间字符串
+  // 遍历时间字符串
   for (let i = 0, len = time.length; i < len; i++) {
     // 判断数字是否修改
     if (time[i] !== old[i]) {
@@ -122,7 +122,7 @@ const startClock = () => {
   // 停止回调
   callback && clearInterval(callback)
 
-  // 每秒获取最新时间
+  // 获取最新时间
   callback = setInterval(() => {
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
@@ -139,7 +139,7 @@ const numToStr = (num, length) => {
   return numToStr('0' + num, length)
 }
 
-// 是否正在计时
+// 计时功能状态
 const timing = ref(false)
 
 // 开启计时

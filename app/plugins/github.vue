@@ -291,7 +291,7 @@ export default {
     // 更新 follower
     updateFollower() {
       this.store.follower = this.follower
-      // 开启通知则查看 follower 详细信息
+      // 开启通知前往查看 follower 详细信息
       if (this.store.notice) {
         openURL(`https://github.com/${this.store.user}?tab=followers`)
       }
