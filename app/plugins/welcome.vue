@@ -14,7 +14,7 @@
     <!-- 提示 -->
     <p class="flex-row-center font-intro">
       <span>右击托盘中的</span>
-      <FaviconSVG class="mx-1 w-4" />
+      <MonitSVG class="mx-1 w-4" />
       <span>图标</span>
     </p>
     <p class="font-intro">打开插件设置启动插件</p>
@@ -28,6 +28,6 @@
 <script setup>
 import { sendEvent } from '~/event/send'
 
-import FaviconSVG from '@/assets/favicon.svg'
+import MonitSVG from '@/assets/monit.svg'
 import SettingSVG from '@/assets/layout/setting.svg'
 </script>
