@@ -122,6 +122,7 @@ export const initIPC = () => {
     setValue(getPluginTitle(event), key, value)
   })
 
+  // 读取值
   ipcMain.on('get-value', (event, key: string, defalut: string) => {
     event.returnValue = getValue(getPluginTitle(event), key, defalut)
   })

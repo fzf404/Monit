@@ -38,9 +38,7 @@ export const createPlugin = (name: string | Array<string>) => {
   // 创建单个插件
   const createPluginByName = (name: string) => {
     // 判断插件存在
-    if (!pluginExist(name)) {
-      return
-    }
+    if (!pluginExist(name)) return
     // 获取插件配置
     const plugin = getPluginConfig(name)
     // 获取窗口
