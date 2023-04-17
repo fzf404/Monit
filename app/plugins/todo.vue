@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-26 17:37:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 19:26:04
+ * @LastEditTime: 2023-04-17 20:41:04
  * @Description: todo 代办事项管理
 -->
 
@@ -38,11 +38,12 @@ import AddSVG from '@/assets/plugin/todo/add.svg'
 import DeleteSVG from '@/assets/plugin/todo/delete.svg'
 import MoveSVG from '@/assets/plugin/todo/move.svg'
 
-// 新增 todo 信息
+// 代办输入
 const todo = ref('')
 
-// 存储数据
+// 数据存储
 const store = storage({
+  // 代办数据
   todos: [
     { title: '吃饭', checked: false },
     { title: '睡觉', checked: false },
@@ -50,16 +51,20 @@ const store = storage({
   ]
 })
 
-// 新增 todo
+// 代办增加
 const add = () => {
+  // 判断消息为空
+  if (todo.value.length === 0) return
+  // 插入代办列表
   store.todos.push({
     title: todo.value,
     checked: false
   })
+  // 清空代办消息
   todo.value = ''
 }
 
-// 删除 todo
+// 代办删除
 const remove = (index) => {
   store.todos.splice(index, 1)
 }
