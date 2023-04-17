@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-30 10:14:53
- * @Description: weather 天气信息
+ * @LastEditTime: 2023-04-17 23:19:48
+ * @Description: weather 信息监控
 -->
 
 <template>

@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 20:58:36
- * @Description: welcome 用户指引
+ * @LastEditTime: 2023-04-17 23:15:37
+ * @Description: welcome 使用指引
 -->
 
 <template>

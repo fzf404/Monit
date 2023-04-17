@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-10-03 14:38:27
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-03-15 16:18:53
- * @Description: course 课程表
+ * @LastEditTime: 2023-04-17 23:36:48
+ * @Description: course 课程表信息
 -->
 
 <template>
