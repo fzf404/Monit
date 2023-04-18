@@ -49,7 +49,7 @@
   - Git Commit Hooks
 - `Pug`
   - 干净的 `HTML` 模板语法
-- `Sass`
+- `Scss`
   - `CSS` 预处理器
 - `Prettier`
   - 代码风格及格式化工具

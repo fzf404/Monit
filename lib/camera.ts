@@ -19,7 +19,7 @@ export const getCameraList = async (): Promise<MediaDeviceInfo[]> => {
 
 /**
  * @description: 初始化相机
- * @param { string } deviceId 设备 ID
+ * @param { string } deviceId 设备编号
  * @param { HTMLVideoElement } video 视频元素
  ≈
  */
@@ -68,7 +68,7 @@ export const takePhoto = (video: HTMLVideoElement, canvas: HTMLCanvasElement, re
 
 /**
  * @description: 录制
- * @param { string } deviceId 设备 ID
+ * @param { string } deviceId 设备编号
  * @param { HTMLAnchorElement } record 记录元素
  * @return { Promise<MediaRecorder> } 录制对象
  */
