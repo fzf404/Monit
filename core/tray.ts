@@ -42,7 +42,7 @@ const initMenu = () => {
         // 插件列表
         ...pluginList.map((item) => {
           return {
-            label: `${item.name} - ${item.description}`,
+            label: `${item.icon} - ${item.name} - ${item.description}`,
             click: () => createPlugin(item.name)
           }
         })
@@ -64,7 +64,7 @@ const initMenu = () => {
         // 全部插件列表
         ...pluginList.map((item) => {
           return {
-            label: `${item.name} - ${item.description}`,
+            label: `${item.icon} - ${item.name} - ${item.description}`,
             type: 'checkbox' as const,
             checked: bootPlugins.includes(item.name),
             click: () => {

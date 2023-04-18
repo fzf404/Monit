@@ -43,7 +43,7 @@
       <p v-for="item in pluginList" class="flex-row-between w-full gap-2">
         <!-- 插件启动 -->
         <button class="btn btn-md btn-purple basis-2/3" @click="sendEvent('plugin-create', item.name)">
-          {{ item.name + ' - ' + item.description }}
+          {{ item.icon + ' - ' + item.name + ' - ' + item.description }}
         </button>
         <!-- 插件自启 -->
         <button
