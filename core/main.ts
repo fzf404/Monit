@@ -35,11 +35,11 @@ app.on('ready', () => {
   // 安装调试插件
   initDevtools()
 
-  // 初始化自启动窗口
-  createBootWindow()
-
   // 初始化快捷键
   initShortcut()
+  
+  // 初始化自启动窗口
+  createBootWindow()
 
   // 检查更新
   checkUpdate()
