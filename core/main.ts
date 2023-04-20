@@ -2,12 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 21:34:40
+ * @LastEditTime: 2023-04-20 13:38:27
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initDevtools } from './devtool'
+import { initLock } from './lock'
 import { initTray } from './tray'
 import { checkUpdate } from './update'
 import { createBootWindow } from './window'
@@ -16,10 +17,8 @@ import { initIPC } from '~/event/handle'
 import { createPlugin } from '~/server/plugin'
 import { initShortcut } from './shortcut'
 
-// 限制实例个数
-if (!app.requestSingleInstanceLock()) {
-  app.quit()
-}
+// 初始化应用锁
+initLock()
 
 // 注册协议
 protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: true, standard: true } }])
@@ -37,7 +36,7 @@ app.on('ready', () => {
 
   // 初始化快捷键
   initShortcut()
-  
+
   // 初始化自启动窗口
   createBootWindow()
 
