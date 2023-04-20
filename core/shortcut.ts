@@ -12,13 +12,12 @@ import { createPlugin, focusAllPlugin } from '~/server/plugin'
 
 // 初始化快捷键
 export const initShortcut = () => {
-  // 激活全部插件
-  globalShortcut.register('CommandOrControl+Shift+Alt+m', () => {
-    focusAllPlugin()
-  })
-
   // 开启配置插件
   globalShortcut.register('CommandOrControl+Shift+m', () => {
     createPlugin('config')
+  })
+  // 激活全部插件
+  globalShortcut.register('CommandOrControl+Shift+Alt+m', () => {
+    focusAllPlugin()
   })
 }
