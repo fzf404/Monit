@@ -2,8 +2,8 @@
  * @Author: fzf404
  * @Date: 2022-05-30 15:14:46
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 23:15:37
- * @Description: welcome 使用指引
+ * @LastEditTime: 2023-04-20 21:58:43
+ * @Description: guide 用户指引
 -->
 
 <template>
@@ -28,6 +28,6 @@
 <script setup>
 import { sendEvent } from '~/event/send'
 
-import MonitSVG from '@/assets/monit.svg'
 import SettingSVG from '@/assets/layout/setting.svg'
+import MonitSVG from '@/assets/monit.svg'
 </script>

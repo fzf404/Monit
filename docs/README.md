@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-06-18 17:15:15
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 23:36:54
+ * @LastEditTime: 2023-04-20 21:22:19
  * @Description: 应用介绍
 -->
 
@@ -33,7 +33,7 @@
 
 | 插件        | 功能         | 技术                         | 贡献                                  | 状态 |
 | ----------- | ------------ | ---------------------------- | ------------------------------------- | ---- |
-| 👏 welcome  | 使用指引     | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
+| 👏 guide    | 用户指引     | Vue Composition API          | [fzf404](https://github.com/fzf404)   | ✅   |
 | 🔘 count    | 计数器       | Vue Options API              | [fzf404](https://github.com/fzf404)   | ✅   |
 | 😺 github   | 信息监控     | VueO + Axios + Grid          | [fzf404](https://github.com/fzf404)   | ✅   |
 | ⏱️ clock    | 翻牌时钟     | VueC + Scss + Keyframes      | [fzf404](https://github.com/fzf404)   | ✅   |

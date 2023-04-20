@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 23:41:09
+ * @LastEditTime: 2023-04-20 21:21:12
  * @Description: plugin 配置
  */
 
@@ -27,7 +27,7 @@ export const pluginList: plugin[] = debugFilter([
   { icon: '🏞️', name: 'image', size: [4, 3], description: '图像' },
   { icon: '📷', name: 'camera', size: [4, 3], description: '相机' },
   { icon: '⚙️', name: 'config', size: [2, 3], description: '配置' },
-  { icon: '👏', name: 'welcome', size: [2, 2], description: '欢迎' },
+  { icon: '👏', name: 'guide', size: [2, 2], description: '欢迎' },
   { icon: '🔘', name: 'count', size: [2, 2], description: '计数' },
   { icon: '💬', name: 'chat', size: [4, 4], description: '问答', debug: true },
   { icon: '🤖', name: 'vtube', size: [4, 3], description: '跟踪', debug: true },
