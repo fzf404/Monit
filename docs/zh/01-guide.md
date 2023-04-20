@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-23 20:37:31
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-20 21:15:36
+ * @LastEditTime: 2023-04-20 22:31:35
  * @Description: 使用指南
 -->
 
@@ -12,7 +12,9 @@
 
 托盘中会出现 `Moint` 图标，右键单击此图标，可对应用进行基本操作。
 
-可以使用全局快捷键 `Ctrl + Shift + M / Cmd + Option + M` 打开 `config` 插件。
+可以使用全局快捷键 `Ctrl + Shift + M / Command + Shift + M` 打开 `config` 插件。
+
+可以使用全局快捷键 `Ctrl + Shift + Alt + M / Command + Shift + Option + M` 聚焦全部开启插件。
 
 ## 🧭 menu 导航
 
