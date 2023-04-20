@@ -88,7 +88,7 @@ export const bootPlugin = (name: string | Array<string>, state: boolean) => {
     }
   }
   // 保存自启状态
-  set('config', 'boot', boot)
+  set('config', 'boot', [...boot])
 }
 
 // 重置插件
