@@ -2,17 +2,17 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 21:18:47
+ * @LastEditTime: 2023-04-20 22:09:13
  * @Description: tary 初始化
  */
-import { Menu, Tray } from 'electron'
+import { BrowserWindow, Menu, Tray } from 'electron'
 
 import { checkUpdate } from './update'
 
 import { pluginList } from '~/config/plugin'
 import { get } from '~/lib/storage'
 import { bootApp, bootState, getVersion, openConfig, quitApp, resetApp, restartApp } from '~/server/app'
-import { bootPlugin, createPlugin } from '~/server/plugin'
+import { bootPlugin, createPlugin, focusAllPlugin } from '~/server/plugin'
 import { openURL, sendConfirm } from '~/server/system'
 
 // 托盘全局变量
@@ -22,7 +22,6 @@ let TrayMenu: Tray
 const initMenu = () => {
   // 自启动列表
   const bootPlugins = get('config', 'boot', []) as Array<string>
-  const pluginNames = pluginList.map((item) => item.name)
 
   // 托盘菜单
   const contextMenu = Menu.buildFromTemplate([
@@ -42,7 +41,7 @@ const initMenu = () => {
         // 插件列表
         ...pluginList.map((item) => {
           return {
-            label: `${item.icon} - ${item.name} - ${item.description}`,
+            label: `${item.icon} ${item.name} ${item.description}`,
             click: () => createPlugin(item.name)
           }
         })
@@ -64,7 +63,7 @@ const initMenu = () => {
         // 全部插件列表
         ...pluginList.map((item) => {
           return {
-            label: `${item.icon} - ${item.name} - ${item.description}`,
+            label: `${item.icon} ${item.name} ${item.description}`,
             type: 'checkbox' as const,
             checked: bootPlugins.includes(item.name),
             click: () => {
@@ -131,6 +130,16 @@ export const initTray = () => {
   TrayMenu = new Tray(trayLogo)
   // 设置托盘提示
   TrayMenu.setToolTip(trayTip)
+
+  // 监听托盘事件
+  TrayMenu.on('click', () => {
+    console.log(BrowserWindow.getAllWindows().length)
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createPlugin('guide')
+    } else {
+      focusAllPlugin()
+    }
+  })
 
   // 初始化托盘菜单
   initMenu()
