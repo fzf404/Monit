@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-18 23:06:12
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 21:25:37
+ * @LastEditTime: 2023-04-21 00:25:03
  * @Description: storage 封装
  */
 
@@ -17,21 +17,33 @@ export const store = new Store({
   // 版本更新初始化
   migrations: {
     '>=0.7.0': (store) => {
-      // 判断配置
+      // 配置更名
       if (store.has('_config')) {
-        // 复制配置
         store.set('config', store.get('_config'))
-        // 删除配置
         store.delete('_config')
       }
     },
     '>=0.8.0': (store) => {
-      // 判断配置
+      // 配置更名
       if (store.has('config.open')) {
-        // 复制配置
         store.set('config.boot', store.get('config.open'))
-        // 删除配置
         store.delete('config.open')
+      }
+    },
+    '>=0.8.1': (store) => {
+      // 配置更名
+      if (store.has('welcome')) {
+        store.set('guide', store.get('welcome'))
+        store.delete('welcome')
+      }
+      // 配置更名
+      if (store.has('config.boot')) {
+        let boot = store.get('config.boot') as Array<string>
+        let index = boot.indexOf('welcome')
+        if (index !== -1) {
+          boot[index] = 'guide'
+          store.set('config.boot', boot)
+        }
       }
     }
   }

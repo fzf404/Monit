@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-05-24 22:06:34
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-20 22:09:13
+ * @LastEditTime: 2023-04-21 00:36:18
  * @Description: tary 初始化
  */
 import { BrowserWindow, Menu, Tray } from 'electron'
@@ -122,7 +122,7 @@ const initMenu = () => {
 
 // 初始化托盘
 export const initTray = () => {
-  // 托盘图标
+  // TODO sharp 托盘图标
   const trayLogo = process.platform === 'darwin' ? `${__static}/img/tray.png` : `${__static}/img/icon.png`
   // 托盘提示
   const trayTip = 'Monit'
@@ -133,7 +133,6 @@ export const initTray = () => {
 
   // 监听托盘事件
   TrayMenu.on('click', () => {
-    console.log(BrowserWindow.getAllWindows().length)
     if (BrowserWindow.getAllWindows().length === 0) {
       createPlugin('guide')
     } else {

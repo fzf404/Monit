@@ -8,6 +8,7 @@
   "scripts": {
     "build": "vue-cli-service electron:build",
     "dev": "vue-cli-service electron:serve",
+    "docs": "docsify serve docs",
     "format": "prettier --write .",
     "prepare": "husky install",
     "release": "vue-cli-service electron:build --publish always"
@@ -33,6 +34,7 @@
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "autoprefixer": "^10.4.14",
+    "docsify-cli": "^4.4.4",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint-plugin-vue": "^9.11.0",
