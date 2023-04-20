@@ -2,7 +2,7 @@
  * @Author: fzf404
  * @Date: 2022-09-18 01:13:05
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-17 21:13:34
+ * @LastEditTime: 2023-04-20 21:12:29
  * @Description: config 应用配置
 -->
 
@@ -43,7 +43,7 @@
       <p v-for="item in pluginList" class="flex-row-between w-full gap-2">
         <!-- 插件启动 -->
         <button class="btn btn-md btn-purple basis-2/3" @click="sendEvent('plugin-create', item.name)">
-          {{ item.icon + ' - ' + item.name + ' - ' + item.description }}
+          {{ `${item.icon} ${item.name} ${item.description}` }}
         </button>
         <!-- 插件自启 -->
         <button
@@ -60,7 +60,7 @@
         </button>
       </p>
       <!-- Moint 版本 -->
-      <p class="flex-col-center-bottom font-intro">Monit - {{ callEvent('app-version') }}</p>
+      <p class="flex-col-center-bottom font-intro">Monit {{ callEvent('app-version') }}</p>
     </section>
   </article>
 </template>

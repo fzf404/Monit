@@ -76,6 +76,6 @@ export const createBootWindow = () => {
     createPlugin(plugins)
   } else {
     // 默认窗口
-    createPlugin('welcome')
+    createPlugin('guide')
   }
 }
