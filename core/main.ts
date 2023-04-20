@@ -2,13 +2,13 @@
  * @Author: fzf404
  * @Date: 2022-05-25 23:18:50
  * @LastEditors: fzf404 me@fzf404.art
- * @LastEditTime: 2023-04-20 13:38:27
+ * @LastEditTime: 2023-04-20 21:50:21
  * @Description: main 初始化
  */
 import { app, BrowserWindow, protocol } from 'electron'
 
 import { initDevtools } from './devtool'
-import { initLock } from './lock'
+import { initLock } from './locker'
 import { initTray } from './tray'
 import { checkUpdate } from './update'
 import { createBootWindow } from './window'
@@ -47,7 +47,7 @@ app.on('ready', () => {
 // 激活窗口
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createPlugin('welcome')
+    createPlugin('guide')
   }
 })
 
