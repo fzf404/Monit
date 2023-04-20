@@ -203,7 +203,7 @@ const onSave = () => {
 >
 > 程序员成长的标志就是能读懂别人的代码。
 
-建议阅读顺序：`welcome` -> `count` -> `todo` -> `github` -> `music` 。
+建议阅读顺序：`guide` -> `count` -> `todo` -> `github` -> `music` 。
 
 ### 💡 主题开发
 
