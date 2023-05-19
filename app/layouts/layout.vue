@@ -18,7 +18,7 @@
   <router-view></router-view>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineAsyncComponent, onMounted } from 'vue'
 
 import { layoutList } from '~/config/layout'

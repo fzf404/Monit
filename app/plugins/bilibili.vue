@@ -16,6 +16,6 @@
 </template>
 
 <!-- TODO 插件 bilibili -->
-<script setup>
+<script setup lang="ts">
 import Setting from '@/components/setting.vue'
 </script>

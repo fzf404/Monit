@@ -15,7 +15,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 
 import { callEvent } from '~/event/send'

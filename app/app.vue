@@ -5,11 +5,10 @@
  * @LastEditTime: 2023-03-28 10:56:18
  * @Description: app 入口
 -->
+<script setup lang="ts">
+import Layout from '@/layouts/layout.vue'
+</script>
 
 <template>
   <Layout />
 </template>
-
-<script setup>
-import Layout from '@/layouts/layout.vue'
-</script>

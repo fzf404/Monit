@@ -73,7 +73,7 @@
   <Image :show="true" remark="请扫码前往 Monit 官网！" image="https://img.fzf404.art/Monit/qrcode.webp" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Image from '@/components/image.vue'
 </script>
 ```
@@ -87,7 +87,7 @@ import Image from '@/components/image.vue'
   <Loading :show="true" :remark="['加载中...', '正在获取资源文件', '可能需要 10s 左右']" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Loading from '@/components/loading.vue'
 </script>
 ```
@@ -117,7 +117,7 @@ import Loading from '@/components/loading.vue'
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 
 import { sendAlert } from '~/event/send'

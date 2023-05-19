@@ -60,7 +60,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 
 import { getMediaPermission, requestMediaPermission, sendAlert } from '~/event/send'
@@ -75,7 +75,7 @@ import Loading from '@/components/loading.vue'
 import Setting from '@/components/setting.vue'
 
 // 标签节点
-const video = ref(null)
+const video = ref<HTMLVideoElement | null>(null)
 const canvas = ref(null)
 const record = ref(null)
 
@@ -100,8 +100,8 @@ const store = storage(
       window.location.reload()
     },
     // 相机修改
-    camera: (val) => {
-      store.holistic ? window.location.reload() : initCamera(val, video.value)
+    camera: (val: string) => {
+      store.holistic ? window.location.reload() : initCamera(val, video.value!)
     }
   }
 )

@@ -24,7 +24,7 @@
 </template>
 
 <!-- TODO 插件 chat -->
-<script setup>
+<script setup lang="ts">
 import { onMounted, reactive } from 'vue'
 
 import axios from '~/lib/request'

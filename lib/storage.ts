@@ -94,15 +94,13 @@ export const clear = (): void => {
  * @return { Source } 响应式参数
  */
 
-type Source = Record<string, Object>
-
-export const storage = <K extends keyof Source>(source: Source, callback?: Record<K, Function>): Source => {
+export const storage = <T extends Record<string, any>>(source: T, callback?: Partial<Record<keyof T, Function>>): T => {
   // 包装为响应式数据
   const target = reactive(source)
   // 遍历响应式数据
   for (const key in target) {
     // 读取默认值
-    target[key] = getValue(key, target[key])
+    target[key] = getValue(key, target[key]) as any
     // 监听值修改
     watch(
       () => target[key],
@@ -110,8 +108,8 @@ export const storage = <K extends keyof Source>(source: Source, callback?: Recor
         // 保存值
         setValue(key, val)
         // 运行处理函数
-        if (callback?.[key as K]) {
-          callback[key as K](val)
+        if (callback?.[key]) {
+          callback[key]!(val)
         }
       },
       { deep: true }

@@ -25,7 +25,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { sendEvent } from '~/event/send'
 
 import SettingSVG from '@/assets/layout/setting.svg'

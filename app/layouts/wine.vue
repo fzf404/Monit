@@ -40,7 +40,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CloseSVG from '@/assets/layout/close.svg'
 import MiniSVG from '@/assets/layout/mini.svg'
 import SettingSVG from '@/assets/layout/setting.svg'

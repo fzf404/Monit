@@ -20,7 +20,7 @@
   <DemoSVG class="btn-svg h-4 text-green-400" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 // 引入图标
 import DemoSVG from '@/assets/plugin/demo/demo.svg'
 </script>

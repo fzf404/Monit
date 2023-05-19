@@ -28,7 +28,7 @@ main
       AddSVG.btn-svg.mr-2.w-5.text-cyan-400(class='hover:text-cyan-500', @click='add')
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import draggable from 'vuedraggable'
 
@@ -65,7 +65,7 @@ const add = () => {
 }
 
 // 删除代办
-const remove = (index) => {
+const remove = (index: number) => {
   store.todos.splice(index, 1)
 }
 </script>

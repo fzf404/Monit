@@ -96,7 +96,7 @@ pnpm build
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { storage } from '~/lib/storage'
 
 // 响应式存储
@@ -122,7 +122,7 @@ const store = storage({
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { storage } from '~/lib/storage'
 
 import Setting from '@/components/setting.vue'
@@ -150,7 +150,7 @@ const store = storage({
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { sendAlert, sendNotice } from '~/event/send'
 import { storage } from '~/lib/storage'
 

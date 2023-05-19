@@ -60,7 +60,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
 import ClockSVG from '@/assets/plugin/clock/clock.svg'
@@ -71,7 +71,7 @@ import TimerSVG from '@/assets/plugin/clock/timer.svg'
 let fliping = [false, false, false, false, false, false]
 
 // 停止回调
-let callback = null
+let timerId: number | NodeJS.Timer | null = null
 
 // 历史数字记录
 let old = '000000'
@@ -81,7 +81,7 @@ let old = '000000'
  * @param {*} digit 数字位数
  * @param {*} num 修改结果
  */
-const changeNumber = (digit, num) => {
+const changeNumber = (digit: number, num: string) => {
   // 判断翻转状态
   if (fliping[digit]) return
 
@@ -110,7 +110,7 @@ const changeNumber = (digit, num) => {
 }
 
 // 更新时间
-const changeClock = (time) => {
+const changeClock = (time: string) => {
   // 遍历时间字符串
   for (let i = 0, len = time.length; i < len; i++) {
     // 判断数字是否修改
@@ -124,10 +124,10 @@ const changeClock = (time) => {
 // 开启时钟
 const startClock = () => {
   // 停止回调
-  callback && clearInterval(callback)
+  timerId && clearInterval(timerId)
 
   // 每秒更新计时
-  callback = setInterval(() => {
+  timerId = setInterval(() => {
     // 获取当前时间
     const time = new Date().toLocaleTimeString('zh-CN').replace(/\:/g, '')
     // 遍历时间字符串
@@ -138,11 +138,8 @@ const startClock = () => {
 }
 
 // 数字转字符串
-const numToStr = (num, length) => {
-  if ((num + '').length >= length) {
-    return num
-  }
-  return numToStr('0' + num, length)
+const numToStr = (num: string | number, length: number) => {
+  return String(num).padStart(length, '0')
 }
 
 // 计时功能状态
@@ -151,7 +148,7 @@ const timing = ref(false)
 // 开启计时
 const startTiming = () => {
   // 停止回调
-  callback && clearInterval(callback)
+  timerId && clearInterval(timerId)
 
   // 开启计时
   timing.value = true
@@ -159,7 +156,7 @@ const startTiming = () => {
   const start = new Date().getTime()
 
   // 每秒更新计时
-  callback = setInterval(() => {
+  timerId = setInterval(() => {
     // 获取差值
     const diff = new Date().getTime() - start
 
@@ -187,7 +184,7 @@ const stop = () => {
   // 修改计时状态
   timing.value = false
   // 停止回调函数
-  callback && clearInterval(callback)
+  timerId && clearInterval(timerId)
 }
 
 // 挂载后执行

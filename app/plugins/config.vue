@@ -65,7 +65,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 
 import { pluginList } from '~/config/plugin'

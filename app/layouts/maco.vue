@@ -44,7 +44,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { sendEvent } from '~/event/send'
 
 import { main } from '@/pinia'

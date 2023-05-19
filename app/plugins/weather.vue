@@ -16,6 +16,6 @@
 </template>
 
 <!-- TODO 插件 weather -->
-<script setup>
+<script setup lang="ts">
 import Setting from '@/components/setting.vue'
 </script>

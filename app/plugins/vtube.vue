@@ -17,7 +17,7 @@
 </template>
 
 <!-- TODO 插件 vtube -->
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 import Setting from '@/components/setting.vue'
