@@ -6,7 +6,7 @@
  * @Description: update 初始化
  */
 
-import fetch from 'node-fetch'
+import { fetch } from 'undici'
 
 import { getVersion } from '~/server/app'
 import { openURL, sendAlert, sendConfirm } from '~/server/system'

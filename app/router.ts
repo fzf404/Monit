@@ -14,9 +14,7 @@ const routes = pluginList.map((item) => {
   return {
     name: item.name,
     path: '/' + item.name,
-    component: () => {
-      return import('./plugins/' + item.name)
-    }
+    component: () => import.meta.glob('./plugins/**')['./plugins/' + item.name]()
   }
 })
 

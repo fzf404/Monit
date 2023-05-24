@@ -31,8 +31,10 @@ const layout = layoutList.reduce((result, current, index, source) => {
   result[current.name] = {
     name: current.name,
     next: source[index + 1] ? source[index + 1].name : source[0].name,
-    icon: defineAsyncComponent(() => import(`@/assets/layout/${current.name}.svg`)),
-    component: defineAsyncComponent(() => import(`./${current.name}.vue`))
+    icon: defineAsyncComponent(() =>
+      import.meta.glob('../assets/layout/*.svg').then((i) => i[`../assets/layout/${current.name}.svg`]())
+    ),
+    component: defineAsyncComponent(() => import.meta.glob('./*.vue').then((i) => i[`./${current.name}.vue`]()))
   }
   return result
 }, {})
@@ -42,8 +44,10 @@ const theme = themeList.reduce((result, current, index, source) => {
   result[current.name] = {
     name: current.name,
     next: source[index + 1] ? source[index + 1].name : source[0].name,
-    icon: defineAsyncComponent(() => import(`@/assets/theme/${current.name}.svg`)),
-    component: defineAsyncComponent(() => import(`./${current.name}.vue`))
+    icon: defineAsyncComponent(() =>
+      import.meta.glob('../assets/theme/*.svg')[`../assets/theme/${current.name}.svg`]()
+    ),
+    component: defineAsyncComponent(() => import.meta.glob('./*.vue')[`./${current.name}.vue`]())
   }
   return result
 }, {})
