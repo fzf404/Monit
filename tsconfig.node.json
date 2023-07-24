@@ -1,0 +1,10 @@
+{
+  "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+  "include": ["config", "context", "core"],
+  "compilerOptions": {
+    "types": ["electron-vite/node"],
+    "paths": {
+      "~/*": ["./*"]
+    }
+  }
+}

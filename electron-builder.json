@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "art.fzf404.monit",
+  "productName": "Monit",
+  "files": ["dist", "public"],
+  "directories": {
+    "output": "release"
+  },
+  "icon": "public/image/icon.png",
+  "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+  "win": {
+    "target": [
+      { "target": "nsis", "arch": ["x64"] },
+      { "target": "msi", "arch": ["x64"] },
+      { "target": "7z", "arch": ["x64"] }
+    ]
+  },
+  "linux": {
+    "target": [
+      { "target": "AppImage", "arch": ["x64"] },
+      { "target": "deb", "arch": ["x64"] }
+    ]
+  },
+  "mac": {
+    "entitlementsInherit": "public/build/entitlements.mac.plist",
+    "target": { "target": "dmg", "arch": ["x64", "arm64"] }
+  }
+}

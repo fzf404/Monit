@@ -1,0 +1,12 @@
+# os
+.DS_Store
+
+# depend
+node_modules
+
+# build
+dist
+release
+
+# cache
+.eslintcache
