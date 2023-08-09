@@ -1,5 +1,6 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'electron-vite'
+import unocss from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
@@ -31,7 +32,7 @@ export default defineConfig({
   },
   renderer: {
     root: 'app',
-    plugins: [vue()],
+    plugins: [vue(), unocss()],
     resolve: {
       alias: {
         '~': resolve(),
