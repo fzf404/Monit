@@ -3,6 +3,7 @@
   "appId": "art.fzf404.monit",
   "productName": "Monit",
   "files": ["dist", "public"],
+  "afterSign": "scripts/notarize.js",
   "directories": {
     "output": "release"
   },

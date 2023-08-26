@@ -13,6 +13,7 @@
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/tsconfig": "^1.0.1",
     "@electron-toolkit/utils": "^2.0.0",
+    "@electron/notarize": "^2.1.0",
     "@fzf404/eslint-config": "^0.4.6",
     "@fzf404/prettier-config": "^0.5.3",
     "@types/node": "^20.4.8",
