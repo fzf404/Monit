@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Layout from '@/layouts/index.vue'
+import Layout from '@/layouts/maco.vue'
 </script>
 
 <template>
-  <Layout />
+  <Layout class="w-screen" />
+  <router-view class="h-screen" />
 </template>

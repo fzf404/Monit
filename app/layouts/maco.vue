@@ -1,16 +1,25 @@
 <script setup lang="ts"></script>
 
 <template>
-  <nav class="flex-row-between absolute z-50 px-2">
-    <ul class="space-x-0.5">
-      <div class="i-ic-twotone-cancel bg-red hover:bg-red-500" />
-      <div class="i-ic-twotone-remove-circle bg-yellow hover:bg-yellow-500" />
-      <div class="i-ic-twotone-expand-circle-down bg-green hover:bg-green-500" />
+  <nav class="flex-row-between absolute z-50 px-2 py-1.5">
+    <ul class="flex-row-center gap-x-0.5">
+      <div class="i-ic-twotone-cancel text-red hover:text-red-500" />
+      <div class="i-ic-twotone-remove-circle text-yellow hover:text-yellow-500" />
+      <div class="i-ic-twotone-expand-circle-down text-green hover:text-green-500" />
     </ul>
-    <ul class="space-x-0.5">
-      <div class="i-ic-twotone-swap-horizontal-circle bg-teal hover:bg-teal-500" />
-      <div class="i-ic-twotone-dark-mode bg-violet hover:bg-violet-500" />
-      <div class="i-ic-twotone-settings bg-blue hover:bg-blue-500" />
+    <ul class="flex-row-center gap-x-0.5">
+      <div class="i-ic-twotone-swap-horizontal-circle text-teal hover:text-teal-500" />
+      <div class="i-ic-twotone-dark-mode text-violet hover:text-violet-500" />
+      <div class="i-ic-twotone-settings text-blue hover:text-blue-500" />
     </ul>
   </nav>
 </template>
+
+<style>
+.flex-row-between {
+  @apply flex flex-row justify-between;
+}
+.flex-row-center {
+  @apply flex flex-row justify-center;
+}
+</style>
