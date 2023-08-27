@@ -1,4 +1,5 @@
 {
+  "unocss.root": "app",
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["locales"],
   "editor.codeActionsOnSave": {
