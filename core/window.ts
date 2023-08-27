@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron'
 import { is } from '@electron-toolkit/utils'
 
-import { MeshSize } from '~/config/global'
+import { MeshSize } from './global'
 
 interface WindowOptions {
   name: string
@@ -31,9 +31,8 @@ export const createWindow = (options: WindowOptions): BrowserWindow => {
     visualEffectState: 'active',
 
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      webSecurity: false,
+      sandbox: false,
+      preload: '../context/preload.js',
     },
   })
 

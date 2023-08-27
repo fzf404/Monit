@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 
+import i18n from '@/configs/locale'
+import router from '@/configs/router'
+
 import app from './app.vue'
-import i18n from './i18n'
-import router from './router'
 
 import '@unocss/reset/tailwind.css'
 import 'uno.css'
