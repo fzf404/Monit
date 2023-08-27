@@ -1,14 +1,18 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "art.fzf404.monit",
   "productName": "Monit",
-  "files": ["dist", "public"],
+  "appId": "art.fzf404.monit",
   "afterSign": "scripts/notarize.js",
+  "icon": "public/image/icon.png",
+  "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+  "files": ["dist", "public"],
   "directories": {
     "output": "release"
   },
-  "icon": "public/image/icon.png",
-  "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+  "mac": {
+    "entitlementsInherit": "public/build/entitlements.mac.plist",
+    "target": { "target": "dmg", "arch": ["x64", "arm64"] }
+  },
   "win": {
     "target": [
       { "target": "nsis", "arch": ["x64"] },
@@ -21,9 +25,5 @@
       { "target": "AppImage", "arch": ["x64"] },
       { "target": "deb", "arch": ["x64"] }
     ]
-  },
-  "mac": {
-    "entitlementsInherit": "public/build/entitlements.mac.plist",
-    "target": { "target": "dmg", "arch": ["x64", "arm64"] }
   }
 }
