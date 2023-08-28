@@ -48,7 +48,7 @@ export default defineConfig({
       outDir: 'dist/renderer',
       rollupOptions: {
         input: {
-          index: resolve('app/index.html'),
+          index: 'app/index.html',
         },
       },
     },

@@ -8,6 +8,7 @@ const guide = {
   x: 0,
   y: 0,
   top: false,
+  theme: 'light',
   size: [2, 2],
 }
 

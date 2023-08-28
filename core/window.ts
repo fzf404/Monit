@@ -1,5 +1,8 @@
+import { join } from 'node:path'
 import { BrowserWindow } from 'electron'
 import { is } from '@electron-toolkit/utils'
+
+import { initHandle } from '~/context/handle'
 
 import { MeshSize } from './global'
 
@@ -13,10 +16,10 @@ interface WindowOptions {
 }
 
 const createWindow = (options: WindowOptions): BrowserWindow => {
-  const win = new BrowserWindow({
-    title: options.name,
-    // x: options.x,
-    // y: options.y,
+  const window = new BrowserWindow({
+    title: `Monit - ${options.name}`,
+    x: options.x,
+    y: options.y,
     width: options.size[0] * MeshSize,
     height: options.size[1] * MeshSize,
     alwaysOnTop: options.top,
@@ -32,17 +35,20 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
     visualEffectState: 'active',
 
     webPreferences: {
-      preload: '../preload/index.js',
+      // sandbox: false,
+      preload: join(__dirname, '../preload/index.js'),
     },
   })
 
-  if (is.dev) {
-    win.loadURL(process.env['ELECTRON_RENDERER_URL']! + '#/' + options.name)
+  initHandle(options.name, window)
+
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    window.loadURL(process.env['ELECTRON_RENDERER_URL']!)
   } else {
-    win.loadFile('../renderer/index.html#/' + options.name)
+    window.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
-  return win
+  return window
 }
 
 export { createWindow }
