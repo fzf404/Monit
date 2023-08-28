@@ -8,14 +8,15 @@ interface WindowOptions {
   x: number
   y: number
   top: boolean
+  theme: string
   size: number[]
 }
 
-export const createWindow = (options: WindowOptions): BrowserWindow => {
+const createWindow = (options: WindowOptions): BrowserWindow => {
   const win = new BrowserWindow({
     title: options.name,
-    x: options.x,
-    y: options.y,
+    // x: options.x,
+    // y: options.y,
     width: options.size[0] * MeshSize,
     height: options.size[1] * MeshSize,
     alwaysOnTop: options.top,
@@ -27,12 +28,11 @@ export const createWindow = (options: WindowOptions): BrowserWindow => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    vibrancy: 'dark',
+    vibrancy: 'light',
     visualEffectState: 'active',
 
     webPreferences: {
-      sandbox: false,
-      preload: '../context/preload.js',
+      preload: '../preload/index.js',
     },
   })
 
@@ -44,3 +44,5 @@ export const createWindow = (options: WindowOptions): BrowserWindow => {
 
   return win
 }
+
+export { createWindow }

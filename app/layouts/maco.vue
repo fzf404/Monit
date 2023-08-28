@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import i18n from '@/configs/locale'
+import { onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const { locale } = i18n.global
+import '@/themes/dark.scss'
+
+const { locale } = useI18n()
 
 const toggleLanguage = () => {
   locale.value = locale.value.startsWith('zh') ? 'en' : 'zh'
 }
+
+onMounted(() => {
+  document.documentElement.dataset.theme = 'dark'
+})
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const toggleLanguage = () => {
 <style lang="scss">
 body {
   -webkit-app-region: drag;
-  user-select: none;
+  @apply select-none;
 
   * {
     @apply transition;
@@ -45,7 +52,7 @@ body {
   select,
   button {
     -webkit-app-region: no-drag;
-    cursor: pointer;
+    @apply cursor-pointer;
   }
 }
 </style>
