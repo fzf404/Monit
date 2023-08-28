@@ -5,8 +5,7 @@
   "main": "dist/main/index.js",
   "scripts": {
     "dev": "electron-vite dev --watch",
-    "build": "electron-vite build",
-    "release": "electron-builder build",
+    "build": "electron-vite build && electron-builder build",
     "lint": "eslint --cache --fix .",
     "format": "prettier --cache --write ."
   },
