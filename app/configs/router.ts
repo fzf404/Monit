@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = []
-const plugin = (await window.electron?.ipcRenderer.invoke('plugin.name')) ?? 'guide'
+const plugin = (await window.api?.invoke('plugin-name')) ?? 'guide'
 const components = import.meta.glob('../plugins/**/index.vue')
 
 routes.push({
@@ -11,7 +11,6 @@ routes.push({
 
 for (const path in components) {
   const name = path.match(/\.\.\/plugins\/(.*)\/index\.vue/)![1]
-
   routes.push({
     name,
     path: `/${name}`,
