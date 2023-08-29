@@ -9,7 +9,6 @@ import MacoLayout from './maco.vue'
 
 <style lang="scss">
 #app {
-  -webkit-app-region: drag;
   @apply select-none;
 
   * {
@@ -24,7 +23,6 @@ import MacoLayout from './maco.vue'
   input,
   select,
   button {
-    -webkit-app-region: no-drag;
     @apply cursor-pointer;
   }
 }
