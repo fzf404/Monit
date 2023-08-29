@@ -34,7 +34,7 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
     visualEffectState: 'active',
 
     webPreferences: {
-      sandbox: false,
+      // sandbox: false,
       preload: join(__dirname, '../preload/index.js'),
     },
   })
@@ -44,7 +44,7 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)
   } else {
-    window.loadFile(join(__dirname, '../renderer/index.html'))
+    window.loadFile(join(__dirname, '../renderer/index.html'), { hash: name })
   }
 
   return window

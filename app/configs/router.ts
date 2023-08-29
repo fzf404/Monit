@@ -1,13 +1,13 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
-const routes: RouteRecordRaw[] = []
-const plugin = (await window.api?.invoke('plugin-name')) ?? 'guide'
+const routes: RouteRecordRaw[] = [
+  {
+    path: `/`,
+    redirect: { name: 'guide' },
+  },
+]
+
 const components = import.meta.glob('../plugins/**/index.vue')
-
-routes.push({
-  path: `/`,
-  redirect: `/${plugin}`,
-})
 
 for (const path in components) {
   const name = path.match(/\.\.\/plugins\/(.*)\/index\.vue/)![1]
@@ -19,7 +19,7 @@ for (const path in components) {
 }
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 
