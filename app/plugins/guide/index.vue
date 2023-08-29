@@ -3,9 +3,7 @@ import { useI18n } from 'vue-i18n'
 
 import MonitSVG from './assets/monit.svg'
 
-const { t } = useI18n({
-  locale: 'zh',
-})
+const { t } = useI18n()
 </script>
 
 <template>
