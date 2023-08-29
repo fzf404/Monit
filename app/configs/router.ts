@@ -1,19 +1,26 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+const routes: RouteRecordRaw[] = []
+const plugin = (await window.electron?.ipcRenderer.invoke('plugin.name')) ?? 'guide'
 const components = import.meta.glob('../plugins/**/index.vue')
 
-const pluginName = await window.electron.ipcRenderer.invoke('getPluginName')
+routes.push({
+  path: `/`,
+  redirect: `/${plugin}`,
+})
 
-const routes = [
-  {
-    name: pluginName,
-    path: '/',
-    component: () => components[`../plugins/${pluginName}/index.vue`](),
-  },
-]
+for (const path in components) {
+  const name = path.match(/\.\.\/plugins\/(.*)\/index\.vue/)![1]
+
+  routes.push({
+    name,
+    path: `/${name}`,
+    component: () => components[path](),
+  })
+}
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 

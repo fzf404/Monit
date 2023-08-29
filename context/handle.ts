@@ -1,8 +1,13 @@
 import { BrowserWindow, ipcMain } from 'electron'
 
-const initHandle = (name: string, window: BrowserWindow) => {
-  ipcMain.handle('getPluginName', () => name)
-  ipcMain.handle('closePlugin', () => window.close())
+interface HandleOptions {
+  name: string
+  window: BrowserWindow
+}
+
+const initHandle = ({ name, window }: HandleOptions) => {
+  ipcMain.handle('plugin.name', () => name)
+  ipcMain.handle('plugin.window', () => window.close())
 }
 
 export { initHandle }

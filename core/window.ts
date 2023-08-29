@@ -15,14 +15,14 @@ interface WindowOptions {
   size: number[]
 }
 
-const createWindow = (options: WindowOptions): BrowserWindow => {
+const createWindow = ({ name, x, y, top, theme, size }: WindowOptions): BrowserWindow => {
   const window = new BrowserWindow({
-    title: `Monit - ${options.name}`,
-    x: options.x,
-    y: options.y,
-    width: options.size[0] * MeshSize,
-    height: options.size[1] * MeshSize,
-    alwaysOnTop: options.top,
+    x,
+    y,
+    title: `Monit - ${name}`,
+    width: size[0] * MeshSize,
+    height: size[1] * MeshSize,
+    alwaysOnTop: top,
 
     frame: false,
     resizable: false,
@@ -31,7 +31,7 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    vibrancy: 'light',
+    vibrancy: theme === 'dark' ? 'dark' : 'light',
     visualEffectState: 'active',
 
     webPreferences: {
@@ -40,7 +40,7 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
     },
   })
 
-  initHandle(options.name, window)
+  initHandle({ name, window })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)

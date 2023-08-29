@@ -22,7 +22,6 @@ onMounted(() => {
       <svg class="i-ic-twotone-remove-circle text-yellow hover:text-yellow-500"></svg>
       <svg class="i-ic-twotone-expand-circle-down text-green hover:text-green-500"></svg>
     </ul>
-
     <ul class="flex-row-center gap-x-0.5">
       <svg
         class="i-ic-twotone-swap-horizontal-circle text-teal hover:text-teal-500"
@@ -33,26 +32,3 @@ onMounted(() => {
     </ul>
   </nav>
 </template>
-
-<style lang="scss">
-body {
-  -webkit-app-region: drag;
-  @apply select-none;
-
-  * {
-    @apply transition;
-  }
-
-  img {
-    -webkit-user-drag: none;
-  }
-
-  svg,
-  input,
-  select,
-  button {
-    -webkit-app-region: no-drag;
-    @apply cursor-pointer;
-  }
-}
-</style>
