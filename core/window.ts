@@ -4,8 +4,6 @@ import { is } from '@electron-toolkit/utils'
 
 import { initHandle } from '~/context/handle'
 
-import { MeshSize } from './global'
-
 interface WindowOptions {
   name: string
   x: number
@@ -15,13 +13,14 @@ interface WindowOptions {
   size: number[]
 }
 
-const createWindow = ({ name, x, y, top, theme, size }: WindowOptions): BrowserWindow => {
+const createWindow = (options: WindowOptions): BrowserWindow => {
+  const { name, x, y, top, theme, size } = options
   const window = new BrowserWindow({
     x,
     y,
     title: `Monit - ${name}`,
-    width: size[0] * MeshSize,
-    height: size[1] * MeshSize,
+    width: size[0],
+    height: size[1],
     alwaysOnTop: top,
 
     frame: false,
@@ -35,7 +34,7 @@ const createWindow = ({ name, x, y, top, theme, size }: WindowOptions): BrowserW
     visualEffectState: 'active',
 
     webPreferences: {
-      // sandbox: false,
+      sandbox: false,
       preload: join(__dirname, '../preload/index.js'),
     },
   })

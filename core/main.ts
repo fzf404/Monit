@@ -9,7 +9,7 @@ const guide = {
   y: 0,
   top: false,
   theme: 'light',
-  size: [2, 2],
+  size: [200, 200],
 }
 
 app.on('ready', () => {

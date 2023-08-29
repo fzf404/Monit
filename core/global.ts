@@ -1,7 +1,5 @@
 import { BrowserWindow, nativeImage, Tray } from 'electron'
 
-const MeshSize = 100
-
 let TrayMenu: Tray
 const getTray = (image: string) => {
   TrayMenu = new Tray(nativeImage.createFromPath(image))
@@ -16,4 +14,4 @@ const getWindows = (key: string) => {
   return WindowsMap.get(key)
 }
 
-export { MeshSize, getTray, setWindows, getWindows }
+export { getTray, setWindows, getWindows }
