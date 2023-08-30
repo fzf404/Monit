@@ -32,6 +32,9 @@ const useState = defineStore('state', {
   },
   getters: {},
   actions: {
+    toggleNavbar() {
+      this.navbar.sticky = !this.navbar.sticky
+    },
     toggleLocale() {
       this.locale = this.locale === 'en' ? 'zh' : 'en'
       i18n.global.locale.value = this.locale
@@ -39,6 +42,7 @@ const useState = defineStore('state', {
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark'
       document.documentElement.dataset.theme = this.theme
+      window.api.invoke('plugin-theme', this.theme)
     },
     toggleSetting() {
       this.setting.show = !this.setting.show

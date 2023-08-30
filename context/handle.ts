@@ -14,6 +14,7 @@ const initHandle = (options: HandleOptions) => {
   ipcMain.handle('plugin-minimize', () => window.minimize())
   ipcMain.handle('plugin-top', () => window.isAlwaysOnTop())
   ipcMain.handle('plugin-sticky', (_, state) => window.setAlwaysOnTop(state))
+  ipcMain.handle('plugin-theme', (_, theme) => window.setVibrancy(theme))
 }
 
 export { initHandle }

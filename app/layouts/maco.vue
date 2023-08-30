@@ -10,7 +10,7 @@ i18n.global.locale.value = state.locale
 
 document.documentElement.dataset.theme = state.theme
 
-document.addEventListener('mousemove', function (event) {
+document.addEventListener('mousemove', (event) => {
   state.navbar.show = event.clientY < 32 ? true : false
 })
 
@@ -75,19 +75,22 @@ const stickyPlugin = async () => {
     >
       <ul class="flex-row-center gap-x-0.5">
         <svg
-          class="i-ic-twotone-swap-horizontal-circle text-teal"
+          class="text-teal"
           :class="{
             'hover:text-teal-300': state.theme === 'light',
             'hover:text-teal-500': state.theme === 'dark',
+            'i-ic-twotone-push-pin': state.navbar.sticky,
+            'i-ic-twotone-pin-off': !state.navbar.sticky,
           }"
-          @click="state.toggleLocale"
+          @click="state.toggleNavbar"
         ></svg>
         <svg
-          :class="
-            state.theme === 'dark'
-              ? 'i-ic-twotone-dark-mode text-violet hover:text-violet-500'
-              : 'i-ic-twotone-light-mode text-orange hover:text-orange-300'
-          "
+          :class="{
+            'i-ic-twotone-dark-mode text-violet hover:text-violet-500':
+              state.theme === 'dark',
+            'i-ic-twotone-light-mode text-orange hover:text-orange-300':
+              state.theme === 'light',
+          }"
           @click="state.toggleTheme"
         ></svg>
         <svg
