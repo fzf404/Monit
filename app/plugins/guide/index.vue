@@ -9,7 +9,6 @@ const { t } = useI18n()
 <template>
   <section class="flex-col-center">
     <h1 class="text-lg text-gray-200">{{ t('title') }}</h1>
-
     <img class="h-6" :src="MonitSVG" />
   </section>
 </template>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+
+import i18n from '@/configs/i18n'
+import { useState } from '@/configs/state'
 
 import '@/themes/dark.scss'
 
-const { locale } = useI18n()
+const state = useState()
 
-const show = ref(false)
+i18n.global.locale.value = state.locale
 
 const closePlugin = () => {
   window.api.invoke('plugin-close')
@@ -21,23 +23,11 @@ const stickyPlugin = async () => {
   window.api.invoke('plugin-sticky', state)
 }
 
-const toggleLanguage = () => {
-  locale.value = locale.value.startsWith('zh') ? 'en' : 'zh'
-}
-
-const toggleTheme = () => {
-  document.documentElement.dataset.theme =
-    document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
-}
-
-const toggleSetting = () => {}
-
 onMounted(() => {
-  document.documentElement.dataset.theme = 'dark'
+  document.documentElement.dataset.theme = state.theme
 
   document.addEventListener('mousemove', function (event) {
-    show.value = event.clientY < 32 ? true : false
-    console.log(event.clientY)
+    state.navbar.show = event.clientY < 32 ? true : false
   })
 })
 </script>
@@ -45,7 +35,7 @@ onMounted(() => {
 <template>
   <nav class="flex-row-between absolute z-50 gap-x-2 px-2 py-1.5">
     <Transition name="fade">
-      <ul v-show="show" class="flex-row-center gap-x-0.5">
+      <ul v-show="state.navbar.show" class="flex-row-center gap-x-0.5">
         <svg
           class="i-ic-twotone-cancel text-red hover:text-red-500"
           @click="closePlugin"
@@ -60,22 +50,28 @@ onMounted(() => {
         ></svg>
       </ul>
     </Transition>
-    <Transition v-show="show" name="fade">
+    <Transition v-show="state.navbar.show" name="fade">
       <ul class="flex-auto rounded bg-white opacity-10"></ul>
     </Transition>
-    <Transition v-show="show" name="fade">
+    <Transition v-show="state.navbar.show" name="fade">
       <ul class="flex-row-center gap-x-0.5">
         <svg
           class="i-ic-twotone-swap-horizontal-circle text-teal hover:text-teal-500"
-          @click="toggleLanguage"
+          @click="state.toggleLocale"
         ></svg>
         <svg
+          v-if="state.theme === 'dark'"
           class="i-ic-twotone-dark-mode text-violet hover:text-violet-500"
-          @click="toggleTheme"
+          @click="state.toggleTheme"
+        ></svg>
+        <svg
+          v-if="state.theme === 'light'"
+          class="i-ic-twotone-light-mode text-violet hover:text-violet-500"
+          @click="state.toggleTheme"
         ></svg>
         <svg
           class="i-ic-twotone-settings text-blue hover:text-blue-500"
-          @click="toggleSetting"
+          @click="state.toggleSetting"
         ></svg>
       </ul>
     </Transition>
