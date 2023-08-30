@@ -7,6 +7,7 @@ interface State {
   theme: 'dark' | 'light'
   navbar: {
     show: boolean
+    sticky: boolean
   }
   setting: {
     show: boolean
@@ -19,12 +20,13 @@ const useState = defineStore('state', {
     return {
       theme: 'dark',
       locale: i18n.global.locale.value as State['locale'],
+      navbar: {
+        show: true,
+        sticky: false,
+      },
       setting: {
         show: false,
         exist: false,
-      },
-      navbar: {
-        show: true,
       },
     }
   },
