@@ -1,0 +1,24 @@
+#app {
+  @apply select-none;
+
+  * {
+    @apply transition;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  svg,
+  input,
+  select,
+  button {
+    @apply cursor-pointer;
+  }
+
+  .slide-fade-enter-from,
+  .slide-fade-leave-to {
+    transform: translateY(-2rem);
+    opacity: 0 !important;
+  }
+}
