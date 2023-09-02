@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from 'electron'
+import { BrowserWindow, ipcMain, screen } from 'electron'
 
 interface HandleOptions {
   name: string
@@ -13,8 +13,12 @@ const initHandle = (options: HandleOptions) => {
   ipcMain.handle('plugin-reload', () => window.reload())
   ipcMain.handle('plugin-minimize', () => window.minimize())
   ipcMain.handle('plugin-top', () => window.isAlwaysOnTop())
-  ipcMain.handle('plugin-sticky', (_, state) => window.setAlwaysOnTop(state))
   ipcMain.handle('plugin-theme', (_, theme) => window.setVibrancy(theme))
+  ipcMain.handle('plugin-sticky', (_, state) => window.setAlwaysOnTop(state))
+  ipcMain.handle('plugin-move', (_, [x, y]) => {
+    const [_x, _y] = window.getPosition()
+    window.setPosition(x + _x, y + _y)
+  })
 }
 
 export { initHandle }
