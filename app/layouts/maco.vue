@@ -4,16 +4,11 @@ import { useState } from '@/configs/state'
 const state = useState()
 
 const closePlugin = () => {
-  window.api.invoke('plugin-close')
+  window.api?.invoke('plugin-close')
 }
 
 const minimizePlugin = () => {
-  window.api.invoke('plugin-minimize')
-}
-
-const stickyPlugin = async () => {
-  const state = !(await window.api.invoke('plugin-top'))
-  window.api.invoke('plugin-sticky', state)
+  window.api?.invoke('plugin-minimize')
 }
 </script>
 
@@ -43,7 +38,7 @@ const stickyPlugin = async () => {
           'hover:text-green-500': state.theme === 'dark',
           'rotate-180': state.sticky,
         }"
-        @click="stickyPlugin"
+        @click="state.toggleSticky"
       ></svg>
     </ul>
     <ul
