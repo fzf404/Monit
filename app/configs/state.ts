@@ -3,11 +3,13 @@ import { defineStore } from 'pinia'
 import i18n from './i18n'
 
 interface State {
-  locale: 'en' | 'zh'
+  sticky: boolean
   theme: 'dark' | 'light'
+  locale: 'en' | 'zh'
   navbar: {
     show: boolean
     sticky: boolean
+    dragging: boolean
   }
   setting: {
     show: boolean
@@ -18,11 +20,13 @@ interface State {
 const useState = defineStore('state', {
   state: (): State => {
     return {
+      sticky: false,
       theme: 'dark',
       locale: i18n.global.locale.value as State['locale'],
       navbar: {
         show: true,
         sticky: false,
+        dragging: false,
       },
       setting: {
         show: false,
@@ -32,20 +36,29 @@ const useState = defineStore('state', {
   },
   getters: {},
   actions: {
+    startDrag() {
+      this.navbar.dragging = true
+    },
+    stopDrag() {
+      this.navbar.dragging = false
+    },
+    toggleSticky() {
+      this.sticky = !this.sticky
+    },
     toggleNavbar() {
       this.navbar.sticky = !this.navbar.sticky
     },
     toggleLocale() {
       this.locale = this.locale === 'en' ? 'zh' : 'en'
-      i18n.global.locale.value = this.locale
     },
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark'
-      document.documentElement.dataset.theme = this.theme
-      window.api.invoke('plugin-theme', this.theme)
     },
     toggleSetting() {
       this.setting.show = !this.setting.show
+    },
+    setNavbarShow(value: boolean) {
+      this.navbar.show = value
     },
   },
 })
