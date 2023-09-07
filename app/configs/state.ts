@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 
+import { PluginLocale, PluginTheme } from '~/context/interface'
+
 import i18n from './i18n'
 
 interface State {
   sticky: boolean
-  theme: 'dark' | 'light'
-  locale: 'en' | 'zh'
+  theme: PluginTheme
+  locale: PluginLocale
   navbar: {
     show: boolean
     sticky: boolean
@@ -20,12 +22,12 @@ interface State {
 const useState = defineStore('state', {
   state: (): State => {
     return {
-      sticky: false,
-      theme: 'dark',
+      sticky: true,
+      theme: 'light',
       locale: i18n.global.locale.value as State['locale'],
       navbar: {
         show: true,
-        sticky: false,
+        sticky: true,
         dragging: false,
       },
       setting: {
@@ -49,7 +51,7 @@ const useState = defineStore('state', {
       this.navbar.sticky = !this.navbar.sticky
     },
     toggleLocale() {
-      this.locale = this.locale === 'en' ? 'zh' : 'en'
+      this.locale = this.locale === 'zh' ? 'en' : 'zh'
     },
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark'
