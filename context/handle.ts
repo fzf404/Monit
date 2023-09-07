@@ -1,8 +1,12 @@
-import { BrowserWindow, ipcMain, screen } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
+import { LowSync } from 'lowdb'
+
+import { PluginConfig } from './interface'
 
 interface HandleOptions {
   name: string
   window: BrowserWindow
+  storage?: LowSync<Record<string, PluginConfig>>
 }
 
 const initHandle = (options: HandleOptions) => {

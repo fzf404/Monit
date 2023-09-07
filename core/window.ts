@@ -8,20 +8,17 @@ interface WindowOptions {
   name: string
   x: number
   y: number
-  top: boolean
-  theme: string
   size: number[]
 }
 
 const createWindow = (options: WindowOptions): BrowserWindow => {
-  const { name, x, y, top, theme, size } = options
+  const { name, x, y, size } = options
   const window = new BrowserWindow({
     x,
     y,
     title: `Monit - ${name}`,
     width: size[0],
     height: size[1],
-    alwaysOnTop: top,
 
     frame: false,
     resizable: false,
@@ -30,11 +27,9 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    vibrancy: theme === 'dark' ? 'dark' : 'light',
     visualEffectState: 'active',
 
     webPreferences: {
-      // sandbox: false,
       preload: join(__dirname, '../preload/index.js'),
     },
   })
