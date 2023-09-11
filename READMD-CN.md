@@ -1,4 +1,4 @@
-## ⭐ Star History
+## ⭐ 标星
 
 <a href="https://star-history.com/#fzf404/monit&Date">
   <picture>
