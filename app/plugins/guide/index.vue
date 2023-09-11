@@ -30,7 +30,7 @@ const { t } = useI18n()
 
 <i18n lang="json">
 {
-  "zh": {
+  "cn": {
     "title": "快速开始",
     "tray": "右击托盘中的 {0} 图标",
     "button": "// 点击下方按钮启动插件"

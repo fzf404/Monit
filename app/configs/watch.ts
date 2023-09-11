@@ -22,7 +22,7 @@ const initWatch = (state: ReturnType<typeof useState>) => {
 
   watchEffect(() => {
     window.api?.invoke('plugin-theme', state.theme)
-    document.documentElement.dataset.theme = state.theme
+    document.body.setAttribute('class', state.theme)
   })
 
   watchEffect(() => {

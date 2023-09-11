@@ -14,7 +14,7 @@ const minimizePlugin = () => {
 
 <template>
   <Transition v-show="state.navbar.show" name="slide-fade">
-    <nav class="flex-row-between absolute z-50 gap-x-2 px-2 py-1.5">
+    <nav class="absolute z-50 flex-row-between gap-x-2 px-2 py-1.5">
       <ul class="flex-row-center gap-x-0.5">
         <svg
           class="i-ic-twotone-cancel text-red"

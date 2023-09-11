@@ -14,8 +14,8 @@ defineProps<Props>()
 </script>
 
 <template>
-  <dialog v-show="show" class="flex-col-center z-30 gap-2">
-    <UseImage :src="image">
+  <dialog v-show="show" class="z-30 flex-col-center gap-2">
+    <UseImage class="h-2/3" :src="image">
       <template #loading>
         {{ t('loading') }}
       </template>
@@ -28,7 +28,7 @@ defineProps<Props>()
 
 <i18n lang="json">
 {
-  "zh": {
+  "cn": {
     "loading": "加载中……",
     "error": "加载失败"
   },
