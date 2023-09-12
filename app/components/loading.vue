@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 interface Props {
   show: boolean
   remark?: string | string[]
 }
+defineProps<Props>()
 
-withDefaults(defineProps<Props>(), {
-  remark: '加载中...',
-})
+const { t } = useI18n()
 </script>
 
 <template>
@@ -19,12 +20,31 @@ withDefaults(defineProps<Props>(), {
     ></svg>
     <p
       v-if="typeof remark === 'string'"
-      class="font-mono text-white dark:text-gray-300"
+      class="font-mono text-white dark:text-gray-200"
     >
       {{ remark }}
     </p>
-    <p v-for="(item, index) in remark" v-else :key="index" class="font-intro">
+    <p
+      v-for="(item, index) in remark"
+      v-else-if="typeof remark === 'object'"
+      :key="index"
+      class="font-intro"
+    >
       {{ item }}
+    </p>
+    <p v-else class="font-mono text-white dark:text-gray-200">
+      {{ t('loading') }}
     </p>
   </section>
 </template>
+
+<i18n lang="json">
+{
+  "cn": {
+    "loading": "加载中..."
+  },
+  "en": {
+    "loading": "Loading..."
+  }
+}
+</i18n>
