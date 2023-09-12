@@ -5,8 +5,8 @@ const config: PluginConfig = {
   width: 200,
   height: 200,
   description: {
-    en: 'A guide plugin for Monit',
-    zh: 'Monit 的引导插件',
+    en: 'Quick Start',
+    cn: '快速开始',
   },
 }
 

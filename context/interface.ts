@@ -12,8 +12,8 @@ interface PluginData {
     theme?: PluginTheme
     locale?: PluginLocale
   }
-  setting?: Record<string, unknown>[] | Record<string, unknown>
-  data?: Record<string, unknown>[] | Record<string, unknown>
+  setting?: Record<string, unknown>[]
+  data?: Record<string, unknown>[]
 }
 
 interface PluginConfig {
@@ -22,7 +22,7 @@ interface PluginConfig {
   height: number
   description: {
     en: string
-    zh: string
+    cn: string
   }
 }
 
