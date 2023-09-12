@@ -15,11 +15,11 @@ withDefaults(defineProps<Props>(), {
     class="absolute z-30 h-full w-full flex-col-center gap-2 rounded-lg bg-gray-300 bg-opacity-30 dark:bg-gray-900 dark:bg-opacity-50"
   >
     <svg
-      class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-gray-200 dark:text-gray-300"
+      class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-white dark:text-gray-300"
     ></svg>
     <p
       v-if="typeof remark === 'string'"
-      class="font-mono text-gray-200 dark:text-gray-300"
+      class="font-mono text-white dark:text-gray-300"
     >
       {{ remark }}
     </p>
