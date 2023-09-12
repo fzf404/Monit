@@ -7,7 +7,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-2 p-4 pt-6">
+  <section class="flex-col-center gap-y-2 p-4 pt-8">
     <h1 class="text-lg text-gray-200">{{ t('title') }}</h1>
     <i18n-t
       keypath="tray"
@@ -21,7 +21,7 @@ const { t } = useI18n()
       {{ t('button') }}
     </p>
     <button
-      class="mt-1 rounded bg-purple p-1 dark:bg-purple-600 hover:bg-purple-600 dark:hover:bg-purple"
+      class="mt-1 rounded bg-purple p-1 opacity-80 dark:bg-purple-600 hover:opacity-100"
     >
       <svg class="i-ic-twotone-settings block h-6 w-6 bg-white"></svg>
     </button>
