@@ -23,7 +23,9 @@ const useState = defineStore('state', {
   state: (): State => {
     return {
       sticky: true,
-      theme: 'light',
+      theme: window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light',
       locale: i18n.global.locale.value as State['locale'],
       navbar: {
         show: true,
