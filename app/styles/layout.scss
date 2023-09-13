@@ -1,9 +1,7 @@
-#app {
-  @apply select-none;
+@import 'anime';
 
-  * {
-    @apply transition;
-  }
+#app {
+  @apply select-none w-screen h-screen;
 
   img {
     -webkit-user-drag: none;
@@ -14,6 +12,30 @@
   select,
   button {
     @apply cursor-pointer;
+  }
+
+  menu,
+  dialog,
+  section {
+    @apply w-full h-full;
+  }
+
+  nav,
+  menu,
+  dialog {
+    @apply absolute;
+  }
+
+  nav {
+    @apply w-full z-50;
+  }
+
+  menu {
+    @apply z-40;
+  }
+
+  dialog {
+    @apply z-30;
   }
 
   .load-rotating {
