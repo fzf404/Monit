@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-import MonitSVG from './assets/monit.svg'
+import MonitSVG from '@/assets/monit.svg'
 
 const { t } = useI18n()
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-2 p-4 pt-6">
+  <section class="flex-col-center gap-y-3 p-3 pt-6">
     <h1 class="text-lg text-gray-200">{{ t('title') }}</h1>
     <i18n-t
       keypath="tray"
@@ -16,14 +16,13 @@ const { t } = useI18n()
     >
       <img class="inline-block h-5 px-1" :src="MonitSVG" />
     </i18n-t>
-
-    <p class="text-sm text-gray-400">
+    <p class="text-xs text-gray-400">
       {{ t('button') }}
     </p>
     <button
       class="mt-1 rounded bg-purple p-1 opacity-80 dark:bg-purple-600 hover:opacity-100"
     >
-      <svg class="i-ic-twotone-settings block h-6 w-6 bg-white"></svg>
+      <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>
   </section>
 </template>
@@ -38,7 +37,7 @@ const { t } = useI18n()
   "en": {
     "title": "Quick Start",
     "tray": "Right click {0} in tray",
-    "button": "// Click button start plugin"
+    "button": "// Click button to start plugin"
   }
 }
 </i18n>
