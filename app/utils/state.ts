@@ -4,22 +4,40 @@ import { PluginLocale, PluginTheme } from '~/context/interface'
 
 import i18n from './i18n'
 
-interface State {
-  sticky: boolean
+export interface SettingState {
+  exist: boolean
+  show?: boolean
+  data?: Record<string, unknown>
+}
+
+export interface LoadingState {
+  exist: boolean
+  show?: boolean
+  remark?: string | string[]
+}
+
+export interface QRCodeState {
+  exist: boolean
+  url?: string
+  show?: boolean
+  remark?: string
+}
+
+export interface State {
   theme: PluginTheme
   locale: PluginLocale
+  sticky: boolean
   navbar: {
     show: boolean
     sticky: boolean
     dragging: boolean
   }
-  setting: {
-    show: boolean
-    exist: boolean
-  }
+  setting: SettingState
+  loading: LoadingState
+  qrcode: QRCodeState
 }
 
-const useState = defineStore('state', {
+export const useState = defineStore('state', {
   state: (): State => {
     return {
       sticky: true,
@@ -33,7 +51,12 @@ const useState = defineStore('state', {
         dragging: false,
       },
       setting: {
-        show: false,
+        exist: false,
+      },
+      loading: {
+        exist: false,
+      },
+      qrcode: {
         exist: false,
       },
     }
@@ -66,5 +89,3 @@ const useState = defineStore('state', {
     },
   },
 })
-
-export { useState }

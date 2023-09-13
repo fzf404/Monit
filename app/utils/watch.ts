@@ -1,6 +1,6 @@
 import { watch, watchEffect } from 'vue'
 
-import i18n from '@/configs/i18n'
+import i18n from '@/utils/i18n'
 
 import { useState } from './state'
 
@@ -11,7 +11,7 @@ const movePlugin = (event: MouseEvent) => {
   }
 }
 
-const initWatch = (state: ReturnType<typeof useState>) => {
+export const initWatch = (state: ReturnType<typeof useState>) => {
   watchEffect(() => {
     i18n.global.locale.value = state.locale
   })
@@ -48,5 +48,3 @@ const initWatch = (state: ReturnType<typeof useState>) => {
     },
   )
 }
-
-export { initWatch }
