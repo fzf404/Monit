@@ -1,32 +1,29 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-interface Props {
-  show: boolean
-  remark?: string | string[]
-}
-defineProps<Props>()
+import { useState } from '@/utils/state'
 
 const { t } = useI18n()
+
+const state = useState()
 </script>
 
 <template>
-  <section
-    v-show="show"
-    class="absolute z-30 h-full w-full flex-col-center gap-2 rounded-lg bg-gray-300 bg-opacity-30 dark:bg-gray-900 dark:bg-opacity-50"
+  <dialog
+    class="flex-col-center gap-2 bg-gray-300 bg-opacity-30 dark:bg-gray-900 dark:bg-opacity-50"
   >
     <svg
       class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-white dark:text-gray-300"
     ></svg>
     <p
-      v-if="typeof remark === 'string'"
+      v-if="state.qrcode.remark === 'string'"
       class="font-mono text-white dark:text-gray-200"
     >
-      {{ remark }}
+      {{ state.qrcode.remark }}
     </p>
     <p
-      v-for="(item, index) in remark"
-      v-else-if="typeof remark === 'object'"
+      v-for="(item, index) in state.qrcode.remark"
+      v-else-if="typeof state.qrcode.remark === 'object'"
       :key="index"
       class="font-intro"
     >
@@ -35,7 +32,7 @@ const { t } = useI18n()
     <p v-else class="font-mono text-white dark:text-gray-200">
       {{ t('loading') }}
     </p>
-  </section>
+  </dialog>
 </template>
 
 <i18n lang="json">

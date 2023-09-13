@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useState } from '@/configs/state'
+import { useState } from '@/utils/state'
 
-const pinia = useState()
+const state = useState()
 </script>
 
 <template>
   <Transition name="fade">
-    <menu v-if="pinia.setting.exist"></menu>
+    <menu></menu>
   </Transition>
 </template>
