@@ -11,7 +11,7 @@ interface WindowOptions {
   size: number[]
 }
 
-const createWindow = (options: WindowOptions): BrowserWindow => {
+export const createWindow = (options: WindowOptions): BrowserWindow => {
   const { name, x, y, size } = options
   const window = new BrowserWindow({
     x,
@@ -44,5 +44,3 @@ const createWindow = (options: WindowOptions): BrowserWindow => {
 
   return window
 }
-
-export { createWindow }

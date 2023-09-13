@@ -9,7 +9,7 @@ interface HandleOptions {
   storage?: LowSync<Record<string, PluginConfig>>
 }
 
-const initHandle = (options: HandleOptions) => {
+export const initHandle = (options: HandleOptions) => {
   const { name, window } = options
   ipcMain.handle('plugin-name', () => name)
   ipcMain.handle('plugin-focus', () => window.focus())
@@ -24,5 +24,3 @@ const initHandle = (options: HandleOptions) => {
     window.setPosition(x + _x, y + _y)
   })
 }
-
-export { initHandle }
