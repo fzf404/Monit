@@ -1,20 +1,20 @@
 import { app } from 'electron'
 
-import { storage } from './storage'
+import { useStorage } from './storage'
 
-const quitApp = () => {
+const storage = useStorage()
+
+export const quitApp = () => {
   app.quit()
 }
 
-const restartApp = () => {
+export const restartApp = () => {
   app.relaunch()
   quitApp()
 }
 
-const resetApp = () => {
+export const resetApp = () => {
   storage.data = {}
   storage.write()
   restartApp()
 }
-
-export { quitApp, restartApp, resetApp }

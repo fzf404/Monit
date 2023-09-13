@@ -8,7 +8,7 @@ import { PluginConfig } from '~/context/interface'
 
 let storage: LowSync<Record<string, PluginConfig>>
 
-const initStorage = () => {
+export const initStorage = () => {
   const path = `${homedir()}/.config/monit`
   const file = `${path}/data.json`
   if (!existsSync(path)) mkdirSync(path, { recursive: true })
@@ -17,7 +17,9 @@ const initStorage = () => {
   storage.read()
 }
 
-export { storage, initStorage }
+export const useStorage = () => {
+  return storage
+}
 
 // Read data from JSON file, this will set db.data content
 // If JSON file doesn't exist, defaultData is used instead

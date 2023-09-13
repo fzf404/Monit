@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 
-import i18n from '~/app/utils/i18n'
-import pinia from '~/app/utils/pinia'
-import router from '~/app/utils/router'
+import i18n from '@/utils/i18n'
+import pinia from '@/utils/pinia'
+import router from '@/utils/router'
 
 import app from './app.vue'
 
