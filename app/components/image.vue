@@ -24,7 +24,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   show: true,
-  image: 'https://img.fzf404.art/Monit/qrcode.webp',
+  image: 'https://img.fzf404.art/monit/qrcode.webp',
   remark: '请扫码前往 Monit 官网！'
 })
 </script>

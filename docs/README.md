@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://monit.fzf404.art/" target="_blank">
-    <img src="https://img.fzf404.art/Monit/logo.webp" alt="Monit" style="zoom:40%;"/>
+    <img src="https://img.fzf404.art/monit/logo.webp" alt="Monit" style="zoom:40%;"/>
   </a>
 </p>
 
@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.fzf404.art/Monit/v0.7.0.webp" alt="show" style="zoom:30%;" />
+  <img src="https://img.fzf404.art/monit/v0.7.0.webp" alt="show" style="zoom:30%;" />
 </p>
 
 ## ✨ 功能

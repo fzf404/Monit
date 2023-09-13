@@ -25,7 +25,7 @@ import Setting from '@/components/setting.vue'
 
 // 存储数据
 const store = storage({
-  src: 'https://img.fzf404.art/Monit/logo.webp'
+  src: 'https://img.fzf404.art/monit/logo.webp'
 })
 
 // 打开本地图像

@@ -143,7 +143,7 @@ const state = reactive({
     url: '',
     title: 'Monit',
     author: 'fzf404',
-    image: 'https://img.fzf404.art/Monit/icon.webp'
+    image: 'https://img.fzf404.art/monit/icon.webp'
   }
 })
 

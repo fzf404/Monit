@@ -70,7 +70,7 @@
 
 ```vue
 <template>
-  <Image :show="true" remark="请扫码前往 Monit 官网！" image="https://img.fzf404.art/Monit/qrcode.webp" />
+  <Image :show="true" remark="请扫码前往 Monit 官网！" image="https://img.fzf404.art/monit/qrcode.webp" />
 </template>
 
 <script setup>
