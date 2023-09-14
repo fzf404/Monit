@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, nativeTheme } from 'electron'
 import { is } from '@electron-toolkit/utils'
 
 import { initHandle } from '~/context/handle'
@@ -27,6 +27,7 @@ export const createWindow = (options: WindowOptions): BrowserWindow => {
     skipTaskbar: true,
     fullscreenable: false,
 
+    vibrancy: nativeTheme.shouldUseDarkColors ? 'dark' : 'light',
     visualEffectState: 'active',
 
     webPreferences: {
