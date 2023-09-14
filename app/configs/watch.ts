@@ -1,8 +1,8 @@
 import { watch, watchEffect } from 'vue'
 
-import i18n from '@/utils/i18n'
+import i18n from '@/configs/locale'
 
-import { useState } from './state'
+import type { useState } from './state'
 
 const movePlugin = (event: MouseEvent) => {
   const [x, y] = [event.movementX, event.movementY]

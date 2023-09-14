@@ -1,23 +1,20 @@
 import { defineStore } from 'pinia'
 
-import { PluginLocale, PluginTheme } from '~/context/interface'
+import type { PluginLocale, PluginTheme } from '~/context/interface'
 
-import i18n from './i18n'
+import i18n from './locale'
 
 export interface SettingState {
-  exist: boolean
   show?: boolean
   data?: Record<string, unknown>
 }
 
 export interface LoadingState {
-  exist: boolean
   show?: boolean
   remark?: string | string[]
 }
 
 export interface QRCodeState {
-  exist: boolean
   url?: string
   show?: boolean
   remark?: string
@@ -41,24 +38,19 @@ export const useState = defineStore('state', {
   state: (): State => {
     return {
       sticky: true,
-      theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light',
+      theme: 'light',
+      // theme: window.matchMedia('(prefers-color-scheme: dark)').matches
+      //   ? 'dark'
+      //   : 'light',
       locale: i18n.global.locale.value as State['locale'],
       navbar: {
         show: true,
         sticky: true,
         dragging: false,
       },
-      setting: {
-        exist: false,
-      },
-      loading: {
-        exist: false,
-      },
-      qrcode: {
-        exist: false,
-      },
+      setting: {},
+      loading: {},
+      qrcode: {},
     }
   },
   getters: {},
