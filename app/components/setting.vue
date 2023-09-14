@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useState } from '@/configs/state'
 
-const state = useState()
+const { state } = useState()
 
-const [width] = await window.api.invoke('plugin-size')
+const size = await window.api.invoke('plugin-size')
 </script>
 
 <template>
@@ -11,9 +11,9 @@ const [width] = await window.api.invoke('plugin-size')
     <ul
       class="bg-gray-200 ring-blue-400 ring-opacity-50"
       :class="{
-        'w-3/4': width < 300,
-        'w-3/5': width >= 300 && width <= 600,
-        'w-3/6': width > 600,
+        'w-3/4': size.width < 300,
+        'w-3/5': size.width >= 300 && size.width <= 600,
+        'w-3/6': size.width > 600,
       }"
     >
       <li
@@ -21,8 +21,10 @@ const [width] = await window.api.invoke('plugin-size')
         :key="index"
         class="h-8 flex-row-between rounded px-2"
       >
-        <label :for="item.label" class="flex gap-1 text-xs">
-          {{ item }}
+        <label :for="item.label" class="flex-1 text-xs">
+          <span>
+            {{ item }}
+          </span>
         </label>
       </li>
     </ul>

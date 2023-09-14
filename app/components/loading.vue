@@ -5,7 +5,7 @@ import { useState } from '@/configs/state'
 
 const { t } = useI18n()
 
-const state = useState()
+const { state } = useState()
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const state = useState()
       class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-white dark:text-gray-300"
     ></svg>
     <p
-      v-if="state.qrcode.remark === 'string'"
+      v-if="typeof state.qrcode.remark === 'string'"
       class="font-mono text-white dark:text-gray-200"
     >
       {{ state.qrcode.remark }}

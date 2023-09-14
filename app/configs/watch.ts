@@ -2,7 +2,7 @@ import { watch, watchEffect } from 'vue'
 
 import i18n from '@/configs/locale'
 
-import type { useState } from './state'
+import type { State } from './interface'
 
 const movePlugin = (event: MouseEvent) => {
   const [x, y] = [event.movementX, event.movementY]
@@ -11,7 +11,7 @@ const movePlugin = (event: MouseEvent) => {
   }
 }
 
-export const initWatch = (state: ReturnType<typeof useState>) => {
+export const setWatch = (state: State) => {
   watchEffect(() => {
     i18n.global.locale.value = state.locale
   })
@@ -27,11 +27,10 @@ export const initWatch = (state: ReturnType<typeof useState>) => {
 
   watchEffect(() => {
     document.addEventListener('mousemove', (event) => {
-      state.setNavbarShow(
+      state.navbar.show =
         state.navbar.dragging || state.navbar.sticky || event.clientY < 32
           ? true
-          : false,
-      )
+          : false
     })
   })
 
@@ -39,10 +38,16 @@ export const initWatch = (state: ReturnType<typeof useState>) => {
     () => state.navbar.dragging,
     (value) => {
       if (value) {
-        document.addEventListener('mouseup', state.stopDrag)
+        document.addEventListener(
+          'mouseup',
+          () => (state.navbar.dragging = false),
+        )
         document.addEventListener('mousemove', movePlugin)
       } else {
-        document.addEventListener('mouseup', state.stopDrag)
+        document.addEventListener(
+          'mouseup',
+          () => (state.navbar.dragging = false),
+        )
         document.removeEventListener('mousemove', movePlugin)
       }
     },

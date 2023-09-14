@@ -6,7 +6,7 @@ import { useState } from '@/configs/state'
 
 const { t } = useI18n()
 
-const state = useState()
+const { state } = useState()
 
 const { isLoading, error } = useImage({ src: state.qrcode.url! })
 </script>
@@ -16,18 +16,15 @@ const { isLoading, error } = useImage({ src: state.qrcode.url! })
     <p v-if="isLoading" class="z-30 gap-2 dialog">
       {{ t('loading') }}
     </p>
-
-    <p v-else-if="error" class="drop-shadow">{{ t('error') }}</p>
-
+    <p v-else-if="error">{{ t('error') }}</p>
     <img v-else :src="state.qrcode.url" class="mb-2 h-2/3" />
 
-    <footer
-      class="absolute bottom-0 w-full bg-sky p-1 text-center dark:bg-purple-600"
+      class="absolute bottom-0 w-full bg-blue p-1 text-center dark:bg-purple-600"
     >
       <slot>
         {{ t('qrcode') }}
       </slot>
-    </footer>
+    </>
   </dialog>
 </template>
 

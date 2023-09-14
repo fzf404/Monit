@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useState } from '@/configs/state'
 
-const state = useState()
+const { state, action } = useState()
 
 const closePlugin = () => {
   window.api?.invoke('plugin-close')
@@ -39,7 +39,7 @@ const minimizePlugin = () => {
             'hover:text-green-500': state.theme === 'dark',
             'rotate-180': state.sticky,
           }"
-          @click="state.toggleSticky"
+          @click="action.toggleSticky"
         ></svg>
       </ul>
       <ul
@@ -48,7 +48,7 @@ const minimizePlugin = () => {
           'cursor-move opacity-20': state.navbar.dragging,
           'cursor-pointer opacity-0': !state.navbar.dragging,
         }"
-        @mousedown="state.startDrag"
+        @mousedown="action.startDrag"
       ></ul>
       <ul class="flex-row-center gap-x-0.5">
         <svg
@@ -59,7 +59,7 @@ const minimizePlugin = () => {
             'i-ic-twotone-push-pin': state.navbar.sticky,
             'i-ic-twotone-pin-off': !state.navbar.sticky,
           }"
-          @click="state.toggleNavbar"
+          @click="action.toggleNavbar"
         ></svg>
         <svg
           :class="{
@@ -68,7 +68,7 @@ const minimizePlugin = () => {
             'i-ic-twotone-light-mode text-orange hover:text-orange-300':
               state.theme === 'light',
           }"
-          @click="state.toggleTheme"
+          @click="action.toggleTheme"
         ></svg>
         <svg
           class="i-ic-twotone-settings text-blue"
@@ -76,7 +76,7 @@ const minimizePlugin = () => {
             'hover:text-blue-300': state.theme === 'light',
             'hover:text-blue-500': state.theme === 'dark',
           }"
-          @click="state.toggleSetting"
+          @click="action.toggleSetting"
         ></svg>
       </ul>
     </nav>

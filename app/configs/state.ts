@@ -1,83 +1,58 @@
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 
-import type { PluginLocale, PluginTheme } from '~/context/interface'
-
+import type { State } from './interface'
 import i18n from './locale'
+import { setWatch } from './watch'
 
-export interface SettingState {
-  show?: boolean
-  data?: Record<string, unknown>
-}
-
-export interface LoadingState {
-  show?: boolean
-  remark?: string | string[]
-}
-
-export interface QRCodeState {
-  url?: string
-  show?: boolean
-  remark?: string
-}
-
-export interface State {
-  theme: PluginTheme
-  locale: PluginLocale
-  sticky: boolean
-  navbar: {
-    show: boolean
-    sticky: boolean
-    dragging: boolean
-  }
-  setting: SettingState
-  loading: LoadingState
-  qrcode: QRCodeState
-}
-
-export const useState = defineStore('state', {
-  state: (): State => {
-    return {
+export const useState = defineStore('state', () => {
+  const state = reactive<State>({
+    sticky: true,
+    theme: window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+    locale: i18n.global.locale.value as State['locale'],
+    navbar: {
+      show: true,
       sticky: true,
-      theme: 'light',
-      // theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-      //   ? 'dark'
-      //   : 'light',
-      locale: i18n.global.locale.value as State['locale'],
-      navbar: {
-        show: true,
-        sticky: true,
-        dragging: false,
-      },
-      setting: {},
-      loading: {},
-      qrcode: {},
-    }
-  },
-  getters: {},
-  actions: {
-    startDrag() {
-      this.navbar.dragging = true
+      dragging: false,
     },
-    stopDrag() {
-      this.navbar.dragging = false
+    setting: {},
+    loading: {},
+    qrcode: {},
+  })
+
+  setWatch(state)
+
+  const action = {
+    startDrag: () => {
+      state.navbar.dragging = true
     },
-    toggleSticky() {
-      this.sticky = !this.sticky
+    stopDrag: () => {
+      state.navbar.dragging = false
     },
-    toggleNavbar() {
-      this.navbar.sticky = !this.navbar.sticky
+    toggleSticky: () => {
+      state.sticky = !state.sticky
     },
-    toggleLocale() {
-      this.locale = this.locale === 'zh' ? 'en' : 'zh'
+    toggleNavbar: () => {
+      state.navbar.sticky = !state.navbar.sticky
     },
-    toggleTheme() {
-      this.theme = this.theme === 'dark' ? 'light' : 'dark'
+    toggleLocale: () => {
+      state.locale = state.locale === 'cn' ? 'en' : 'cn'
     },
-    toggleSetting() {
-      this.setting.show = !this.setting.show
+    toggleTheme: () => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
-    setNavbarShow(value: boolean) {
-      this.navbar.show = value
+    toggleSetting: () => {
+      state.setting.show = !state.setting.show
     },
-  },
+    setNavbarShow: (value: boolean) => {
+      state.navbar.show = value
+    },
+  }
+
+  return {
+    state,
+    action,
+  }
 })

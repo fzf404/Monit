@@ -5,7 +5,7 @@ import { useState } from '@/configs/state'
 
 import MacoLayout from './maco.vue'
 
-const state = useState()
+const { state } = useState()
 
 const QRCode = defineAsyncComponent(() => import('@/components/qrcode.vue'))
 const Loading = defineAsyncComponent(() => import('@/components/loading.vue'))
