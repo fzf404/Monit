@@ -1,0 +1,7 @@
+.dark {
+  @apply bg-gray-900 bg-opacity-10;
+}
+
+.light {
+  @apply bg-gray-300 bg-opacity-10 drop-shadow;
+}

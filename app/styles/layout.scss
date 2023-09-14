@@ -1,4 +1,5 @@
 @import 'anime';
+@import 'theme';
 
 #app {
   @apply select-none w-screen h-screen;
@@ -14,46 +15,7 @@
     @apply cursor-pointer;
   }
 
-  menu,
-  dialog,
   section {
     @apply w-full h-full;
-  }
-
-  nav,
-  menu,
-  dialog {
-    @apply absolute;
-  }
-
-  nav {
-    @apply w-full z-50;
-  }
-
-  menu {
-    @apply z-40;
-  }
-
-  dialog {
-    @apply z-30;
-  }
-
-  .load-rotating {
-    animation: rotating 1s linear infinite;
-  }
-
-  @keyframes rotating {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .slide-fade-enter-from,
-  .slide-fade-leave-to {
-    transform: translateY(-2rem);
-    opacity: 0 !important;
   }
 }

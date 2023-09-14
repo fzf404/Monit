@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useImage } from '@vueuse/core'
 
-import { useState } from '@/utils/state'
+import { useState } from '@/configs/state'
 
 const { t } = useI18n()
 
@@ -12,18 +12,18 @@ const { isLoading, error } = useImage({ src: state.qrcode.url! })
 </script>
 
 <template>
-  <dialog
-    class="flex-col-center gap-2 bg-gray-300 bg-opacity-30 text-white dark:bg-gray-900 dark:bg-opacity-50"
-  >
-    <p v-if="isLoading">
+  <dialog class="z-30 gap-2 text-white dialog dark:text-gray-200">
+    <p v-if="isLoading" class="z-30 gap-2 dialog">
       {{ t('loading') }}
     </p>
 
-    <p v-else-if="error">{{ t('error') }}</p>
+    <p v-else-if="error" class="drop-shadow">{{ t('error') }}</p>
 
     <img v-else :src="state.qrcode.url" class="mb-2 h-2/3" />
 
-    <footer class="absolute bottom-0 w-full bg-purple p-1 text-center">
+    <footer
+      class="absolute bottom-0 w-full bg-sky p-1 text-center dark:bg-purple-600"
+    >
       <slot>
         {{ t('qrcode') }}
       </slot>

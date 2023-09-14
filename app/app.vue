@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useState } from '@/configs/state'
+import { initWatch } from '@/configs/watch'
 import Layout from '@/layouts/index.vue'
-import { useState } from '@/utils/state'
-import { initWatch } from '@/utils/watch'
 
 initWatch(useState())
 </script>
