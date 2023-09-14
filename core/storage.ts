@@ -4,7 +4,7 @@ import { homedir } from 'node:os'
 import { LowSync } from 'lowdb'
 import { JSONFileSync } from 'lowdb/node'
 
-import { PluginConfig } from '~/context/interface'
+import type { PluginConfig } from '~/context/interface'
 
 let storage: LowSync<Record<string, PluginConfig>>
 

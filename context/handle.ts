@@ -1,7 +1,8 @@
-import { BrowserWindow, ipcMain } from 'electron'
-import { LowSync } from 'lowdb'
+import type { BrowserWindow } from 'electron'
+import { ipcMain } from 'electron'
+import type { LowSync } from 'lowdb'
 
-import { PluginConfig } from './interface'
+import type { PluginConfig } from './interface'
 
 interface HandleOptions {
   name: string
@@ -12,6 +13,7 @@ interface HandleOptions {
 export const initHandle = (options: HandleOptions) => {
   const { name, window } = options
   ipcMain.handle('plugin-name', () => name)
+  ipcMain.handle('plugin-size', () => window.getSize())
   ipcMain.handle('plugin-focus', () => window.focus())
   ipcMain.handle('plugin-close', () => window.close())
   ipcMain.handle('plugin-reload', () => window.reload())

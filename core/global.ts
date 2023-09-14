@@ -1,4 +1,5 @@
-import { BrowserWindow, nativeImage, Tray } from 'electron'
+import type { BrowserWindow } from 'electron'
+import { nativeImage, Tray } from 'electron'
 
 let TrayMenu: Tray
 export const getTray = (image: string) => {

@@ -1,4 +1,4 @@
-import { PluginConfig } from '~/context/interface'
+import type { PluginConfig } from '~/context/interface'
 
 const config: PluginConfig = {
   name: 'Guide',
