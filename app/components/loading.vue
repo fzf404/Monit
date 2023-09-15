@@ -14,14 +14,14 @@ const { state } = useState()
       class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-white dark:text-gray-300"
     ></svg>
     <p
-      v-if="typeof state.qrcode.remark === 'string'"
+      v-if="typeof state.loading.remark === 'string'"
       class="font-mono text-white dark:text-gray-200"
     >
-      {{ state.qrcode.remark }}
+      {{ state.loading.remark }}
     </p>
     <p
-      v-for="(item, index) in state.qrcode.remark"
-      v-else-if="typeof state.qrcode.remark === 'object'"
+      v-for="(item, index) in state.loading.remark"
+      v-else-if="typeof state.loading.remark === 'object'"
       :key="index"
       class="font-mono text-white dark:text-gray-200"
     >

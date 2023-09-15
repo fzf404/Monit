@@ -25,12 +25,6 @@ export const useState = defineStore('state', () => {
   setWatch(state)
 
   const action = {
-    startDrag: () => {
-      state.navbar.dragging = true
-    },
-    stopDrag: () => {
-      state.navbar.dragging = false
-    },
     toggleSticky: () => {
       state.sticky = !state.sticky
     },
@@ -46,8 +40,29 @@ export const useState = defineStore('state', () => {
     toggleSetting: () => {
       state.setting.show = !state.setting.show
     },
-    setNavbarShow: (value: boolean) => {
-      state.navbar.show = value
+    setSettingShow: (show: boolean) => {
+      state.setting.show = show
+    },
+    setSettingData: (data: State['setting']['data']) => {
+      state.setting.data = data
+    },
+    setLoadingShow: (show: boolean) => {
+      state.loading.show = show
+    },
+    setLoadingRemark: (remark: string | string[]) => {
+      state.loading.remark = remark
+    },
+    setQRCodeURL: (url: string) => {
+      state.qrcode.url = url
+    },
+    setQRCodeShow: (show: boolean) => {
+      state.qrcode.show = show
+    },
+    setQRCodeRemark: (remark: string) => {
+      state.qrcode.remark = remark
+    },
+    setNavbarShow: (show: boolean) => {
+      state.navbar.show = show
     },
   }
 

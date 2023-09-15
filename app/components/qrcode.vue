@@ -18,13 +18,14 @@ const { isLoading, error } = useImage({ src: state.qrcode.url! })
     </p>
     <p v-else-if="error">{{ t('error') }}</p>
     <img v-else :src="state.qrcode.url" class="mb-2 h-2/3" />
-
+    <footer
       class="absolute bottom-0 w-full bg-blue p-1 text-center dark:bg-purple-600"
     >
-      <slot>
-        {{ t('qrcode') }}
-      </slot>
-    </>
+      <span v-if="typeof state.qrcode.remark === 'string'">
+        {{ state.qrcode.remark }}
+      </span>
+      <span v-else>{{ t('qrcode') }}</span>
+    </footer>
   </dialog>
 </template>
 
