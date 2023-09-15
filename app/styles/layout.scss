@@ -2,7 +2,7 @@
 @import 'theme';
 
 #app {
-  @apply select-none w-screen h-screen;
+  @apply select-none w-screen h-screen drop-shadow;
 
   img {
     -webkit-user-drag: none;
