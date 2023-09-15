@@ -21,4 +21,9 @@
     transform: translateY(-2rem);
     opacity: 0 !important;
   }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 }

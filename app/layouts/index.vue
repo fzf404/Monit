@@ -13,9 +13,19 @@ const Setting = defineAsyncComponent(() => import('@/components/setting.vue'))
 </script>
 
 <template>
-  <MacoLayout />
-  <QRCode v-if="state.qrcode.show" />
-  <Loading v-if="state.loading.show" />
-  <Setting v-if="state.setting.show" />
-  <router-view />
+  <Transition name="slide-fade">
+    <MacoLayout v-show="state.navbar.show" />
+  </Transition>
+  <Transition name="fade">
+    <QRCode v-if="state.qrcode.show" />
+  </Transition>
+  <Transition name="fade">
+    <Loading v-if="state.loading.show" />
+  </Transition>
+  <Transition name="fade">
+    <Setting v-if="state.setting.show" />
+  </Transition>
+  <Transition name="fade">
+    <router-view />
+  </Transition>
 </template>
