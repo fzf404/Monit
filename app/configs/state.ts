@@ -37,6 +37,9 @@ export const useState = defineStore('state', () => {
     toggleTheme: () => {
       state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
+    setNavbarShow: (show: boolean) => {
+      state.navbar.show = show
+    },
     toggleSetting: () => {
       state.setting.show = !state.setting.show
     },
@@ -60,9 +63,6 @@ export const useState = defineStore('state', () => {
     },
     setQRCodeRemark: (remark: string) => {
       state.qrcode.remark = remark
-    },
-    setNavbarShow: (show: boolean) => {
-      state.navbar.show = show
     },
   }
 

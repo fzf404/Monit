@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { useImage } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
 
 import { useState } from '@/configs/state'
 

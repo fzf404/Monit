@@ -1,8 +1,9 @@
 import { resolve } from 'node:path'
-import { defineConfig } from 'electron-vite'
-import unocss from 'unocss/vite'
+
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'electron-vite'
+import unocss from 'unocss/vite'
 
 export default defineConfig({
   main: {
