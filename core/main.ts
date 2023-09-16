@@ -6,8 +6,6 @@ import { createWindow } from './window'
 
 const guide = {
   name: 'guide',
-  x: 0,
-  y: 0,
   size: [200, 200],
 }
 

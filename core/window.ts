@@ -1,21 +1,29 @@
 import { join } from 'node:path'
-import { BrowserWindow, nativeTheme } from 'electron'
+
 import { is } from '@electron-toolkit/utils'
+import { BrowserWindow, nativeTheme } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
+import { useStorage } from './storage'
+
 interface WindowOptions {
   name: string
-  x: number
-  y: number
   size: number[]
 }
 
-export const createWindow = (options: WindowOptions): BrowserWindow => {
-  const { name, x, y, size } = options
+// const configList = import.meta.glob('@/plugins/**/index.vue')
+
+export const createWindow = async (
+  options: WindowOptions,
+): Promise<BrowserWindow> => {
+  const { name, size } = options
+  const storage = await useStorage(name)
+  const config = storage.get('config')
+  console.log(config)
   const window = new BrowserWindow({
-    x,
-    y,
+    x: config?.x,
+    y: config?.y,
     title: `Monit - ${name}`,
     width: size[0],
     height: size[1],
@@ -35,7 +43,7 @@ export const createWindow = (options: WindowOptions): BrowserWindow => {
     },
   })
 
-  initHandle({ name, window })
+  initHandle({ name, window, storage })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)

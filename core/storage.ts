@@ -1,15 +1,17 @@
 import { homedir } from 'node:os'
+
+import type { Storage } from 'unstorage'
 import { createStorage } from 'unstorage'
 import fsLiteDriver from 'unstorage/drivers/fs-lite'
 
-import type { PluginStorage } from '~/context/interface'
+import type { PluginData, PluginStorage } from '~/context/interface'
 
-let storage: ReturnType<typeof createStorage>
+let storage: Storage<PluginData>
 
 export const initStorage = () => {
   const path = `${homedir()}/.config/monit`
 
-  storage = createStorage<PluginStorage>({
+  storage = createStorage<PluginData>({
     driver: fsLiteDriver({ base: path }),
   })
 }
@@ -18,29 +20,24 @@ export const getStorage = () => {
   return storage
 }
 
-export const useStorage = async (name: string) => {
+export const useStorage = async (name: string): Promise<PluginStorage> => {
   const exist = await storage.hasItem(name)
-  if (exist) {
+  if (!exist) {
     await storage.setItem(name, {})
   }
-  const data = (await storage.getItem(name)) as PluginStorage
+  const data = (await storage.getItem(name)) as PluginData
   return {
-    get: <K extends keyof PluginStorage>(key: K) => data[key],
-    set: async <K extends keyof PluginStorage>(
-      key: K,
-      value: PluginStorage[K],
-    ) => {
+    get: (key) => data[key],
+    set: async (key, value) => {
       data[key] = value
-      await storage.setItem(name, data!)
+      await storage.setItem(name, data)
     },
-    remove: (key: keyof PluginStorage) => {
-      if (data) {
-        delete data[key]
-        storage.setItem(name, data)
-      }
+    remove: async (key) => {
+      delete data[key]
+      await storage.setItem(name, data)
     },
-    clear: () => {
-      storage.removeItem(name)
+    clear: async () => {
+      await storage.removeItem(name)
     },
   }
 }
