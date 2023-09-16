@@ -14,7 +14,7 @@ const minimizePlugin = () => {
 
 <template>
   <nav class="nav z-50 gap-x-2 px-2 py-1.5">
-    <ul class="flex-row-center gap-x-0.5">
+    <ul class="flex-row-left gap-x-0.5">
       <svg
         class="i-ic-twotone-cancel text-red"
         :class="{
@@ -49,7 +49,7 @@ const minimizePlugin = () => {
       }"
       @mousedown="state.navbar.dragging = true"
     ></ul>
-    <ul class="flex-row-center gap-x-0.5">
+    <ul class="flex-row-right gap-x-0.5">
       <svg
         class="text-teal"
         :class="{
@@ -74,8 +74,9 @@ const minimizePlugin = () => {
         :class="{
           'hover:text-blue-300': state.theme === 'light',
           'hover:text-blue-500': state.theme === 'dark',
+          'hover:cursor-not-allowed!': !state.setting.data,
         }"
-        @click="action.toggleSetting"
+        @click="state.setting.data && action.toggleSetting"
       ></svg>
     </ul>
   </nav>

@@ -5,6 +5,8 @@ export default defineConfig({
   shortcuts: {
     'flex-row-center': 'flex flex-row justify-center',
     'flex-row-between': 'flex flex-row justify-between',
+    'flex-row-left': 'flex flex-row justify-start',
+    'flex-row-right': 'flex flex-row justify-end',
     'flex-col-center': 'flex flex-col items-center justify-center',
     nav: 'flex-row-between absolute w-full',
     dialog:
