@@ -3,7 +3,7 @@ import { useState } from '@/configs/state'
 
 const { state } = useState()
 
-const size = await window.api.invoke('plugin-size')
+const size = await window.api.invoke('get-plugin-size')
 </script>
 
 <template>

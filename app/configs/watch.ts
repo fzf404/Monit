@@ -7,7 +7,7 @@ import type { State } from './interface'
 const movePlugin = (event: MouseEvent) => {
   const [x, y] = [event.movementX, event.movementY]
   if (x != 0 || y != 0) {
-    window.api?.invoke('plugin-move', [x, y])
+    window.api?.invoke('set-plugin-position', [x, y])
   }
 }
 
@@ -17,11 +17,11 @@ export const setWatch = (state: State) => {
   })
 
   watchEffect(() => {
-    window.api?.invoke('plugin-sticky', state.sticky)
+    window.api?.invoke('set-plugin-sticky', state.sticky)
   })
 
   watchEffect(() => {
-    window.api?.invoke('plugin-theme', state.theme)
+    window.api?.invoke('set-plugin-theme', state.theme)
     document.body.setAttribute('class', state.theme)
   })
 

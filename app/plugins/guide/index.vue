@@ -2,11 +2,8 @@
 import { useI18n } from 'vue-i18n'
 
 import MonitSVG from '@/assets/monit.svg'
-import { useState } from '@/configs/state'
 
 const { t } = useI18n()
-
-const { state } = useState()
 </script>
 
 <template>
@@ -24,7 +21,6 @@ const { state } = useState()
     </p>
     <button
       class="mt-1 rounded bg-blue p-1 opacity-80 dark:bg-purple-600 hover:opacity-100"
-      @click="state.qrcode.show = true"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>

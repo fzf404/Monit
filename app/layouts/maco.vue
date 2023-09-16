@@ -4,11 +4,11 @@ import { useState } from '@/configs/state'
 const { state, action } = useState()
 
 const closePlugin = () => {
-  window.api?.invoke('plugin-close')
+  window.api?.invoke('set-plugin-close')
 }
 
 const minimizePlugin = () => {
-  window.api?.invoke('plugin-minimize')
+  window.api?.invoke('set-plugin-minimize')
 }
 </script>
 
