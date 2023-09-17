@@ -10,3 +10,4 @@ release
 
 # cache
 .eslintcache
+.stylelintcache
