@@ -6,27 +6,26 @@ import { BrowserWindow, nativeTheme } from 'electron'
 import { initHandle } from '~/context/handle'
 
 import { useStorage } from './storage'
+import { initWatch } from './watch'
 
-interface WindowOptions {
-  name: string
-  size: number[]
+const list = import.meta.glob('../app/plugins/**/config.ts')
+const plugins = {}
+for (const path in list) {
+  const name = path.match(/\.\.\/app\/plugins\/(.*)\/config\.ts/)![1]
+  plugins[name] = list[path]
 }
 
-// const configList = import.meta.glob('@/plugins/**/index.vue')
-
-export const createWindow = async (
-  options: WindowOptions,
-): Promise<BrowserWindow> => {
-  const { name, size } = options
+export const createWindow = async (name: string) => {
   const storage = await useStorage(name)
+  const plugin = await plugins[name]()
   const config = storage.get('config')
-  console.log(config)
   const window = new BrowserWindow({
     x: config?.x,
     y: config?.y,
+    width: plugin.default.width,
+    height: plugin.default.height,
+
     title: `Monit - ${name}`,
-    width: size[0],
-    height: size[1],
 
     frame: false,
     resizable: false,
@@ -43,6 +42,7 @@ export const createWindow = async (
     },
   })
 
+  initWatch({ name, window, storage })
   initHandle({ name, window, storage })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
@@ -50,6 +50,4 @@ export const createWindow = async (
   } else {
     window.loadFile(join(__dirname, '../renderer/index.html'), { hash: name })
   }
-
-  return window
 }

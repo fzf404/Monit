@@ -2,10 +2,10 @@ import { Menu } from 'electron'
 
 import trayIcon from '~/public/image/tray.png?asset'
 
-import { quitApp, resetApp, restartApp } from './event'
 import { getTray } from './global'
+import { quitApp, resetApp, restartApp } from './method'
 
-export const initTray = async () => {
+export const initTray = () => {
   const tray = getTray(trayIcon)
   const menu = Menu.buildFromTemplate([
     {

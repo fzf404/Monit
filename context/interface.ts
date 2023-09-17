@@ -1,3 +1,5 @@
+import type { BrowserWindow } from 'electron'
+
 export interface PluginConfig {
   name: string
   width: number
@@ -32,6 +34,11 @@ export interface PluginStorage {
     key: K,
     value: PluginData[K],
   ) => Promise<void>
-  remove: (key: keyof PluginData) => Promise<void>
   clear: () => Promise<void>
+}
+
+export interface PluginOptions {
+  name: string
+  window: BrowserWindow
+  storage: PluginStorage
 }

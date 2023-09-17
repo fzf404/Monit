@@ -21,23 +21,20 @@ export const getStorage = () => {
 }
 
 export const useStorage = async (name: string): Promise<PluginStorage> => {
-  const exist = await storage.hasItem(name)
+  const file = `${name}.json`
+  const exist = await storage.hasItem(file)
   if (!exist) {
-    await storage.setItem(name, {})
+    await storage.setItem(file, {})
   }
-  const data = (await storage.getItem(name)) as PluginData
+  const data = (await storage.getItem(file)) as PluginData
   return {
     get: (key) => data[key],
     set: async (key, value) => {
-      data[key] = value
-      await storage.setItem(name, data)
-    },
-    remove: async (key) => {
-      delete data[key]
-      await storage.setItem(name, data)
+      data[key] = { ...data[key], ...value }
+      await storage.setItem(file, data)
     },
     clear: async () => {
-      await storage.removeItem(name)
+      await storage.removeItem(file)
     },
   }
 }
