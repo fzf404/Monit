@@ -25,7 +25,9 @@ const Setting = defineAsyncComponent(() => import('@/components/setting.vue'))
   <Transition name="fade">
     <Setting v-if="state.setting.show" />
   </Transition>
-  <Transition name="fade">
-    <router-view />
-  </Transition>
+  <router-view v-slot="{ Component }">
+    <Transition name="fade">
+      <component :is="Component" />
+    </Transition>
+  </router-view>
 </template>
