@@ -7,7 +7,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-3 p-3 pt-6">
+  <section class="flex-col-center gap-y-2 p-3 pt-6">
     <h1 class="text-lg text-white dark:text-gray-200">{{ t('title') }}</h1>
     <i18n-t
       keypath="tray"

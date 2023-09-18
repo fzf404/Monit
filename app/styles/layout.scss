@@ -1,8 +1,8 @@
 @import 'anime';
 @import 'theme';
 
-#app {
-  @apply select-none w-screen h-screen drop-shadow;
+body {
+  @apply h-screen w-screen select-none overflow-hidden drop-shadow;
 
   img {
     -webkit-user-drag: none;
