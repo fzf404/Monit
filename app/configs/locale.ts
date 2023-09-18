@@ -1,11 +1,21 @@
 import { createI18n } from 'vue-i18n'
 
-const locale = navigator.language.startsWith('zh') ? 'cn' : 'en'
+import type { PluginLocale } from '~/context/interface'
 
-const i18n = createI18n({
-  locale: locale,
-  fallbackLocale: 'en',
-  legacy: false,
-})
+import { useState } from './state'
 
-export default i18n
+let locale
+
+export const i18n = () => {
+  const { state } = useState()
+  locale = createI18n({
+    locale: state.locale,
+    fallbackLocale: 'en',
+    legacy: false,
+  })
+  return locale
+}
+
+export const setLocale = (lang: PluginLocale) => {
+  locale.global.locale.value = lang
+}

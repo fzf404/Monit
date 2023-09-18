@@ -19,9 +19,9 @@ for (const path in plugins) {
   })
 }
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-})
-
-export default router
+export const router = () => {
+  return createRouter({
+    history: createWebHashHistory(),
+    routes,
+  })
+}
