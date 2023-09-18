@@ -40,6 +40,7 @@ export const createWindow = async (name: string) => {
     visualEffectState: 'active',
 
     webPreferences: {
+      scrollBounce: true,
       preload: join(__dirname, '../preload/index.js'),
     },
   })
