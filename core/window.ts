@@ -8,8 +8,8 @@ import { initHandle } from '~/context/handle'
 import { useStorage } from './storage'
 import { initWatch } from './watch'
 
-const list = import.meta.glob('../app/plugins/**/config.ts')
 const plugins = {}
+const list = import.meta.glob('../app/plugins/**/config.ts')
 for (const path in list) {
   const name = path.match(/\.\.\/app\/plugins\/(.*)\/config\.ts/)![1]
   plugins[name] = list[path]
@@ -17,8 +17,8 @@ for (const path in list) {
 
 export const createWindow = async (name: string) => {
   const storage = await useStorage(name)
-  const plugin = await plugins[name]()
   const config = storage.get('config')
+  const plugin = await plugins[name]()
   const window = new BrowserWindow({
     x: config?.x,
     y: config?.y,
@@ -28,11 +28,13 @@ export const createWindow = async (name: string) => {
     title: `Monit - ${name}`,
 
     frame: false,
-    resizable: false,
-    hasShadow: false,
     transparent: true,
     skipTaskbar: true,
     fullscreenable: false,
+
+    hasShadow: config?.shadow,
+    alwaysOnTop: config?.sticky,
+    resizable: config?.resizable,
 
     vibrancy: nativeTheme.shouldUseDarkColors ? 'dark' : 'light',
     visualEffectState: 'active',

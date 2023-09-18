@@ -19,10 +19,11 @@ export interface PluginData {
     y?: number
     width?: number
     height?: number
+    shadow?: boolean
     sticky?: boolean
-    navbar?: boolean
     resizable?: boolean
     theme?: PluginTheme
+    navbar?: boolean
     locale?: PluginLocale
   }
   setting?: Record<string, unknown>[]
