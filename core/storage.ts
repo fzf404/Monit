@@ -6,12 +6,12 @@ import fsLiteDriver from 'unstorage/drivers/fs-lite'
 
 import type { PluginData, PluginStorage } from '~/context/interface'
 
-let storage: Storage<PluginData>
+let storage: Storage
 
 export const initStorage = () => {
   const path = `${homedir()}/.config/monit`
 
-  storage = createStorage<PluginData>({
+  storage = createStorage({
     driver: fsLiteDriver({ base: path }),
   })
 }
@@ -31,7 +31,7 @@ export const useStorage = async (name: string): Promise<PluginStorage> => {
     get: (key) => data[key],
     set: async (key, value) => {
       data[key] = { ...data[key], ...value }
-      await storage.setItem(file, data)
+      await storage.setItem(file, JSON.stringify(data, undefined, 2))
     },
     clear: async () => {
       await storage.removeItem(file)

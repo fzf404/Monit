@@ -8,6 +8,7 @@ export interface PluginConfig {
     en: string
     cn: string
   }
+  multiple?: boolean
 }
 
 export type PluginLocale = 'en' | 'cn'

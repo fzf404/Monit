@@ -1,6 +1,6 @@
 import type { PluginConfig } from '~/context/interface'
 
-const config: PluginConfig = {
+export default <PluginConfig>{
   name: 'Guide',
   width: 200,
   height: 200,
@@ -9,5 +9,3 @@ const config: PluginConfig = {
     cn: '快速开始',
   },
 }
-
-export default config
