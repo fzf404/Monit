@@ -1,8 +1,7 @@
-import { watch, watchEffect } from 'vue'
-
-import i18n from '@/configs/locale'
+import { watch } from 'vue'
 
 import type { State } from './interface'
+import { setLocale } from './locale'
 
 const movePlugin = (event: MouseEvent) => {
   const [x, y] = [event.movementX, event.movementY]
@@ -11,28 +10,55 @@ const movePlugin = (event: MouseEvent) => {
   }
 }
 
+const setEvent = (state: State) => {
+  window.api?.on('set-plugin-navbar', (_, value) => {
+    state.navbar.show = value
+  })
+}
+
+const setPlugin = (state: State) => {
+  document.body.setAttribute('class', state.theme)
+  document.addEventListener('mousemove', (event) => {
+    state.navbar.show =
+      state.navbar.dragging || event.clientY < 32 ? true : false
+  })
+}
+
 export const setWatch = (state: State) => {
-  watchEffect(() => {
-    i18n.global.locale.value = state.locale
-  })
+  setEvent(state)
+  setPlugin(state)
 
-  watchEffect(() => {
-    window.api?.invoke('set-plugin-sticky', state.sticky)
-  })
+  watch(
+    () => state.locale,
+    (value) => {
+      setLocale(value)
+      window.api?.invoke('set-plugin-data', 'config', { locale: value })
+    },
+  )
 
-  watchEffect(() => {
-    window.api?.invoke('set-plugin-theme', state.theme)
-    document.body.setAttribute('class', state.theme)
-  })
+  watch(
+    () => state.sticky,
+    (value) => {
+      window.api?.invoke('set-plugin-sticky', value)
+      window.api?.invoke('set-plugin-data', 'config', { sticky: value })
+    },
+  )
 
-  watchEffect(() => {
-    document.addEventListener('mousemove', (event) => {
-      state.navbar.show =
-        state.navbar.dragging || state.navbar.sticky || event.clientY < 32
-          ? true
-          : false
-    })
-  })
+  watch(
+    () => state.theme,
+    (value) => {
+      document.body.setAttribute('class', value)
+      window.api?.invoke('set-plugin-theme', value)
+      window.api?.invoke('set-plugin-data', 'config', { theme: value })
+    },
+  )
+
+  watch(
+    () => state.navbar.sticky,
+    (value) => {
+      window.api?.invoke('set-plugin-data', 'config', { navbar: value })
+    },
+  )
 
   watch(
     () => state.navbar.dragging,

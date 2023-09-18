@@ -10,6 +10,26 @@ const closePlugin = () => {
 const minimizePlugin = () => {
   window.api?.invoke('set-plugin-minimize')
 }
+
+const toggleSticky = () => {
+  action.toggleSticky()
+}
+
+const dragNavbar = () => {
+  action.setNavbarDragging(true)
+}
+
+const toggleNavbar = () => {
+  action.toggleNavbar()
+}
+
+const toggleTheme = () => {
+  action.toggleTheme()
+}
+
+const toggleSetting = () => {
+  state.setting.data && action.toggleSetting()
+}
 </script>
 
 <template>
@@ -38,7 +58,7 @@ const minimizePlugin = () => {
           'hover:text-green-500': state.theme === 'dark',
           'rotate-180': state.sticky,
         }"
-        @click="action.toggleSticky"
+        @click="toggleSticky"
       ></svg>
     </ul>
     <ul
@@ -47,7 +67,7 @@ const minimizePlugin = () => {
         'cursor-move opacity-20': state.navbar.dragging,
         'cursor-pointer opacity-0': !state.navbar.dragging,
       }"
-      @mousedown="state.navbar.dragging = true"
+      @mousedown="dragNavbar"
     ></ul>
     <ul class="flex-row-right gap-x-0.5">
       <svg
@@ -58,7 +78,7 @@ const minimizePlugin = () => {
           'i-ic-twotone-push-pin': state.navbar.sticky,
           'i-ic-twotone-pin-off': !state.navbar.sticky,
         }"
-        @click="action.toggleNavbar"
+        @click="toggleNavbar"
       ></svg>
       <svg
         :class="{
@@ -67,7 +87,7 @@ const minimizePlugin = () => {
           'i-ic-twotone-light-mode text-orange hover:text-orange-300':
             state.theme === 'light',
         }"
-        @click="action.toggleTheme"
+        @click="toggleTheme"
       ></svg>
       <svg
         class="i-ic-twotone-settings text-blue"
@@ -76,7 +96,7 @@ const minimizePlugin = () => {
           'hover:text-blue-500': state.theme === 'dark',
           'hover:cursor-not-allowed!': !state.setting.data,
         }"
-        @click="state.setting.data && action.toggleSetting"
+        @click="toggleSetting"
       ></svg>
     </ul>
   </nav>

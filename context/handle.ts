@@ -6,6 +6,7 @@ export const initHandle = ({ name, window, storage }: PluginOptions) => {
   ipcMain.handle('get-plugin-name', () => name)
   ipcMain.handle('get-plugin-size', () => window.getSize())
   ipcMain.handle('get-plugin-top', () => window.isAlwaysOnTop())
+  ipcMain.handle('get-plugin-data', (_, key) => storage.get(key))
 
   ipcMain.handle('set-plugin-focus', () => window.focus())
   ipcMain.handle('set-plugin-close', () => window.close())
@@ -15,16 +16,14 @@ export const initHandle = ({ name, window, storage }: PluginOptions) => {
   ipcMain.handle('set-plugin-sticky', (_, state) =>
     window.setAlwaysOnTop(state),
   )
-
+  ipcMain.handle(
+    'set-plugin-data',
+    async (_, key, value) => await storage.set(key, value),
+  )
   ipcMain.handle('set-plugin-position', (_, [x, y]) => {
     const [_x, _y] = window.getPosition()
     window.setPosition(x + _x, y + _y)
   })
 
-  ipcMain.handle('get-plugin-data', (_, key) => storage.get(key))
   ipcMain.handle('clear-plugin-data', async () => await storage.clear())
-  ipcMain.handle(
-    'set-plugin-data',
-    async (_, key, value) => await storage.set(key, value),
-  )
 }

@@ -14,7 +14,7 @@ const Setting = defineAsyncComponent(() => import('@/components/setting.vue'))
 
 <template>
   <Transition name="slide-fade">
-    <MacoLayout v-show="state.navbar.show" />
+    <MacoLayout v-show="state.navbar.sticky || state.navbar.show" />
   </Transition>
   <Transition name="fade">
     <QRCode v-if="state.qrcode.show" />
