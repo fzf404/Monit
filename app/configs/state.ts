@@ -1,21 +1,28 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
+import type { PluginData } from '~/context/interface'
+
 import type { State } from './interface'
-import i18n from './locale'
 import { setWatch } from './watch'
+
+const config = (await window.api?.invoke(
+  'get-plugin-data',
+  'config',
+)) as PluginData['config']
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
-    sticky: true,
-    theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light',
-    locale: i18n.global.locale.value as State['locale'],
+    sticky: config?.sticky ?? false,
+    locale: config?.locale ?? navigator.language.startsWith('zh') ? 'cn' : 'en',
+    theme:
+      config?.theme ?? window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light',
     navbar: {
       show: true,
-      sticky: true,
       dragging: false,
+      sticky: config?.navbar ?? true,
     },
     setting: {},
     loading: {},
@@ -28,17 +35,20 @@ export const useState = defineStore('state', () => {
     toggleSticky: () => {
       state.sticky = !state.sticky
     },
-    toggleNavbar: () => {
-      state.navbar.sticky = !state.navbar.sticky
-    },
     toggleLocale: () => {
       state.locale = state.locale === 'cn' ? 'en' : 'cn'
     },
     toggleTheme: () => {
       state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
+    toggleNavbar: () => {
+      state.navbar.sticky = !state.navbar.sticky
+    },
     setNavbarShow: (show: boolean) => {
       state.navbar.show = show
+    },
+    setNavbarDragging: (dragging: boolean) => {
+      state.navbar.dragging = dragging
     },
     toggleSetting: () => {
       state.setting.show = !state.setting.show
