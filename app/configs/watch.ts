@@ -16,8 +16,9 @@ const setEvent = (state: State) => {
   })
 }
 
-const setPlugin = (state: State) => {
+const setPlugin = async (state: State) => {
   document.body.dataset.theme = state.theme
+  document.body.dataset.platform = await window.api?.invoke('get-platform')
   document.addEventListener('mousemove', (event) => {
     state.navbar.show =
       state.navbar.dragging || event.clientY < 32 ? true : false

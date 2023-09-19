@@ -8,6 +8,7 @@ export const initHandle = ({
   window,
   storage,
 }: PluginOptions) => {
+  ipcMain.handle('get-platform', () => process.platform)
   ipcMain.handle('get-plugin-name', () => name)
   ipcMain.handle('get-plugin-size', () => window.getSize())
   ipcMain.handle('get-plugin-top', () => window.isAlwaysOnTop())

@@ -6,6 +6,18 @@
 
 [data-theme='moon'] {
   #app {
-    @apply bg-gray-900 bg-opacity-50;
+    @apply bg-gray-300 bg-opacity-50;
+  }
+}
+
+[data-theme='sun'][data-platform='darwin'] {
+  #app {
+    @apply bg-gray-300 bg-opacity-10;
+  }
+}
+
+[data-theme='moon'][data-platform='darwin'] {
+  #app {
+    @apply bg-gray-900 bg-opacity-10;
   }
 }
