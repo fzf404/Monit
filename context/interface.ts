@@ -41,6 +41,7 @@ export interface PluginStorage {
 
 export interface PluginOptions {
   name: string
+  plugin: PluginConfig
   window: BrowserWindow
   storage: PluginStorage
 }

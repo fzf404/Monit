@@ -18,12 +18,13 @@ for (const path in list) {
 export const createWindow = async (name: string) => {
   const storage = await useStorage(name)
   const config = storage.get('config')
-  const plugin = await plugins[name]()
+  const plugin = (await plugins[name]())!.default
   const window = new BrowserWindow({
     x: config?.x,
     y: config?.y,
-    width: plugin.default.width,
-    height: plugin.default.height,
+
+    width: plugin.width,
+    height: plugin.height,
 
     title: `Monit - ${name}`,
 
@@ -45,8 +46,8 @@ export const createWindow = async (name: string) => {
     },
   })
 
-  initWatch({ name, window, storage })
-  initHandle({ name, window, storage })
+  initWatch({ name, window, plugin, storage })
+  initHandle({ name, window, plugin, storage })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)
