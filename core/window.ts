@@ -19,6 +19,7 @@ export const createWindow = async (name: string) => {
   const storage = await useStorage(name)
   const config = storage.get('config')
   const plugin = (await plugins[name]())!.default
+  console.log(config?.theme)
   const window = new BrowserWindow({
     x: config?.x,
     y: config?.y,
@@ -37,7 +38,8 @@ export const createWindow = async (name: string) => {
     alwaysOnTop: config?.sticky,
     resizable: config?.resizable,
 
-    vibrancy: nativeTheme.shouldUseDarkColors ? 'dark' : 'light',
+    vibrancy:
+      config?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
     visualEffectState: 'active',
 
     webPreferences: {
