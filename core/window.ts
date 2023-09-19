@@ -19,7 +19,6 @@ export const createWindow = async (name: string) => {
   const storage = await useStorage(name)
   const config = storage.get('config')
   const plugin = (await plugins[name]())!.default
-  console.log(config?.theme)
   const window = new BrowserWindow({
     x: config?.x,
     y: config?.y,
