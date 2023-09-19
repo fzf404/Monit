@@ -1,7 +1,11 @@
-[data-theme='moon'] {
-  @apply bg-gray-900 bg-opacity-10;
+[data-theme='sun'] {
+  #app {
+    @apply bg-gray-300 bg-opacity-30;
+  }
 }
 
-[data-theme='sun'] {
-  @apply bg-gray-300 bg-opacity-10;
+[data-theme='moon'] {
+  #app {
+    @apply bg-gray-900 bg-opacity-50;
+  }
 }

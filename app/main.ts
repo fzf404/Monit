@@ -10,4 +10,4 @@ import { router } from '@/configs/router'
 
 import app from './app.vue'
 
-createApp(app).use(pinia()).use(router()).use(i18n()).mount('body')
+createApp(app).use(pinia()).use(router()).use(i18n()).mount('#app')
