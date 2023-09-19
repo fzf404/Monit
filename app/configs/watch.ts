@@ -17,7 +17,7 @@ const setEvent = (state: State) => {
 }
 
 const setPlugin = (state: State) => {
-  document.body.setAttribute('class', state.theme)
+  document.body.dataset.theme = state.theme
   document.addEventListener('mousemove', (event) => {
     state.navbar.show =
       state.navbar.dragging || event.clientY < 32 ? true : false
@@ -47,7 +47,7 @@ export const setWatch = (state: State) => {
   watch(
     () => state.theme,
     (value) => {
-      document.body.setAttribute('class', value)
+      document.body.dataset.theme = value
       window.api?.invoke('set-plugin-theme', value)
       window.api?.invoke('set-plugin-data', 'config', { theme: value })
     },

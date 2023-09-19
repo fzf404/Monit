@@ -11,11 +11,11 @@ const { state } = useState()
 <template>
   <dialog class="z-30 gap-2 dialog">
     <svg
-      class="load-rotating i-ic-twotone-change-circle h-16 w-16 text-white dark:text-gray-300"
+      class="load-rotating i-ic-twotone-change-circle h-16 w-16 moon:text-gray-300 sun:text-white"
     ></svg>
     <p
       v-if="typeof state.loading.remark === 'string'"
-      class="font-mono text-white dark:text-gray-200"
+      class="font-mono moon:text-gray-200 sun:text-white"
     >
       {{ state.loading.remark }}
     </p>
@@ -23,11 +23,11 @@ const { state } = useState()
       v-for="(item, index) in state.loading.remark"
       v-else-if="typeof state.loading.remark === 'object'"
       :key="index"
-      class="font-mono text-white dark:text-gray-200"
+      class="font-mono moon:text-gray-200 sun:text-white"
     >
       {{ item }}
     </p>
-    <p v-else class="font-mono text-white dark:text-gray-200">
+    <p v-else class="font-mono moon:text-gray-200 sun:text-white">
       {{ t('loading') }}
     </p>
   </dialog>

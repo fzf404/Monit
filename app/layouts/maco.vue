@@ -38,34 +38,33 @@ const toggleSetting = () => {
       <svg
         class="i-ic-twotone-cancel text-red"
         :class="{
-          'hover:text-red-300': state.theme === 'light',
-          'hover:text-red-500': state.theme === 'dark',
+          'hover:text-red-300': state.theme === 'sun',
+          'hover:text-red-500': state.theme === 'moon',
         }"
         @click="closePlugin"
       ></svg>
       <svg
         class="i-ic-twotone-remove-circle text-yellow"
         :class="{
-          'hover:text-yellow-300': state.theme === 'light',
-          'hover:text-yellow-500': state.theme === 'dark',
+          'hover:text-yellow-300': state.theme === 'sun',
+          'hover:text-yellow-500': state.theme === 'moon',
         }"
         @click="minimizePlugin"
       ></svg>
       <svg
         class="i-ic-twotone-expand-circle-down text-green"
         :class="{
-          'hover:text-green-300': state.theme === 'light',
-          'hover:text-green-500': state.theme === 'dark',
+          'hover:text-green-300': state.theme === 'sun',
+          'hover:text-green-500': state.theme === 'moon',
           'rotate-180': state.sticky,
         }"
         @click="toggleSticky"
       ></svg>
     </ul>
     <ul
-      class="flex-auto rounded bg-white hover:opacity-20"
+      class="flex-auto cursor-pointer rounded bg-white opacity-0 hover:opacity-20"
       :class="{
-        'cursor-move opacity-20': state.navbar.dragging,
-        'cursor-pointer opacity-0': !state.navbar.dragging,
+        'opacity-20': state.navbar.dragging,
       }"
       @mousedown="dragNavbar"
     ></ul>
@@ -73,8 +72,8 @@ const toggleSetting = () => {
       <svg
         class="text-teal"
         :class="{
-          'hover:text-teal-300': state.theme === 'light',
-          'hover:text-teal-500': state.theme === 'dark',
+          'hover:text-teal-300': state.theme === 'sun',
+          'hover:text-teal-500': state.theme === 'moon',
           'i-ic-twotone-push-pin': state.navbar.sticky,
           'i-ic-twotone-pin-off': !state.navbar.sticky,
         }"
@@ -82,18 +81,18 @@ const toggleSetting = () => {
       ></svg>
       <svg
         :class="{
-          'i-ic-twotone-dark-mode text-violet hover:text-violet-500':
-            state.theme === 'dark',
           'i-ic-twotone-light-mode text-orange hover:text-orange-300':
-            state.theme === 'light',
+            state.theme === 'sun',
+          'i-ic-twotone-dark-mode text-violet hover:text-violet-500':
+            state.theme === 'moon',
         }"
         @click="toggleTheme"
       ></svg>
       <svg
         class="i-ic-twotone-settings text-blue"
         :class="{
-          'hover:text-blue-300': state.theme === 'light',
-          'hover:text-blue-500': state.theme === 'dark',
+          'hover:text-blue-300': state.theme === 'sun',
+          'hover:text-blue-500': state.theme === 'moon',
           'hover:cursor-not-allowed!': !state.setting.data,
         }"
         @click="toggleSetting"

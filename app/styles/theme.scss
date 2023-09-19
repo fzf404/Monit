@@ -1,7 +1,7 @@
-.dark {
+[data-theme='moon'] {
   @apply bg-gray-900 bg-opacity-10;
 }
 
-.light {
+[data-theme='sun'] {
   @apply bg-gray-300 bg-opacity-10;
 }

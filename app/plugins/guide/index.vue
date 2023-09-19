@@ -8,19 +8,21 @@ const { t } = useI18n()
 
 <template>
   <section class="flex-col-center gap-y-2 p-3 pt-6">
-    <h1 class="text-lg text-white dark:text-gray-200">{{ t('title') }}</h1>
+    <h1 class="text-lg moon:text-gray-200 sun:text-white">
+      {{ t('title') }}
+    </h1>
     <i18n-t
       keypath="tray"
       tag="p"
-      class="flex-row-center text-sm text-gray-100 dark:text-gray-300"
+      class="flex-row-center text-sm moon:text-gray-300 sun:text-gray-100"
     >
       <img class="inline-block h-5 px-1" :src="MonitSVG" />
     </i18n-t>
-    <p class="text-xs text-gray-200 dark:text-gray-400">
+    <p class="text-xs moon:text-gray-400 sun:text-gray-200">
       {{ t('button') }}
     </p>
     <button
-      class="mt-1 rounded bg-blue p-1 opacity-80 dark:bg-purple-600 hover:opacity-100"
+      class="mt-1 rounded p-1 opacity-80 moon:bg-purple-600 sun:bg-blue hover:opacity-100"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>

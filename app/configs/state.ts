@@ -17,8 +17,8 @@ export const useState = defineStore('state', () => {
     locale: config?.locale ?? navigator.language.startsWith('zh') ? 'cn' : 'en',
     theme:
       config?.theme ?? window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light',
+        ? 'moon'
+        : 'sun',
     navbar: {
       show: true,
       dragging: false,
@@ -39,7 +39,7 @@ export const useState = defineStore('state', () => {
       state.locale = state.locale === 'cn' ? 'en' : 'cn'
     },
     toggleTheme: () => {
-      state.theme = state.theme === 'dark' ? 'light' : 'dark'
+      state.theme = state.theme === 'moon' ? 'sun' : 'moon'
     },
     toggleNavbar: () => {
       state.navbar.sticky = !state.navbar.sticky

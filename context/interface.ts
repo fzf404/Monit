@@ -12,7 +12,7 @@ export interface PluginConfig {
 }
 
 export type PluginLocale = 'en' | 'cn'
-export type PluginTheme = 'light' | 'dark'
+export type PluginTheme = 'sun' | 'moon'
 
 export interface PluginData {
   config?: {

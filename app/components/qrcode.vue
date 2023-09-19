@@ -12,14 +12,14 @@ const { isLoading, error } = useImage({ src: state.qrcode.url! })
 </script>
 
 <template>
-  <dialog class="z-30 gap-2 text-white dialog dark:text-gray-200">
+  <dialog class="z-30 gap-2 dialog moon:text-gray-200 sun:text-white">
     <p v-if="isLoading" class="z-30 gap-2 dialog">
       {{ t('loading') }}
     </p>
     <p v-else-if="error">{{ t('error') }}</p>
     <img v-else :src="state.qrcode.url" class="mb-2 h-2/3" />
     <footer
-      class="absolute bottom-0 w-full bg-blue p-1 text-center dark:bg-purple-600"
+      class="absolute bottom-0 w-full p-1 text-center moon:bg-purple-600 sun:bg-blue"
     >
       <span v-if="typeof state.qrcode.remark === 'string'">
         {{ state.qrcode.remark }}

@@ -27,7 +27,6 @@ export const initHandle = ({
   )
   ipcMain.handle('set-plugin-position', (_, [_x, _y]) => {
     const { x, y, width, height } = window.getBounds()
-    console.log(window.getBounds())
     window.setBounds({
       x: x + _x + width - plugin.width,
       y: y + _y + height - plugin.height,
