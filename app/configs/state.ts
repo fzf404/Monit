@@ -14,11 +14,13 @@ const config = (await window.api?.invoke(
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
     sticky: config?.sticky ?? false,
-    locale: config?.locale ?? navigator.language.startsWith('zh') ? 'cn' : 'en',
+    locale:
+      config?.locale ?? (navigator.language.startsWith('zh') ? 'cn' : 'en'),
     theme:
-      config?.theme ?? window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'moon'
-        : 'sun',
+      config?.theme ??
+      (window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'),
     navbar: {
       show: true,
       dragging: false,
@@ -39,7 +41,7 @@ export const useState = defineStore('state', () => {
       state.locale = state.locale === 'cn' ? 'en' : 'cn'
     },
     toggleTheme: () => {
-      state.theme = state.theme === 'moon' ? 'sun' : 'moon'
+      state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
     toggleNavbar: () => {
       state.navbar.sticky = !state.navbar.sticky

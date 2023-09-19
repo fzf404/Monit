@@ -19,7 +19,7 @@ export default defineConfig({
     'flex-col-center': 'flex flex-col items-center justify-center',
     nav: 'flex-row-between absolute w-full',
     dialog:
-      'flex-col-center absolute h-full w-full sun:bg-gray-600 sun:bg-opacity-30 moon:bg-gray-900 moon:bg-opacity-50',
+      'absolute h-full w-full flex-col-center moon:bg-gray-900 sun:bg-gray-600 moon:bg-opacity-50 sun:bg-opacity-30',
     menu: 'dialog',
   },
   variants: [
@@ -27,13 +27,13 @@ export default defineConfig({
       if (matcher.startsWith('sun:')) {
         return {
           matcher: matcher.slice(4),
-          selector: (s) => `[data-theme='sun'] ${s}`,
+          selector: (s) => `[data-theme='light'] ${s}`,
         }
       }
       if (matcher.startsWith('moon:')) {
         return {
           matcher: matcher.slice(5),
-          selector: (s) => `[data-theme='moon'] ${s}`,
+          selector: (s) => `[data-theme='dark'] ${s}`,
         }
       }
       if (matcher.startsWith('punk:')) {

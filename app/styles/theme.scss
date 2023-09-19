@@ -1,23 +1,23 @@
-[data-theme='sun'] {
+[data-theme='dark'] {
   #app {
-    @apply bg-gray-300 bg-opacity-30;
+    @apply bg-gray-900 bg-opacity-30;
   }
 }
 
-[data-theme='moon'] {
+[data-theme='light'] {
   #app {
     @apply bg-gray-300 bg-opacity-50;
   }
 }
 
-[data-theme='sun'][data-platform='darwin'] {
+[data-theme='dark'][data-platform='darwin'] {
   #app {
-    @apply bg-gray-300 bg-opacity-10;
+    @apply bg-gray-900 bg-opacity-10;
   }
 }
 
-[data-theme='moon'][data-platform='darwin'] {
+[data-theme='light'][data-platform='darwin'] {
   #app {
-    @apply bg-gray-900 bg-opacity-10;
+    @apply bg-gray-300 bg-opacity-10;
   }
 }
