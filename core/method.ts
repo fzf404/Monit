@@ -33,7 +33,7 @@ export const setAppBoot = (boot: boolean) => {
 
 export const setAppLocale = (locale: PluginLocale) => {
   for (const window of BrowserWindow.getAllWindows()) {
-    window.webContents.send('set-plugin-language', locale)
+    window.webContents.send('set-plugin-locale', locale)
   }
   const storages = getPluginStorages()
   for (const name in storages) {

@@ -11,11 +11,11 @@ const movePlugin = (event: MouseEvent) => {
 }
 
 const setEvent = (state: State) => {
+  window.api?.on('set-plugin-locale', (_, value) => {
+    state.locale = value
+  })
   window.api?.on('set-plugin-navbar', (_, value) => {
     state.navbar.show = value
-  })
-  window.api?.on('set-plugin-language', (_, value) => {
-    state.locale = value
   })
 }
 
