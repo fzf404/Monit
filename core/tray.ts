@@ -69,7 +69,7 @@ const initMenu = (tray: Tray) => {
       submenu: [
         {
           label: '🇨🇳 - 中文 - Chinese',
-          type: 'checkbox',
+          type: 'radio',
           checked: storages['guide'].config?.locale === 'cn',
           click: () => {
             setAppLocale('cn')
@@ -77,7 +77,7 @@ const initMenu = (tray: Tray) => {
         },
         {
           label: '🇺🇸 - 英文 - English',
-          type: 'checkbox',
+          type: 'radio',
           checked: storages['guide'].config?.locale === 'en',
           click: () => {
             setAppLocale('en')
@@ -86,11 +86,11 @@ const initMenu = (tray: Tray) => {
       ],
     },
     {
-      label: '🎯 - 自启 - Boot',
+      label: '🚀 - 自启 - Boot',
       submenu: [
         {
           label: '🟢 - 开启 - On',
-          type: 'checkbox',
+          type: 'radio',
           checked: getAppBoot(),
           click: () => {
             setAppBoot(true)
@@ -98,7 +98,7 @@ const initMenu = (tray: Tray) => {
         },
         {
           label: '🔴 - 关闭 - Off',
-          type: 'checkbox',
+          type: 'radio',
           checked: !getAppBoot(),
           click: () => {
             setAppBoot(false)
