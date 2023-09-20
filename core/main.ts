@@ -6,7 +6,7 @@ import { initTray } from './tray'
 import { createWindow, initWindow } from './window'
 
 app.on('ready', async () => {
-  await initConfig()
+  initConfig()
   await initStorage()
   initTray()
   initWindow()
