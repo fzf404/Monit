@@ -2,6 +2,7 @@ import type { BrowserWindow } from 'electron'
 
 export interface PluginConfig {
   name: string
+  emoji: string
   width: number
   height: number
   description: {

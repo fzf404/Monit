@@ -1,11 +1,12 @@
 import type { PluginConfig } from '~/context/interface'
 
 export default <PluginConfig>{
-  name: 'Guide',
+  name: 'guide',
+  emoji: '👋',
   width: 200,
   height: 200,
   description: {
-    en: 'Quick Start',
     cn: '快速开始',
+    en: 'Quick Start',
   },
 }

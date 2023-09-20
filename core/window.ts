@@ -24,6 +24,13 @@ export const initWindow = () => {
 }
 
 export const createWindow = (name: string) => {
+  // judge plugin exist
+  const exist = BrowserWindow.getAllWindows().find(
+    (window) => window.title === `Monit - ${name}`,
+  )
+  if (exist) {
+    return exist.focus()
+  }
   // get plugin config
   const config = getPluginConfig(name)
   // get plugin data

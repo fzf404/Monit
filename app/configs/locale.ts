@@ -20,7 +20,6 @@ export const i18n = () => {
     fallbackLocale: 'en',
     legacy: false,
   })
-  console.log(typeof locale)
   return locale
 }
 
