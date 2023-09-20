@@ -5,8 +5,20 @@ import { BrowserWindow, nativeTheme } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
-import { getPluginConfig, getPluginStorage } from './global'
+import { getPluginConfig, getPluginStorage, getPluginStorages } from './global'
 import { initWatch } from './watch'
+
+export const initWindow = () => {
+  const plugins = getPluginStorages()
+  for (const name in plugins) {
+    if (plugins[name].get('config')?.boot) {
+      createWindow(name)
+    }
+  }
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow('guide')
+  }
+}
 
 export const createWindow = (name: string) => {
   const plugin = getPluginConfig(name)

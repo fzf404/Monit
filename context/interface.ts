@@ -18,9 +18,10 @@ export interface PluginData {
   config?: {
     x?: number
     y?: number
+    boot?: boolean
     sticky?: boolean
-    theme?: PluginTheme
     navbar?: boolean
+    theme?: PluginTheme
     locale?: PluginLocale
   }
   setting?: Record<string, unknown>[]
@@ -37,7 +38,5 @@ export interface PluginStorage {
 
 export interface PluginOptions {
   name: string
-  plugin: PluginConfig
   window: BrowserWindow
-  storage: PluginStorage
 }

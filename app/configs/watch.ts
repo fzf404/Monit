@@ -36,7 +36,6 @@ export const setWatch = (state: State) => {
     () => state.locale,
     (value) => {
       setLocale(value)
-      window.api?.invoke('set-plugin-data', 'config', { locale: value })
     },
   )
 

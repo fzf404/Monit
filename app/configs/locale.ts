@@ -1,10 +1,17 @@
+import type { I18n } from 'vue-i18n'
 import { createI18n } from 'vue-i18n'
 
 import type { PluginLocale } from '~/context/interface'
 
 import { useState } from './state'
 
-let locale
+let locale: I18n<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  Record<string, unknown>,
+  PluginLocale,
+  false
+>
 
 export const i18n = () => {
   const { state } = useState()
@@ -13,6 +20,7 @@ export const i18n = () => {
     fallbackLocale: 'en',
     legacy: false,
   })
+  console.log(typeof locale)
   return locale
 }
 
