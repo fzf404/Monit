@@ -1,16 +1,24 @@
-import type { BrowserWindow } from 'electron'
-import { nativeImage, Tray } from 'electron'
+import type { Tray } from 'electron'
 
-let TrayMenu: Tray
-export const getTray = (image: string) => {
-  TrayMenu = new Tray(nativeImage.createFromPath(image))
-  return TrayMenu
+import type { PluginConfig, PluginStorage } from '~/context/interface'
+
+let trayMenu: Tray
+export const getTray = () => {
+  return trayMenu
 }
 
-const WindowsMap: Map<string, BrowserWindow> = new Map()
-export const setWindows = (key: string, value: BrowserWindow) => {
-  WindowsMap.set(key, value)
+const pluginConfigs: Record<string, PluginConfig> = {}
+export const getPluginConfigs = () => {
+  return pluginConfigs
 }
-export const getWindows = (key: string) => {
-  return WindowsMap.get(key)
+export const getPluginConfig = (name: string) => {
+  return pluginConfigs[name]
+}
+
+const pluginStorages: Record<string, PluginStorage> = {}
+export const getPluginStorages = () => {
+  return pluginStorages
+}
+export const getPluginStorage = (name: string) => {
+  return pluginStorages[name]
 }

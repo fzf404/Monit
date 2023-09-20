@@ -5,23 +5,15 @@ import { BrowserWindow, nativeTheme } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
-import { useStorage } from './storage'
+import { getPluginConfig, getPluginStorage } from './global'
 import { initWatch } from './watch'
 
-const plugins = {}
-const configs = import.meta.glob('../app/plugins/**/config.ts')
-for (const path in configs) {
-  const name = path.match(/\.\.\/app\/plugins\/(.*)\/config\.ts/)![1]
-  plugins[name] = configs[path]
-}
-
-export const createWindow = async (name: string) => {
-  const storage = await useStorage(name)
-  const config = storage.get('config')
-  const plugin = (await plugins[name]())!.default
+export const createWindow = (name: string) => {
+  const plugin = getPluginConfig(name)
+  const storage = getPluginStorage(name).get('config')
   const window = new BrowserWindow({
-    x: config?.x,
-    y: config?.y,
+    x: storage?.x,
+    y: storage?.y,
 
     width: plugin.width,
     height: plugin.height,
@@ -30,15 +22,15 @@ export const createWindow = async (name: string) => {
 
     frame: false,
     resizable: false,
+    hasShadow: false,
     transparent: true,
     skipTaskbar: true,
     fullscreenable: false,
 
-    hasShadow: config?.shadow,
-    alwaysOnTop: config?.sticky,
+    alwaysOnTop: storage?.sticky,
 
     vibrancy:
-      config?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
+      storage?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
     visualEffectState: 'active',
 
     webPreferences: {
@@ -47,8 +39,8 @@ export const createWindow = async (name: string) => {
     },
   })
 
-  initWatch({ name, window, plugin, storage })
-  initHandle({ name, window, plugin, storage })
+  initWatch({ name, window })
+  initHandle({ name, window })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)

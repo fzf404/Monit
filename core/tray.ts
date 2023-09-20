@@ -1,4 +1,4 @@
-import { Menu, shell } from 'electron'
+import { Menu, nativeImage, shell, Tray } from 'electron'
 
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
@@ -12,8 +12,10 @@ import {
   setAppBoot,
   setAppLocale,
 } from './method'
+
 export const initTray = () => {
-  const tray = getTray(trayIcon)
+  let tray = getTray()
+  tray = new Tray(nativeImage.createFromPath(trayIcon))
   const menu = Menu.buildFromTemplate([
     {
       label: `Monit - ${pkg.version}`,

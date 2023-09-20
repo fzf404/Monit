@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron'
 
 import type { PluginLocale } from '~/context/interface'
 
-import { getStorage } from './storage'
+import { getPluginStorages } from './global'
 
 export const quitApp = () => {
   app.quit()
@@ -14,10 +14,9 @@ export const restartApp = () => {
 }
 
 export const resetApp = async () => {
-  const storage = getStorage()
-  const list = await storage.getKeys()
-  for (const name of list) {
-    await storage.removeItem(name)
+  const storages = getPluginStorages()
+  for (const name in storages) {
+    await storages[name].clear()
   }
   restartApp()
 }
@@ -35,5 +34,8 @@ export const setAppBoot = (boot: boolean) => {
 export const setAppLocale = (locale: PluginLocale) => {
   for (const window of BrowserWindow.getAllWindows()) {
     window.webContents.send('set-plugin-language', locale)
+  }
+  for (const storage in getPluginStorages()) {
+    getPluginStorages()[storage].set('config', { locale })
   }
 }
