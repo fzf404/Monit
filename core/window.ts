@@ -9,10 +9,10 @@ import { useStorage } from './storage'
 import { initWatch } from './watch'
 
 const plugins = {}
-const list = import.meta.glob('../app/plugins/**/config.ts')
-for (const path in list) {
+const configs = import.meta.glob('../app/plugins/**/config.ts')
+for (const path in configs) {
   const name = path.match(/\.\.\/app\/plugins\/(.*)\/config\.ts/)![1]
-  plugins[name] = list[path]
+  plugins[name] = configs[path]
 }
 
 export const createWindow = async (name: string) => {
@@ -29,13 +29,13 @@ export const createWindow = async (name: string) => {
     title: `Monit - ${name}`,
 
     frame: false,
+    resizable: false,
     transparent: true,
     skipTaskbar: true,
     fullscreenable: false,
 
     hasShadow: config?.shadow,
     alwaysOnTop: config?.sticky,
-    resizable: config?.resizable,
 
     vibrancy:
       config?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),

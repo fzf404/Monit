@@ -18,11 +18,7 @@ export interface PluginData {
   config?: {
     x?: number
     y?: number
-    width?: number
-    height?: number
-    shadow?: boolean
     sticky?: boolean
-    resizable?: boolean
     theme?: PluginTheme
     navbar?: boolean
     locale?: PluginLocale

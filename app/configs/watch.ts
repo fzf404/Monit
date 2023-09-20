@@ -14,6 +14,9 @@ const setEvent = (state: State) => {
   window.api?.on('set-plugin-navbar', (_, value) => {
     state.navbar.show = value
   })
+  window.api?.on('set-plugin-language', (_, value) => {
+    state.locale = value
+  })
 }
 
 const setPlugin = async (state: State) => {
