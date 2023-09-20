@@ -30,7 +30,7 @@ export const initHandle = ({ name, window }: PluginOptions) => {
     })
   })
 
-  ipcMain.handle('get-plugin-data', (_, key) => storage.get(key))
+  ipcMain.handle('get-plugin-data', (_, key) => storage[key])
   ipcMain.handle(
     'set-plugin-data',
     async (_, key, value) => await storage.set(key, value),

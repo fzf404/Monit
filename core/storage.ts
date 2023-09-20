@@ -21,7 +21,7 @@ export const initStorage = async () => {
     }
     const data = (await storage.getItem(file)) as PluginData
     storages[name] = {
-      get: (key) => data[key],
+      ...data,
       set: async (key, value) => {
         data[key] = { ...data[key], ...value }
         await storage.setItem(file, JSON.stringify(data, undefined, 2))

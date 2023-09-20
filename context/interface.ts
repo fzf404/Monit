@@ -27,8 +27,7 @@ export interface PluginData {
   setting?: Record<string, unknown>[]
   data?: Record<string, unknown>[]
 }
-export interface PluginStorage {
-  get: <K extends keyof PluginData>(key: K) => PluginData[K]
+export interface PluginStorage extends PluginData {
   set: <K extends keyof PluginData>(
     key: K,
     value: PluginData[K],

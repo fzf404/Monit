@@ -35,7 +35,8 @@ export const setAppLocale = (locale: PluginLocale) => {
   for (const window of BrowserWindow.getAllWindows()) {
     window.webContents.send('set-plugin-language', locale)
   }
-  for (const storage in getPluginStorages()) {
-    getPluginStorages()[storage].set('config', { locale })
+  const storages = getPluginStorages()
+  for (const name in storages) {
+    storages[name].set('config', { locale })
   }
 }

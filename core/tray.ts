@@ -3,7 +3,7 @@ import { Menu, nativeImage, shell, Tray } from 'electron'
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
 
-import { getTray } from './global'
+import { getPluginStorage, getTray } from './global'
 import {
   getAppBoot,
   quitApp,
@@ -14,8 +14,11 @@ import {
 } from './method'
 
 export const initTray = () => {
+  // get global tray
   let tray = getTray()
+  // create tary icon
   tray = new Tray(nativeImage.createFromPath(trayIcon))
+  // build tray menu
   const menu = Menu.buildFromTemplate([
     {
       label: `Monit - ${pkg.version}`,
@@ -50,12 +53,16 @@ export const initTray = () => {
       submenu: [
         {
           label: '中文 - Chinese',
+          type: 'checkbox',
+          checked: getPluginStorage('guide').config?.locale === 'cn',
           click: () => {
             setAppLocale('cn')
           },
         },
         {
           label: '英文 - English',
+          type: 'checkbox',
+          checked: getPluginStorage('guide').config?.locale === 'en',
           click: () => {
             setAppLocale('en')
           },

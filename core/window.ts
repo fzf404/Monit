@@ -9,26 +9,32 @@ import { getPluginConfig, getPluginStorage, getPluginStorages } from './global'
 import { initWatch } from './watch'
 
 export const initWindow = () => {
-  const plugins = getPluginStorages()
-  for (const name in plugins) {
-    if (plugins[name].get('config')?.boot) {
+  // get plugin data
+  const storages = getPluginStorages()
+  // create boot plugin
+  for (const name in storages) {
+    if (storages[name].config?.boot) {
       createWindow(name)
     }
   }
+  // create default plugin
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow('guide')
   }
 }
 
 export const createWindow = (name: string) => {
-  const plugin = getPluginConfig(name)
-  const storage = getPluginStorage(name).get('config')
+  // get plugin config
+  const config = getPluginConfig(name)
+  // get plugin data
+  const storage = getPluginStorage(name)
+  // create window
   const window = new BrowserWindow({
-    x: storage?.x,
-    y: storage?.y,
+    x: storage.config?.x,
+    y: storage.config?.y,
 
-    width: plugin.width,
-    height: plugin.height,
+    width: config.width,
+    height: config.height,
 
     title: `Monit - ${name}`,
 
@@ -39,10 +45,11 @@ export const createWindow = (name: string) => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    alwaysOnTop: storage?.sticky,
+    alwaysOnTop: storage.config?.sticky,
 
     vibrancy:
-      storage?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
+      storage.config?.theme ??
+      (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
     visualEffectState: 'active',
 
     webPreferences: {
@@ -51,7 +58,9 @@ export const createWindow = (name: string) => {
     },
   })
 
+  // watch window event
   initWatch({ name, window })
+  // handle renderer event
   initHandle({ name, window })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
