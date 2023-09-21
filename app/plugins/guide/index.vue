@@ -7,7 +7,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-2 p-3 pt-6">
+  <section class="flex-col-center gap-y-2.5 p-3 pt-6">
     <h1 class="text-lg moon:text-gray-200 sun:text-white">
       {{ t('title') }}
     </h1>
