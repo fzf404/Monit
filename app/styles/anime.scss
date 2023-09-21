@@ -1,4 +1,6 @@
 #app {
+  @apply drop-shadow;
+
   * {
     @apply transition;
   }
