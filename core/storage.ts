@@ -28,6 +28,7 @@ export const initStorage = async () => {
     storages[name] = {
       ...data,
       set: async (key, value) => {
+        // console.log(key, value)
         data[key] = { ...data[key], ...value }
         await storage.setItem(file, JSON.stringify(data, undefined, 2))
       },
