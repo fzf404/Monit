@@ -8,8 +8,8 @@ import { setWatch } from './watch'
 
 const config = (await window.api?.invoke(
   'get-plugin-data',
-  'config',
-)) as PluginData['config']
+  'control',
+)) as PluginData['control']
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({

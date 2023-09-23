@@ -26,17 +26,6 @@ for (const path in configs) {
   })
 }
 
-// const plugins = import.meta.glob('../plugins/**/index.vue')
-
-// for (const path in plugins) {
-//   const name = path.match(/\.\.\/plugins\/(.*)\/index\.vue/)![1]
-//   routes.push({
-//     name,
-//     path: `/${name}`,
-//     component: () => plugins[path](),
-//   })
-// }
-
 export const router = () => {
   return createRouter({
     history: createWebHashHistory(),

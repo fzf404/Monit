@@ -17,7 +17,7 @@ export type PluginLocale = 'en' | 'cn'
 export type PluginTheme = 'light' | 'dark'
 
 export interface PluginData {
-  config?: {
+  control?: {
     x?: number
     y?: number
     boot?: boolean
@@ -30,6 +30,7 @@ export interface PluginData {
   data?: Record<string, unknown>[]
 }
 export interface PluginStorage extends PluginData {
+  get: <K extends keyof PluginData>(key: K) => PluginData[K]
   set: <K extends keyof PluginData>(
     key: K,
     value: PluginData[K],

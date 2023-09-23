@@ -4,6 +4,10 @@ import { useI18n } from 'vue-i18n'
 import MonitSVG from '@/assets/monit.svg'
 
 const { t } = useI18n()
+
+const openSettingPlugin = () => {
+  window.api?.invoke('set-plugin-boot', 'guide', true)
+}
 </script>
 
 <template>
@@ -23,6 +27,7 @@ const { t } = useI18n()
     </p>
     <button
       class="mt-1 rounded p-1 opacity-80 moon:bg-purple-600 sun:bg-blue hover:opacity-100"
+      @click="openSettingPlugin"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>

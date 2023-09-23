@@ -43,7 +43,7 @@ export const setWatch = (state: State) => {
     () => state.sticky,
     (value) => {
       window.api?.invoke('set-plugin-sticky', value)
-      window.api?.invoke('set-plugin-data', 'config', { sticky: value })
+      window.api?.invoke('set-plugin-data', 'control', { sticky: value })
     },
   )
 
@@ -52,14 +52,14 @@ export const setWatch = (state: State) => {
     (value) => {
       document.body.dataset.theme = value
       window.api?.invoke('set-plugin-theme', value)
-      window.api?.invoke('set-plugin-data', 'config', { theme: value })
+      window.api?.invoke('set-plugin-data', 'control', { theme: value })
     },
   )
 
   watch(
     () => state.navbar.sticky,
     (value) => {
-      window.api?.invoke('set-plugin-data', 'config', { navbar: value })
+      window.api?.invoke('set-plugin-data', 'control', { navbar: value })
     },
   )
 
