@@ -5,40 +5,37 @@ import { BrowserWindow, nativeTheme } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
-import { getPluginConfig, getPluginStorage, getPluginStorages } from './global'
+import {
+  getAllPluginStorages,
+  getPluginConfig,
+  getPluginStorage,
+} from './global'
 import { initWatch } from './watch'
 
 export const initWindow = () => {
-  // get plugin data
-  const storages = getPluginStorages()
-  // create boot plugin
+  const storages = getAllPluginStorages()
   for (const name in storages) {
-    if (storages[name].config?.boot) {
+    if (storages[name].get('control')?.boot) {
       createWindow(name)
     }
   }
-  // create default plugin
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow('guide')
   }
 }
 
 export const createWindow = (name: string) => {
-  // judge plugin exist
   const exist = BrowserWindow.getAllWindows().find(
     (window) => window.title === `Monit - ${name}`,
   )
   if (exist) {
     return exist.focus()
   }
-  // get plugin config
   const config = getPluginConfig(name)
-  // get plugin data
   const storage = getPluginStorage(name)
-  // create window
   const window = new BrowserWindow({
-    x: storage.config?.x,
-    y: storage.config?.y,
+    x: storage.get('control')?.x,
+    y: storage.get('control')?.y,
 
     width: config.width,
     height: config.height,
@@ -52,10 +49,10 @@ export const createWindow = (name: string) => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    alwaysOnTop: storage.config?.sticky,
+    alwaysOnTop: storage.get('control')?.sticky,
 
     vibrancy:
-      storage.config?.theme ??
+      storage.get('control')?.theme ??
       (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
     visualEffectState: 'active',
 
@@ -65,9 +62,7 @@ export const createWindow = (name: string) => {
     },
   })
 
-  // watch window event
   initWatch({ name, window })
-  // handle renderer event
   initHandle({ name, window })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {

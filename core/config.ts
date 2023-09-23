@@ -1,9 +1,9 @@
 import type { PluginConfig } from '~/context/interface'
 
-import { getPluginConfigs } from './global'
+import { getAllPluginConfigs } from './global'
 
 export const initConfig = () => {
-  const configs = getPluginConfigs()
+  const configs = getAllPluginConfigs()
   const plugins = import.meta.glob('../app/plugins/**/config.ts', {
     import: 'default',
     eager: true,

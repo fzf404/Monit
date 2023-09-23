@@ -1,14 +1,7 @@
-import type { Tray } from 'electron'
-
 import type { PluginConfig, PluginStorage } from '~/context/interface'
 
-let trayMenu: Tray
-export const getTray = () => {
-  return trayMenu
-}
-
 const pluginConfigs: Record<string, PluginConfig> = {}
-export const getPluginConfigs = () => {
+export const getAllPluginConfigs = () => {
   return pluginConfigs
 }
 export const getPluginConfig = (name: string) => {
@@ -16,7 +9,7 @@ export const getPluginConfig = (name: string) => {
 }
 
 const pluginStorages: Record<string, PluginStorage> = {}
-export const getPluginStorages = () => {
+export const getAllPluginStorages = () => {
   return pluginStorages
 }
 export const getPluginStorage = (name: string) => {
