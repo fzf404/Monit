@@ -1,7 +1,8 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": ["context", "core"],
+  "include": ["context", "core", "package.json"],
   "compilerOptions": {
+    "composite": true,
     "types": ["electron-vite/node"],
     "paths": {
       "~/*": ["./*"]

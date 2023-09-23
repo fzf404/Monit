@@ -8,7 +8,7 @@
     "preview": "electron-vite preview",
     "build": "electron-vite build && electron-builder build",
     "lint": "eslint --cache --fix . && stylelint --cache --fix **/*.scss",
-    "check": "vue-tsc  --noEmit -p tsconfig.web.json && tsc -p tsconfig.node.json --noEmit",
+    "check": "tsc -p tsconfig.node.json --composite false --noEmit && vue-tsc -p tsconfig.web.json --composite false  --noEmit",
     "format": "prettier --cache --write .",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks"
