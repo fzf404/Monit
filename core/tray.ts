@@ -4,7 +4,7 @@ import { app, Menu, nativeImage, shell, Tray } from 'electron'
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
 
-import { getAllPluginConfigs, getAllPluginStorages } from './global'
+import { getAllPluginConfigs } from './config'
 import {
   getAppBoot,
   quitApp,
@@ -13,6 +13,7 @@ import {
   setAppBoot,
   setAppLocale,
 } from './method'
+import { getAllPluginStorages } from './storage'
 import { createWindow } from './window'
 
 let tray: Tray

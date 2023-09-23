@@ -5,11 +5,8 @@ import { BrowserWindow, nativeTheme } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
-import {
-  getAllPluginStorages,
-  getPluginConfig,
-  getPluginStorage,
-} from './global'
+import { getPluginConfig } from './config'
+import { getAllPluginStorages, getPluginStorage } from './storage'
 import { initWatch } from './watch'
 
 export const initWindow = () => {

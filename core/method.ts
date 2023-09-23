@@ -3,7 +3,7 @@ import { app, BrowserWindow, dialog } from 'electron'
 
 import type { PluginLocale } from '~/context/interface'
 
-import { getAllPluginStorages } from './global'
+import { getAllPluginStorages } from './storage'
 
 export const quitApp = () => {
   app.quit()

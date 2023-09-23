@@ -1,6 +1,6 @@
 import type { PluginOptions } from '~/context/interface'
 
-import { getPluginStorage } from './global'
+import { getPluginStorage } from './storage'
 
 export const initWatch = ({ name, window }: PluginOptions) => {
   window.on('move', () => {

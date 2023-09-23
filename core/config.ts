@@ -1,9 +1,8 @@
 import type { PluginConfig } from '~/context/interface'
 
-import { getAllPluginConfigs } from './global'
+const configs: Record<string, PluginConfig> = {}
 
 export const initConfig = () => {
-  const configs = getAllPluginConfigs()
   const plugins = import.meta.glob('../app/plugins/**/config.ts', {
     import: 'default',
     eager: true,
@@ -12,4 +11,11 @@ export const initConfig = () => {
     const config = plugins[path] as PluginConfig
     configs[config.name] = config
   }
+}
+
+export const getAllPluginConfigs = () => {
+  return configs
+}
+export const getPluginConfig = (name: string) => {
+  return configs[name]
 }

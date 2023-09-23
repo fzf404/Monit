@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron'
 
-import { getPluginConfig, getPluginStorage } from '~/core/global'
+import { getPluginConfig } from '~/core/config'
+import { getPluginStorage } from '~/core/storage'
 import { initMenu } from '~/core/tray'
 
 import type { PluginOptions } from './interface'
