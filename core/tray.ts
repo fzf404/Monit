@@ -1,10 +1,10 @@
 import type { MenuItem } from 'electron'
-import { Menu, nativeImage, shell, Tray } from 'electron'
+import { app, Menu, nativeImage, shell, Tray } from 'electron'
 
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
 
-import { getPluginConfigs, getPluginStorages, getTray } from './global'
+import { getAllPluginConfigs, getAllPluginStorages } from './global'
 import {
   getAppBoot,
   quitApp,
@@ -15,24 +15,32 @@ import {
 } from './method'
 import { createWindow } from './window'
 
-const initMenu = (tray: Tray) => {
-  const configs = getPluginConfigs()
+let tray: Tray
+
+export const initMenu = () => {
+  const configs = getAllPluginConfigs()
   const plugins = Object.keys(configs)
-  const storages = getPluginStorages()
-  // build tray menu
+  const storages = getAllPluginStorages()
+  const english =
+    (storages['guide'].get('control')?.locale ??
+      (app.getLocale().startsWith('zh') ? 'cn' : 'en')) === 'en'
   const menu = Menu.buildFromTemplate([
     {
-      label: `👀 - Monit - ${pkg.version}`,
+      label: `👀 Monit ${pkg.version}`,
       click: () => {
         shell.openExternal('https://monit.fzf404.art/')
       },
     },
     { type: 'separator' },
     {
-      label: '✨ - 插件列表 - Plugins',
+      label: `✨ ${english ? 'Plugin List' : '插件列表'}`,
       submenu: plugins.map((name) => {
         return {
-          label: `${configs[name].emoji} - ${configs[name].description.cn} - ${configs[name].description.en}`,
+          label: `${configs[name].emoji} ${
+            english
+              ? configs[name].description.en
+              : configs[name].description.cn
+          } `,
           click: () => {
             createWindow(name)
           },
@@ -40,56 +48,56 @@ const initMenu = (tray: Tray) => {
       }),
     },
     {
-      label: '⏰ - 插件自启 - AutoRun',
-      submenu: [
-        {
-          label: '♻️ - 刷新列表 - Refresh',
-          click: () => {
-            initMenu(tray)
+      label: `♻️ ${english ? 'Plugin Boot' : '插件自启'}`,
+      submenu: plugins.map((name) => {
+        return {
+          label: `${configs[name].emoji} ${
+            english
+              ? configs[name].description.en
+              : configs[name].description.cn
+          } `,
+          type: 'checkbox' as const,
+          checked: storages[name].get('control')?.boot,
+          click: (event: MenuItem) => {
+            if (event.checked) {
+              setAppBoot(true)
+            }
+            storages[name].set('control', {
+              boot: event.checked,
+            })
           },
-        },
-        { type: 'separator' },
-        ...plugins.map((name) => {
-          return {
-            label: `${configs[name].emoji} - ${configs[name].description.cn} - ${configs[name].description.en}`,
-            type: 'checkbox' as const,
-            checked: storages[name].config?.boot,
-            click: (event: MenuItem) => {
-              storages[name].set('config', {
-                boot: event.checked,
-              })
-            },
-          }
-        }),
-      ],
+        }
+      }),
     },
     { type: 'separator' },
     {
-      label: '🌐 - 语言 - Language',
+      label: `🌐 ${english ? 'Language' : '语言'}`,
       submenu: [
         {
-          label: '🇨🇳 - 中文 - Chinese',
+          label: `🇨🇳 ${english ? 'Chinese' : '中文'}`,
           type: 'radio',
-          checked: storages['guide'].config?.locale === 'cn',
-          click: () => {
-            setAppLocale('cn')
+          checked: !english,
+          click: async () => {
+            await setAppLocale('cn')
+            initMenu()
           },
         },
         {
-          label: '🇺🇸 - 英文 - English',
+          label: `🇺🇸 ${english ? 'English' : '英文'}`,
           type: 'radio',
-          checked: storages['guide'].config?.locale === 'en',
-          click: () => {
-            setAppLocale('en')
+          checked: english,
+          click: async () => {
+            await setAppLocale('en')
+            initMenu()
           },
         },
       ],
     },
     {
-      label: '🚀 - 自启 - Boot',
+      label: `🚀 ${english ? 'Boot' : '自启'}`,
       submenu: [
         {
-          label: '🟢 - 开启 - On',
+          label: `🟢 ${english ? 'On' : '开启'}`,
           type: 'radio',
           checked: getAppBoot(),
           click: () => {
@@ -97,7 +105,7 @@ const initMenu = (tray: Tray) => {
           },
         },
         {
-          label: '🔴 - 关闭 - Off',
+          label: `🔴 ${english ? 'Off' : '关闭'}`,
           type: 'radio',
           checked: !getAppBoot(),
           click: () => {
@@ -108,19 +116,19 @@ const initMenu = (tray: Tray) => {
     },
     { type: 'separator' },
     {
-      label: '🔄 - 重启 - Restart',
+      label: `🔄 ${english ? 'Restart' : '重启'}`,
       click: () => {
         restartApp()
       },
     },
     {
-      label: '⚠️ - 重置 - Reset',
+      label: `⚠️ ${english ? 'Reset' : '重置'}`,
       click: () => {
         resetApp()
       },
     },
     {
-      label: '🚫 - 退出 - Quit',
+      label: `🚫 ${english ? 'Quit' : '退出'}`,
       click: () => {
         quitApp()
       },
@@ -131,10 +139,6 @@ const initMenu = (tray: Tray) => {
 }
 
 export const initTray = () => {
-  // get global tray
-  let tray = getTray()
-  // create tary icon
   tray = new Tray(nativeImage.createFromPath(trayIcon))
-  // init tray menu
-  initMenu(tray)
+  initMenu()
 }
