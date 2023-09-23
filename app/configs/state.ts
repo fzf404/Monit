@@ -6,25 +6,25 @@ import type { PluginData } from '~/context/interface'
 import type { State } from './interface'
 import { setWatch } from './watch'
 
-const config = (await window.api?.invoke(
+const control = (await window.api?.invoke(
   'get-plugin-data',
   'control',
 )) as PluginData['control']
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
-    sticky: config?.sticky ?? false,
+    sticky: control?.sticky ?? false,
     locale:
-      config?.locale ?? (navigator.language.startsWith('zh') ? 'cn' : 'en'),
+      control?.locale ?? (navigator.language.startsWith('zh') ? 'cn' : 'en'),
     theme:
-      config?.theme ??
+      control?.theme ??
       (window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light'),
     navbar: {
       show: true,
       dragging: false,
-      sticky: config?.navbar ?? true,
+      sticky: control?.navbar ?? true,
     },
     setting: {},
     loading: {},

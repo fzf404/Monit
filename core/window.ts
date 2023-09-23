@@ -33,9 +33,10 @@ export const createWindow = (name: string) => {
   }
   const config = getPluginConfig(name)
   const storage = getPluginStorage(name)
+  const control = storage.get('control')
   const window = new BrowserWindow({
-    x: storage.get('control')?.x,
-    y: storage.get('control')?.y,
+    x: control?.x,
+    y: control?.y,
 
     width: config.width,
     height: config.height,
@@ -49,11 +50,10 @@ export const createWindow = (name: string) => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    alwaysOnTop: storage.get('control')?.sticky,
+    alwaysOnTop: control?.sticky,
 
     vibrancy:
-      storage.get('control')?.theme ??
-      (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
+      control?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
     visualEffectState: 'active',
 
     webPreferences: {

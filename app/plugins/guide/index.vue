@@ -5,7 +5,7 @@ import MonitSVG from '@/assets/monit.svg'
 
 const { t } = useI18n()
 
-const openSettingPlugin = () => {
+const openControlPlugin = () => {
   window.api?.invoke('set-plugin-boot', 'guide', true)
 }
 </script>
@@ -27,7 +27,7 @@ const openSettingPlugin = () => {
     </p>
     <button
       class="mt-1 rounded p-1 opacity-80 moon:bg-purple-600 sun:bg-blue hover:opacity-100"
-      @click="openSettingPlugin"
+      @click="openControlPlugin"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>
