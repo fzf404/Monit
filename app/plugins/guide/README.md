@@ -5,4 +5,4 @@
 [![license](https://img.shields.io/npm/l/@monit-plugin/guide?color=37b24d)](https://github.com/fzf404/monit/blob/main/app/plugins/guide/LICENSE)
 [![language](https://img.shields.io/badge/language-简体中文-f76707)](https://github.com/fzf404/monit/blob/main/app/plugins/guide/README.md)
 
-A quick start plugin for [fzf404/monit](https://github.com/fzf404/monit) ( [fzf404/monit](https://github.com/fzf404/monit) 的快速开始插件 )
+A quick start plugin for [Monit](https://github.com/fzf404/monit) ( [Monit](https://github.com/fzf404/monit) 的快速开始插件 )
