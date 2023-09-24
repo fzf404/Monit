@@ -21,7 +21,7 @@ export const initWindow = () => {
 
 export const createWindow = (name: string) => {
   const exist = BrowserWindow.getAllWindows().find(
-    (window) => window.title === `Monit - ${name}`,
+    (window) => window.title === name,
   )
   if (exist) {
     return exist.focus()
