@@ -1,5 +1,5 @@
 import type { MenuItem } from 'electron'
-import { app, BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
+import { BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
 
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
@@ -8,6 +8,7 @@ import { getAllPluginConfigs } from './config'
 import {
   focusApp,
   getAppBoot,
+  getAppLocale,
   quitApp,
   resetApp,
   restartApp,
@@ -23,9 +24,7 @@ export const initMenu = () => {
   const configs = getAllPluginConfigs()
   const plugins = Object.keys(configs)
   const storages = getAllPluginStorages()
-  const english =
-    (storages['guide'].get('control')?.locale ??
-      (app.getLocale().startsWith('zh') ? 'cn' : 'en')) === 'en'
+  const english = getAppLocale() === 'en'
   const menu = Menu.buildFromTemplate([
     {
       label: `👀 Monit ${pkg.version}`,

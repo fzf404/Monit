@@ -10,12 +10,12 @@ const control = (await window.api?.invoke(
   'get-plugin-data',
   'control',
 )) as PluginData['control']
+const locale = await window.api?.invoke('get-locale')
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
+    locale,
     sticky: control?.sticky ?? false,
-    locale:
-      control?.locale ?? (navigator.language.startsWith('zh') ? 'cn' : 'en'),
     theme:
       control?.theme ??
       (window.matchMedia('(prefers-color-scheme: dark)').matches

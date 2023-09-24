@@ -24,10 +24,9 @@ export interface PluginData {
     sticky?: boolean
     navbar?: boolean
     theme?: PluginTheme
-    locale?: PluginLocale
   }
-  setting?: Record<string, unknown>[]
-  data?: Record<string, unknown>[]
+  setting?: Record<string, unknown>
+  data?: Record<string, unknown>
 }
 export interface PluginStorage extends PluginData {
   get: <K extends keyof PluginData>(key: K) => PluginData[K]

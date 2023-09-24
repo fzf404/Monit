@@ -3,7 +3,7 @@ import { app, BrowserWindow, dialog } from 'electron'
 
 import type { PluginLocale } from '~/context/interface'
 
-import { getAllPluginStorages } from './storage'
+import { getAllPluginStorages, getPluginStorage } from './storage'
 
 export const quitApp = () => {
   app.quit()
@@ -28,26 +28,6 @@ export const focusApp = () => {
   }
 }
 
-export const getAppBoot = () => {
-  return app.getLoginItemSettings().openAtLogin
-}
-
-export const setAppBoot = (boot: boolean) => {
-  app.setLoginItemSettings({
-    openAtLogin: boot,
-  })
-}
-
-export const setAppLocale = async (locale: PluginLocale) => {
-  for (const window of BrowserWindow.getAllWindows()) {
-    window.webContents.send('set-plugin-locale', locale)
-  }
-  const storages = getAllPluginStorages()
-  for (const name in storages) {
-    await storages[name].set('control', { locale })
-  }
-}
-
 export const sendConfirm = (
   name: string,
   message: string,
@@ -66,4 +46,30 @@ export const sendConfirm = (
         callback()
       }
     })
+}
+
+export const getAppBoot = () => {
+  return app.getLoginItemSettings().openAtLogin
+}
+
+export const setAppBoot = (boot: boolean) => {
+  app.setLoginItemSettings({
+    openAtLogin: boot,
+  })
+}
+
+export const getAppLocale = () => {
+  const storage = getPluginStorage('manage')
+  return (
+    storage.get('setting')?.locale ??
+    (app.getLocale().startsWith('zh') ? 'cn' : 'en')
+  )
+}
+
+export const setAppLocale = async (locale: PluginLocale) => {
+  for (const window of BrowserWindow.getAllWindows()) {
+    window.webContents.send('set-plugin-locale', locale)
+  }
+  const storage = getPluginStorage('manage')
+  await storage.set('setting', { locale })
 }
