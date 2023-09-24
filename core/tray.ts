@@ -1,11 +1,12 @@
 import type { MenuItem } from 'electron'
-import { app, Menu, nativeImage, shell, Tray } from 'electron'
+import { app, BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
 
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
 
 import { getAllPluginConfigs } from './config'
 import {
+  focusApp,
   getAppBoot,
   quitApp,
   resetApp,
@@ -141,5 +142,12 @@ export const initMenu = () => {
 
 export const initTray = () => {
   tray = new Tray(nativeImage.createFromPath(trayIcon))
+  tray.on('click', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow('guide')
+    } else {
+      focusApp()
+    }
+  })
   initMenu()
 }

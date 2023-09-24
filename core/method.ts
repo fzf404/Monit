@@ -22,6 +22,12 @@ export const resetApp = async () => {
   restartApp()
 }
 
+export const focusApp = () => {
+  for (const window of BrowserWindow.getAllWindows()) {
+    window.focus()
+  }
+}
+
 export const getAppBoot = () => {
   return app.getLoginItemSettings().openAtLogin
 }
