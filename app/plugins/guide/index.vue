@@ -5,8 +5,8 @@ import MonitSVG from '@/assets/monit.svg'
 
 const { t } = useI18n()
 
-const openControlPlugin = () => {
-  window.api?.invoke('set-plugin-boot', 'guide', true)
+const openManagePlugin = () => {
+  window.api?.invoke('open-plugin', 'manage')
 }
 </script>
 
@@ -27,7 +27,7 @@ const openControlPlugin = () => {
     </p>
     <button
       class="mt-1 rounded p-1 opacity-80 moon:bg-purple-600 sun:bg-blue hover:opacity-100"
-      @click="openControlPlugin"
+      @click="openManagePlugin"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>
@@ -39,12 +39,12 @@ const openControlPlugin = () => {
   "cn": {
     "title": "快速开始",
     "tray": "右击托盘中的 {0} 图标",
-    "button": "// 点击下方按钮启动插件"
+    "button": "// 点击下方按钮管理插件"
   },
   "en": {
     "title": "Quick Start",
     "tray": "Right click {0} in tray",
-    "button": "// Click button to start plugin"
+    "button": "// Click icon to manage plugin"
   }
 }
 </i18n>
