@@ -3,8 +3,6 @@ import { join } from 'node:path'
 import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, nativeTheme } from 'electron'
 
-import { initHandle } from '~/context/handle'
-
 import { getPluginConfig } from './config'
 import { getAllPluginStorages, getPluginStorage } from './storage'
 import { initWatch } from './watch'
@@ -38,7 +36,7 @@ export const createWindow = (name: string) => {
     width: config.width,
     height: config.height,
 
-    title: `Monit - ${name}`,
+    title: name,
 
     frame: false,
     resizable: false,
@@ -60,7 +58,6 @@ export const createWindow = (name: string) => {
   })
 
   initWatch({ name, window })
-  initHandle({ name, window })
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     window.loadURL(process.env['ELECTRON_RENDERER_URL']!)
