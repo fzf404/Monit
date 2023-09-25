@@ -59,8 +59,9 @@ export const createWindow = (name: string) => {
 
   initWatch({ name, window })
 
+  console.log(process.env['ELECTRON_RENDERER_URL'])
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    window.loadURL(process.env['ELECTRON_RENDERER_URL']!)
+    window.loadURL(process.env['ELECTRON_RENDERER_URL'] + '#' + name)
   } else {
     window.loadFile(join(__dirname, '../renderer/index.html'), { hash: name })
   }
