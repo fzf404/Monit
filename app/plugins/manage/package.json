@@ -1,0 +1,12 @@
+{
+  "name": "@monit-plugin/manage",
+  "version": "0.1.0",
+  "description": "A window manage plugin for monit",
+  "author": "fzf404",
+  "license": "MIT",
+  "homepage": "https://github.com/fzf404/monit/blob/main/app/plugins/manage",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fzf404/monit.git"
+  }
+}
