@@ -10,7 +10,9 @@ const control = (await window.api?.invoke(
   'get-plugin-data',
   'control',
 )) as PluginData['control']
-const locale = await window.api?.invoke('get-locale')
+const locale =
+  (await window.api?.invoke('get-locale')) ??
+  (navigator.language.startsWith('zh') ? 'cn' : 'en')
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
