@@ -1,23 +1,20 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import { pluginRawConfigs } from './plugin'
+import { pluginConfigs, pluginsComponents } from './plugin'
 
 const routes: RouteRecordRaw[] = [
   {
     path: `/`,
-    redirect: { name: 'guide' },
+    redirect: { name: 'manage' },
   },
 ]
 
-const plugins = import.meta.glob('../plugins/**/*.vue')
-
-for (const path in pluginRawConfigs) {
-  const config = pluginRawConfigs[path]
+for (const name in pluginConfigs) {
   routes.push({
-    name: config.name,
-    path: `/${config.name}`,
-    component: () => plugins[path.replace('config.ts', config.main)](),
+    name: name,
+    path: `/${name}`,
+    component: () => pluginsComponents[name](),
   })
 }
 

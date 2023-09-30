@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 import MonitSVG from '@/assets/monit.svg'
 
 const { t } = useI18n()
+const router = useRouter()
 
 const openManagePlugin = () => {
-  window.api?.invoke('open-plugin', 'manage')
+  window.api?.invoke('open-plugin', 'manage') ?? router.push({ name: 'manage' })
 }
 </script>
 

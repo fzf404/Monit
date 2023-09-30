@@ -2,7 +2,6 @@ import { app, BrowserWindow } from 'electron'
 
 import { initHandle } from '~/context/handle'
 
-import { initConfig } from './config'
 import { initLock } from './locker'
 import { initShortcut } from './shortcut'
 import { initStorage } from './storage'
@@ -12,7 +11,6 @@ import { createWindow, initWindow } from './window'
 initLock()
 
 app.on('ready', async () => {
-  initConfig()
   await initStorage()
   initTray()
   initHandle()

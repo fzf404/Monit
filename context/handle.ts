@@ -13,6 +13,7 @@ const getWindow = (event: Electron.IpcMainInvokeEvent) => {
 export const initHandle = () => {
   ipcMain.handle('get-locale', getAppLocale)
   ipcMain.handle('get-platform', () => process.platform)
+
   ipcMain.handle('get-plugin-size', (event) => getWindow(event).getSize())
   ipcMain.handle('get-plugin-top', (event) => getWindow(event).isAlwaysOnTop())
   ipcMain.handle('get-plugin-data', (event, key) => {
@@ -20,9 +21,7 @@ export const initHandle = () => {
     storage.get(key)
   })
 
-  ipcMain.handle('set-plugin-focus', (event) => getWindow(event).focus())
   ipcMain.handle('set-plugin-close', (event) => getWindow(event).close())
-  ipcMain.handle('set-plugin-reload', (event) => getWindow(event).reload())
   ipcMain.handle('set-plugin-minimize', (event) => getWindow(event).minimize())
   ipcMain.handle('set-plugin-theme', (event, theme) =>
     getWindow(event).setVibrancy(theme),
