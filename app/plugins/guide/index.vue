@@ -3,6 +3,8 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import MonitSVG from '@/assets/monit.svg'
+import test from '~/test/main'
+test()
 
 const { t } = useI18n()
 const router = useRouter()
@@ -14,21 +16,21 @@ const openManagePlugin = () => {
 
 <template>
   <section class="flex-col-center gap-y-2.5 p-3 pt-6">
-    <h1 class="text-lg moon:text-gray-200 sun:text-white">
+    <h1 class="text-lg text-primary">
       {{ t('title') }}
     </h1>
     <i18n-t
       keypath="tray"
       tag="p"
-      class="flex-row-center text-sm moon:text-gray-300 sun:text-gray-100"
+      class="flex-row-center text-sm text-secondary"
     >
       <img class="inline-block h-5 px-1" :src="MonitSVG" />
     </i18n-t>
-    <p class="text-xs moon:text-gray-400 sun:text-gray-200">
+    <p class="text-xs text-info">
       {{ t('button') }}
     </p>
     <button
-      class="mt-1 rounded p-1 opacity-80 moon:bg-purple-600 sun:bg-blue hover:opacity-100"
+      class="mt-1 rounded p-1 opacity-80 bg-base hover:opacity-100"
       @click="openManagePlugin"
     >
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
