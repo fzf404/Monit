@@ -64,11 +64,17 @@ export const useState = defineStore('state', () => {
     setSettingData: (data: State['setting']['data']) => {
       state.setting.data = data
     },
+    toggleLoading: () => {
+      state.loading.show = !state.loading.show
+    },
     setLoadingShow: (show: boolean) => {
       state.loading.show = show
     },
     setLoadingRemark: (remark: string | string[]) => {
       state.loading.remark = remark
+    },
+    toggleQRCode: () => {
+      state.qrcode.show = !state.qrcode.show
     },
     setQRCodeURL: (url: string) => {
       state.qrcode.url = url

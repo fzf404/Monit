@@ -7,7 +7,7 @@ const size = await window.api.invoke('get-plugin-size')
 </script>
 
 <template>
-  <menu class="z-40 menu">
+  <menu class="z-40 modal">
     <ul
       class="bg-gray-200 ring-blue-400 ring-opacity-50"
       :class="{

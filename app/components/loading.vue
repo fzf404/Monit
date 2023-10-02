@@ -9,25 +9,19 @@ const { state } = useState()
 </script>
 
 <template>
-  <dialog class="z-30 gap-2 dialog">
-    <svg
-      class="load-rotating i-ic-twotone-change-circle h-16 w-16 moon:text-gray-300 sun:text-white"
-    ></svg>
-    <p
-      v-if="typeof state.loading.remark === 'string'"
-      class="font-mono moon:text-gray-200 sun:text-white"
-    >
+  <dialog class="z-30 gap-2 modal text-primary">
+    <svg class="load-rotating i-ic-twotone-change-circle h-16 w-16"></svg>
+    <p v-if="typeof state.loading.remark === 'string'">
       {{ state.loading.remark }}
     </p>
     <p
       v-for="(item, index) in state.loading.remark"
       v-else-if="typeof state.loading.remark === 'object'"
       :key="index"
-      class="font-mono moon:text-gray-200 sun:text-white"
     >
       {{ item }}
     </p>
-    <p v-else class="font-mono moon:text-gray-200 sun:text-white">
+    <p v-else>
       {{ t('loading') }}
     </p>
   </dialog>
