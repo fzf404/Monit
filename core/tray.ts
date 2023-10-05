@@ -37,7 +37,7 @@ export const initMenu = () => {
       label: `📝 ${english ? 'Plugin List' : '插件列表'}`,
       submenu: plugins.map((name) => {
         return {
-          label: `${configs[name].emoji} ${
+          label: `${configs[name].emoji} ${configs[name].name}: ${
             english
               ? configs[name].description.en
               : configs[name].description.cn
@@ -52,7 +52,7 @@ export const initMenu = () => {
       label: `♻️ ${english ? 'Plugin Boot' : '插件自启'}`,
       submenu: plugins.map((name) => {
         return {
-          label: `${configs[name].emoji} ${
+          label: `${configs[name].emoji} ${configs[name].name}: ${
             english
               ? configs[name].description.en
               : configs[name].description.cn

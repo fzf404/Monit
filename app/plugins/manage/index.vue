@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { vElementHover } from '@vueuse/components'
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -13,7 +12,6 @@ const { state } = useState()
 const router = useRouter()
 
 const isBooted = reactive<Record<string, boolean>>({})
-const isHovered = reactive<Record<string, boolean>>({})
 
 for (const name in pluginConfigs) {
   isBooted[name] = await window.api?.invoke('get-plugin-boot', name)
@@ -22,10 +20,6 @@ for (const name in pluginConfigs) {
 window.api?.on('set-plugin-boot', (_, name, value) => {
   isBooted[name] = value
 })
-
-const onHover = (name: string, state: boolean) => {
-  isHovered[name] = state
-}
 
 const openPlugin = (name: string) => {
   window.api?.invoke('open-plugin', name) ?? router.push({ name })
@@ -52,16 +46,8 @@ const setPluginBoot = (name: string) => {
       :key="index"
       class="flex-row-between gap-x-2"
     >
-      <button
-        v-element-hover="(state) => onHover(item.name, state)"
-        class="basis-3/4 btn-md bg-base"
-        @click="openPlugin(item.name)"
-      >
-        {{
-          isHovered[index]
-            ? `${item.emoji} ${item.name}`
-            : `${item.emoji} ${item.description[state.locale]}`
-        }}
+      <button class="basis-3/4 btn-md bg-base" @click="openPlugin(item.name)">
+        {{ `${item.emoji} ${item.description[state.locale]}` }}
       </button>
       <button
         class="basis-1/4 btn-md"
