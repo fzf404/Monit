@@ -3,8 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import MonitSVG from '@/assets/monit.svg'
-import test from '~/test/main'
-test()
 
 const { t } = useI18n()
 const router = useRouter()
@@ -27,12 +25,9 @@ const openManagePlugin = () => {
       <img class="inline-block h-5 px-1" :src="MonitSVG" />
     </i18n-t>
     <p class="text-xs text-info">
-      {{ t('button') }}
+      {{ t('manage') }}
     </p>
-    <button
-      class="mt-1 rounded p-1 opacity-80 bg-base hover:opacity-100"
-      @click="openManagePlugin"
-    >
+    <button class="mt-1 btn-sq bg-base" @click="openManagePlugin">
       <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
     </button>
   </section>
@@ -43,12 +38,12 @@ const openManagePlugin = () => {
   "cn": {
     "title": "快速开始",
     "tray": "右击托盘中的 {0} 图标",
-    "button": "// 点击下方按钮管理插件"
+    "manage": "// 点击下方按钮管理插件"
   },
   "en": {
     "title": "Quick Start",
     "tray": "Right click {0} in tray",
-    "button": "// Click icon to manage plugin"
+    "manage": "// Click icon to manage plugin"
   }
 }
 </i18n>

@@ -18,7 +18,11 @@ export const initHandle = () => {
   ipcMain.handle('get-plugin-top', (event) => getWindow(event).isAlwaysOnTop())
   ipcMain.handle('get-plugin-data', (event, key) => {
     const storage = getPluginStorage(getWindow(event).title)
-    storage.get(key)
+    return storage.get(key)
+  })
+  ipcMain.handle('get-plugin-boot', (_, name) => {
+    const storage = getPluginStorage(name)
+    return storage.get('control')?.boot
   })
 
   ipcMain.handle('set-plugin-close', (event) => getWindow(event).close())

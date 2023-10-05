@@ -12,8 +12,13 @@ export default defineConfig({
     }),
   ],
   shortcuts: {
-    // color
+    // theme color
     'bg-base': 'sun:bg-blue moon:bg-purple-600',
+    'bg-reverse': 'sun:bg-purple moon:bg-blue-600',
+    'bg-danger': 'sun:bg-red moon:bg-red-600',
+    'bg-success': 'sun:bg-green moon:bg-green-600',
+    'bg-warning': 'sun:bg-yellow moon:bg-yellow-600',
+    'bg-info': 'sun:bg-blue moon:bg-blue-600',
     'text-primary': 'sun:text-white moon:text-gray-200',
     'text-secondary': 'sun:text-gray-100 moon:text-gray-300',
     'text-info': 'sun:text-gray-200 moon:text-gray-400',
@@ -27,6 +32,12 @@ export default defineConfig({
     nav: 'flex-row-between absolute w-full',
     modal:
       'absolute h-full w-full flex-col-center sun:bg-gray-600 moon:bg-gray-900 sun:bg-opacity-20 moon:bg-opacity-40',
+    // style class
+    btn: 'rounded opacity-80 hover:opacity-100',
+    'btn-sm': 'btn px-1.5 py-0.5 text-xs',
+    'btn-md': 'btn px-2 py-1 text-xs',
+    'btn-lg': 'btn px-2 py-1',
+    'btn-sq': 'btn p-1',
   },
   variants: [
     (matcher) => {

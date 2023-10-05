@@ -34,7 +34,7 @@ export const initMenu = () => {
     },
     { type: 'separator' },
     {
-      label: `✨ ${english ? 'Plugin List' : '插件列表'}`,
+      label: `📝 ${english ? 'Plugin List' : '插件列表'}`,
       submenu: plugins.map((name) => {
         return {
           label: `${configs[name].emoji} ${
