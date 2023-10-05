@@ -13,12 +13,12 @@ export default defineConfig({
   ],
   shortcuts: {
     // theme color
-    'bg-base': 'sun:bg-blue moon:bg-purple-600',
-    'bg-reverse': 'sun:bg-purple moon:bg-blue-600',
-    'bg-danger': 'sun:bg-red moon:bg-red-600',
-    'bg-success': 'sun:bg-green moon:bg-green-600',
-    'bg-warning': 'sun:bg-yellow moon:bg-yellow-600',
-    'bg-info': 'sun:bg-blue moon:bg-blue-600',
+    'bg-base': 'sun:bg-blue-500 moon:bg-purple-600',
+    'bg-reverse': 'sun:bg-purple-500 moon:bg-blue-600',
+    'bg-danger': 'sun:bg-red-500 moon:bg-red-600',
+    'bg-success': 'sun:bg-green-500 moon:bg-green-600',
+    'bg-warning': 'sun:bg-yellow-500 moon:bg-yellow-600',
+    'bg-info': 'sun:bg-blue-500 moon:bg-blue-600',
     'text-primary': 'sun:text-white moon:text-gray-200',
     'text-secondary': 'sun:text-gray-100 moon:text-gray-300',
     'text-info': 'sun:text-gray-200 moon:text-gray-400',
