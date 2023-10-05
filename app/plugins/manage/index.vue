@@ -19,7 +19,11 @@ for (const name in pluginConfigs) {
   isBooted[name] = await window.api?.invoke('get-plugin-boot', name)
 }
 
-const onHover = (state: boolean, name: string) => {
+window.api?.on('set-plugin-boot', (_, name, value) => {
+  isBooted[name] = value
+})
+
+const onHover = (name: string, state: boolean) => {
   isHovered[name] = state
 }
 
@@ -49,7 +53,7 @@ const setPluginBoot = (name: string) => {
       class="flex-row-between gap-x-2"
     >
       <button
-        v-element-hover="(state) => onHover(state, index)"
+        v-element-hover="(state) => onHover(item.name, state)"
         class="basis-3/4 btn-md bg-base"
         @click="openPlugin(item.name)"
       >

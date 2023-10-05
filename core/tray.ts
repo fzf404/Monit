@@ -66,6 +66,9 @@ export const initMenu = () => {
             storages[name].set('control', {
               boot: event.checked,
             })
+            BrowserWindow.getAllWindows()
+              .find((win) => win.title === 'manage')
+              ?.webContents.send('set-plugin-boot', name, event.checked)
           },
         }
       }),
