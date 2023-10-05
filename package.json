@@ -28,6 +28,7 @@
     "@unocss/reset": "^0.56.1",
     "@unocss/transformer-directives": "^0.56.1",
     "@vitejs/plugin-vue": "^4.3.4",
+    "@vueuse/components": "^10.4.1",
     "@vueuse/core": "^10.4.1",
     "electron": "^26.2.2",
     "electron-builder": "^24.6.4",
