@@ -14,7 +14,6 @@ export const initHandle = () => {
   ipcMain.handle('get-locale', getAppLocale)
   ipcMain.handle('get-platform', () => process.platform)
 
-  ipcMain.handle('get-plugin-size', (event) => getWindow(event).getSize())
   ipcMain.handle('get-plugin-top', (event) => getWindow(event).isAlwaysOnTop())
   ipcMain.handle('get-plugin-data', (event, key) => {
     const storage = getPluginStorage(getWindow(event).title)

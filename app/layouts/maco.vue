@@ -28,7 +28,7 @@ const toggleTheme = () => {
 }
 
 const toggleSetting = () => {
-  state.setting.data && action.toggleSetting()
+  state.setting.menu && action.toggleSetting()
 }
 </script>
 
@@ -93,7 +93,7 @@ const toggleSetting = () => {
         :class="{
           'hover:text-blue-300': state.theme === 'light',
           'hover:text-blue-500': state.theme === 'dark',
-          'hover:cursor-not-allowed!': !state.setting.data,
+          'hover:cursor-not-allowed!': !state.setting.menu,
         }"
         @click="toggleSetting"
       ></svg>

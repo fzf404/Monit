@@ -9,15 +9,6 @@ export interface State {
     sticky: boolean
     dragging: boolean
   }
-  setting: {
-    show?: boolean
-    data?: Array<{
-      name: string
-      label: string
-      remark: string
-      value: unknown
-    }>
-  }
   loading: {
     show?: boolean
     remark?: string | string[]
@@ -26,5 +17,19 @@ export interface State {
     url?: string
     show?: boolean
     remark?: string
+  }
+  setting: {
+    show?: boolean
+    menu?: Record<
+      string,
+      {
+        value: unknown
+        label: Record<PluginLocale, string>
+        type: 'text' | 'number' | 'select' | 'checkbox'
+        help?: string
+        length?: number
+        options?: Record<string, unknown>
+      }
+    >
   }
 }

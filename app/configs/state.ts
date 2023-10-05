@@ -29,9 +29,9 @@ export const useState = defineStore('state', () => {
       dragging: false,
       sticky: control?.navbar ?? true,
     },
-    setting: {},
-    loading: {},
     qrcode: {},
+    loading: {},
+    setting: {},
   })
 
   setWatch(state)
@@ -46,6 +46,7 @@ export const useState = defineStore('state', () => {
     toggleTheme: () => {
       state.theme = state.theme === 'dark' ? 'light' : 'dark'
     },
+
     toggleNavbar: () => {
       state.navbar.sticky = !state.navbar.sticky
     },
@@ -55,15 +56,7 @@ export const useState = defineStore('state', () => {
     setNavbarDragging: (dragging: boolean) => {
       state.navbar.dragging = dragging
     },
-    toggleSetting: () => {
-      state.setting.show = !state.setting.show
-    },
-    setSettingShow: (show: boolean) => {
-      state.setting.show = show
-    },
-    setSettingData: (data: State['setting']['data']) => {
-      state.setting.data = data
-    },
+
     toggleLoading: () => {
       state.loading.show = !state.loading.show
     },
@@ -73,6 +66,7 @@ export const useState = defineStore('state', () => {
     setLoadingRemark: (remark: string | string[]) => {
       state.loading.remark = remark
     },
+
     toggleQRCode: () => {
       state.qrcode.show = !state.qrcode.show
     },
@@ -84,6 +78,19 @@ export const useState = defineStore('state', () => {
     },
     setQRCodeRemark: (remark: string) => {
       state.qrcode.remark = remark
+    },
+
+    toggleSetting: () => {
+      state.setting.show = !state.setting.show
+    },
+    setSettingShow: (show: boolean) => {
+      state.setting.show = show
+    },
+    setSettingMenu: (menu: State['setting']['menu']) => {
+      state.setting.menu = menu
+    },
+    getSettingValue: (key: string) => {
+      return state.setting.menu?.[key]?.value
     },
   }
 
