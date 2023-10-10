@@ -27,6 +27,7 @@ const openPlugin = (name: string) => {
 
 const setPluginBoot = (name: string) => {
   isBooted[name] = !isBooted[name]
+  if (isBooted[name]) openPlugin(name)
   window.api?.invoke('set-plugin-boot', name, isBooted[name])
 }
 </script>
@@ -64,7 +65,7 @@ const setPluginBoot = (name: string) => {
 {
   "cn": {
     "plugin": "📝 插件列表",
-    "boot": "自启",
+    "boot": "🚀",
     "open": "🟢",
     "close": "🔴"
   },
