@@ -62,7 +62,7 @@ const toggleSetting = () => {
       ></svg>
     </ul>
     <ul
-      class="flex-auto cursor-pointer rounded bg-white opacity-0 hover:opacity-20"
+      class="h-4 flex-auto cursor-pointer rounded bg-white opacity-0 hover:opacity-20"
       :class="{
         'opacity-20': state.navbar.dragging,
       }"
