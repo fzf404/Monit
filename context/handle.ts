@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from 'electron'
+import { BrowserWindow, ipcMain, shell } from 'electron'
 
 import { getPluginConfig } from '~/core/config'
 import { getAppLocale } from '~/core/method'
@@ -53,7 +53,13 @@ export const initHandle = () => {
     })
   })
 
+  ipcMain.handle('open-url', (_, url) => {
+    shell.openExternal(url)
+  })
   ipcMain.handle('open-plugin', (_, name) => {
     createWindow(name)
+  })
+  ipcMain.handle('refresh-plugin', (event) => {
+    getWindow(event).reload()
   })
 }
