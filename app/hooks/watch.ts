@@ -1,7 +1,8 @@
 import { watch } from 'vue'
 
+import { i18n } from '@/configs/i18n'
+
 import type { State } from './interface'
-import { setLocale } from './locale'
 
 const movePlugin = (event: MouseEvent) => {
   const [x, y] = [event.movementX, event.movementY]
@@ -35,7 +36,7 @@ export const setWatch = (state: State) => {
   watch(
     () => state.locale,
     (value) => {
-      setLocale(value)
+      i18n.global.locale.value = value
     },
   )
 
