@@ -17,6 +17,8 @@ export type PluginLocale = 'en' | 'cn'
 export type PluginTheme = 'light' | 'dark'
 
 export interface PluginData {
+  data?: Record<string, any>
+  setting?: Record<string, any>
   control?: {
     x?: number
     y?: number
@@ -25,8 +27,6 @@ export interface PluginData {
     navbar?: boolean
     theme?: PluginTheme
   }
-  setting?: Record<string, unknown>
-  data?: Record<string, unknown>
 }
 export interface PluginStorage extends PluginData {
   get: <K extends keyof PluginData>(key: K) => PluginData[K]

@@ -60,9 +60,8 @@ export const initMenu = () => {
           type: 'checkbox' as const,
           checked: storages[name].get('control')?.boot,
           click: (event: MenuItem) => {
-            if (event.checked) {
-              setAppBoot(true)
-            }
+            event.checked && setAppBoot(true)
+
             storages[name].set('control', {
               boot: event.checked,
             })

@@ -26,6 +26,7 @@ export const createWindow = (name: string) => {
   if (exist) {
     return exist.focus()
   }
+
   const config = getPluginConfig(name)
   const storage = getPluginStorage(name)
   const control = storage.get('control')
