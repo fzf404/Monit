@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain, shell } from 'electron'
 
 import { getPluginConfig } from '~/core/config'
-import { getAppLocale } from '~/core/method'
+import { getAppLocale, setAppBoot } from '~/core/method'
 import { getPluginStorage } from '~/core/storage'
 import { initMenu } from '~/core/tray'
 import { createWindow } from '~/core/window'
@@ -37,6 +37,7 @@ export const initHandle = () => {
     await storage.set(key, value)
   })
   ipcMain.handle('set-plugin-boot', async (_, name, state) => {
+    state && setAppBoot(true)
     const storage = getPluginStorage(name)
     await storage.set('control', { boot: state })
     initMenu()

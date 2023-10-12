@@ -21,6 +21,7 @@ import { createWindow } from './window'
 let tray: Tray
 
 export const initMenu = () => {
+  const boot = getAppBoot()
   const configs = getAllPluginConfigs()
   const plugins = Object.keys(configs)
   const storages = getAllPluginStorages()
@@ -57,7 +58,7 @@ export const initMenu = () => {
               ? configs[name].description.en
               : configs[name].description.cn
           } `,
-          type: 'checkbox' as const,
+          type: 'checkbox',
           checked: storages[name].get('control')?.boot,
           click: (event: MenuItem) => {
             event.checked && setAppBoot(true)
@@ -102,7 +103,7 @@ export const initMenu = () => {
         {
           label: `🟢 ${english ? 'On' : '开启'}`,
           type: 'radio',
-          checked: getAppBoot(),
+          checked: boot,
           click: () => {
             setAppBoot(true)
           },
@@ -110,7 +111,7 @@ export const initMenu = () => {
         {
           label: `🔴 ${english ? 'Off' : '关闭'}`,
           type: 'radio',
-          checked: !getAppBoot(),
+          checked: !boot,
           click: () => {
             setAppBoot(false)
           },
