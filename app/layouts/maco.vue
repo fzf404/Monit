@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useState } from '@/configs/state'
+import { useState } from '@/hooks/state'
 
-const { state, action } = useState()
+const { state } = useState()
 
 const closePlugin = () => {
   window.api?.invoke('set-plugin-close')
@@ -12,23 +12,24 @@ const minimizePlugin = () => {
 }
 
 const toggleSticky = () => {
-  action.toggleSticky()
+  state.sticky = !state.sticky
 }
 
 const dragNavbar = () => {
-  action.setNavbarDragging(true)
+  state.navbar.dragging = true
 }
 
 const toggleNavbar = () => {
-  action.toggleNavbar()
+  state.navbar.sticky = !state.navbar.sticky
 }
 
 const toggleTheme = () => {
-  action.toggleTheme()
+  console.log(state.theme)
+  state.theme = state.theme === 'dark' ? 'light' : 'dark'
 }
 
 const toggleSetting = () => {
-  state.setting.menu && action.toggleSetting()
+  state.setting && (state.setting.show = !state.setting.show)
 }
 </script>
 
@@ -93,7 +94,7 @@ const toggleSetting = () => {
         :class="{
           'hover:text-blue-300': state.theme === 'light',
           'hover:text-blue-500': state.theme === 'dark',
-          'hover:cursor-not-allowed!': !state.setting.menu,
+          'hover:cursor-not-allowed!': !state.setting,
         }"
         @click="toggleSetting"
       ></svg>

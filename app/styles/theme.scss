@@ -1,23 +1,23 @@
 [data-theme='dark'] {
   #app {
-    @apply bg-gray-900 bg-opacity-50;
+    @apply bg-gray-900/50;
   }
 }
 
 [data-theme='light'] {
   #app {
-    @apply bg-gray-300 bg-opacity-50;
+    @apply bg-gray-300/50;
   }
 }
 
 [data-theme='dark'][data-platform='darwin'] {
   #app {
-    @apply bg-gray-900 bg-opacity-10;
+    @apply bg-gray-900/10;
   }
 }
 
 [data-theme='light'][data-platform='darwin'] {
   #app {
-    @apply bg-gray-300 bg-opacity-10;
+    @apply bg-gray-300/10;
   }
 }
