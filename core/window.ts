@@ -5,7 +5,7 @@ import { BrowserWindow, nativeTheme } from 'electron'
 
 import { getPluginConfig } from './config'
 import { getAllPluginStorages, getPluginStorage } from './storage'
-import { initWatch } from './watch'
+import { initWatch } from './utils'
 
 export const initWindow = () => {
   const storages = getAllPluginStorages()
