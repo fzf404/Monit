@@ -1,4 +1,4 @@
-import type { SettingMenus } from './interface'
+import type { SettingData, SettingMenu } from './interface'
 import { useState } from './state'
 
 const { state } = useState()
@@ -24,19 +24,19 @@ export const useQRCode = ({ url, remark, show = false }: UseQRCodeProps) => {
   return state.qrcode
 }
 
-type UseSettingProps<T extends SettingMenus> = {
+type UseSettingProps<T extends SettingMenu> = {
   menu: T
   show?: boolean
-  callback?: () => void
+  callback?: (data: SettingData) => void
 }
 
-type UseSettingReturn<T extends SettingMenus> = {
+type UseSettingReturn<T extends SettingMenu> = {
   menu: T
   show: boolean
-  callback?: () => void
+  callback?: (data: SettingData) => void
 }
 
-export const useSetting = async <T extends SettingMenus>({
+export const useSetting = async <T extends SettingMenu>({
   menu,
   callback,
   show = false,
@@ -47,7 +47,7 @@ export const useSetting = async <T extends SettingMenus>({
     if (data && data[key] !== undefined) {
       menu[key].value = data[key]
     }
-    menu[key].temp = menu[key].value
+    menu[key].cache = menu[key].value
   }
 
   state.setting = { show, menu, callback }

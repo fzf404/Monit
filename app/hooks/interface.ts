@@ -7,46 +7,48 @@ interface SettingMenuBase {
 
 interface SettingMenuText extends SettingMenuBase {
   type: 'text'
-  temp?: string
+  cache?: string
   value: string
   length?: number
 }
 
 interface SettingMenuNumber extends SettingMenuBase {
   type: 'number'
-  temp?: number
+  cache?: number
   value: number
   length?: number
 }
 
-interface SettingMenuSwitch extends SettingMenuBase {
+interface SettingMenuwitch extends SettingMenuBase {
   type: 'switch'
-  temp?: boolean
+  cache?: boolean
   value: boolean
 }
 
-interface SettingMenuSelect extends SettingMenuBase {
+interface SettingMenuelect extends SettingMenuBase {
   type: 'select'
-  temp?: string
+  cache?: string
   value: string
   options: Record<string, string>
 }
 
 interface SettingMenuButton extends SettingMenuBase {
   type: 'button'
-  temp?: string
+  cache?: string
   value: string
   click: () => Promise<string>
 }
 
-export type SettingMenus = Record<
-  string,
+export type SettingMenuItem =
   | SettingMenuText
   | SettingMenuNumber
-  | SettingMenuSwitch
-  | SettingMenuSelect
+  | SettingMenuwitch
+  | SettingMenuelect
   | SettingMenuButton
->
+
+export type SettingMenu = Record<string, SettingMenuItem>
+
+export type SettingData = Record<string, SettingMenuItem['value']>
 
 export interface State {
   sticky: boolean
@@ -68,7 +70,7 @@ export interface State {
   }
   setting?: {
     show: boolean
-    menu: SettingMenus
-    callback?: () => void
+    menu: SettingMenu
+    callback?: (data: SettingData) => void
   }
 }

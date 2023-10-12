@@ -3,6 +3,8 @@ import { useI18n } from 'vue-i18n'
 
 import { useState } from '@/hooks/state'
 
+import { SettingMenuItem } from '../hooks/interface'
+
 const { t, locale } = useI18n()
 
 const { state } = useState()
@@ -20,19 +22,21 @@ const openURL = (url: string) => {
 }
 
 const onSave = () => {
-  let data = {}
+  let store: Record<string, SettingMenuItem['value']> = {}
 
   for (let key in setting.menu) {
-    const temp = setting.menu[key].temp
-    if (temp !== undefined) {
-      data[key] = temp
-      setting.menu[key].value = temp
+    const cache = setting.menu[key].cache
+    if (cache !== undefined) {
+      store[key] = cache
+      setting.menu[key].value = cache
     }
   }
 
-  window.api?.invoke('set-plugin-data', 'setting', data)
+  setting.show = false
 
-  setting.callback && setting.callback()
+  window.api?.invoke('set-plugin-data', 'setting', store)
+
+  setting.callback && setting.callback(store)
 }
 </script>
 
@@ -64,7 +68,7 @@ const onSave = () => {
         <input
           v-if="item.type === 'text'"
           :id="key"
-          v-model.lazy="item.temp"
+          v-model.lazy="item.cache"
           type="text"
           :class="{
             'w-3/6': width < 300,
@@ -86,7 +90,7 @@ const onSave = () => {
         <input
           v-else-if="item.type === 'number'"
           :id="key"
-          v-model.lazy="item.temp"
+          v-model.lazy="item.cache"
           type="number"
           :class="{
             'w-3/6': width < 300,
@@ -108,14 +112,14 @@ const onSave = () => {
         <input
           v-else-if="item.type === 'switch'"
           :id="key"
-          v-model="item.temp"
+          v-model="item.cache"
           type="checkbox"
           class="text-theme accent-theme"
         />
         <select
           v-else-if="item.type === 'select'"
           :id="key"
-          v-model="item.temp"
+          v-model="item.cache"
           :class="{
             'w-3/6': width < 300,
             'w-3/5': width >= 300 && width <= 600,
@@ -132,7 +136,7 @@ const onSave = () => {
           class="w-1/3 box-sm bg-theme text-secondary"
           @click="
             async () => {
-              item.temp = await item.click()
+              item.cache = await item.click()
             }
           "
         >

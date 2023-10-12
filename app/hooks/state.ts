@@ -2,15 +2,11 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
 import { locale } from '@/configs/i18n'
-import type { PluginData } from '~/context/interface'
 
 import type { State } from './interface'
 import { setWatch } from './watch'
 
-const control = (await window.api?.invoke(
-  'get-plugin-data',
-  'control',
-)) as PluginData['control']
+const control = await window.api?.invoke('get-plugin-data', 'control')
 
 export const useState = defineStore('state', () => {
   const state = reactive<State>({
