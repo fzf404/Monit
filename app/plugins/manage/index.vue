@@ -3,12 +3,10 @@ import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import { useState } from '@/configs/state'
 import { pluginConfigs } from '~/app/configs/plugin'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
-const { state } = useState()
 const router = useRouter()
 
 const isBooted = reactive<Record<string, boolean>>({})
@@ -27,18 +25,18 @@ const openPlugin = (name: string) => {
 
 const setPluginBoot = (name: string) => {
   isBooted[name] = !isBooted[name]
-  if (isBooted[name]) openPlugin(name)
+  isBooted[name] && openPlugin(name)
   window.api?.invoke('set-plugin-boot', name, isBooted[name])
 }
 </script>
 
 <template>
-  <section class="flex flex-col gap-y-2 p-3 pt-9 text-sm text-primary">
+  <section class="flex flex-col gap-y-2 p-3 pt-9 text-sm text-secondary">
     <p class="flex-row-between gap-x-2">
-      <button class="basis-3/4 btn-md bg-reverse">
+      <button class="basis-3/4 box-md bg-reverse">
         {{ t('plugin') }}
       </button>
-      <button class="basis-1/4 btn-md bg-warning">
+      <button class="basis-1/4 box-md bg-warning">
         {{ t('boot') }}
       </button>
     </p>
@@ -47,11 +45,11 @@ const setPluginBoot = (name: string) => {
       :key="index"
       class="flex-row-between gap-x-2"
     >
-      <button class="basis-3/4 btn-md bg-base" @click="openPlugin(item.name)">
-        {{ `${item.emoji} ${item.description[state.locale]}` }}
+      <button class="basis-3/4 box-md bg-theme" @click="openPlugin(item.name)">
+        {{ `${item.emoji} ${item.description[locale]}` }}
       </button>
       <button
-        class="basis-1/4 btn-md"
+        class="basis-1/4 box-md"
         :class="isBooted[item.name] ? 'bg-success' : 'bg-danger'"
         @click="setPluginBoot(item.name)"
       >

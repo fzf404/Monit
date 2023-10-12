@@ -27,8 +27,8 @@ const openManagePlugin = () => {
     <p class="text-xs text-info">
       {{ t('manage') }}
     </p>
-    <button class="mt-1 btn-sq bg-base" @click="openManagePlugin">
-      <svg class="i-ic-twotone-settings block h-7 w-7 bg-white"></svg>
+    <button class="mt-1 box-sq bg-theme" @click="openManagePlugin">
+      <svg class="i-ic-twotone-settings block h-7 w-7 text-secondary"></svg>
     </button>
   </section>
 </template>
