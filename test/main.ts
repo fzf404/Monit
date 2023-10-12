@@ -1,5 +1,9 @@
-import component from './component'
+import loading from './loading'
+import qrcode from './qrcode'
+import setting from './setting'
 
 export default () => {
-  component()
+  qrcode()
+  loading()
+  setting()
 }
