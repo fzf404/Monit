@@ -26,7 +26,7 @@ export const initStorage = async () => {
         return data[key]
       },
       set: async (key, value) => {
-        console.log(`[${name}] storage ${key}: ${JSON.stringify(value)}`)
+        console.log(`[${name}] save ${key}: ${JSON.stringify(value)}`)
         data[key] = { ...data[key], ...value }
         await storage.setItem(file, JSON.stringify(data, undefined, 2))
       },
