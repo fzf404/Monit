@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 
-import { initHandle } from '~/context/handle'
-
+import { initHandle } from './handle'
 import { initStorage } from './storage'
 import { initTray } from './tray'
 import { initBoot, initLock, initShortcut } from './utils'

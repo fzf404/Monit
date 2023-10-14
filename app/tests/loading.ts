@@ -1,6 +1,6 @@
 import { useLoading } from '~/app/hooks/component'
 
-export default async () => {
+export default () => {
   const loading = useLoading({
     show: true,
     remark: 'Test Loading',

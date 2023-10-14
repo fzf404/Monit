@@ -1,6 +1,6 @@
 import { useQRCode } from '~/app/hooks/component'
 
-export default async () => {
+export default () => {
   const qrcode = useQRCode({
     url: 'https://img.fzf404.art/monit/qrcode.webp',
     remark: 'Test Loaded',

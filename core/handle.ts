@@ -1,10 +1,10 @@
 import { BrowserWindow, ipcMain, shell } from 'electron'
 
-import { getPluginConfig } from '~/core/config'
-import { getAppLocale, setAppBoot } from '~/core/method'
-import { getPluginStorage } from '~/core/storage'
-import { initMenu } from '~/core/tray'
-import { createWindow } from '~/core/window'
+import { getPluginConfig } from './config'
+import { getAppLocale, setAppBoot } from './method'
+import { getPluginStorage } from './storage'
+import { initMenu } from './tray'
+import { createWindow } from './window'
 
 const getWindow = (event: Electron.IpcMainInvokeEvent) => {
   return BrowserWindow.fromWebContents(event.sender) as BrowserWindow
