@@ -1,20 +1,22 @@
-import type { PluginConfig } from '~/context/interface'
+import type { PluginConfig } from '~/context/types'
 
-const pluginConfigs: Record<string, PluginConfig> = {}
+const pluginConfig: Record<string, PluginConfig> = {}
 
 const configs = import.meta.glob<PluginConfig>('../app/plugins/**/config.ts', {
   import: 'default',
   eager: true,
 })
+
 for (const path in configs) {
   const config = configs[path]
-  pluginConfigs[config.name] = config
+  pluginConfig[config.name] = config
 }
 
-export const getAllPluginConfigs = () => {
-  return pluginConfigs
+interface UsePluginConfig {
+  (): typeof pluginConfig
+  (name: string): PluginConfig
 }
 
-export const getPluginConfig = (name: string) => {
-  return pluginConfigs[name]
-}
+export const usePluginConfig = ((name?: string) => {
+  return name ? pluginConfig[name] : pluginConfig
+}) as UsePluginConfig
