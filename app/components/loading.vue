@@ -1,39 +1,41 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-import { useState } from '@/hooks/state'
+interface Props {
+  show: boolean
+  message: {
+    cn: string | string[]
+    en: string | string[]
+  }
+}
 
-const { t } = useI18n()
+withDefaults(defineProps<Props>(), {
+  show: true,
+  message: () => {
+    return {
+      cn: '加载中',
+      en: 'Loading...',
+    }
+  },
+})
 
-const { state } = useState()
+const { locale } = useI18n()
 </script>
 
 <template>
-  <dialog class="z-30 gap-y-2 modal text-primary">
-    <svg class="load-rotating i-ic-twotone-change-circle h-16 w-16"></svg>
-    <p v-if="typeof state.loading!.remark === 'string'">
-      {{ state.loading!.remark }}
-    </p>
-    <p
-      v-for="(item, index) in state.loading!.remark"
-      v-else-if="typeof state.loading!.remark === 'object'"
-      :key="index"
-    >
-      {{ item }}
-    </p>
-    <p v-else>
-      {{ t('loading') }}
-    </p>
-  </dialog>
+  <Transition v-show="show" name="fade">
+    <dialog class="z-30 gap-y-2 modal text-primary">
+      <svg class="load-rotating i-ic-twotone-change-circle h-16 w-16"></svg>
+      <p v-if="typeof message[locale] === 'string'">
+        {{ message[locale] }}
+      </p>
+      <p
+        v-for="(item, index) in message[locale]"
+        v-else-if="typeof message[locale] === 'object'"
+        :key="index"
+      >
+        {{ item }}
+      </p>
+    </dialog>
+  </Transition>
 </template>
-
-<i18n lang="json">
-{
-  "cn": {
-    "loading": "加载中..."
-  },
-  "en": {
-    "loading": "Loading..."
-  }
-}
-</i18n>
