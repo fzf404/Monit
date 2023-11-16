@@ -2,18 +2,34 @@
 import { UseImage } from '@vueuse/components'
 import { useI18n } from 'vue-i18n'
 
-import { useState } from '@/hooks/state'
+interface Props {
+  url: string
+  show: boolean
+  message: {
+    cn: string
+    en: string
+  }
+}
 
-const { t } = useI18n()
+withDefaults(defineProps<Props>(), {
+  show: true,
+  url: 'https://img.fzf404.art/monit/qrcode.webp',
+  message: () => {
+    return {
+      cn: '请扫描二维码',
+      en: 'Please scan QR code',
+    }
+  },
+})
 
-const { state } = useState()
+const { t, locale } = useI18n()
 </script>
 
 <template>
   <dialog class="z-30 gap-y-2 modal text-primary">
-    <UseImage :src="state.qrcode!.url">
+    <UseImage :src="url">
       <template #default>
-        <img :src="state.qrcode!.url" class="mb-2 h-2/3" />
+        <img :src="url" class="mb-2 h-2/3" />
       </template>
       <template #loading>
         <p class="z-30 gap-2">
@@ -25,10 +41,9 @@ const { state } = useState()
       </template>
     </UseImage>
     <footer class="absolute bottom-0 w-full p-1 text-center bg-theme">
-      <span v-if="typeof state.qrcode!.remark === 'string'">
-        {{ state.qrcode!.remark }}
+      <span>
+        {{ message[locale] }}
       </span>
-      <span v-else>{{ t('qrcode') }}</span>
     </footer>
   </dialog>
 </template>
@@ -37,13 +52,11 @@ const { state } = useState()
 {
   "cn": {
     "loading": "加载中……",
-    "error": "加载失败",
-    "qrcode": "请扫描二维码"
+    "error": "加载失败"
   },
   "en": {
     "loading": "Loading...",
-    "error": "Load Failed",
-    "qrcode": "Please scan QR code"
+    "error": "Load Failed"
   }
 }
 </i18n>
