@@ -11,7 +11,7 @@
   <Setting :store="store" :setting="setting" />
   <!-- 页面内容 -->
   <article class="flex-col-center">
-    <img class="h-full w-full rounded-lg object-contain" :src="store.src" alt="图像" />
+    <img class="h-full w-full rounded-lg" :class="store.scaleType" :src="store.src" alt="图像" />
   </article>
 </template>
 
@@ -25,7 +25,8 @@ import Setting from '@/components/setting.vue'
 
 // 存储数据
 const store = storage({
-  src: 'https://img.fzf404.art/monit/logo.webp'
+  src: 'https://img.fzf404.art/monit/logo.webp',
+  scaleType: 'object-contain'
 })
 
 // 打开本地图像
@@ -50,6 +51,25 @@ const setting = reactive([
       text: '浏 览',
       click: () => openLocalImage()
     }
+  },
+  {
+    id: 'scaleType',
+    label: '缩放模式',
+    type: 'select',
+    options: [
+      {
+        label: '原始',
+        value: 'object-contain'
+      },
+      {
+        label: '裁剪',
+        value: 'object-cover'
+      },
+      {
+        label: '拉伸',
+        value: 'object-fill'
+      }
+    ]
   }
 ])
 </script>
