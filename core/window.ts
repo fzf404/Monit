@@ -13,9 +13,6 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import { get } from '~/lib/storage'
 import { createPlugin } from '~/server/plugin'
 
-// 窗口网格大小
-const BasicMesh = 100
-
 // 窗口配置
 interface WindowOption {
   name: string
@@ -32,12 +29,12 @@ export const createWindow = (option: WindowOption): BrowserWindow => {
     title: option.name, // 窗口名
     x: option.x, // 窗口位置
     y: option.y, // 窗口位置
-    width: option.size[0] * BasicMesh, // 窗口大小
-    height: option.size[1] * BasicMesh,
+    width: option.size[0], // 窗口大小
+    height: option.size[1],
     alwaysOnTop: option.top, // 窗口置顶
 
     frame: false, // 展示边框
-    resizable: false, // 可变大小
+    resizable: true, // 可变大小
     hasShadow: false, // 展示阴影
     transparent: true, // 窗口透明
     skipTaskbar: true, // 隐藏任务栏图标

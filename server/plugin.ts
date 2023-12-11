@@ -48,8 +48,15 @@ export const createPlugin = (name: string | Array<string>) => {
     }
     // 获取配置
     const setting = getPluginSetting(name) as any
+    // 判断 setting 是否存在 width 和 height
+    let size = plugin.size
+    if (setting.width && setting.height) {
+      size[0] = setting.width
+      size[1] = setting.height
+    }
+
     // 创建插件
-    const win = createWindow({ name, x: setting.x, y: setting.y, top: setting.top, size: plugin.size })
+    const win = createWindow({ name, x: setting.x, y: setting.y, top: setting.top, size: size })
     // 监听插件
     return recordPlugin(win)
   }
@@ -135,5 +142,10 @@ export const recordPlugin = (win: BrowserWindow) => {
     const [x, y] = win.getPosition()
     set(win.title, 'x', x)
     set(win.title, 'y', y)
+  })
+  win.on('resize', () => {
+    const [width, height] = win.getSize()
+    set(win.title, 'width', width)
+    set(win.title, 'height', height)
   })
 }
