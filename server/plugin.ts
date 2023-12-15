@@ -6,11 +6,12 @@
  * @Description: plugin 调用
  */
 
-import { BrowserWindow } from 'electron'
+import { screen, BrowserWindow, ipcMain } from 'electron'
 
 import { getPluginConfig, pluginExist } from '~/config/plugin'
 import { createWindow } from '~/core/window'
 import { get, set, store } from '~/lib/storage'
+import { registerWindow } from '~/xiohook/hook'
 
 // 获取插件
 export const getPlugin = (event: string | Electron.IpcMainEvent | Electron.IpcMainInvokeEvent): BrowserWindow => {
@@ -57,6 +58,14 @@ export const createPlugin = (name: string | Array<string>) => {
 
     // 创建插件
     const win = createWindow({ name, x: setting.x, y: setting.y, top: setting.top, size: size })
+
+    // 注册 win
+    registerWindow(win)
+
+    if (plugin.debug) {
+      win.webContents.openDevTools()
+    }
+
     // 监听插件
     return recordPlugin(win)
   }
@@ -126,6 +135,13 @@ export const stickyPlugin = (win: BrowserWindow, state: boolean) => {
 // 聚焦插件
 export const focusPlugin = (win: BrowserWindow) => {
   win.show()
+}
+
+export const mouseInPlugin = (win: BrowserWindow) => {
+  const [x, y] = win.getPosition()
+  const [width, height] = win.getSize()
+  const point = screen.getCursorScreenPoint()
+  return point.x > x && point.x < x + width && point.y > y && point.y < y + height
 }
 
 // 聚焦全部插件

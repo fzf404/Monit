@@ -26,12 +26,12 @@ const createSize = (size: number[]): number[] => {
 
 // 插件列表
 export const pluginList: plugin[] = debugFilter([
-  { icon: '😺', name: 'github', size: createSize([4, 2]), description: '监控' },
+  { icon: '😺', name: 'github', size: createSize([4, 2]), description: '监控', debug: true },
   { icon: '🎵', name: 'music', size: createSize([4, 2]), description: '音乐' },
   { icon: '📝', name: 'todo', size: createSize([2, 3]), description: '待办' },
   { icon: '🏅', name: 'juejin', size: createSize([4, 3]), description: '监控' },
   { icon: '⏱️', name: 'clock', size: createSize([4, 2]), description: '时钟' },
-  { icon: '🏞️', name: 'image', size: createSize([4, 3]), description: '图像' },
+  { icon: '🏞️', name: 'image', size: createSize([4, 3]), description: '图像', debug: true },
   { icon: '📷', name: 'camera', size: createSize([4, 3]), description: '相机' },
   { icon: '⚙️', name: 'config', size: createSize([2, 3]), description: '配置' },
   { icon: '👏', name: 'guide', size: createSize([2, 2]), description: '欢迎' },

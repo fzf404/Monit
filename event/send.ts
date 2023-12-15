@@ -7,6 +7,16 @@
  */
 
 import { ipcRenderer } from 'electron'
+import IpcRendererEvent = Electron.IpcRendererEvent
+
+// 注册事件
+export const onEvent = (channel: string, listener: (event: IpcRendererEvent, ...args: any[]) => void) => {
+  ipcRenderer.on(channel, listener)
+}
+
+export const isMouseInPlugin = () => {
+  return callEvent('plugin-mouse-in')
+}
 
 // 发送事件
 export const sendEvent = (event: string, ...options: any) => {

@@ -16,6 +16,7 @@ import { createBootWindow } from './window'
 import { initIPC } from '~/event/handle'
 import { createPlugin } from '~/server/plugin'
 import { initShortcut } from './shortcut'
+import { hook, unhook } from '~/xiohook/hook'
 
 // 初始化应用锁
 initLock()
@@ -25,6 +26,7 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'monit', privileges: { secure: t
 
 // 准备就绪
 app.on('ready', () => {
+  hook()
   // 初始化系统托盘
   initTray()
 
@@ -53,3 +55,8 @@ app.on('activate', () => {
 
 // 阻止托盘退出
 app.on('window-all-closed', () => {})
+
+// 应用退出
+app.on('quit', () => {
+  unhook()
+})

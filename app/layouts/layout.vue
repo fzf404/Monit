@@ -7,8 +7,8 @@
 -->
 
 <template>
-  <!-- 布局 -->
-  <transition name="fade" mode="out-in">
+  <div class="drag-bar" />
+  <transition name="fade" mode="out-in" v-show="isHovering">
     <component
       :is="layout[store.layout].component"
       :layout="layout[store.layout]"
@@ -19,11 +19,11 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent, onMounted, ref } from 'vue'
 
 import { layoutList } from '~/config/layout'
 import { themeList } from '~/config/theme'
-import { sendEvent } from '~/event/send'
+import { isMouseInPlugin, onEvent, sendEvent } from '~/event/send'
 import { storage } from '~/lib/storage'
 
 // 布局处理
@@ -65,7 +65,26 @@ const store = storage(
   }
 )
 
+const isHovering = ref(isMouseInPlugin())
+
+onEvent('mouseenter', () => {
+  isHovering.value = true
+})
+
+onEvent('mouseleave', () => {
+  isHovering.value = false
+})
+
 onMounted(() => {
   document.body.setAttribute('class', store.theme)
 })
 </script>
+
+<style>
+.drag-bar {
+  -webkit-app-region: drag;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+}
+</style>

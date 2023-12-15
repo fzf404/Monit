@@ -16,6 +16,7 @@ import {
   getPlugin,
   getPluginTitle,
   miniPlugin,
+  mouseInPlugin,
   reloadPlugin,
   stickyPlugin
 } from '~/server/plugin'
@@ -95,6 +96,11 @@ export const initIPC = () => {
   // 发送确认弹窗
   ipcMain.on('plugin-confirm', (event, message: string, callback: Function) => {
     sendConfirm(getPluginTitle(event), message, callback)
+  })
+
+  // 获取失败是否再窗口内
+  ipcMain.on('plugin-mouse-in', (event) => {
+    event.returnValue = mouseInPlugin(getPlugin(event))
   })
 
   // 打开网址
