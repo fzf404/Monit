@@ -15,6 +15,10 @@
         v-show="pinia.hasSetting"
         class="hover-dynamic btn-svg w-5 text-blue-400"
         @click="pinia.toggleSetting()" />
+
+      <UnlockSVG v-if="store.lock" class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = false" />
+      <LockSVG v-else class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = true" />
+
       <!-- 主题 -->
       <component :is="theme.icon" class="hover-dynamic btn-svg icon-theme w-5" @click="store.theme = theme.next" />
       <!-- 布局 -->
@@ -46,6 +50,8 @@ import MiniSVG from '@/assets/layout/mini.svg'
 import SettingSVG from '@/assets/layout/setting.svg'
 import UpSVG from '@/assets/layout/up.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
+import LockSVG from '@/assets/layout/lock.svg'
+import UnlockSVG from '@/assets/layout/unlock.svg'
 import { main } from '@/pinia'
 import { sendEvent } from '~/event/send'
 

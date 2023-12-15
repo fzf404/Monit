@@ -15,6 +15,7 @@ import {
   createPlugin,
   getPlugin,
   getPluginTitle,
+  lockPlugin,
   miniPlugin,
   mouseInPlugin,
   reloadPlugin,
@@ -81,6 +82,11 @@ export const initIPC = () => {
   // 置顶窗口
   ipcMain.on('plugin-sticky', (event, state: boolean) => {
     stickyPlugin(getPlugin(event), state)
+  })
+
+  // 锁定窗口
+  ipcMain.on('plugin-lock', (event, state: boolean) => {
+    lockPlugin(getPlugin(event), state)
   })
 
   // 发送通知

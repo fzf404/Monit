@@ -19,6 +19,7 @@ interface WindowOption {
   x: number
   y: number
   top: boolean
+  lock: boolean
   size: number[]
 }
 
@@ -34,7 +35,7 @@ export const createWindow = (option: WindowOption): BrowserWindow => {
     alwaysOnTop: option.top, // 窗口置顶
 
     frame: false, // 展示边框
-    resizable: true, // 可变大小
+    resizable: !option.lock, // 可变大小
     hasShadow: false, // 展示阴影
     transparent: true, // 窗口透明
     skipTaskbar: true, // 隐藏任务栏图标

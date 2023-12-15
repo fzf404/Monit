@@ -57,7 +57,7 @@ export const createPlugin = (name: string | Array<string>) => {
     }
 
     // 创建插件
-    const win = createWindow({ name, x: setting.x, y: setting.y, top: setting.top, size: size })
+    const win = createWindow({ name, x: setting.x, y: setting.y, top: setting.top, lock: setting.lock, size: size })
 
     // 注册 win
     registerWindow(win)
@@ -130,6 +130,11 @@ export const miniPlugin = (win: BrowserWindow) => {
 // 置顶插件
 export const stickyPlugin = (win: BrowserWindow, state: boolean) => {
   win.setAlwaysOnTop(state)
+}
+
+// 锁定插件
+export const lockPlugin = (win: BrowserWindow, state: boolean) => {
+  win.setResizable(!state)
 }
 
 // 聚焦插件

@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <div class="drag-bar" />
+  <div v-if="!store.lock" class="drag-bar" />
   <transition name="fade" mode="out-in" v-show="isHovering">
     <component
       :is="layout[store.layout].component"
@@ -52,12 +52,16 @@ const theme = themeList.reduce((result, current, index, source) => {
 const store = storage(
   {
     top: false, // 置顶
+    lock: false,
     layout: layout.maco.name, // 布局
     theme: theme.dark.name // 主题
   },
   {
     top: (val) => {
       sendEvent('plugin-sticky', val)
+    },
+    lock: (val) => {
+      sendEvent('plugin-lock', val)
     },
     theme: (val) => {
       document.body.setAttribute('class', val)

@@ -35,6 +35,9 @@
         @click="store.layout = layout.next" />
       <!-- 主题 -->
       <component :is="theme.icon" class="btn-svg icon-theme w-4" @click="store.theme = theme.next" />
+
+      <UnlockSVG v-if="store.lock" class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = false" />
+      <LockSVG v-else class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = true" />
       <!-- 设置 -->
       <SettingSVG
         v-show="pinia.hasSetting"
@@ -54,6 +57,8 @@ import MiniSVG from '@/assets/layout/mini.svg'
 import SettingSVG from '@/assets/layout/setting.svg'
 import UpSVG from '@/assets/layout/up.svg'
 import WifiSVG from '@/assets/layout/wifi.svg'
+import UnlockSVG from '@/assets/layout/unlock.svg'
+import LockSVG from '@/assets/layout/lock.svg'
 
 // 初始化全局状态
 const pinia = main()
