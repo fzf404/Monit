@@ -11,6 +11,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '~': resolve(),
+        '@': resolve('core'),
       },
     },
     build: {
