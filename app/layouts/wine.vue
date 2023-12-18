@@ -15,12 +15,10 @@
         v-show="pinia.hasSetting"
         class="hover-dynamic btn-svg w-5 text-blue-400"
         @click="pinia.toggleSetting()" />
-
-      <UnlockSVG v-if="store.lock" class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = false" />
-      <LockSVG v-else class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = true" />
-
       <!-- 主题 -->
       <component :is="theme.icon" class="hover-dynamic btn-svg icon-theme w-5" @click="store.theme = theme.next" />
+      <LockSVG v-if="store.lock" class="hover-dynamic btn-svg icon-theme w-5" @click="store.lock = false" />
+      <UnlockSVG v-else class="hover-dynamic btn-svg icon-theme w-5" @click="store.lock = true" />
       <!-- 布局 -->
       <component
         :is="layout.icon"

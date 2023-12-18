@@ -33,11 +33,10 @@
         :is="layout.icon"
         class="btn-svg w-4 text-green-400 hover:text-green-500"
         @click="store.layout = layout.next" />
+      <LockSVG v-if="store.lock" class="btn-svg icon-theme w-4" @click="store.lock = false" />
+      <UnlockSVG v-else class="btn-svg icon-theme w-4" @click="store.lock = true" />
       <!-- 主题 -->
       <component :is="theme.icon" class="btn-svg icon-theme w-4" @click="store.theme = theme.next" />
-
-      <UnlockSVG v-if="store.lock" class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = false" />
-      <LockSVG v-else class="btn-svg hover-dynamic w-5 text-green-400" @click="store.lock = true" />
       <!-- 设置 -->
       <SettingSVG
         v-show="pinia.hasSetting"
