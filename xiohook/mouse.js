@@ -78,4 +78,4 @@ process.on('message', (event) => {
 setInterval(() => {
   if (stop) return
   send('msr:get-point')
-}, 100)
+}, 200)

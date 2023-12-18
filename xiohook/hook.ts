@@ -19,7 +19,6 @@ class MouseHook {
   }
 
   registerWindow(win: BrowserWindow) {
-    console.log('registerWindow')
     const name = win.getTitle()
     this.wins[name] = win
     const [x, y] = win.getPosition()
