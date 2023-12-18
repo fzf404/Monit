@@ -23,7 +23,8 @@
     "event/*.ts",
     "lib/*.ts",
     "server/*.ts",
-    "custom.d.ts"
+    "custom.d.ts",
+    "config/setting.ts"
   ],
   "exclude": ["node_modules"],
   "vueCompilerOptions": {

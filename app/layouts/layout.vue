@@ -8,7 +8,7 @@
 
 <template>
   <div v-if="!store.lock" class="drag-bar" />
-  <transition name="fade" mode="out-in" v-show="isHovering">
+  <transition name="fade" mode="out-in" v-show="store.titlebarType === 'show' || (isHovering && isWindowActive)">
     <component
       :is="layout[store.layout].component"
       :layout="layout[store.layout]"
@@ -19,11 +19,11 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onMounted, ref } from 'vue'
+import { defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue'
 
 import { layoutList } from '~/config/layout'
 import { themeList } from '~/config/theme'
-import { isMouseInPlugin, onEvent, sendEvent } from '~/event/send'
+import { getValue, isMouseInPlugin, onEvent, sendEvent } from '~/event/send'
 import { storage } from '~/lib/storage'
 
 // 布局处理
@@ -53,6 +53,7 @@ const store = storage(
   {
     top: false, // 置顶
     lock: false,
+    titlebarType: 'show',
     layout: layout.maco.name, // 布局
     theme: theme.dark.name // 主题
   },
@@ -69,7 +70,15 @@ const store = storage(
   }
 )
 
+const isWindowActive = ref(true)
 const isHovering = ref(isMouseInPlugin())
+
+const onWindowBlur = () => {
+  isWindowActive.value = false
+}
+const onWindowFocus = () => {
+  isWindowActive.value = true
+}
 
 onEvent('mouseenter', () => {
   isHovering.value = true
@@ -81,6 +90,14 @@ onEvent('mouseleave', () => {
 
 onMounted(() => {
   document.body.setAttribute('class', store.theme)
+  window.addEventListener('blur', onWindowBlur)
+  window.addEventListener('focus', onWindowFocus)
+})
+
+onUnmounted(() => {
+  // 当组件卸载时，移除事件监听器
+  window.removeEventListener('blur', onWindowBlur)
+  window.removeEventListener('focus', onWindowFocus)
 })
 </script>
 

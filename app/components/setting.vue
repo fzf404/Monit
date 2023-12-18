@@ -82,11 +82,14 @@
 </template>
 
 <script setup lang="ts">
-import { openURL, sendEvent } from '~/event/send'
+import { getValue, openURL, sendEvent, setValue } from '~/event/send'
 
 import { main } from '@/pinia'
 
 import HelpSVG from '@/assets/plugin/setting/help.svg'
+import { baseSetting, baseStore, PluginSetting } from '~/config/setting'
+import { onBeforeMount, watch } from 'vue'
+import { storage } from '~/lib/storage'
 
 interface Props {
   // 尺寸
@@ -94,39 +97,11 @@ interface Props {
   // 设置值
   store: Record<string, Object>
   // 设置项
-  setting: (
-    | {
-        id: string
-        label: string
-        type: 'text' | 'checkbox'
-        help?: string
-      }
-    | {
-        id: string
-        label: string
-        type: 'number'
-        help?: string
-        options: { len: number }
-      }
-    | {
-        id: string
-        label: string
-        type: 'select'
-        help?: string
-        options: { label: string; value: string }[]
-      }
-    | {
-        id: string
-        label: string
-        type: 'button'
-        help?: string
-        options: { text: string; click: () => void }
-      }
-  )[]
+  setting: PluginSetting[]
 }
 
 // 初始化参数
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'normal'
 })
 
@@ -146,6 +121,29 @@ const onSave = () => {
   // 发送保存事件
   emit('save')
 }
+
+const mergeBaseSetting = (props: Props) => {
+  const { store, setting } = props
+  for (let i = 0; i < baseSetting.length; i++) {
+    const item = baseSetting[i]
+    setting.splice(i, 0, item)
+    store[item.id] = getValue(item.id, baseStore[item.id]) || undefined
+    watch(
+      () => store[item.id],
+      (val) => {
+        console.log('store save : ' + item.id + ' => ' + val)
+        // 保存值
+        setValue(item.id, val)
+      },
+      { deep: true }
+    )
+  }
+}
+
+// 通过 onBeforeMount 钩子在组件挂载前进行操作
+onBeforeMount(() => {
+  mergeBaseSetting(props)
+})
 </script>
 
 <style scoped>
