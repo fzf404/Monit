@@ -1,8 +1,9 @@
 # os
 .DS_Store
 
-# depend
+# package
 node_modules
+pnpm-lock.yaml
 
 # build
 dist
