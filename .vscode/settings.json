@@ -1,9 +1,7 @@
 {
   "unocss.root": "app",
   "i18n-ally.localesPaths": [],
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.enabledFrameworks": ["vue", "vue-sfc"],
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   }
 }
