@@ -26,26 +26,28 @@ const { t, locale } = useI18n()
 </script>
 
 <template>
-  <dialog class="z-30 gap-y-2 modal text-primary">
-    <UseImage :src="url">
-      <template #default>
-        <img :src="url" class="mb-2 h-2/3" />
-      </template>
-      <template #loading>
-        <p class="z-30 gap-2">
-          {{ t('loading') }}
-        </p>
-      </template>
-      <template #error>
-        <p>{{ t('error') }}</p>
-      </template>
-    </UseImage>
-    <footer class="absolute bottom-0 w-full p-1 text-center bg-theme">
-      <span>
-        {{ message[locale] }}
-      </span>
-    </footer>
-  </dialog>
+  <Transition name="fade">
+    <dialog v-show="show" class="z-30 gap-y-2 modal text-primary">
+      <UseImage :src="url">
+        <template #default>
+          <img :src="url" class="mb-2 h-2/3" />
+        </template>
+        <template #loading>
+          <p class="z-30 gap-2">
+            {{ t('loading') }}
+          </p>
+        </template>
+        <template #error>
+          <p>{{ t('error') }}</p>
+        </template>
+      </UseImage>
+      <footer class="absolute bottom-0 w-full p-1 text-center bg-theme">
+        <span>
+          {{ message[locale] }}
+        </span>
+      </footer>
+    </dialog>
+  </Transition>
 </template>
 
 <i18n lang="json">

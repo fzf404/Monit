@@ -32,9 +32,8 @@ export default defineConfig({
     'flex-row-right': 'flex flex-row justify-end',
     'flex-col-center': 'flex flex-col items-center justify-center',
     // semantic tag
-    nav: 'flex-row-between absolute w-full',
-    modal:
-      'absolute h-full w-full rounded-lg flex-col-center sun:bg-gray-600/20 moon:bg-gray-900/40',
+    screen: 'absolute h-full w-full',
+    modal: 'screen flex-col-center sun:bg-gray-600/20 moon:bg-gray-900/40',
     // style class
     box: 'shadow rounded border-none outline-none opacity-80 hover:opacity-100',
     'box-sm': 'box px-1.5 py-0.5 text-xs',
@@ -47,13 +46,13 @@ export default defineConfig({
       if (matcher.startsWith('sun:')) {
         return {
           matcher: matcher.slice(4),
-          selector: (s) => `[data-theme='light'] ${s}`,
+          selector: (s) => `[data-theme='sun'] ${s}`,
         }
       }
       if (matcher.startsWith('moon:')) {
         return {
           matcher: matcher.slice(5),
-          selector: (s) => `[data-theme='dark'] ${s}`,
+          selector: (s) => `[data-theme='moon'] ${s}`,
         }
       }
       if (matcher.startsWith('punk:')) {

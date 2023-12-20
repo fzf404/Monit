@@ -23,8 +23,8 @@ const { locale } = useI18n()
 </script>
 
 <template>
-  <Transition v-show="show" name="fade">
-    <dialog class="z-30 gap-y-2 modal text-primary">
+  <Transition name="fade">
+    <dialog v-show="show" class="z-30 gap-y-2 modal text-primary">
       <svg class="load-rotating i-ic-twotone-change-circle h-16 w-16"></svg>
       <p v-if="typeof message[locale] === 'string'">
         {{ message[locale] }}
