@@ -1,7 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import { pluginConfigs, pluginsComponents } from './plugin'
+import { usePluginComponent, usePluginConfig } from '@/hooks/plugin'
+
+const pluginConfigs = usePluginConfig()
+const pluginComponents = usePluginComponent()
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,13 +15,13 @@ const routes: RouteRecordRaw[] = [
 
 for (const name in pluginConfigs) {
   routes.push({
-    name: name,
+    name,
     path: `/${name}`,
-    component: () => pluginsComponents[name](),
+    component: () => pluginComponents[name](),
   })
 }
 
 export const router = createRouter({
-  history: createWebHashHistory(),
   routes,
+  history: createWebHashHistory(),
 })

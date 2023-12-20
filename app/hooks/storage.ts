@@ -1,24 +1,19 @@
-import type { UnwrapNestedRefs } from 'vue'
 import { reactive, watch } from 'vue'
 
-type Storage = Record<string, any>
+import { getPluginStorageData, setPluginStorageData } from '@/utils/storage'
+import type { PluginUserData } from '~/context/types'
 
-export const useStorage = async <T extends Storage>(
-  store: T,
-): Promise<UnwrapNestedRefs<T>> => {
-  const data = await window.api?.invoke('get-plugin-data', 'storage')
+const data = await getPluginStorageData('data')
 
-  for (const key in store) {
-    if (data && data[key] !== undefined) {
-      store[key] = data[key]
-    }
-  }
-
-  const storage = reactive(store)
-
-  watch(storage, (data) => {
-    window.api?.invoke('set-plugin-data', 'storage', { ...data })
+export const useStorage = <T extends PluginUserData>(value: T) => {
+  const state = reactive<T>({
+    ...value,
+    ...data,
   })
 
-  return storage
+  watch(state, async () => {
+    await setPluginStorageData('data', state)
+  })
+
+  return state
 }
