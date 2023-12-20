@@ -3,11 +3,13 @@ import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import { pluginConfigs } from '~/app/configs/plugin'
+import { usePluginConfig } from '@/hooks/plugin'
+
+const router = useRouter()
 
 const { t, locale } = useI18n()
 
-const router = useRouter()
+const pluginConfigs = usePluginConfig()
 
 const isBooted = reactive<Record<string, boolean>>({})
 
@@ -26,12 +28,13 @@ const openPlugin = (name: string) => {
 const setPluginBoot = (name: string) => {
   isBooted[name] = !isBooted[name]
   isBooted[name] && openPlugin(name)
+  console.log(typeof isBooted[name])
   window.api?.invoke('set-plugin-boot', name, isBooted[name])
 }
 </script>
 
 <template>
-  <section class="flex flex-col gap-y-2 p-3 pt-9 text-sm text-secondary">
+  <section class="screen flex flex-col gap-y-2 p-3 pt-9 text-sm text-secondary">
     <p class="flex-row-between gap-x-2">
       <button class="basis-3/4 box-md bg-reverse">
         {{ t('plugin') }}

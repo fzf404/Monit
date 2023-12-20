@@ -1,6 +1,6 @@
-import type { PluginConfig } from '~/context/interface'
+import type { PluginConfigFile } from '~/context/types'
 
-export default <PluginConfig>{
+export default <PluginConfigFile>{
   name: 'count',
   main: 'index.vue',
   width: 200,

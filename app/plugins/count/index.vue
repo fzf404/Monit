@@ -1,52 +1,35 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-import { useSetting } from '@/hooks/component'
-import { useStorage } from '~/app/hooks/storage'
+import { useSetting } from '@/hooks/setting'
+import { useStorage } from '@/hooks/storage'
 
 const { t } = useI18n()
 
-const setting = await useSetting({
-  menu: {
-    count: {
-      value: 3.14,
-      type: 'number',
-      label: {
-        cn: '数值',
-        en: 'Count',
-      },
-      length: 5,
+const { setting } = await useSetting({
+  step: {
+    value: 0.1,
+    type: 'number',
+    label: {
+      cn: '步长',
+      en: 'Step',
     },
-    step: {
-      value: 0.1,
-      type: 'number',
-      label: {
-        cn: '步长',
-        en: 'Step',
-      },
-      length: 3,
-    },
-  },
-  callback: () => {
-    setNumber()
+    length: 3,
   },
 })
 
-const storage = await useStorage({ number: setting.menu.count.value })
+const storage = await useStorage({ number: 3.14 })
 
-const setNumber = () => {
-  storage.number = setting.menu.count.value
-}
 const increase = () => {
-  storage.number = Number((storage.number + setting.menu.step.value).toFixed(2))
+  storage.number = Number((storage.number + setting.step.value).toFixed(2))
 }
 const decrease = () => {
-  storage.number = Number((storage.number - setting.menu.step.value).toFixed(2))
+  storage.number = Number((storage.number - setting.step.value).toFixed(2))
 }
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-2.5 p-3 pt-6 font-mono">
+  <section class="screen flex-col-center gap-y-2.5 p-3 pt-6 font-mono">
     <p class="text-lg text-info">{{ t('title') }}</p>
     <h1 class="text-4xl font-mono text-primary">
       {{ storage.number }}

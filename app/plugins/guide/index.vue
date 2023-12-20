@@ -13,7 +13,7 @@ const openManagePlugin = () => {
 </script>
 
 <template>
-  <section class="flex-col-center gap-y-2.5 p-3 pt-6">
+  <section class="screen flex-col-center gap-y-2.5 p-3 pt-6">
     <h1 class="text-lg text-primary">
       {{ t('title') }}
     </h1>
