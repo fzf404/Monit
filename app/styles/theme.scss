@@ -1,23 +1,23 @@
-[data-theme='dark'] {
+[data-theme='moon'] {
   #app {
     @apply bg-gray-900/50;
   }
 }
 
-[data-theme='light'] {
+[data-theme='sun'] {
   #app {
     @apply bg-gray-300/50;
   }
 }
 
-[data-theme='dark'][data-platform='darwin'] {
+[data-theme='moon'][data-platform='darwin'] {
   #app {
     @apply bg-gray-900/10;
   }
 }
 
-[data-theme='light'][data-platform='darwin'] {
+[data-theme='sun'][data-platform='darwin'] {
   #app {
-    @apply bg-gray-300/10;
+    @apply bg-white/30;
   }
 }
