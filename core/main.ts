@@ -1,10 +1,10 @@
 import { app, BrowserWindow } from 'electron'
 
-import { initHandle } from './handle'
-import { initStorage } from './storage'
-import { initTray } from './tray'
+import { initStorage } from './modules/storage'
+import { initTray } from './modules/tray'
+import { createWindow, initWindow } from './modules/window'
 import { initBoot, initLock, initShortcut } from './utils'
-import { createWindow, initWindow } from './window'
+import { initHandle } from './utils/handle'
 
 app.on('ready', async () => {
   initLock()

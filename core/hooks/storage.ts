@@ -1,11 +1,11 @@
-import type { PluginStorageItem, PluginStorageMap } from '../pkgs/storage'
-import { pluginStorageMap } from '../pkgs/storage'
+import type { PluginStorage, PluginStorageMap } from '@/modules/storage'
+import { pluginStorageMap } from '@/modules/storage'
 
-type UsePluginStorage = {
+type UseStorage = {
   (): PluginStorageMap
-  (name: string): PluginStorageItem
+  (name: string): PluginStorage
 }
 
-export const usePluginStorage = ((name?: string) => {
-  return name ? pluginStorageMap.get(name) : pluginStorageMap
-}) as UsePluginStorage
+export const useStorage = ((name?: string) => {
+  return name ? pluginStorageMap[name] : pluginStorageMap
+}) as UseStorage

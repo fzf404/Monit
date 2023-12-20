@@ -1,32 +1,32 @@
 import type { MenuItem } from 'electron'
 import { BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
 
+import { useStorage } from '@/hooks/storage'
 import pkg from '~/package.json'
 import trayIcon from '~/public/image/tray.png?asset'
 
-import { getAllPluginConfigs } from './config'
 import {
   focusApp,
   getAppBoot,
-  getAppLocale,
+  getLocale,
   quitApp,
   resetApp,
   restartApp,
   setAppBoot,
-  setAppLocale,
-} from './method'
-import { getAllPluginStorages } from './storage'
+  setLocale,
+} from '../utils/method'
+import { usePluginConfig } from './config'
 import { createWindow } from './window'
 
-let tray: Tray
+let TrayMenu: Tray
 
 export const initMenu = () => {
-  const boot = getAppBoot()
-  const configs = getAllPluginConfigs()
-  const plugins = Object.keys(configs)
-  const storages = getAllPluginStorages()
-  const english = getAppLocale() === 'en'
-  const menu = Menu.buildFromTemplate([
+  const appBootState = getAppBoot()
+  const pluginConfigs = usePluginConfig()
+  const pluginNameList = Object.keys(pluginConfigs)
+  const pluginStorages = useStorage()
+  const isEnglish = getLocale() === 'en'
+  const trayMenu = Menu.buildFromTemplate([
     {
       label: `👀 Monit ${pkg.version}`,
       click: () => {
@@ -35,13 +35,13 @@ export const initMenu = () => {
     },
     { type: 'separator' },
     {
-      label: `📝 ${english ? 'Plugin List' : '插件列表'}`,
-      submenu: plugins.map((name) => {
+      label: `📝 ${isEnglish ? 'Plugin List' : '插件列表'}`,
+      submenu: pluginNameList.map((name) => {
         return {
-          label: `${configs[name].emoji} ${configs[name].name}: ${
-            english
-              ? configs[name].description.en
-              : configs[name].description.cn
+          label: `${pluginConfigs[name].emoji} ${pluginConfigs[name].name}: ${
+            isEnglish
+              ? pluginConfigs[name].description.en
+              : pluginConfigs[name].description.cn
           } `,
           click: () => {
             createWindow(name)
@@ -50,20 +50,20 @@ export const initMenu = () => {
       }),
     },
     {
-      label: `♻️ ${english ? 'Plugin Boot' : '插件自启'}`,
-      submenu: plugins.map((name) => {
+      label: `♻️ ${isEnglish ? 'Plugin Boot' : '插件自启'}`,
+      submenu: pluginNameList.map((name) => {
         return {
-          label: `${configs[name].emoji} ${configs[name].name}: ${
-            english
-              ? configs[name].description.en
-              : configs[name].description.cn
+          label: `${pluginConfigs[name].emoji} ${pluginConfigs[name].name}: ${
+            isEnglish
+              ? pluginConfigs[name].description.en
+              : pluginConfigs[name].description.cn
           } `,
           type: 'checkbox',
-          checked: storages[name].get('control')?.boot,
+          checked: pluginStorages[name].get('control')?.boot,
           click: (event: MenuItem) => {
             event.checked && setAppBoot(true)
 
-            storages[name].set('control', {
+            pluginStorages[name].set('control', {
               boot: event.checked,
             })
             BrowserWindow.getAllWindows()
@@ -75,43 +75,43 @@ export const initMenu = () => {
     },
     { type: 'separator' },
     {
-      label: `🌐 ${english ? 'Language' : '语言'}`,
+      label: `🌐 ${isEnglish ? 'Language' : '语言'}`,
       submenu: [
         {
-          label: `🇨🇳 ${english ? 'Chinese' : '中文'}`,
+          label: `🇨🇳 ${isEnglish ? 'Chinese' : '中文'}`,
           type: 'radio',
-          checked: !english,
+          checked: !isEnglish,
           click: async () => {
-            await setAppLocale('cn')
+            await setLocale('cn')
             initMenu()
           },
         },
         {
-          label: `🇺🇸 ${english ? 'English' : '英文'}`,
+          label: `🇺🇸 ${isEnglish ? 'English' : '英文'}`,
           type: 'radio',
-          checked: english,
+          checked: isEnglish,
           click: async () => {
-            await setAppLocale('en')
+            await setLocale('en')
             initMenu()
           },
         },
       ],
     },
     {
-      label: `🚀 ${english ? 'Boot' : '自启'}`,
+      label: `🚀 ${isEnglish ? 'Boot' : '自启'}`,
       submenu: [
         {
-          label: `🟢 ${english ? 'On' : '开启'}`,
+          label: `🟢 ${isEnglish ? 'On' : '开启'}`,
           type: 'radio',
-          checked: boot,
+          checked: appBootState,
           click: () => {
             setAppBoot(true)
           },
         },
         {
-          label: `🔴 ${english ? 'Off' : '关闭'}`,
+          label: `🔴 ${isEnglish ? 'Off' : '关闭'}`,
           type: 'radio',
-          checked: !boot,
+          checked: !appBootState,
           click: () => {
             setAppBoot(false)
           },
@@ -120,31 +120,31 @@ export const initMenu = () => {
     },
     { type: 'separator' },
     {
-      label: `🔄 ${english ? 'Restart' : '重启'}`,
+      label: `🔄 ${isEnglish ? 'Restart' : '重启'}`,
       click: () => {
         restartApp()
       },
     },
     {
-      label: `⚠️ ${english ? 'Reset' : '重置'}`,
+      label: `⚠️ ${isEnglish ? 'Reset' : '重置'}`,
       click: () => {
         resetApp()
       },
     },
     {
-      label: `🚫 ${english ? 'Quit' : '退出'}`,
+      label: `🚫 ${isEnglish ? 'Quit' : '退出'}`,
       click: () => {
         quitApp()
       },
     },
   ])
 
-  tray.setContextMenu(menu)
+  TrayMenu.setContextMenu(trayMenu)
 }
 
 export const initTray = () => {
-  tray = new Tray(nativeImage.createFromPath(trayIcon))
-  tray.on('click', () => {
+  TrayMenu = new Tray(nativeImage.createFromPath(trayIcon))
+  TrayMenu.on('click', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow('guide')
     } else {

@@ -4,15 +4,12 @@ import { homedir } from 'node:os'
 import { is } from '@electron-toolkit/utils'
 import { app, BrowserWindow, globalShortcut } from 'electron'
 
-import type { PluginOptions } from '~/context/interface'
-
-import { focusApp, setAppBoot } from './method'
-import { getPluginStorage } from './storage'
-import { createWindow } from './window'
+import { useStorage } from './hooks/storage'
+import { createWindow } from './modules/window'
+import { focusApp, setAppBoot } from './utils/method'
 
 export const initBoot = () => {
   const path = `${homedir()}/.config/monit`
-  console.log(existsSync(path))
   !existsSync(path) && setAppBoot(true)
 }
 
@@ -36,12 +33,12 @@ export const initShortcut = () => {
   })
 }
 
-export const initWatch = ({ name, window }: PluginOptions) => {
+export const initWatch = ({ name, window }) => {
   window.on('move', () => {
     const [x, y] = window.getPosition()
-    getPluginStorage(name).set('control', { x, y })
+    useStorage(name).set('control', { x, y })
   })
   window.on('blur', () => {
-    window.webContents.send('set-plugin-navbar', false)
+    window.webContents.send('set-plugin-blur')
   })
 }

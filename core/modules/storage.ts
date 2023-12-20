@@ -3,22 +3,22 @@ import { homedir } from 'node:os'
 import { createStorage } from 'unstorage'
 import fsLiteDriver from 'unstorage/drivers/fs-lite'
 
-import type { PluginDataItem } from '~/context/type'
+import type { PluginStorageFile } from '~/context/types'
 
-import { usePluginConfig } from '../hooks/config'
+import { usePluginConfig } from './config'
 
-export type PluginStorageItem = {
-  get: <K extends keyof PluginDataItem>(key: K) => PluginDataItem[K]
-  set: <K extends keyof PluginDataItem>(
+export type PluginStorage = {
+  get: <K extends keyof PluginStorageFile>(key: K) => PluginStorageFile[K]
+  set: <K extends keyof PluginStorageFile>(
     key: K,
-    value: PluginDataItem[K],
+    value: PluginStorageFile[K],
   ) => Promise<void>
   clear: () => Promise<void>
 }
 
-export type PluginStorageMap = Map<string, PluginStorageItem>
+export type PluginStorageMap = Record<string, PluginStorage>
 
-export const pluginStorageMap: PluginStorageMap = new Map()
+export const pluginStorageMap: PluginStorageMap = {}
 
 export const initStorage = async () => {
   const path = `${homedir()}/.config/monit`
@@ -38,9 +38,9 @@ export const initStorage = async () => {
       await storage.setItem(file, {})
     }
 
-    const data = (await storage.getItem(file)) as PluginDataItem
+    const data = (await storage.getItem(file)) as PluginStorageFile
 
-    pluginStorageMap.set(name, {
+    pluginStorageMap[name] = {
       get: (key) => {
         return data[key]
       },
@@ -51,6 +51,6 @@ export const initStorage = async () => {
       clear: async () => {
         await storage.removeItem(file)
       },
-    })
+    }
   }
 }

@@ -1,14 +1,15 @@
 import { join } from 'node:path'
 
 import { is } from '@electron-toolkit/utils'
-import { BrowserWindow, nativeTheme } from 'electron'
+import { BrowserWindow } from 'electron'
 
-import { getPluginConfig } from './config'
-import { getAllPluginStorages, getPluginStorage } from './storage'
-import { initWatch } from './utils'
+import { useStorage } from '@/hooks/storage'
+
+import { initWatch } from '../utils'
+import { usePluginConfig } from './config'
 
 export const initWindow = () => {
-  const storages = getAllPluginStorages()
+  const storages = useStorage()
   for (const name in storages) {
     if (storages[name].get('control')?.boot) {
       createWindow(name)
@@ -27,8 +28,8 @@ export const createWindow = (name: string) => {
     return exist.focus()
   }
 
-  const config = getPluginConfig(name)
-  const storage = getPluginStorage(name)
+  const config = usePluginConfig(name)
+  const storage = useStorage(name)
   const control = storage.get('control')
   const window = new BrowserWindow({
     x: control?.x,
@@ -46,10 +47,9 @@ export const createWindow = (name: string) => {
     skipTaskbar: true,
     fullscreenable: false,
 
-    alwaysOnTop: control?.sticky,
+    alwaysOnTop: control?.top,
 
-    vibrancy:
-      control?.theme ?? (nativeTheme.shouldUseDarkColors ? 'dark' : 'light'),
+    vibrancy: 'hud',
     visualEffectState: 'active',
 
     webPreferences: {
