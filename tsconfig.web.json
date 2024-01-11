@@ -1,6 +1,12 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
-  "include": ["app", "context"],
+  "include": [
+    "app",
+    "context",
+    "core/contexts/preload.ts",
+    "core/contexts/types.ts",
+    "env.d.ts"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["vite/client"],

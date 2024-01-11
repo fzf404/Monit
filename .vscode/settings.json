@@ -1,5 +1,4 @@
 {
-  "unocss.root": "app",
   "i18n-ally.localesPaths": [],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"

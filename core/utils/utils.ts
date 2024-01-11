@@ -4,9 +4,9 @@ import { homedir } from 'node:os'
 import { is } from '@electron-toolkit/utils'
 import { app, BrowserWindow, globalShortcut } from 'electron'
 
-import { useStorage } from './hooks/storage'
-import { createWindow } from './modules/window'
-import { focusApp, setAppBoot } from './utils/method'
+import { useStorage } from '../hooks/storage'
+import { createWindow } from '../modules/window'
+import { focusApp, setAppBoot } from './method'
 
 export const initBoot = () => {
   const path = `${homedir()}/.config/monit`

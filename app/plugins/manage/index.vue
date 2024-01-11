@@ -28,7 +28,6 @@ const openPlugin = (name: string) => {
 const setPluginBoot = (name: string) => {
   isBooted[name] = !isBooted[name]
   isBooted[name] && openPlugin(name)
-  console.log(typeof isBooted[name])
   window.api?.invoke('set-plugin-boot', name, isBooted[name])
 }
 </script>

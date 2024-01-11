@@ -1,4 +1,4 @@
-import { useLoading } from '~/app/hooks/component'
+import { useLoading } from '@/components/loading'
 
 export default () => {
   const loading = useLoading({

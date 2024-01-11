@@ -7,7 +7,7 @@ import unocss from 'unocss/vite'
 
 export default defineConfig({
   main: {
-    publicDir: 'public',
+    publicDir: 'build',
     resolve: {
       alias: {
         '~': resolve(),
@@ -28,7 +28,7 @@ export default defineConfig({
       outDir: 'dist/preload',
       rollupOptions: {
         input: {
-          index: 'context/preload.ts',
+          index: 'core/contexts/preload.ts',
         },
       },
     },

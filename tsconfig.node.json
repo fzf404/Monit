@@ -1,6 +1,6 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": ["core", "context"],
+  "include": ["core", "context", "env.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["electron-vite/node"],

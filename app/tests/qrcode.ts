@@ -1,4 +1,4 @@
-import { useQRCode } from '~/app/hooks/component'
+import { useQRCode } from '~/app/hook/component'
 
 export default () => {
   const qrcode = useQRCode({

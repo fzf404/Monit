@@ -53,7 +53,6 @@ export const useControl = defineStore('control', () => {
   })
 
   document.addEventListener('mousemove', (event) => {
-    console.log(event)
     const visable = event.clientY < 32
     control.show = control.lock || control.dragging || visable
   })

@@ -1,4 +1,4 @@
-import type { PluginConfigFile } from '~/context/types'
+import type { PluginConfigFile } from '~/core/contexts/types'
 
 const pluginConfigMap: Record<string, PluginConfigFile> = {}
 

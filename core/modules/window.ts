@@ -5,7 +5,7 @@ import { BrowserWindow } from 'electron'
 
 import { useStorage } from '@/hooks/storage'
 
-import { initWatch } from '../utils'
+import { initWatch } from '../utils/utils'
 import { usePluginConfig } from './config'
 
 export const initWindow = () => {

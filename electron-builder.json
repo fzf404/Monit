@@ -2,15 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "productName": "Monit",
   "appId": "art.fzf404.monit",
-  "afterSign": "scripts/notarize.js",
-  "icon": "public/image/icon.png",
+  "afterSign": "build/scripts/notarize.js",
+  "icon": "build/images/icon.png",
   "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
-  "files": ["dist", "public"],
+  "files": ["dist", "build"],
   "directories": {
     "output": "release"
   },
   "mac": {
-    "entitlementsInherit": "public/build/entitlements.mac.plist",
+    "entitlementsInherit": "build/configs/entitlements.mac.plist",
     "target": { "target": "dmg", "arch": ["x64", "arm64"] }
   },
   "win": {

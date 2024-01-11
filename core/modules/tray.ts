@@ -2,8 +2,8 @@ import type { MenuItem } from 'electron'
 import { BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
 
 import { useStorage } from '@/hooks/storage'
+import trayIcon from '~/builds/images/tray.png?asset'
 import pkg from '~/package.json'
-import trayIcon from '~/public/image/tray.png?asset'
 
 import {
   focusApp,

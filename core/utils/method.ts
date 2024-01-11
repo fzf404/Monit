@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 
 import { useStorage } from '@/hooks/storage'
-import type { Locale } from '~/context/types'
+import type { Locale } from '~/core/contexts/types'
 
 export const quitApp = () => {
   app.quit()

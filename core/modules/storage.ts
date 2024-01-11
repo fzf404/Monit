@@ -3,7 +3,7 @@ import { homedir } from 'node:os'
 import { createStorage } from 'unstorage'
 import fsLiteDriver from 'unstorage/drivers/fs-lite'
 
-import type { PluginStorageFile } from '~/context/types'
+import type { PluginStorageFile } from '~/core/contexts/types'
 
 import { usePluginConfig } from './config'
 
