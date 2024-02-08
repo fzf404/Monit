@@ -1,10 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import { usePluginComponent, usePluginConfig } from '@/hooks/plugin'
+import { getPluginComponent, getPluginConfig } from '@/hooks/plugin'
 
-const pluginConfigs = usePluginConfig()
-const pluginComponents = usePluginComponent()
+const pluginConfigs = getPluginConfig()
+const pluginComponents = getPluginComponent()
 
 const routes: RouteRecordRaw[] = [
   {

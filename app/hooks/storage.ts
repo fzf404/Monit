@@ -1,7 +1,7 @@
 import { reactive, watch } from 'vue'
 
 import { getPluginStorageData, setPluginStorageData } from '@/utils/storage'
-import type { PluginUserData } from '~/context/types'
+import type { PluginUserData } from '~/types/storage'
 
 const data = await getPluginStorageData('data')
 

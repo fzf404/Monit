@@ -25,8 +25,8 @@ const store = {
 export const initControl = (layout: { control: boolean }) => {
   const { locale } = useI18n()
 
-  layout.control = store.lock
   locale.value = store.locale
+  layout.control = store.lock
   document.body.dataset.theme = store.theme
   document.body.dataset.platform = platform
 

@@ -2,42 +2,51 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
 import { getPluginStorageData } from '@/utils/storage'
-import type { LocaleMessage } from '~/context/types'
+import type { LocaleMessage } from '~/types/constant'
 
 import { useLayout } from './layout'
 
 export type SettingMenu = Record<
   string,
-  {
-    label: LocaleMessage
-    help?: string
-    show?: boolean
-  } & (
-    | {
-        type: 'text'
-        value: string
-        length?: number
-      }
-    | {
-        type: 'number'
-        value: number
-        length?: number
-      }
-    | {
-        type: 'switch'
-        value: boolean
-      }
-    | {
-        type: 'select'
-        value: string
-        options: Record<string, string>
-      }
-    | {
-        type: 'button'
-        value: string
-        click: () => Promise<string>
-      }
-  )
+  | {
+      type: 'text'
+      label: LocaleMessage
+      value: string
+      help?: string
+      show?: boolean
+      length?: number
+    }
+  | {
+      type: 'number'
+      label: LocaleMessage
+      value: number
+      help?: string
+      show?: boolean
+      length?: number
+    }
+  | {
+      type: 'switch'
+      label: LocaleMessage
+      value: boolean
+      help?: string
+      show?: boolean
+    }
+  | {
+      type: 'select'
+      label: LocaleMessage
+      value: string
+      options: Record<string, string>
+      help?: string
+      show?: boolean
+    }
+  | {
+      type: 'button'
+      label: LocaleMessage
+      value: string
+      click: () => Promise<string>
+      help?: string
+      show?: boolean
+    }
 >
 
 type UseSetting = {
@@ -48,19 +57,17 @@ type UseSetting = {
 const data = await getPluginStorageData('setting')
 
 export const useSetting = (<T extends SettingMenu>(menu?: T) => {
-  return menu
-    ? defineStore('setting', () => {
-        const setting = reactive(menu)
+  return defineStore('setting', () => {
+    const setting = reactive(menu ?? {})
 
-        for (const key in setting) {
-          setting[key].value = data?.[key] ?? setting[key].value
-        }
+    for (const key in setting) {
+      setting[key].value = data?.[key] ?? setting[key].value
+    }
 
-        const { layout } = useLayout()
+    const { layout } = useLayout()
 
-        layout.setting = true
+    layout.setting = true
 
-        return { setting }
-      })()
-    : defineStore('setting', () => {})()
+    return { setting }
+  })()
 }) as UseSetting

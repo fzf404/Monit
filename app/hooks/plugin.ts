@@ -1,26 +1,24 @@
 import type { Component } from 'vue'
 
 import { getPluginSource } from '@/utils/plugin'
-import type { PluginConfigFile } from '~/context/types'
+import type { PluginConfigFile } from '~/types/config'
 
 const { pluginConfigs, pluginComponents } = getPluginSource()
 
-type UsePluginConfig = {
+type getPluginConfig = {
   (): Record<string, PluginConfigFile>
   (name: string): PluginConfigFile
 }
 
-export const usePluginConfig = ((name?: string) => {
+export const getPluginConfig = ((name?: string) => {
   return name ? pluginConfigs[name] : pluginConfigs
-}) as UsePluginConfig
+}) as getPluginConfig
 
 type UsePluginComponent = {
   (): Record<string, () => Promise<Component>>
   (name: string): () => Promise<Component>
 }
 
-export const usePluginComponent = ((name?: string) => {
+export const getPluginComponent = ((name?: string) => {
   return name ? pluginComponents[name] : pluginComponents
 }) as UsePluginComponent
-
-export { pluginConfigs, pluginComponents as pluginsComponents }

@@ -1,4 +1,4 @@
-import type { PluginStorageFile } from '~/context/types'
+import type { PluginStorageFile } from '~/types/types'
 
 export const getPluginStorageData = async <T extends keyof PluginStorageFile>(
   key: T,
