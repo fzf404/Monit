@@ -1,0 +1,12 @@
+{
+  "name": "@monit-plugin/guide",
+  "version": "0.1.0",
+  "description": "A quick start plugin for monit",
+  "author": "fzf404",
+  "license": "MIT",
+  "homepage": "https://github.com/fzf404/monit/blob/main/app/plugins/guide",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fzf404/monit.git"
+  }
+}

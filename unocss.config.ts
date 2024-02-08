@@ -55,12 +55,6 @@ export default defineConfig({
           selector: (s) => `[data-theme='moon'] ${s}`,
         }
       }
-      if (matcher.startsWith('punk:')) {
-        return {
-          matcher: matcher.slice(5),
-          selector: (s) => `[data-theme='punk'] ${s}`,
-        }
-      }
       return matcher
     },
   ],
