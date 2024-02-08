@@ -2,7 +2,7 @@ import type { MenuItem } from 'electron'
 import { BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron'
 
 import { useStorage } from '@/hooks/storage'
-import trayIcon from '~/builds/images/tray.png?asset'
+import trayIcon from '~/build/images/tray.png?asset'
 import pkg from '~/package.json'
 
 import {
@@ -15,14 +15,14 @@ import {
   setAppBoot,
   setLocale,
 } from '../utils/method'
-import { usePluginConfig } from './config'
+import { getPluginConfig } from './config'
 import { createWindow } from './window'
 
 let TrayMenu: Tray
 
 export const initMenu = () => {
   const appBootState = getAppBoot()
-  const pluginConfigs = usePluginConfig()
+  const pluginConfigs = getPluginConfig()
   const pluginNameList = Object.keys(pluginConfigs)
   const pluginStorages = useStorage()
   const isEnglish = getLocale() === 'en'

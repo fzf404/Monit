@@ -3,9 +3,9 @@ import { homedir } from 'node:os'
 import { createStorage } from 'unstorage'
 import fsLiteDriver from 'unstorage/drivers/fs-lite'
 
-import type { PluginStorageFile } from '~/core/contexts/types'
+import type { PluginStorageFile } from '~/types/storage'
 
-import { usePluginConfig } from './config'
+import { getPluginConfig } from './config'
 
 export type PluginStorage = {
   get: <K extends keyof PluginStorageFile>(key: K) => PluginStorageFile[K]
@@ -27,7 +27,7 @@ export const initStorage = async () => {
     driver: fsLiteDriver({ base: path }),
   })
 
-  const pluginConfigMap = usePluginConfig()
+  const pluginConfigMap = getPluginConfig()
 
   for (const name in pluginConfigMap) {
     const file = `${name}.json`

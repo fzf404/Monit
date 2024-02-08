@@ -1,9 +1,9 @@
-import type { PluginConfigFile } from '~/core/contexts/types'
+import type { PluginConfigFile } from '~/types/config'
 
 const pluginConfigMap: Record<string, PluginConfigFile> = {}
 
 const pluginConfigRawMap = import.meta.glob<PluginConfigFile>(
-  '/app/plugins/**/config.ts',
+  '/package/**/config.ts',
   {
     import: 'default',
     eager: true,
@@ -15,11 +15,11 @@ for (const path in pluginConfigRawMap) {
   pluginConfigMap[pluginConfigItem.name] = pluginConfigItem
 }
 
-interface UsePluginConfig {
+interface GetPluginConfig {
   (): Record<string, PluginConfigFile>
   (name: string): PluginConfigFile
 }
 
-export const usePluginConfig = ((pluginName?: string) => {
+export const getPluginConfig = ((pluginName?: string) => {
   return pluginName ? pluginConfigMap[pluginName] : pluginConfigMap
-}) as UsePluginConfig
+}) as GetPluginConfig

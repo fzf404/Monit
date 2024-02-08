@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain, shell } from 'electron'
 
 import { useStorage } from '@/hooks/storage'
-import { usePluginConfig } from '@/modules/config'
+import { getPluginConfig } from '@/modules/config'
 import { initMenu } from '@/modules/tray'
 import { createWindow } from '@/modules/window'
 
@@ -45,7 +45,7 @@ export const initHandle = () => {
   })
   ipcMain.handle('set-plugin-position', (event, [_x, _y]) => {
     const window = getWindow(event)
-    const config = usePluginConfig(window.title)
+    const config = getPluginConfig(window.title)
     const { x, y, width, height } = window.getBounds()
     window.setBounds({
       x: x + _x + width - config.width,

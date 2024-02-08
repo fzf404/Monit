@@ -6,7 +6,7 @@ import { BrowserWindow } from 'electron'
 import { useStorage } from '@/hooks/storage'
 
 import { initWatch } from '../utils/utils'
-import { usePluginConfig } from './config'
+import { getPluginConfig } from './config'
 
 export const initWindow = () => {
   const storages = useStorage()
@@ -28,7 +28,7 @@ export const createWindow = (name: string) => {
     return exist.focus()
   }
 
-  const config = usePluginConfig(name)
+  const config = getPluginConfig(name)
   const storage = useStorage(name)
   const control = storage.get('control')
   const window = new BrowserWindow({
