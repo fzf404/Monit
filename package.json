@@ -19,7 +19,7 @@
   "dependencies": {
     "@mediapipe/drawing_utils": "^0.3.1675466124",
     "@mediapipe/holistic": "^0.5.1675471629",
-    "axios": "^1.3.6",
+    "axios": "^1.15.0",
     "electron": "^21.4.4",
     "electron-store": "^8.1.0",
     "node-fetch": "^3.3.1",
